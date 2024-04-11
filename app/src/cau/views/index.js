@@ -1,0 +1,7 @@
+export * from './Catalogue'
+export * from './CMDB'
+export * from './CMDBComputers'
+export * from './CMDBEmails'
+export * from './Maps'
+export * from './Office'
+export * from './Printers'
