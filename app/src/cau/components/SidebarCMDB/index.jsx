@@ -34,7 +34,7 @@ import { areaOptions } from '../FormDataCMDB/data.js'
 import { 
   getDataGeneralFilter, 
   getDataSpecificFilter 
-} from '../../api/cmdb.api.js'
+} from '../../api/cmdbComputers.api.js'
 
 export const SidebarCMDB = ({ 
   setShowWindow,

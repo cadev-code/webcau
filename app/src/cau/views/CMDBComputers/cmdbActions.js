@@ -3,7 +3,7 @@ import {
   addData, 
   deleteData, 
   updateData
- } from '../../api/cmdb.api'
+ } from '../../api/cmdbComputers.api'
 
 export const cmdbActions = (
   formDataValues,
