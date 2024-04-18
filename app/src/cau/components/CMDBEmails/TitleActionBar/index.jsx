@@ -11,28 +11,34 @@ import {
   Input,
   Select
 } from '../../../../components'
-import { getAreas } from '../../../api/cmdbEmails.api'
 
-export const TitleActionBar = () => {
+export const TitleActionBar = ({ 
+  areasData,
+  registersOnChange
+}) => {
 
   const [searchInputValue, setSearchInputValue] = useState('')
 
   const [selectValue, setSelectValue] = useState('Todo')
   const [areas, setAreas] = useState([])
 
-  const getAreasToFilter = async() => {
-    const { data } = await getAreas()
-    setAreas(data)
-  }
-
   useEffect(() => {
-    getAreasToFilter()
-  }, [])
+    setAreas(areasData)
+  }, [areasData])
 
-  const inputOnChange = ({ target }) => 
-    target.id === 'search'
-      ? setSearchInputValue(target.value)
-      : setSelectValue(target.value)
+  const inputOnChange = ({ target }) => {
+
+    if(target.id === 'search') {
+      setSearchInputValue(target.value)
+      setSelectValue('Todo')
+    } else {
+      setSelectValue(target.value)
+      setSearchInputValue('')
+    }
+
+    registersOnChange(target.id, target.value)
+    
+  }
 
   return (
     <Container>
@@ -49,7 +55,7 @@ export const TitleActionBar = () => {
           width="300px"
           text="Área"
           id="area"
-          options={ ['Todo', ...areas.map( ({ area }) => area )] }
+          options={ areas }
           value={ selectValue }
           inputFormOnChange={ inputOnChange }
         />
