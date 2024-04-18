@@ -18,7 +18,7 @@ export const addArea = async({ body }, res) => {
 
 export const getAreas = async(req, res) => {
 
-  const query = 'SELECT * FROM areas_emails_cmdb'
+  const query = 'SELECT * FROM areas_emails_cmdb ORDER BY `area` ASC'
 
   try {
     const [result] = await pool.query(query)
@@ -59,20 +59,6 @@ export const deleteArea = async(req, res) => {
 
 // registers emails
 
-export const getRegistersByArea = async(req, res) => {
-
-  const { id_area } = req.query
-  const query = 'SELECT * FROM registers_emails_cmdb WHERE id_area = ?'
-
-  try {
-    const [result] = await pool.query(query, [id_area])
-    res.status(200).json(result)
-  } catch (error) {
-    res.status(400).send('Error when trying to obtain the information.')
-  }
-
-}
-
 export const addRegisterByArea = async({ body }, res) => {
   const { name, email, password, id_area } = body
   const query = 'INSERT INTO registers_emails_cmdb (`name`, `email`, `password`, `id_area`) VALUES (?,?,?,?)'
@@ -83,6 +69,33 @@ export const addRegisterByArea = async({ body }, res) => {
   } catch (error) {
     res.status(400).send('There was an error trying to add the information.')
   }
+}
+
+export const getRegisters = async(req, res) => {
+
+  const query = 'SELECT * FROM registers_emails_cmdb ORDER BY `name` ASC'
+
+  try {
+    const [result] = await pool.query(query)
+    res.status(200).json(result)
+  } catch (error) {
+    res.status(400).send('Error when trying to obtain the information.')
+  }
+
+}
+
+export const getRegistersByArea = async(req, res) => {
+
+  const { id_area } = req.query
+  const query = 'SELECT * FROM registers_emails_cmdb WHERE id_area = ? ORDER BY `name` ASC'
+
+  try {
+    const [result] = await pool.query(query, [id_area])
+    res.status(200).json(result)
+  } catch (error) {
+    res.status(400).send('Error when trying to obtain the information.')
+  }
+
 }
 
 export const updateRegisterByArea = async({ body }, res) => {

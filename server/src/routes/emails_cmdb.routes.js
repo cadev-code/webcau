@@ -6,6 +6,7 @@ import {
   deleteArea, 
   deleteRegisterByArea, 
   getAreas, 
+  getRegisters, 
   getRegistersByArea, 
   updateArea,
   updateRegisterByArea
@@ -18,6 +19,7 @@ router.post('/cmdb/emails/areas', addArea)
 router.put('/cmdb/emails/areas', updateArea)
 router.delete('/cmdb/emails/areas', deleteArea)
 
+router.get('/cmdb/emails/registers/all', getRegisters)
 router.get('/cmdb/emails/registers', getRegistersByArea)
 router.post('/cmdb/emails/registers', addRegisterByArea)
 router.put('/cmdb/emails/registers', updateRegisterByArea)
