@@ -3,7 +3,8 @@ import {
   useState 
 } from 'react'
 
-import { TitleActionBar } from '../../components/CMDBEmails'
+import { TableContainer } from './styled'
+import { Table, TitleActionBar } from '../../components/CMDBEmails'
 
 import { emailsDataRequest } from './emailsDataRequest'
 
@@ -42,6 +43,11 @@ export const CMDBEmails = () => {
         areasData={['Todo', ...areasData.map(({area}) => area)]}
         registersOnChange={ registersOnChange }
       />
+      <TableContainer>
+        <Table 
+          tableData={ registersData }
+        />
+      </TableContainer>
     </>
   )
 }
