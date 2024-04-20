@@ -11,7 +11,9 @@ export const defaultFormValues = {
   vlan: '',
   area: '',
   kc: '',
-  staff: ''
+  staff: '',
+  model: '',
+  serviceTag: ''
 }
 
 export const listFilters = [
@@ -25,5 +27,7 @@ export const listFilters = [
   { id: 'licSiph', name: 'Licencia SIP' },
   { id: 'vlan', name: 'VLAN' },
   { id: 'kc', name: 'KC' },
-  { id: 'staff', name: 'Personal' }
+  { id: 'staff', name: 'Personal' },
+  { id: 'model', name: 'Modelo' },
+  { id: 'serviceTag', name: 'Etiqueta de Servicio' },
 ]

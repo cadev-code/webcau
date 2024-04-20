@@ -9,6 +9,8 @@ export const formInitialValues = {
   licSiph: '',
   vlan: '',
   staff: '',
+  model: '',
+  serviceTag: '',
   area: '',
   kc_monitor: '',
   kc_cpu: ''

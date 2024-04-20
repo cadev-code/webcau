@@ -12,11 +12,14 @@ import {
   ConfirmDialog
 } from '../../../components'
 import { 
+  Bookmark,
   Call,
   Delete,
   DesktopWindowsOutlined,
+  DeveloperBoard,
   Dns,
   LanOutlined,
+  LocalOffer,
   Map,
   Monitor,
   Padding,
@@ -45,8 +48,10 @@ export const DataCMDB = ({
     { id: 'nodo', title: 'Nodo', icon: <Dns className="icon" /> },
     { id: 'hash', title: 'Hash', icon: <Tag className="icon" /> },
     { id: 'vlan', title: 'VLAN', icon: <Router className="icon" /> },
-    { id: 'licSiph', title: 'Licencia SIP', icon: <Dns className="icon" /> },
+    { id: 'licSiph', title: 'Licencia SIP', icon: <Bookmark className="icon" /> },
     { id: 'staff', title: 'Personal', icon: <Person className="icon" /> },
+    { id: 'model', title: 'Modelo', icon: <DeveloperBoard className="icon" /> },
+    { id: 'serviceTag', title: 'Etiqueta de Servicio', icon: <LocalOffer className="icon" /> },
     { id: 'area', title: 'Área', icon: <Map className="icon" /> },
     { id: 'kc_monitor', title: 'KC Monitor', icon: <Monitor className="icon" /> },
     { id: 'kc_cpu', title: 'KC CPU', icon: <Padding className="icon" /> },

@@ -22,6 +22,7 @@ export const Checkmark = styled.div`
     user-select: none;
   }
   & + label + input {
+    width: 100%;
     flex: auto;
     height: 32px;
     padding: 0 10px;

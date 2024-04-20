@@ -8,8 +8,8 @@ export const getAllData = async(req, res) => {
 
 // add data
 export const addData = async({ body }, res) => {
-  const query = 'INSERT INTO cmdb (idMapa, netBIOS, IP, mac, ext, hash, nodo, licSiph, vlan, staff, area, kc_monitor, kc_cpu) values (?,?,?,?,?,?,?,?,?,?,?,?,?)'
-  const values = [body.idMapa, body.netBIOS, body.IP, body.mac, body.ext, body.hash, body.nodo, body.licSiph, body.vlan, body.staff, body.area, body.kc_monitor, body.kc_cpu]
+  const query = 'INSERT INTO cmdb (idMapa, netBIOS, IP, mac, ext, hash, nodo, licSiph, vlan, staff, model, serviceTag, area, kc_monitor, kc_cpu) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)'
+  const values = [body.idMapa, body.netBIOS, body.IP, body.mac, body.ext, body.hash, body.nodo, body.licSiph, body.vlan, body.staff, body.model, body.serviceTag, body.area, body.kc_monitor, body.kc_cpu]
 
   try {
     const [addResult] = await pool.query(query, values)
@@ -22,8 +22,8 @@ export const addData = async({ body }, res) => {
 
 // update data
 export const updateData = async({ body }, res) => {
-  const query = 'UPDATE cmdb SET idMapa = ?, netBIOS = ?, IP = ?, mac = ?, ext = ?, hash = ?, nodo = ?, licSiph = ?, vlan = ?, staff = ?, area = ?, kc_monitor = ?, kc_cpu = ? WHERE id = ?'
-  const values = [body.idMapa, body.netBIOS, body.IP, body.mac, body.ext, body.hash, body.nodo, body.licSiph, body.vlan, body.staff, body.area, body.kc_monitor, body.kc_cpu, body.id]
+  const query = 'UPDATE cmdb SET idMapa = ?, netBIOS = ?, IP = ?, mac = ?, ext = ?, hash = ?, nodo = ?, licSiph = ?, vlan = ?, staff = ?, model = ?, serviceTag = ?, area = ?, kc_monitor = ?, kc_cpu = ? WHERE id = ?'
+  const values = [body.idMapa, body.netBIOS, body.IP, body.mac, body.ext, body.hash, body.nodo, body.licSiph, body.vlan, body.staff, body.model, body.serviceTag, body.area, body.kc_monitor, body.kc_cpu, body.id]
 
   try {
     await pool.query(query, values)
@@ -50,7 +50,7 @@ export const deleteData = async({ params }, res) => {
 export const getDataGeneralFilter = async({ params }, res) => {
   const { search } = params
 
-  const [result] = await pool.query(`SELECT * FROM cmdb WHERE CONCAT(idMapa, netBIOS, IP, mac, ext, hash, nodo, licSiph, vlan, staff, area, kc_monitor, kc_cpu) LIKE '%${ search }%'`)
+  const [result] = await pool.query(`SELECT * FROM cmdb WHERE CONCAT(idMapa, netBIOS, IP, mac, ext, hash, nodo, licSiph, vlan, staff, model, serviceTag, area, kc_monitor, kc_cpu) LIKE '%${ search }%'`)
   res.json(result)
 }
 
