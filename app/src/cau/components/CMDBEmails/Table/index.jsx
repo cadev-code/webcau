@@ -1,17 +1,26 @@
-import { useEffect, useState } from 'react'
+import { 
+  useEffect, 
+  useState 
+} from 'react'
 
 import { TableContainer } from './styled'
-import { ArrowCircleDown, ArrowCircleUp, ArrowDownward, ArrowUpward } from '@mui/icons-material'
+import { 
+  ArrowDownward, 
+  ArrowUpward 
+} from '@mui/icons-material'
 
 import { 
   flexRender,
   getCoreRowModel, 
+  getFilteredRowModel, 
   getSortedRowModel, 
   useReactTable 
 } from '@tanstack/react-table'
 
 export const Table = ({ 
-  tableData=[]
+  tableData=[],
+  globalFilter,
+  setGlobalFilter
 }) => {
 
   const defautlColumns = [
@@ -52,10 +61,13 @@ export const Table = ({
     columns,
     getCoreRowModel: getCoreRowModel(),
     getSortedRowModel: getSortedRowModel(),
+    getFilteredRowModel: getFilteredRowModel(),
     state: {
-      sorting
+      sorting,
+      globalFilter
     },
-    onSortingChange: setSorting
+    onSortingChange: setSorting,
+    onGlobalFilterChange: setGlobalFilter
   })
 
   return (

@@ -14,10 +14,10 @@ import {
 
 export const TitleActionBar = ({ 
   areasData,
-  registersOnChange
+  registersOnChange,
+  searchInputValue,
+  setSearchInputValue
 }) => {
-
-  const [searchInputValue, setSearchInputValue] = useState('')
 
   const [selectValue, setSelectValue] = useState('Todo')
   const [areas, setAreas] = useState([])
@@ -29,15 +29,14 @@ export const TitleActionBar = ({
   const inputOnChange = ({ target }) => {
 
     if(target.id === 'search') {
-      setSearchInputValue(target.value)
       setSelectValue('Todo')
+      registersOnChange('Todo')
+      setSearchInputValue(target.value)
     } else {
       setSelectValue(target.value)
+      registersOnChange(target.value)
       setSearchInputValue('')
     }
-
-    registersOnChange(target.id, target.value)
-    
   }
 
   return (
