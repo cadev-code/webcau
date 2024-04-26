@@ -1,31 +1,50 @@
 import styled from 'styled-components'
 
 export const TableContainer = styled.div`
+  background-color: var(--container-background);
+  border: 1px solid var(--opacity-text);
+  border-radius: 10px 0 0 10px;
+  overflow: hidden;
+  
   table {
-    width: 100%;
-    border: 1px solid #ddd;
     border-collapse: collapse;
-    border-spacing: 0;
+  }
 
-    thead {
-      background-color: #333;
-      color: white;
+  thead {
+    display: block;
+    background-color: #0D1C2C;
+    border-bottom: 1px solid var(--opacity-text);
+    
+    tr {
+      padding-top: 5px;
     }
-
-    th, td {
-      padding: 10px 20px;
-      text-align: left;
-    }
-
+    
     th {
-      user-select: none;
+      padding: 10px 20px;
+      font-size: 14px;
+      font-weight: 500;
+      text-align: left;
+      color: var(--opacity-text);
     }
+  }
+  
+  tbody {
+    display: block;
+    height: calc(40px * 15);
+    overflow-y: scroll;
+    padding-bottom: 10px;
 
-    tbody tr:nth-child(even) {
-      background-color: #012345;
+    tr {
+      font-size: 16px;
+      
+      &:nth-child(even) {
+        background-color: #092038;
+      }
     }
-    tbody tr:hover {
-      background-color: #07325d;
+    
+    td {
+      padding: 0 20px;
+      height: 40px;
     }
   }
 `

@@ -3,89 +3,92 @@ import { useEffect, useState } from 'react'
 import { TableContainer } from './styled'
 
 import { 
-  useReactTable, 
-  getCoreRowModel, 
   flexRender,
-  getSortedRowModel
+  getCoreRowModel, 
+  useReactTable 
 } from '@tanstack/react-table'
 
 export const Table = ({ 
   tableData=[]
 }) => {
 
-  const [data, setData] = useState([])
-
-  const columns = [
+  const defautlColumns = [
     {
       header: 'Nombre',
-      accessorKey: 'name'
+      accessorKey: 'name',
+      size: 320
     },
     {
       header: 'Correo',
-      accessorKey: 'email'
+      accessorKey: 'email',
+      size: 320
     },
     {
       header: 'Contraseña',
-      accessorKey: 'password'
+      accessorKey: 'password',
+      size: 220
     },
     {
       header: 'Área',
-      accessorKey: 'area'
-    },
+      accessorKey: 'area',
+      size: 280
+    }
   ]
+
+  const [data, setData] = useState([])
+  const [columns, setColumns] = useState([...defautlColumns])
 
   useEffect(() => {
     setData(tableData)
   }, [tableData])
 
-  const [sorting, setSorting] = useState([])
-
-  const table = useReactTable({ 
-    data, 
-    columns, 
-    getCoreRowModel: getCoreRowModel(),
-    getSortedRowModel: getCoreRowModel(),
-    getSortedRowModel: getSortedRowModel(),
-    state: {
-      sorting
-    },
-    onSortingChange: setSorting
+  const table = useReactTable({
+    data,
+    columns,
+    getCoreRowModel: getCoreRowModel()
   })
 
   return (
     <TableContainer>
-      <table>
-        <thead>
-          {table.getHeaderGroups().map(headerGroup => (
-            <tr key={ headerGroup.id }>
-              {headerGroup.headers.map(header => (
-                <th key={ header.id }
-                    onClick={header.column.getToggleSortingHandler()}
-                >
-                  {flexRender(
-                    header.column.columnDef.header, 
-                    header.getContext()
-                  )}
-                  { 
-                    {'asc': "⬆️", 'desc': "⬇️" }[
-                      header.column.getIsSorted() ?? null
-                    ]
-                  }
-                </th>
-              ))}
-            </tr>
-          ))}
-        </thead>
-        <tbody>
-          {table.getRowModel().rows.map(row => (
-            <tr key={ row.id }>
-              {row.getVisibleCells().map(cell => (
-                <td>{ flexRender(cell.column.columnDef.cell, cell.getContext()) }</td>
-              ))}
-            </tr>
-          ))}
-        </tbody>
-      </table>
+        <table>
+          <thead>
+            {table.getHeaderGroups().map(headerGroup => (
+              <tr key={headerGroup.id}>
+                {headerGroup.headers.map(header => (
+                  <th key={header.id}
+                    style={{
+                      width: header.getSize()
+                    }}
+                  >
+                    {header.isPlaceholder
+                      ? null: flexRender(
+                        header.column.columnDef.header,
+                        header.getContext()
+                      )}
+                  </th>
+                ))}
+              </tr>
+            ))}
+          </thead>
+          <tbody>
+            {table.getRowModel().rows.map(row => (
+              <tr key={row.id}>
+                {row.getVisibleCells().map(cell => (
+                  <td key={cell.id}
+                    style={{
+                      width: cell.column.getSize()
+                    }}
+                  >
+                    {flexRender(
+                      cell.column.columnDef.cell,
+                      cell.getContext()
+                    )}
+                  </td>
+                ))}
+              </tr>
+            ))}
+          </tbody>
+        </table>
     </TableContainer>
   )
 }
