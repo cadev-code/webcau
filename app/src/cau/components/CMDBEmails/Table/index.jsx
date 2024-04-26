@@ -1,10 +1,12 @@
 import { useEffect, useState } from 'react'
 
 import { TableContainer } from './styled'
+import { ArrowCircleDown, ArrowCircleUp, ArrowDownward, ArrowUpward } from '@mui/icons-material'
 
 import { 
   flexRender,
   getCoreRowModel, 
+  getSortedRowModel, 
   useReactTable 
 } from '@tanstack/react-table'
 
@@ -38,6 +40,9 @@ export const Table = ({
   const [data, setData] = useState([])
   const [columns, setColumns] = useState([...defautlColumns])
 
+  // sorting
+  const [sorting, setSorting] = useState([])
+
   useEffect(() => {
     setData(tableData)
   }, [tableData])
@@ -45,7 +50,12 @@ export const Table = ({
   const table = useReactTable({
     data,
     columns,
-    getCoreRowModel: getCoreRowModel()
+    getCoreRowModel: getCoreRowModel(),
+    getSortedRowModel: getSortedRowModel(),
+    state: {
+      sorting
+    },
+    onSortingChange: setSorting
   })
 
   return (
@@ -59,12 +69,20 @@ export const Table = ({
                     style={{
                       width: header.getSize()
                     }}
+                    onClick={header.column.getToggleSortingHandler()}
                   >
-                    {header.isPlaceholder
-                      ? null: flexRender(
-                        header.column.columnDef.header,
-                        header.getContext()
-                      )}
+                    <div>
+                      {header.isPlaceholder
+                        ? null: flexRender(
+                          header.column.columnDef.header,
+                          header.getContext()
+                        )}
+                        {
+                          {'asc': <ArrowUpward />, 'desc': <ArrowDownward /> }[
+                            header.column.getIsSorted() ?? null
+                          ]
+                        }
+                    </div>
                   </th>
                 ))}
               </tr>

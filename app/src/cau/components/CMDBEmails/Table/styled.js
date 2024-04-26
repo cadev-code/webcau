@@ -25,6 +25,19 @@ export const TableContainer = styled.div`
       font-weight: 500;
       text-align: left;
       color: var(--opacity-text);
+      cursor: pointer;
+      user-select: none;
+
+      div {
+        display: flex;
+        align-items: center;
+        gap: 5px;
+
+        svg {
+          font-size: 20px;
+          color: var(--border-color);
+        }
+      }
     }
   }
   
