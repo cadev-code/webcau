@@ -3,7 +3,7 @@ import {
   useState 
 } from 'react'
 
-import { TableContainer } from './styled'
+import { PaginationContainer, TableContainer } from './styled'
 import { 
   ArrowDownward, 
   ArrowUpward 
@@ -13,6 +13,7 @@ import {
   flexRender,
   getCoreRowModel, 
   getFilteredRowModel, 
+  getPaginationRowModel, 
   getSortedRowModel, 
   useReactTable 
 } from '@tanstack/react-table'
@@ -27,22 +28,22 @@ export const Table = ({
     {
       header: 'Nombre',
       accessorKey: 'name',
-      size: 320
+      size: 340
     },
     {
       header: 'Correo',
       accessorKey: 'email',
-      size: 320
+      size: 340
     },
     {
       header: 'Contraseña',
       accessorKey: 'password',
-      size: 220
+      size: 240
     },
     {
       header: 'Área',
       accessorKey: 'area',
-      size: 280
+      size: 300
     }
   ]
 
@@ -51,6 +52,12 @@ export const Table = ({
 
   // sorting
   const [sorting, setSorting] = useState([])
+
+  // pagination
+  const [pagination, setPagination] = useState({
+    pageIndex: 0,
+    pageSize: 15
+  })
 
   useEffect(() => {
     setData(tableData)
@@ -62,16 +69,20 @@ export const Table = ({
     getCoreRowModel: getCoreRowModel(),
     getSortedRowModel: getSortedRowModel(),
     getFilteredRowModel: getFilteredRowModel(),
+    getPaginationRowModel: getPaginationRowModel(),
     state: {
       sorting,
-      globalFilter
+      globalFilter,
+      pagination
     },
     onSortingChange: setSorting,
-    onGlobalFilterChange: setGlobalFilter
+    onGlobalFilterChange: setGlobalFilter,
+    onPaginationChange: setPagination
   })
 
   return (
     <TableContainer>
+      <div>
         <table>
           <thead>
             {table.getHeaderGroups().map(headerGroup => (
@@ -119,6 +130,54 @@ export const Table = ({
             ))}
           </tbody>
         </table>
+      </div>  
+      <PaginationContainer>
+        <div>
+          <button
+            onClick={() => table.firstPage()}
+            disabled={!table.getCanPreviousPage()}
+          >
+            {'<<'}
+          </button>
+          <button
+            onClick={() => table.previousPage()}
+            disabled={!table.getCanPreviousPage()}
+          >
+            {'<'}
+          </button>
+          <button
+            onClick={() => table.nextPage()}
+            disabled={!table.getCanNextPage()}
+          >
+            {'>'}
+          </button>
+          <button
+            onClick={() => table.lastPage()}
+            disabled={!table.getCanNextPage()}
+          >
+            {'>>'}
+          </button>
+        </div>
+        <span>
+          Página 
+          <strong>
+            {' '} {table.getState().pagination.pageIndex + 1} de {' '}
+            {table.getPageCount()}
+          </strong>
+        </span>
+        <select
+          value={table.getState().pagination.pageSize}
+          onChange={(e) => {
+            table.setPageSize(Number(e.target.value))
+          }}
+        >
+          {[15,30,45,60].map(pageSize => (
+            <option key={pageSize} value={pageSize}>
+              Mostrar {pageSize}
+            </option>
+          ))}
+        </select>
+      </PaginationContainer>
     </TableContainer>
   )
 }
