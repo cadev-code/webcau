@@ -16,7 +16,7 @@ export const TableContainer = styled.div`
 
   thead {
     display: block;
-    background-color: #0D1C2C;
+    background-color: #12202f;
     border-bottom: 1px solid var(--opacity-text);
     
     tr {
@@ -27,10 +27,15 @@ export const TableContainer = styled.div`
       padding: 10px 20px;
       font-size: 14px;
       font-weight: 500;
-      text-align: left;
       color: var(--opacity-text);
+      text-align: left;
       cursor: pointer;
       user-select: none;
+      border-right: 1px solid var(--border-input-color);
+
+      &:last-of-type {
+        border-right: none;
+      }
 
       div {
         display: flex;
@@ -47,7 +52,7 @@ export const TableContainer = styled.div`
   
   tbody {
     display: block;
-    height: calc(40px * 15 + 10px);
+    height: calc(40px * 12 + 10px);
     overflow-y: scroll;
     padding-bottom: 10px;
 
@@ -105,12 +110,36 @@ export const PaginationContainer = styled.div`
     padding: 5px 5px;
     font-size: 14px;
     color: white;
-    background-color: transparent;
+    background-color: var(--container-background);
     border-radius: 5px;
     outline: none;
 
     option {
-      color: black;
+      color: white;
     }
   }
+`
+
+export const InputFilterColumn = styled.input`
+  width: 100%;
+  margin-top: 5px;
+  padding: 5px 10px;
+  font-size: 16px;
+  color: white;
+  background-color: #0D1C2C;
+  border: 1px solid var(--border-input-color);
+  border-radius: 5px;
+  outline: none;
+`
+
+export const SelectFilterColumn = styled.select`
+  width: 100%;
+  margin-top: 5px;
+  padding: 5px 10px;
+  font-size: 16px;
+  color: white;
+  background-color: #0D1C2C;
+  border: 1px solid var(--border-input-color);
+  border-radius: 5px;
+  outline: none;
 `

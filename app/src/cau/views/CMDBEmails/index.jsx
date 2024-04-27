@@ -13,10 +13,6 @@ export const CMDBEmails = () => {
   const [areasData, setAreasData] = useState([])
   const [registersData, setRegistersData] = useState([])
 
-  // useEffect(() => {
-  //   console.log(registersData)
-  // }, [registersData])
-
   const { 
     getAreasData, 
     getRegistersData, 
@@ -39,6 +35,41 @@ export const CMDBEmails = () => {
     getRegistersData()
   }, [])
 
+  useEffect(() => {
+    setDefaultColumns(prevColumns => prevColumns.map(column => 
+      (column.meta && column.meta.filterVariant === 'select')
+      ? {...column, meta: {...column.meta, options: ['Todo', ...areasData.map(({area}) => area)]}}
+      : column
+    ))
+  }, [areasData])
+
+  const [defaultColumns, setDefaultColumns] = useState([
+    {
+      header: 'Nombre',
+      accessorKey: 'name',
+      size: 340
+    },
+    {
+      header: 'Correo',
+      accessorKey: 'email',
+      size: 340
+    },
+    {
+      header: 'Contraseña',
+      accessorKey: 'password',
+      size: 240
+    },
+    {
+      header: 'Área',
+      accessorKey: 'area',
+      size: 300,
+      meta: {
+        filterVariant: 'select',
+        options: []
+      }
+    }
+  ])
+
   return (
     <>
       <TitleActionBar
@@ -48,8 +79,9 @@ export const CMDBEmails = () => {
         registersOnChange={ registersOnChange }
       />
       <TableContainer>
-        <Table 
+        <Table
           tableData={ registersData }
+          defaultColumns={ defaultColumns }
           globalFilter={ inputValue }
           setGlobalFilter={ setInputValue }
         />

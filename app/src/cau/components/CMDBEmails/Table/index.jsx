@@ -3,7 +3,7 @@ import {
   useState 
 } from 'react'
 
-import { PaginationContainer, TableContainer } from './styled'
+import { InputFilterColumn, PaginationContainer, SelectFilterColumn, TableContainer } from './styled'
 import { 
   ArrowDownward, 
   ArrowUpward 
@@ -21,34 +21,20 @@ import {
 export const Table = ({ 
   tableData=[],
   globalFilter,
-  setGlobalFilter
+  setGlobalFilter,
+  defaultColumns
 }) => {
 
-  const defautlColumns = [
-    {
-      header: 'Nombre',
-      accessorKey: 'name',
-      size: 340
-    },
-    {
-      header: 'Correo',
-      accessorKey: 'email',
-      size: 340
-    },
-    {
-      header: 'Contraseña',
-      accessorKey: 'password',
-      size: 240
-    },
-    {
-      header: 'Área',
-      accessorKey: 'area',
-      size: 300
-    }
-  ]
-
   const [data, setData] = useState([])
-  const [columns, setColumns] = useState([...defautlColumns])
+  const [columns, setColumns] = useState([...defaultColumns])
+
+  useEffect(() => {
+    setData(tableData)
+  }, [tableData])
+
+  useEffect(() => {
+    setColumns([...defaultColumns])
+  }, [defaultColumns])
 
   // sorting
   const [sorting, setSorting] = useState([])
@@ -56,12 +42,11 @@ export const Table = ({
   // pagination
   const [pagination, setPagination] = useState({
     pageIndex: 0,
-    pageSize: 15
+    pageSize: 12
   })
 
-  useEffect(() => {
-    setData(tableData)
-  }, [tableData])
+  // column filtering
+  const [columnFilters, setColumnFilters] = useState([])
 
   const table = useReactTable({
     data,
@@ -73,11 +58,13 @@ export const Table = ({
     state: {
       sorting,
       globalFilter,
-      pagination
+      pagination,
+      columnFilters
     },
     onSortingChange: setSorting,
     onGlobalFilterChange: setGlobalFilter,
-    onPaginationChange: setPagination
+    onPaginationChange: setPagination,
+    onColumnFiltersChange: setColumnFilters
   })
 
   return (
@@ -92,9 +79,10 @@ export const Table = ({
                     style={{
                       width: header.getSize()
                     }}
-                    onClick={header.column.getToggleSortingHandler()}
                   >
-                    <div>
+                    <div
+                      onClick={header.column.getToggleSortingHandler()}
+                    >
                       {header.isPlaceholder
                         ? null: flexRender(
                           header.column.columnDef.header,
@@ -106,6 +94,7 @@ export const Table = ({
                           ]
                         }
                     </div>
+                    <Filter column={header.column}/>
                   </th>
                 ))}
               </tr>
@@ -171,7 +160,7 @@ export const Table = ({
             table.setPageSize(Number(e.target.value))
           }}
         >
-          {[15,30,45,60].map(pageSize => (
+          {[12,20,30,50,80].map(pageSize => (
             <option key={pageSize} value={pageSize}>
               Mostrar {pageSize}
             </option>
@@ -180,4 +169,41 @@ export const Table = ({
       </PaginationContainer>
     </TableContainer>
   )
+}
+
+const Filter = ({ column }) => {
+
+  const columnFilterValue = column.getFilterValue()
+  const { filterVariant, options } = column.columnDef.meta ?? {}
+
+  const [inputValue, setInputValue] = useState((columnFilterValue ?? ''))
+
+  return filterVariant === 'select' 
+    ? (
+      <SelectFilterColumn
+        onChange={({target}) => {
+          setInputValue(target.value)
+          column.setFilterValue(target.value)
+        }}
+        value={ inputValue }
+      >
+        {
+          options.map((option, i) => (
+            <option key={i} value={ option === 'Todo' ? '' : option }>
+              { option }
+            </option>
+          ))
+        }
+      </SelectFilterColumn>
+    )
+    : (
+      <InputFilterColumn
+        type="text"
+        onChange={({target}) => {
+          setInputValue(target.value)
+          column.setFilterValue(target.value)
+        }}
+        value={inputValue}
+      />
+    )
 }
