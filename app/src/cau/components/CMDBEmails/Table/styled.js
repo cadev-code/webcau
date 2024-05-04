@@ -29,18 +29,18 @@ export const TableContainer = styled.div`
       font-weight: 500;
       color: var(--opacity-text);
       text-align: left;
-      cursor: pointer;
       user-select: none;
       border-right: 1px solid var(--border-input-color);
-
+      
       &:last-of-type {
         border-right: none;
       }
-
+      
       div {
         display: flex;
         align-items: center;
         gap: 5px;
+        cursor: pointer;
 
         svg {
           font-size: 20px;

@@ -6,7 +6,8 @@ import {
 import { InputFilterColumn, PaginationContainer, SelectFilterColumn, TableContainer } from './styled'
 import { 
   ArrowDownward, 
-  ArrowUpward 
+  ArrowUpward, 
+  Description
 } from '@mui/icons-material'
 
 import { 
@@ -20,8 +21,6 @@ import {
 
 export const Table = ({ 
   tableData=[],
-  globalFilter,
-  setGlobalFilter,
   defaultColumns
 }) => {
 
@@ -48,6 +47,30 @@ export const Table = ({
   // column filtering
   const [columnFilters, setColumnFilters] = useState([])
 
+  // open modal
+  useEffect(() => {
+    setColumns(columns => [
+      {
+        id: 'open_modal',
+        header: '',
+        cell: ({row}) => (
+          <div
+            onClick={() => console.log(tableData[row.id])}
+            style={{
+              display: 'grid',
+              placeItems: 'center',
+              cursor: 'pointer'
+            }}
+          >
+            <Description />
+          </div>
+        ),
+        size: 70
+      },
+      ...columns
+    ])
+  }, [defaultColumns])
+
   const table = useReactTable({
     data,
     columns,
@@ -57,12 +80,10 @@ export const Table = ({
     getPaginationRowModel: getPaginationRowModel(),
     state: {
       sorting,
-      globalFilter,
       pagination,
       columnFilters
     },
     onSortingChange: setSorting,
-    onGlobalFilterChange: setGlobalFilter,
     onPaginationChange: setPagination,
     onColumnFiltersChange: setColumnFilters
   })
@@ -94,7 +115,9 @@ export const Table = ({
                           ]
                         }
                     </div>
-                    <Filter column={header.column}/>
+                    {header.column.getCanFilter() ? 
+                      <Filter column={header.column}/>
+                      : null}
                   </th>
                 ))}
               </tr>

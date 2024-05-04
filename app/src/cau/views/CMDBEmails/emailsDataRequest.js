@@ -1,7 +1,6 @@
 import { 
   getAreas, 
   getRegisters, 
-  getRegistersByArea 
 } from '../../api/cmdbEmails.api'
 
 
@@ -16,14 +15,8 @@ export const emailsDataRequest = (setAreasData, setRegistersData) => {
     setRegistersData(data)
   }
 
-  const getRegistersByAreaData = async(id_area) => {
-    const { data } = await getRegistersByArea(id_area)
-    setRegistersData(data)
-  }
-
   return {
     getAreasData,
-    getRegistersData,
-    getRegistersByAreaData
+    getRegistersData
   }
 }

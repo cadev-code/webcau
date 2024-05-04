@@ -15,20 +15,8 @@ export const CMDBEmails = () => {
 
   const { 
     getAreasData, 
-    getRegistersData, 
-    getRegistersByAreaData 
+    getRegistersData,
   } = emailsDataRequest(setAreasData, setRegistersData)
-
-  const registersOnChange = (value) => {
-    if(value === 'Todo') {
-      getRegistersData()
-    } else {
-      const id_area = areasData.filter(({area}) => area === value)[0].id_area
-      getRegistersByAreaData(id_area)
-    }
-  }
-
-  const [inputValue, setInputValue] = useState('')
  
   useEffect(() => {
     getAreasData()
@@ -72,18 +60,11 @@ export const CMDBEmails = () => {
 
   return (
     <>
-      <TitleActionBar
-        areasData={['Todo', ...areasData.map(({area}) => area)]}
-        searchInputValue={ inputValue }
-        setSearchInputValue={ setInputValue }
-        registersOnChange={ registersOnChange }
-      />
+      <TitleActionBar />
       <TableContainer>
         <Table
           tableData={ registersData }
           defaultColumns={ defaultColumns }
-          globalFilter={ inputValue }
-          setGlobalFilter={ setInputValue }
         />
       </TableContainer>
     </>

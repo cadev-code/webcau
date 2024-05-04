@@ -7,6 +7,3 @@ export const getAreas = async() =>
 
 export const getRegisters = async() =>
   await axios.get(`${url}/registers/all`)
-
-  export const getRegistersByArea = async(id_area) =>
-  await axios.get(`${url}/registers?id_area=${ id_area }`)
