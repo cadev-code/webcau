@@ -103,7 +103,7 @@ export const ModalData = ({
           ) : (
             <FormBtns>
               <button
-                onClick={() => addMode ? setOpenModal(false) : closeEditMode()}
+                onClick={() => addMode ? closeModalData() : closeEditMode()}
               >
                 Cancelar
               </button>
