@@ -62,7 +62,7 @@ export const CMDBEmails = () => {
 
   // only table
   const [openModal, setOpenModal] = useState(false)
-  const [addMode, setAddMode] = useState(true)
+  const [addMode, setAddMode] = useState(false)
   const [defaultInputChanges, setDefaultInputChanges] = useState({})
   const [dataToShow, setDataToShow] = useState({})
   const [boxes, setBoxes] = useState([])
@@ -93,14 +93,22 @@ export const CMDBEmails = () => {
     setDataToShow(data)
   }
 
+  const showAddModalData = () => {
+    setOpenModal(true)
+    setAddMode(true)
+  }
+
   const closeModalData = () => {
     setOpenModal(false)
     setDataToShow({})
+    setAddMode(false)
   }
 
   return (
     <>
-      <TitleActionBar />
+      <TitleActionBar 
+        addButtonAction={ showAddModalData }
+      />
       <TableContainer>
         <Table
           tableData={ registersData }

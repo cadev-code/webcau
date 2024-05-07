@@ -17,5 +17,14 @@ export const ActionBar = styled.div`
   display: flex;
   gap: 20px;
   align-items: center;
-`
 
+  button {
+    padding: 5px 10px;
+    font-size: 16px;
+    color: white;
+    background-color: var(--button-background);
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+`

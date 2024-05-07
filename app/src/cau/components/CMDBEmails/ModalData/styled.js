@@ -105,7 +105,7 @@ export const FormBtns = styled.div`
 
     &:last-of-type {
       color: white;
-      background-color: var(--border-color);
+      background-color: var(--button-background);
     }
   }
 `
