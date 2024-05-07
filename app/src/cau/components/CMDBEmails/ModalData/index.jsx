@@ -16,7 +16,6 @@ import {
 } from '@mui/icons-material'
 
 export const ModalData = ({
-  setOpenModal,
   data,
   addMode = false,
   defaultInputChanges = {},
