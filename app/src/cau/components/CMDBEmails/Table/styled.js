@@ -6,7 +6,7 @@ export const TableContainer = styled.div`
   & > div:first-of-type {
     background-color: var(--container-background);
     border: 1px solid var(--opacity-text);
-    border-radius: 10px 0 0 10px;
+    border-radius: 5px 5px 0 5px;
     overflow: hidden;
   }
   

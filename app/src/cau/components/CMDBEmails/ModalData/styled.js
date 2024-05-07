@@ -15,6 +15,7 @@ export const BoxContainer = styled.div`
 `
 
 export const TextBox = styled.div`
+  min-width: 300px;
   padding: 5px 10px;
   display: flex;
   flex-direction: column;
@@ -26,25 +27,85 @@ export const TextBox = styled.div`
     color: var(--opacity-text);
   }
 
-  input {
-    padding: 2px 0;
+  select {
+    margin: 2px 0;
+    padding: 5px 10px;
     width: 300px;
     font-size: 16px;
     color: white;
-    background-color: transparent;
+    background-color: #0f2237;
     border: none;
-    outline: none;
+    border-radius: 5px;
+  }
+
+  input {
+    margin: 2px 0;
+    padding: 5px 10px;
+    width: 300px;
+    font-size: 16px;
+    color: white;
+    background-color: #0f2237;
+    border: none;
+    border-radius: 5px;
   }
 `
 
 export const CloseBtn = styled.div`
   position: absolute;
-  top: -38px;
+  bottom: 100%;
   right: -1px;
-  padding: 5px 5px 0;
+  padding: 5px;
+  display: grid;
   background-color: var(--container-background);
   border: 1px solid var(--opacity-text);
-  border-bottom: none;
   border-radius: 5px 5px 0 0;
   cursor: pointer;
+`
+
+export const ActionBtns = styled.div`
+  position: absolute;
+  top: -1px;
+  left: 100%;
+  padding: 5px 10px;
+  display: flex;
+  gap: 10px;
+  background-color: var(--container-background);
+  border: 1px solid var(--opacity-text);
+  border-radius: 0 5px 5px 0;
+
+  div {
+    display: grid;
+    cursor: pointer;
+  }
+
+  div:last-of-type {
+    color: #ff3939;
+  }
+`
+
+export const FormBtns = styled.div`
+  position: absolute;
+  top: 100%;
+  right: calc(100% / 2 - 96px);
+  padding: 10px;
+  display: flex;
+  gap: 10px;
+  background-color: var(--container-background);
+  border: 1px solid var(--opacity-text);
+  border-radius: 0 0 5px 5px;
+
+  button {
+    padding: 5px 10px;
+    font-size: 16px;
+    font-weight: 500;
+    background-color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+
+    &:last-of-type {
+      color: white;
+      background-color: var(--border-color);
+    }
+  }
 `

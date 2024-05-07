@@ -3,7 +3,12 @@ import {
   useState 
 } from 'react'
 
-import { InputFilterColumn, PaginationContainer, SelectFilterColumn, TableContainer } from './styled'
+import {
+  InputFilterColumn, 
+  PaginationContainer, 
+  SelectFilterColumn, 
+  TableContainer 
+} from './styled'
 import { 
   ArrowDownward, 
   ArrowUpward, 

@@ -1,17 +1,49 @@
+import { useEffect, useState } from 'react'
+
 import { 
+  ActionBtns,
   BoxContainer, 
   CloseBtn, 
+  FormBtns, 
   Modal, 
   TextBox 
 } from './styled'
 import { BackgroundOpacity } from '../../../../components'
-import { Close } from '@mui/icons-material'
+import { 
+  Close, 
+  Delete, 
+  Edit 
+} from '@mui/icons-material'
 
-export const ModalData = ({ 
+export const ModalData = ({
+  setOpenModal,
   data,
+  addMode = false,
+  defaultInputChanges = {},
   boxes,
   closeModalData
 }) => {
+
+  // edit mode
+  const [editMode, setEditMode] = useState(false)
+  const [inputChanges, setInputChanges] = useState(addMode ? defaultInputChanges : {})
+
+  const inputOnChange = ({target}) => {
+    const { id, value } = target
+    setInputChanges(changes => ({
+      ...changes,
+      [id]: value
+    }))
+  }
+
+  const closeEditMode = () => {
+    setEditMode(false)
+    setInputChanges({})
+  }
+
+  useEffect(() => {
+    console.log("🚀 ~ inputChanges:", inputChanges)
+  }, [inputChanges])
 
   return (
     <BackgroundOpacity>
@@ -21,12 +53,31 @@ export const ModalData = ({
             boxes.map(({header, accessorKey, meta}) => (
               <TextBox key={ accessorKey }>
                 <span>{ header }</span>
-                <p>{ data[accessorKey] }</p>
-                {/* <input
-                  value={ data[accessorKey] }
-                /> */}
+                {!editMode && !addMode
+                    ? <p>{ data[accessorKey] }</p>
+                    : (meta && meta.filterVariant === 'select')
+                        ? <select
+                            id={ accessorKey }
+                            value={ inputChanges[accessorKey] }
+                            onChange={ inputOnChange }
+                          >
+                            {
+                              meta.options.map((option, i) => (
+                                <option key={ i } 
+                                  value={ option }
+                                >
+                                  { option }
+                                </option>
+                              ))
+                            }
+                          </select>
+                        : <input
+                            id={ accessorKey }
+                            value={ inputChanges[accessorKey] }
+                            onChange={ inputOnChange }
+                          />}
               </TextBox>
-            ))     
+            ))
           }
         </BoxContainer>
         <CloseBtn
@@ -34,6 +85,33 @@ export const ModalData = ({
         >
           <Close />
         </CloseBtn>
+        {!editMode && !addMode ?
+          (
+            <ActionBtns>
+              <div
+                onClick={() => {
+                  setEditMode(mode => !mode)
+                  setInputChanges(data)
+                }}
+              >
+                <Edit />
+              </div>
+              <div>
+                <Delete />
+              </div>
+            </ActionBtns>
+          ) : (
+            <FormBtns>
+              <button
+                onClick={() => addMode ? setOpenModal(false) : closeEditMode()}
+              >
+                Cancelar
+              </button>
+              <button>
+                { addMode ? 'Agregar' : 'Guardar' }
+              </button>
+            </FormBtns>
+          )}
       </Modal>
     </BackgroundOpacity>
   )
