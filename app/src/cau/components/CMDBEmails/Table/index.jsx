@@ -21,7 +21,8 @@ import {
 
 export const Table = ({ 
   tableData=[],
-  defaultColumns
+  defaultColumns,
+  showModalData
 }) => {
 
   const [data, setData] = useState([])
@@ -48,6 +49,7 @@ export const Table = ({
   const [columnFilters, setColumnFilters] = useState([])
 
   // open modal
+  // in all casses, a first column is added with a button to open the modal
   useEffect(() => {
     setColumns(columns => [
       {
@@ -55,7 +57,7 @@ export const Table = ({
         header: '',
         cell: ({row}) => (
           <div
-            onClick={() => console.log(tableData[row.id])}
+            onClick={() => showModalData(tableData[row.id])}
             style={{
               display: 'grid',
               placeItems: 'center',
@@ -115,6 +117,7 @@ export const Table = ({
                           ]
                         }
                     </div>
+                    {/* whether the columns can be filtered then add the input */}
                     {header.column.getCanFilter() ? 
                       <Filter column={header.column}/>
                       : null}
@@ -142,7 +145,7 @@ export const Table = ({
             ))}
           </tbody>
         </table>
-      </div>  
+      </div>
       <PaginationContainer>
         <div>
           <button

@@ -4,7 +4,7 @@ import {
 } from 'react'
 
 import { TableContainer } from './styled'
-import { Table, TitleActionBar } from '../../components/CMDBEmails'
+import { ModalData, Table, TitleActionBar } from '../../components/CMDBEmails'
 
 import { emailsDataRequest } from './emailsDataRequest'
 
@@ -23,6 +23,7 @@ export const CMDBEmails = () => {
     getRegistersData()
   }, [])
 
+  // select filter options come from a fetch
   useEffect(() => {
     setDefaultColumns(prevColumns => prevColumns.map(column => 
       (column.meta && column.meta.filterVariant === 'select')
@@ -51,12 +52,36 @@ export const CMDBEmails = () => {
       header: 'Área',
       accessorKey: 'area',
       size: 300,
+      // add the following options when it is an select input
       meta: {
         filterVariant: 'select',
         options: []
       }
     }
   ])
+
+  // only table
+  const [openModal, setOpenModal] = useState(false)
+  const [dataToShow, setDataToShow] = useState({})
+  const [boxes, setBoxes] = useState([])
+
+  useEffect(() => {
+    setBoxes(defaultColumns.map(column => {
+      // if defaultColumns props change, add them
+      const { size, ...rest } = column
+      return {...rest}
+    }))
+  }, [defaultColumns])
+
+  const showModalData = (data) => {
+    setOpenModal(true)
+    setDataToShow(data)
+  }
+
+  const closeModalData = () => {
+    setOpenModal(false)
+    setDataToShow({})
+  }
 
   return (
     <>
@@ -65,7 +90,16 @@ export const CMDBEmails = () => {
         <Table
           tableData={ registersData }
           defaultColumns={ defaultColumns }
+          showModalData={ showModalData }
         />
+        {
+          openModal &&
+            <ModalData
+              data={ dataToShow }
+              boxes={ boxes }
+              closeModalData={ closeModalData }
+            />
+        }
       </TableContainer>
     </>
   )
