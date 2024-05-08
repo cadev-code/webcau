@@ -7,3 +7,9 @@ export const getAreas = async() =>
 
 export const getRegisters = async() =>
   await axios.get(`${url}/registers/all`)
+
+export const addRegister = async(data) =>
+  await axios.post(`${url}/registers`, data)
+
+export const updateRegister = async(data) =>
+  await axios.put(`${url}/registers`, data)
