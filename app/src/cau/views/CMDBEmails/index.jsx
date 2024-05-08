@@ -11,6 +11,7 @@ import {
 import { emailsDataRequest } from './emailsDataRequest'
 import { 
   addRegister, 
+  deleteRegister, 
   updateRegister 
 } from '../../api/cmdbEmails.api'
 
@@ -79,6 +80,7 @@ export const CMDBEmails = () => {
         setOpenAddAction={ setOpenAddAction }
         addRowMethod={ addRegister }
         updateRowMethod= { updateRegister }
+        deleteRowMethod={ deleteRegister }
         refreshData={ getRegistersData }
       />
     </>

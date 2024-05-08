@@ -121,9 +121,9 @@ export const updateRegisterByArea = async({ body }, res) => {
 
 }
 
-export const deleteRegisterByArea = async(req, res) => {
+export const deleteRegisterByArea = async({body}, res) => {
 
-  const { id_register } = req.query
+  const { id_register } = body
   const query = 'DELETE FROM registers_emails_cmdb WHERE id_register = ?'
   
   try {

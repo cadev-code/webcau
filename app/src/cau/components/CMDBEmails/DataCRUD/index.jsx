@@ -17,6 +17,7 @@ export const DataCRUD = ({
   setOpenAddAction,
   addRowMethod,
   updateRowMethod,
+  deleteRowMethod,
   refreshData
  }) => {
 
@@ -93,7 +94,29 @@ export const DataCRUD = ({
         closeModalData()
         return
       }
-    
+    await refreshData()
+  }
+
+  const deleteData = async(data) => {
+    try {
+      await deleteRowMethod(data)
+      setAlertState({
+        message: 'Datos eliminados correctamente', 
+        severity: 'success', 
+        itShow: true
+      })
+      resetAlertState()
+      closeModalData()
+    } catch (error) {
+      setAlertState({
+        message: 'Hubo un error en el servidor, informa al administrador', 
+        severity: 'error', 
+        itShow: true
+      })
+      resetAlertState()
+      closeModalData()
+      return
+    }
     await refreshData()
   }
 
@@ -115,6 +138,7 @@ export const DataCRUD = ({
             boxes={ boxes }
             closeModalData={ closeModalData }
             submitData={ submitData }
+            deleteData={ deleteData }
           />
         }
       </TableContainer>

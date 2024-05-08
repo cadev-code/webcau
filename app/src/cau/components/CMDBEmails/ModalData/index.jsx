@@ -8,7 +8,7 @@ import {
   Modal, 
   TextBox 
 } from './styled'
-import { Alert, BackgroundOpacity } from '../../../../components'
+import { Alert, BackgroundOpacity, ConfirmDialog } from '../../../../components'
 import { 
   Close, 
   Delete, 
@@ -23,12 +23,14 @@ export const ModalData = ({
   defaultInputChanges = {},
   boxes,
   closeModalData,
-  submitData
+  submitData,
+  deleteData
 }) => {
 
   // edit mode
   const [editMode, setEditMode] = useState(false)
   const [inputChanges, setInputChanges] = useState(addMode ? defaultInputChanges : {})
+  const [showConfirmDialog, setShowConfirmDialog] = useState(false)
 
   const inputOnChange = ({target}) => {
     const { id, value } = target
@@ -107,7 +109,9 @@ export const ModalData = ({
               >
                 <Edit />
               </div>
-              <div>
+              <div
+                onClick={() => setShowConfirmDialog(true)}
+              >
                 <Delete />
               </div>
             </ActionBtns>
@@ -126,6 +130,16 @@ export const ModalData = ({
             </FormBtns>
           )}
       </Modal>
+      {
+        showConfirmDialog &&
+          <BackgroundOpacity>
+            <ConfirmDialog 
+              text="¿Borrar registro?"
+              actionCancel={() => setShowConfirmDialog(false)}
+              actionSubmit={() => deleteData(data)}
+            />
+          </BackgroundOpacity>
+      }
       <Alert
         text={ alertState.message }
         showAlert={ alertState.itShow }

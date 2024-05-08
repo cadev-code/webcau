@@ -13,3 +13,6 @@ export const addRegister = async(data) =>
 
 export const updateRegister = async(data) =>
   await axios.put(`${url}/registers`, data)
+
+export const deleteRegister = async(data) =>
+  await axios.delete(`${url}/registers`, {data})
