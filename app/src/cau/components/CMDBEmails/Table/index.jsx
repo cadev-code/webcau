@@ -56,13 +56,13 @@ export const Table = ({
   // open modal
   // in all casses, a first column is added with a button to open the modal
   useEffect(() => {
-    setColumns(columns => [
+    setColumns([
       {
         id: 'open_modal',
         header: '',
         cell: ({row}) => (
           <div
-            onClick={() => showModalData(tableData[row.id])}
+            onClick={() => {showModalData(data[row.id])}}
             style={{
               display: 'grid',
               placeItems: 'center',
@@ -74,9 +74,9 @@ export const Table = ({
         ),
         size: 70
       },
-      ...columns
+      ...defaultColumns
     ])
-  }, [defaultColumns])
+  }, [defaultColumns, data])
 
   const table = useReactTable({
     data,

@@ -16,6 +16,7 @@ export const DataCRUD = ({
   tableData,
   setOpenAddAction,
   addRowMethod,
+  updateRowMethod,
   refreshData
  }) => {
 
@@ -69,11 +70,12 @@ export const DataCRUD = ({
   const { alertState, setAlertState, resetAlertState, changeStateAlert } = alertActions()
 
   const submitData = async(data) => {
-    if(addMode) {
       try {
-        addMode
-          ? await addRowMethod(data)
-          : console.log('update')
+        if(addMode) {
+          await addRowMethod(data)
+        } else {
+          await updateRowMethod(data)
+        }
         setAlertState({ 
           message: `Los datos se ${addMode ? 'agregaron' : 'actualizaron'} correctamente`, 
           severity: 'success', 
@@ -91,7 +93,6 @@ export const DataCRUD = ({
         closeModalData()
         return
       }
-    }
     
     await refreshData()
   }
@@ -107,13 +108,13 @@ export const DataCRUD = ({
         {
           openModal &&
           <ModalData
-          setOpenModal={ setOpenModal }
-          data={ dataToShow }
-          addMode={ addMode }
-          defaultInputChanges={ defaultInputChanges }
-          boxes={ boxes }
-          closeModalData={ closeModalData }
-          submitData={ submitData }
+            setOpenModal={ setOpenModal }
+            data={ dataToShow }
+            addMode={ addMode }
+            defaultInputChanges={ defaultInputChanges }
+            boxes={ boxes }
+            closeModalData={ closeModalData }
+            submitData={ submitData }
           />
         }
       </TableContainer>

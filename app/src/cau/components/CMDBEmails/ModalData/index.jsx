@@ -45,14 +45,15 @@ export const ModalData = ({
 
   const { alertState, setAlertState, resetAlertState, changeStateAlert } = alertActions()
 
-  const formValidation = () => {
+  const formValidation = async() => {
     if(Object.values(inputChanges).includes('')) {
       setAlertState({message: 'Los campos no pueden estar vacíos', severity: 'error', itShow: true})
       resetAlertState()
       return
     }
 
-    submitData(inputChanges)
+    await submitData(inputChanges)
+    closeEditMode()
   }
 
   return (
