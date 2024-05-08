@@ -8,12 +8,14 @@ import {
   Modal, 
   TextBox 
 } from './styled'
-import { BackgroundOpacity } from '../../../../components'
+import { Alert, BackgroundOpacity } from '../../../../components'
 import { 
   Close, 
   Delete, 
   Edit 
 } from '@mui/icons-material'
+
+import { alertActions } from '../../../helpers/alertActions'
 
 export const ModalData = ({
   data,
@@ -40,9 +42,15 @@ export const ModalData = ({
     setInputChanges({})
   }
 
-  useEffect(() => {
-    console.log("🚀 ~ inputChanges:", inputChanges)
-  }, [inputChanges])
+  const { alertState, setAlertState, resetAlertState, changeStateAlert } = alertActions()
+
+  const formSubmit = () => {
+    if(Object.values(inputChanges).includes('')) {
+      setAlertState({message: 'Los campos no pueden estar vacíos', severity: 'error', itShow: true})
+      resetAlertState()
+      return
+    }
+  }
 
   return (
     <BackgroundOpacity>
@@ -61,7 +69,7 @@ export const ModalData = ({
                             onChange={ inputOnChange }
                           >
                             {
-                              meta.options.map((option, i) => (
+                              ['', ...meta.options].map((option, i) => (
                                 <option key={ i } 
                                   value={ option }
                                 >
@@ -106,12 +114,20 @@ export const ModalData = ({
               >
                 Cancelar
               </button>
-              <button>
+              <button
+                onClick={formSubmit}
+              >
                 { addMode ? 'Agregar' : 'Guardar' }
               </button>
             </FormBtns>
           )}
       </Modal>
+      <Alert
+        text={ alertState.message }
+        showAlert={ alertState.itShow }
+        setShowAlert={ changeStateAlert }
+        severity={ alertState.severity }
+      />
     </BackgroundOpacity>
   )
 }
