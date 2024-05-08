@@ -22,7 +22,8 @@ export const ModalData = ({
   addMode = false,
   defaultInputChanges = {},
   boxes,
-  closeModalData
+  closeModalData,
+  submitData
 }) => {
 
   // edit mode
@@ -44,12 +45,14 @@ export const ModalData = ({
 
   const { alertState, setAlertState, resetAlertState, changeStateAlert } = alertActions()
 
-  const formSubmit = () => {
+  const formValidation = () => {
     if(Object.values(inputChanges).includes('')) {
       setAlertState({message: 'Los campos no pueden estar vacíos', severity: 'error', itShow: true})
       resetAlertState()
       return
     }
+
+    submitData(inputChanges)
   }
 
   return (
@@ -115,7 +118,7 @@ export const ModalData = ({
                 Cancelar
               </button>
               <button
-                onClick={formSubmit}
+                onClick={formValidation}
               >
                 { addMode ? 'Agregar' : 'Guardar' }
               </button>

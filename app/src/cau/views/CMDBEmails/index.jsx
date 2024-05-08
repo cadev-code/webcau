@@ -9,6 +9,7 @@ import {
 } from '../../components/CMDBEmails'
 
 import { emailsDataRequest } from './emailsDataRequest'
+import { addRegister } from '../../api/cmdbEmails.api'
 
 export const CMDBEmails = () => {
 
@@ -73,6 +74,8 @@ export const CMDBEmails = () => {
         defaultColumns={ defaultColumns }
         tableData={ registersData }
         setOpenAddAction={ setOpenAddAction }
+        addRowMethod={ addRegister }
+        refreshData={ getRegistersData }
       />
     </>
   )

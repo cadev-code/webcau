@@ -1,12 +1,22 @@
-import { useState, useEffect } from 'react'
+import { 
+  useState, 
+  useEffect 
+} from 'react'
 
 import { TableContainer } from './styled'
-import { ModalData, Table } from '../'
+import { 
+  ModalData, 
+  Table 
+} from '../'
+import { Alert } from '../../../../components'
+import { alertActions } from '../../../helpers/alertActions'
 
 export const DataCRUD = ({ 
   defaultColumns,
   tableData,
-  setOpenAddAction
+  setOpenAddAction,
+  addRowMethod,
+  refreshData
  }) => {
 
   const [openModal, setOpenModal] = useState(false)
@@ -56,24 +66,63 @@ export const DataCRUD = ({
     setAddMode(false)
   }
 
-  return (
-    <TableContainer>
-      <Table
-        tableData={ tableData }
-        defaultColumns={ defaultColumns }
-        showModalData={ showModalData }
-      />
-      {
-        openModal &&
-          <ModalData
-            setOpenModal={ setOpenModal }
-            data={ dataToShow }
-            addMode={ addMode }
-            defaultInputChanges={ defaultInputChanges }
-            boxes={ boxes }
-            closeModalData={ closeModalData }
-          />
+  const { alertState, setAlertState, resetAlertState, changeStateAlert } = alertActions()
+
+  const submitData = async(data) => {
+    if(addMode) {
+      try {
+        addMode
+          ? await addRowMethod(data)
+          : console.log('update')
+        setAlertState({ 
+          message: `Los datos se ${addMode ? 'agregaron' : 'actualizaron'} correctamente`, 
+          severity: 'success', 
+          itShow: true 
+        })
+        resetAlertState()
+        closeModalData()
+      } catch (error) {
+        setAlertState({ 
+          message: 'Hubo un error en el servidor, informa al administrador', 
+          severity: 'error', 
+          itShow: true 
+        })
+        resetAlertState()
+        closeModalData()
+        return
       }
-    </TableContainer>
+    }
+    
+    await refreshData()
+  }
+
+  return (
+    <>
+      <TableContainer>
+        <Table
+          tableData={ tableData }
+          defaultColumns={ defaultColumns }
+          showModalData={ showModalData }
+          />
+        {
+          openModal &&
+          <ModalData
+          setOpenModal={ setOpenModal }
+          data={ dataToShow }
+          addMode={ addMode }
+          defaultInputChanges={ defaultInputChanges }
+          boxes={ boxes }
+          closeModalData={ closeModalData }
+          submitData={ submitData }
+          />
+        }
+      </TableContainer>
+      <Alert 
+        text={ alertState.message }
+        showAlert={ alertState.itShow }
+        severity={ alertState.severity }
+        setShowAlert={ changeStateAlert }
+      />
+    </>
   )
 }
