@@ -81,7 +81,7 @@ export const addRegisterByArea = async({ body }, res) => {
 
 export const getRegisters = async(req, res) => {
   
-  const query = 'SELECT registers_emails_cmdb.id_register, registers_emails_cmdb.name, registers_emails_cmdb.email, registers_emails_cmdb.password, areas_emails_cmdb.area FROM registers_emails_cmdb INNER JOIN areas_emails_cmdb ON registers_emails_cmdb.id_area = areas_emails_cmdb.id_area'
+  const query = 'SELECT registers_emails_cmdb.id_register, registers_emails_cmdb.name, registers_emails_cmdb.email, registers_emails_cmdb.password, areas_emails_cmdb.area FROM registers_emails_cmdb INNER JOIN areas_emails_cmdb ON registers_emails_cmdb.id_area = areas_emails_cmdb.id_area ORDER BY registers_emails_cmdb.id_register DESC'
 
   try {
     const [result] = await pool.query(query)
