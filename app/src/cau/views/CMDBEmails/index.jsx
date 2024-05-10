@@ -5,6 +5,7 @@ import {
 
 import { 
   DataCRUD, 
+  OptionsManager, 
   TitleActionBar 
 } from '../../components/CMDBEmails'
 
@@ -69,6 +70,8 @@ export const CMDBEmails = () => {
 
   const [openAddAction, setOpenAddAction] = useState({action: () => {}})
 
+  const [showOptionManager, setShowOptionManager] = useState(true)
+
   return (
     <>
       <TitleActionBar 
@@ -83,6 +86,15 @@ export const CMDBEmails = () => {
         deleteRowMethod={ deleteRegister }
         refreshData={ getRegistersData }
       />
+      {
+        showOptionManager &&
+          <OptionsManager
+            title="Áreas"
+            options={ areasData.map(area => ({id: area.id_area, text: area.area })) }
+            refreshOptions={ getAreasData }
+            close={() => setShowOptionManager(false)}
+          />
+      }
     </>
   )
 }
