@@ -15,7 +15,7 @@ export const Container = styled.div`
 
 export const ActionBar = styled.div`
   display: flex;
-  gap: 20px;
+  gap: 10px;
   align-items: center;
 
   button {
@@ -28,7 +28,7 @@ export const ActionBar = styled.div`
     border-radius: 5px;
     cursor: pointer;
   }
-  
+
   .blue {
     color: white;
     background-color: var(--button-background);

@@ -11,6 +11,7 @@ import {
 
 import { emailsDataRequest } from './emailsDataRequest'
 import { 
+  addArea,
   addRegister, 
   deleteRegister, 
   updateRegister 
@@ -91,7 +92,11 @@ export const CMDBEmails = () => {
           <OptionsManager
             title="Áreas"
             options={ areasData.map(area => ({id: area.id_area, text: area.area })) }
-            refreshOptions={ getAreasData }
+            addOptionMethod={ addArea }
+            refreshOptions={() => {
+              getAreasData()
+              getRegistersData()
+            }}
             close={() => setShowOptionManager(false)}
           />
       }

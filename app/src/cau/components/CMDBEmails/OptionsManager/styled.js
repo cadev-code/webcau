@@ -2,6 +2,7 @@ import styled from 'styled-components'
 
 export const Container = styled.div`
   position: relative;
+  padding-bottom: 20px;
   background-color: var(--container-background);
   border: 1px solid var(--opacity-text);
   border-radius: 5px 0 0 5px;
@@ -23,9 +24,9 @@ export const Container = styled.div`
 `
 
 export const OptionsContainer = styled.div`
-  max-height: 600px;
+  max-height: 326px;
   position: relative;
-  padding: 0 20px 20px;
+  padding: 0 20px;
   display: flex;
   flex-direction: column;
   gap: 10px;
@@ -45,7 +46,7 @@ export const Option = styled.div`
 
 export const AddInput = styled.div`
   width: 380px;
-  margin: 0 20px 20px;
+  margin: 0 20px;
   padding: 10px;
   display: grid;
   gap: 5px;

@@ -13,13 +13,15 @@ import {
   Option, 
   OptionsContainer
 } from './styled'
-import { BackgroundOpacity, ConfirmDialog } from '../../../../components'
+import { Alert, BackgroundOpacity, ConfirmDialog } from '../../../../components'
 import { 
   Close, 
   Delete, 
   Edit, 
   Save 
 } from '@mui/icons-material'
+import { optionActions } from './optionActions'
+import { alertActions } from '../../../helpers/alertActions'
 
 export const OptionsManager = ({
   title = '',
@@ -47,10 +49,11 @@ export const OptionsManager = ({
     })))
   }, [options])
 
-  const [inputChange, setInputChange] = useState({})
-  const [showDeleteConfirm, setShowDeleteConfirm] = useState(false)
-  const [addInputValue, setAddInputValue] = useState('')
   const [addMode, setAddMode] = useState(false)
+  const [addInputValue, setAddInputValue] = useState({text: ''})
+  const [inputChange, setInputChange] = useState({})
+  const [optionToDelete, setOptionToDelete] = useState('')
+  const [showDeleteConfirm, setShowDeleteConfirm] = useState(false)
 
   const inputOnChange = ({target}) => {
     setInputChange(data => ({
@@ -59,34 +62,70 @@ export const OptionsManager = ({
     }))
   }
 
-  const changeEditMode = (id) => {
-    setData(data => data.map(
-      option => option.id === id
-        ? {
-          ...option,
-          editMode: !option.editMode
-        } : option
-    ))
+  const {
+    alertState,
+    setAlertState,
+    changeStateAlert,
+    resetAlertState
+  } = alertActions()
+
+  const showAlert = (message, severity) => {
+    setAlertState({
+      message, 
+      severity, 
+      itShow: true
+    })
+    resetAlertState()
   }
 
-  const showEditMode = (option) => {
-    changeEditMode(option.id)
-    setInputChange(option)
+  const {
+    closeAddMode,
+    showEditMode,
+    closeEditMode,
+    changeDeleteMode
+  } = optionActions(
+    setData,
+    setAddMode,
+    setAddInputValue,
+    setInputChange,
+    setOptionToDelete
+  )
+
+  const submitData = async() => {
+
+    if(addMode) {
+      if(addInputValue.text === '') return
+
+      if(data.filter(option => option.text.trim() === addInputValue.text.trim()).length > 0) {
+        showAlert('No puedes repetir información, valida los datos', 'warning')
+        return
+      }
+
+      try {
+        await addOptionMethod(addInputValue)
+        closeAddMode()
+        showAlert('Datos agregados correctamente', 'success')
+      } catch (error) {
+        showAlert('Hubo un error, informa al administrador', 'error')
+      }
+    } else {
+      try {
+        showAlert('Datos actualizados correctamente', 'success')
+      } catch (error) {
+        showAlert('Hubo un error, informa al administrador', 'error')
+      }
+    }
+
+    await refreshOptions()
   }
 
-  const closeEditMode = (option) => {
-    changeEditMode(option.id)
-    setInputChange({})
-  }
-
-  const changeDeleteMode = (id) => {
-    setData(data => data.map(
-      option => option.id === id
-        ? {
-          ...option,
-          deleteMode: !option.deleteMode
-        } : option
-    ))
+  const deleteData = () => {
+    try {
+      
+      showAlert('Datos eliminados correctamente', 'error')
+    } catch (error) {
+      
+    }
   }
 
   return (
@@ -121,7 +160,9 @@ export const OptionsManager = ({
                                           <Edit />
                                         </div>
                                       : <>
-                                          <div>
+                                          <div
+                                            onClick={submitData}
+                                          >
                                             <Save />
                                           </div>
                                           <div
@@ -150,7 +191,6 @@ export const OptionsManager = ({
                                   </div>
                                 </DeleteConfirm>
                           }
-      
                         </Option>
                     ))
                   }
@@ -158,8 +198,8 @@ export const OptionsManager = ({
               : <AddInput>
                   <span>Agregar Opción</span>
                   <input type="text" 
-                    value={addInputValue}
-                    onChange={({target}) => setAddInputValue(target.value)}
+                    value={addInputValue.text}
+                    onChange={({target}) => setAddInputValue({text: target.value})}
                   />
                 </AddInput>
           }
@@ -175,11 +215,13 @@ export const OptionsManager = ({
                       </button>
                     : <>
                         <button
-                          onClick={() => setAddMode(false)}
+                          onClick={closeAddMode}
                         >
                           Cancelar
                         </button>
-                        <button className="submit">
+                        <button className="submit"
+                          onClick={submitData}
+                        >
                           Guardar
                         </button>
                       </>
@@ -192,6 +234,12 @@ export const OptionsManager = ({
             <Close />
           </CloseBtn>
         </Container>
+        <Alert 
+          text={ alertState.message }
+          severity={ alertState.severity }
+          showAlert={ alertState.itShow }
+          setShowAlert={ changeStateAlert }
+        />
       </BackgroundOpacity>
       {
         showDeleteConfirm &&
@@ -199,7 +247,7 @@ export const OptionsManager = ({
             <ConfirmDialog 
               text={`¿Eliminar ${inputChange.text}?`}
               actionCancel={() => setShowDeleteConfirm(false)}
-              actionSubmit={() => console.log(inputChange)}
+              actionSubmit={deleteData}
             />
           </BackgroundOpacity>
       }
