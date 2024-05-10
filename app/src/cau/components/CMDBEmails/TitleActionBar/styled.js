@@ -21,10 +21,16 @@ export const ActionBar = styled.div`
   button {
     padding: 5px 10px;
     font-size: 16px;
-    color: white;
-    background-color: var(--button-background);
+    font-weight: 500;
+    color: black;
+    background-color: white;
     border: none;
     border-radius: 5px;
     cursor: pointer;
+  }
+  
+  .blue {
+    color: white;
+    background-color: var(--button-background);
   }
 `

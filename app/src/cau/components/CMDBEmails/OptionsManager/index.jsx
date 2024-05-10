@@ -163,27 +163,29 @@ export const OptionsManager = ({
                   />
                 </AddInput>
           }
-
-          <AddActions>
-            {
-              !addMode
-                ? <button
-                    onClick={() => setAddMode(true)}
-                  >
-                    Agregar
-                  </button>
-                : <>
-                    <button
-                      onClick={() => setAddMode(false)}
-                    >
-                      Cancelar
-                    </button>
-                    <button className="submit">
-                      Guardar
-                    </button>
-                  </>
-            }
-          </AddActions>
+          {
+            (data.filter(option => option.editMode).length === 0) &&
+              <AddActions>
+                {
+                  !addMode
+                    ? <button
+                        onClick={() => setAddMode(true)}
+                      >
+                        Agregar
+                      </button>
+                    : <>
+                        <button
+                          onClick={() => setAddMode(false)}
+                        >
+                          Cancelar
+                        </button>
+                        <button className="submit">
+                          Guardar
+                        </button>
+                      </>
+                }
+              </AddActions>
+          }
           <CloseBtn
             onClick={close}
           >

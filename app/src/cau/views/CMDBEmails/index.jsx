@@ -69,13 +69,13 @@ export const CMDBEmails = () => {
   ])
 
   const [openAddAction, setOpenAddAction] = useState({action: () => {}})
-
   const [showOptionManager, setShowOptionManager] = useState(true)
 
   return (
     <>
       <TitleActionBar 
         addButtonAction={ openAddAction.action }
+        areasButtonAction={() => setShowOptionManager(true)}
       />
       <DataCRUD 
         defaultColumns={ defaultColumns }

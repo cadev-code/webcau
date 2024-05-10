@@ -4,7 +4,8 @@ import {
 } from './styled'
 
 export const TitleActionBar = ({
-  addButtonAction
+  addButtonAction,
+  areasButtonAction
 }) => {
 
   return (
@@ -12,7 +13,12 @@ export const TitleActionBar = ({
       <h2>CMDB Correos</h2>
       <ActionBar>
         <button
-          onClick={ addButtonAction }
+          onClick={areasButtonAction}
+        >
+          Gestionar Áreas
+        </button>
+        <button className="blue"
+          onClick={addButtonAction}
         >
           Agregar Correo
         </button>
