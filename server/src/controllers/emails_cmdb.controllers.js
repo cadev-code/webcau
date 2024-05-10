@@ -4,11 +4,11 @@ import { pool } from '../db.js'
 
 export const addArea = async({ body }, res) => {
   
-  const { area } = body
+  const { text } = body
   const query = 'INSERT INTO areas_emails_cmdb (`area`) VALUES (?)'
 
   try {
-    await pool.query(query, [area])
+    await pool.query(query, [text])
     res.status(200).send('Information uploaded correctly.')
   } catch (error) {
     res.status(400).send('There was an error trying to load the information.')
@@ -31,11 +31,11 @@ export const getAreas = async(req, res) => {
 
 export const updateArea = async({ body }, res) => {
   
-  const { id_area, area } = body
+  const { id, text } = body
   const query = 'UPDATE areas_emails_cmdb SET `area` = ? WHERE id_area = ?'
 
   try {
-    await pool.query(query, [area, id_area])
+    await pool.query(query, [text, id])
     res.status(200).send('Information was updated correctly.')
   } catch (error) {
     res.status(400).send('There was an error trying to update the information.')
