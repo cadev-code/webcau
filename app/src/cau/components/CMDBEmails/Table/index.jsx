@@ -209,6 +209,11 @@ const Filter = ({ column }) => {
 
   const [inputValue, setInputValue] = useState((columnFilterValue ?? ''))
 
+  useEffect(() => {
+    setInputValue('')
+    column.setFilterValue('')
+  }, [options])
+
   return filterVariant === 'select' 
     ? (
       <SelectFilterColumn
