@@ -88,6 +88,7 @@ export const ModalData = ({
                             id={ accessorKey }
                             value={ inputChanges[accessorKey] }
                             onChange={ inputOnChange }
+                            required
                           />}
               </TextBox>
             ))

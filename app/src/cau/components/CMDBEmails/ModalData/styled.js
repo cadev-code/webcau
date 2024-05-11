@@ -45,8 +45,13 @@ export const TextBox = styled.div`
     font-size: 16px;
     color: white;
     background-color: #0f2237;
-    border: none;
+    border: 1px solid transparent;
     border-radius: 5px;
+    outline: none;
+
+    &:focus:invalid {
+      border-color: #ff3939;
+    }
   }
 `
 
