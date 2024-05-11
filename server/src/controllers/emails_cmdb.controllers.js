@@ -46,7 +46,6 @@ export const updateArea = async({ body }, res) => {
 export const deleteArea = async(req, res) => {
 
   const { id_area } = req.query
-  console.log(id_area)
   const query = 'DELETE FROM areas_emails_cmdb WHERE id_area = ?'
   
   try {

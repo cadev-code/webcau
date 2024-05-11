@@ -15,6 +15,7 @@ import {
   addRegister, 
   deleteArea, 
   deleteRegister, 
+  updateArea, 
   updateRegister 
 } from '../../api/cmdbEmails.api'
 
@@ -62,6 +63,7 @@ export const CMDBEmails = () => {
       header: 'Área',
       accessorKey: 'area',
       size: 300,
+      filterFn: 'equalsString',
       // add the following options when it is an select input
       meta: {
         filterVariant: 'select',
@@ -94,6 +96,7 @@ export const CMDBEmails = () => {
             title="Áreas"
             options={ areasData.map(area => ({id: area.id_area, text: area.area })) }
             addOptionMethod={ addArea }
+            updateOptionMethod={ updateArea }
             deleteOptionMethod={ deleteArea }
             refreshOptions={() => {
               getAreasData()

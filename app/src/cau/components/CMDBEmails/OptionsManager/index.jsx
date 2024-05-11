@@ -20,6 +20,7 @@ import {
   Edit, 
   Save 
 } from '@mui/icons-material'
+
 import { optionActions } from './optionActions'
 import { alertActions } from '../../../helpers/alertActions'
 
@@ -69,69 +70,32 @@ export const OptionsManager = ({
     resetAlertState
   } = alertActions()
 
-  const showAlert = (message, severity) => {
-    setAlertState({
-      message, 
-      severity, 
-      itShow: true
-    })
-    resetAlertState()
-  }
-
   const {
     closeAddMode,
     showEditMode,
     closeEditMode,
-    changeDeleteMode
+    changeDeleteMode,
+    submitData,
+    deleteData
   } = optionActions(
+    data,
     setData,
+    addMode,
     setAddMode,
+    addInputValue,
     setAddInputValue,
+    inputChange,
     setInputChange,
-    setOptionToDelete
+    setShowDeleteConfirm,
+    optionToDelete,
+    setOptionToDelete,
+    addOptionMethod,
+    updateOptionMethod,
+    deleteOptionMethod,
+    refreshOptions,
+    setAlertState,
+    resetAlertState
   )
-
-  const submitData = async() => {
-
-    if(addMode) {
-      if(addInputValue.text === '') return
-
-      if(data.filter(option => option.text.trim() === addInputValue.text.trim()).length > 0) {
-        showAlert('No puedes repetir información, valida los datos', 'warning')
-        return
-      }
-
-      try {
-        await addOptionMethod(addInputValue)
-        closeAddMode()
-        showAlert('Datos agregados correctamente', 'success')
-      } catch (error) {
-        showAlert('Hubo un error, informa al administrador', 'error')
-      }
-    } else {
-      try {
-        showAlert('Datos actualizados correctamente', 'success')
-      } catch (error) {
-        showAlert('Hubo un error, informa al administrador', 'error')
-      }
-    }
-
-    await refreshOptions()
-  }
-
-  const deleteData = async() => {
-    try {
-      await deleteOptionMethod(optionToDelete.id)
-      setShowDeleteConfirm(false)
-      setOptionToDelete({})
-      showAlert('Datos eliminados correctamente', 'success')
-    } catch (error) {
-      setShowDeleteConfirm(false)
-      showAlert('Hubo un error, informa al administrador', 'error')
-    }
-
-    await refreshOptions()
-  }
 
   return (
     <>
@@ -152,6 +116,7 @@ export const OptionsManager = ({
                               : <input type="text"
                                   value={ inputChange.text }
                                   onChange={ inputOnChange }
+                                  required
                                 />
                           }
                           {
@@ -211,6 +176,7 @@ export const OptionsManager = ({
                   <input type="text" 
                     value={addInputValue.text}
                     onChange={({target}) => setAddInputValue({text: target.value})}
+                    required
                   />
                 </AddInput>
           }
