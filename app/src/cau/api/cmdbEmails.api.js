@@ -12,7 +12,7 @@ export const updateArea = async(data) =>
   await axios.put(`${url}/areas`, data)
 
 export const deleteArea = async(id) =>
-  await axios.put(`${url}/areas?id_area=${id}`)
+  await axios.delete(`${url}/areas?id_area=${id}`)
 
 export const getRegisters = async() =>
   await axios.get(`${url}/registers/all`)

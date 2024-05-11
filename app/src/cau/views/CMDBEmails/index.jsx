@@ -13,6 +13,7 @@ import { emailsDataRequest } from './emailsDataRequest'
 import { 
   addArea,
   addRegister, 
+  deleteArea, 
   deleteRegister, 
   updateRegister 
 } from '../../api/cmdbEmails.api'
@@ -70,7 +71,7 @@ export const CMDBEmails = () => {
   ])
 
   const [openAddAction, setOpenAddAction] = useState({action: () => {}})
-  const [showOptionManager, setShowOptionManager] = useState(true)
+  const [showOptionManager, setShowOptionManager] = useState(false)
 
   return (
     <>
@@ -93,6 +94,7 @@ export const CMDBEmails = () => {
             title="Áreas"
             options={ areasData.map(area => ({id: area.id_area, text: area.area })) }
             addOptionMethod={ addArea }
+            deleteOptionMethod={ deleteArea }
             refreshOptions={() => {
               getAreasData()
               getRegistersData()

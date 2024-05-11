@@ -52,7 +52,7 @@ export const OptionsManager = ({
   const [addMode, setAddMode] = useState(false)
   const [addInputValue, setAddInputValue] = useState({text: ''})
   const [inputChange, setInputChange] = useState({})
-  const [optionToDelete, setOptionToDelete] = useState('')
+  const [optionToDelete, setOptionToDelete] = useState({})
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false)
 
   const inputOnChange = ({target}) => {
@@ -119,13 +119,18 @@ export const OptionsManager = ({
     await refreshOptions()
   }
 
-  const deleteData = () => {
+  const deleteData = async() => {
     try {
-      
-      showAlert('Datos eliminados correctamente', 'error')
+      await deleteOptionMethod(optionToDelete.id)
+      setShowDeleteConfirm(false)
+      setOptionToDelete({})
+      showAlert('Datos eliminados correctamente', 'success')
     } catch (error) {
-      
+      setShowDeleteConfirm(false)
+      showAlert('Hubo un error, informa al administrador', 'error')
     }
+
+    await refreshOptions()
   }
 
   return (
@@ -180,12 +185,18 @@ export const OptionsManager = ({
                                 </ActionBtns>
                               : <DeleteConfirm>
                                   <button
-                                    onClick={() => setShowDeleteConfirm(true)}
+                                    onClick={() => {
+                                      setShowDeleteConfirm(true)
+                                      setOptionToDelete(option)
+                                    }}
                                   >
                                     Eliminar
                                   </button>
                                   <div
-                                    onClick={() => changeDeleteMode(option.id)}
+                                    onClick={() => {
+                                      changeDeleteMode(option.id)
+                                      setOptionToDelete({})
+                                    }}
                                   >
                                     <Close />
                                   </div>
