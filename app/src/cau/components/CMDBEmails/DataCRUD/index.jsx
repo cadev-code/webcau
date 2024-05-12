@@ -9,6 +9,8 @@ import {
   Table 
 } from '../'
 import { Alert } from '../../../../components'
+
+import { dataFormActions } from './dataFormActions'
 import { alertActions } from '../../../helpers/alertActions'
 
 export const DataCRUD = ({ 
@@ -48,77 +50,30 @@ export const DataCRUD = ({
     setDefaultInputChanges(inputChanges)
   }, [boxes])
 
-  const showModalData = (data) => {
-    setOpenModal(true)
-    setDataToShow(data)
-  }
-
-  const showAddModalData = () => {
-    setOpenModal(true)
-    setAddMode(true)
-  }
-
   useEffect(() => {
     setOpenAddAction({action: showAddModalData})
   }, [])
 
-  const closeModalData = () => {
-    setOpenModal(false)
-    setDataToShow({})
-    setAddMode(false)
-  }
-
   const { alertState, setAlertState, resetAlertState, changeStateAlert } = alertActions()
 
-  const submitData = async(data) => {
-      try {
-        if(addMode) {
-          await addRowMethod(data)
-        } else {
-          await updateRowMethod(data)
-        }
-        setAlertState({ 
-          message: `Los datos se ${addMode ? 'agregaron' : 'actualizaron'} correctamente`, 
-          severity: 'success', 
-          itShow: true 
-        })
-        resetAlertState()
-        closeModalData()
-      } catch (error) {
-        setAlertState({ 
-          message: 'Hubo un error en el servidor, informa al administrador', 
-          severity: 'error', 
-          itShow: true 
-        })
-        resetAlertState()
-        closeModalData()
-        return
-      }
-    await refreshData()
-  }
-
-  const deleteData = async(data) => {
-    try {
-      await deleteRowMethod(data)
-      setAlertState({
-        message: 'Datos eliminados correctamente', 
-        severity: 'success', 
-        itShow: true
-      })
-      resetAlertState()
-      closeModalData()
-    } catch (error) {
-      setAlertState({
-        message: 'Hubo un error en el servidor, informa al administrador', 
-        severity: 'error', 
-        itShow: true
-      })
-      resetAlertState()
-      closeModalData()
-      return
-    }
-    await refreshData()
-  }
+  const {
+    closeModalData,
+    deleteData,
+    showAddModalData,
+    showModalData,
+    submitData
+  } = dataFormActions(
+    setOpenModal,
+    setDataToShow,
+    addMode,
+    setAddMode,
+    addRowMethod,
+    updateRowMethod,
+    deleteRowMethod,
+    setAlertState,
+    resetAlertState,
+    refreshData
+  )
 
   return (
     <>
