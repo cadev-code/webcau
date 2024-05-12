@@ -2,6 +2,7 @@ import styled from 'styled-components'
 
 export const Container = styled.div`
   position: relative;
+  min-width: 430px;
   padding-bottom: 20px;
   background-color: var(--container-background);
   border: 1px solid var(--opacity-text);

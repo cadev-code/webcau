@@ -86,21 +86,21 @@ export const optionActions = (
       }
 
     } else {
+      const { id, text } = inputChange
+
+      if(data.filter(option => option.id === id)[0].text === text) {
+        await refreshOptions()
+        return
+      }
+
+      if(text === '') return
+
+      if(data.filter(option => option.text.trim() === text.trim()).length > 0) {
+        showAlert('No puedes repetir información, valida los datos', 'warning')
+        return
+      }
+
       try {
-        const { id, text } = inputChange
-
-        if(data.filter(option => option.id === id)[0].text === text) {
-          await refreshOptions()
-          return
-        }
-
-        if(text === '') return
-
-        if(data.filter(option => option.text.trim() === text.trim()).length > 0) {
-          showAlert('No puedes repetir información, valida los datos', 'warning')
-          return
-        }
-
         await updateOptionMethod({id, text})
         showAlert('Datos actualizados correctamente', 'success')
       } catch (error) {
