@@ -24,7 +24,8 @@ export const ModalData = ({
   boxes,
   closeModalData,
   submitData,
-  deleteData
+  deleteData,
+  userIsAdmin
 }) => {
 
   // edit mode
@@ -99,37 +100,42 @@ export const ModalData = ({
         >
           <Close />
         </CloseBtn>
-        {!editMode && !addMode ?
-          (
-            <ActionBtns>
-              <div
-                onClick={() => {
-                  setEditMode(mode => !mode)
-                  setInputChanges(data)
-                }}
-              >
-                <Edit />
-              </div>
-              <div
-                onClick={() => setShowConfirmDialog(true)}
-              >
-                <Delete />
-              </div>
-            </ActionBtns>
-          ) : (
-            <FormBtns>
-              <button
-                onClick={() => addMode ? closeModalData() : closeEditMode()}
-              >
-                Cancelar
-              </button>
-              <button
-                onClick={formValidation}
-              >
-                { addMode ? 'Agregar' : 'Guardar' }
-              </button>
-            </FormBtns>
-          )}
+        {
+          userIsAdmin &&
+            <>
+              {!editMode && !addMode ?
+                (
+                  <ActionBtns>
+                    <div
+                      onClick={() => {
+                        setEditMode(mode => !mode)
+                        setInputChanges(data)
+                      }}
+                    >
+                      <Edit />
+                    </div>
+                    <div
+                      onClick={() => setShowConfirmDialog(true)}
+                    >
+                      <Delete />
+                    </div>
+                  </ActionBtns>
+                ) : (
+                  <FormBtns>
+                    <button
+                      onClick={() => addMode ? closeModalData() : closeEditMode()}
+                    >
+                      Cancelar
+                    </button>
+                    <button
+                      onClick={formValidation}
+                    >
+                      { addMode ? 'Agregar' : 'Guardar' }
+                    </button>
+                  </FormBtns>
+                )}
+            </>
+        }
       </Modal>
       {
         showConfirmDialog &&

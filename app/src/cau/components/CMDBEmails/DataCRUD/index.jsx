@@ -20,7 +20,8 @@ export const DataCRUD = ({
   addRowMethod,
   updateRowMethod,
   deleteRowMethod,
-  refreshData
+  refreshData,
+  userIsAdmin
  }) => {
 
   const [openModal, setOpenModal] = useState(false)
@@ -94,6 +95,7 @@ export const DataCRUD = ({
             closeModalData={ closeModalData }
             submitData={ submitData }
             deleteData={ deleteData }
+            userIsAdmin={ userIsAdmin }
           />
         }
       </TableContainer>

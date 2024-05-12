@@ -5,24 +5,29 @@ import {
 
 export const TitleActionBar = ({
   addButtonAction,
-  areasButtonAction
+  areasButtonAction,
+  userIsAdmin
 }) => {
 
   return (
     <Container>
       <h2>CMDB Correos</h2>
-      <ActionBar>
-        <button
-          onClick={areasButtonAction}
-        >
-          Gestionar Áreas
-        </button>
-        <button className="blue"
-          onClick={addButtonAction}
-        >
-          Agregar Correo
-        </button>
-      </ActionBar>
+      {
+        userIsAdmin &&
+          <ActionBar>
+            <button
+              onClick={areasButtonAction}
+            >
+              Gestionar Áreas
+            </button>
+            <button className="blue"
+              onClick={addButtonAction}
+            >
+              Agregar Correo
+            </button>
+          </ActionBar>
+      }
+
     </Container>
   )
 }

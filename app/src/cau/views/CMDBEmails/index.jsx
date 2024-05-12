@@ -19,7 +19,13 @@ import {
   updateRegister 
 } from '../../api/cmdbEmails.api'
 
-export const CMDBEmails = () => {
+export const CMDBEmails = ({userData}) => {
+
+  const [userIsAdmin, setUserIsAdmin] = useState(false)
+
+  useEffect(() => {
+    setUserIsAdmin(userData.permissions.includes('emails_cmdb'))
+  }, [userData])
 
   const [areasData, setAreasData] = useState([])
   const [registersData, setRegistersData] = useState([])
@@ -80,8 +86,9 @@ export const CMDBEmails = () => {
       <TitleActionBar 
         addButtonAction={ openAddAction.action }
         areasButtonAction={() => setShowOptionManager(true)}
+        userIsAdmin={ userIsAdmin }
       />
-      <DataCRUD 
+      <DataCRUD
         defaultColumns={ defaultColumns }
         tableData={ registersData }
         setOpenAddAction={ setOpenAddAction }
@@ -89,6 +96,7 @@ export const CMDBEmails = () => {
         updateRowMethod= { updateRegister }
         deleteRowMethod={ deleteRegister }
         refreshData={ getRegistersData }
+        userIsAdmin={ userIsAdmin }
       />
       {
         showOptionManager &&
