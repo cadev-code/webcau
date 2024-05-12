@@ -103,6 +103,10 @@ export const OptionsManager = ({
         <Container>
           <h2>{ title }</h2>
           {
+            data.length === 0 && !addMode &&
+              <p className="empty-message">Sin información, añade nuevos registros... ↓</p>
+          }
+          {
             !addMode
               ? <OptionsContainer>
                   {

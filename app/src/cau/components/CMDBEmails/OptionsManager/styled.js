@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 
 export const Container = styled.div`
-  position: relative;
+  position: relative; 
   min-width: 430px;
   padding-bottom: 20px;
   background-color: var(--container-background);
@@ -11,6 +11,13 @@ export const Container = styled.div`
   h2 {
     margin: 20px 0 10px;
     text-align: center;
+    user-select: none;
+  }
+
+  .empty-message {
+    text-align: center;
+    color: var(--opacity-text);
+    user-select: none;
   }
 
   input {
