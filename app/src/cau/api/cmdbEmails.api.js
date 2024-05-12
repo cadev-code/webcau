@@ -5,8 +5,23 @@ const url = `${import.meta.env.VITE_URL_API_WEBCAU_DB}/cmdb/emails`
 export const getAreas = async() =>
   await axios.get(`${url}/areas`)
 
+export const addArea = async(data) =>
+  await axios.post(`${url}/areas`, data)
+
+export const updateArea = async(data) =>
+  await axios.put(`${url}/areas`, data)
+
+export const deleteArea = async(id) =>
+  await axios.delete(`${url}/areas?id_area=${id}`)
+
 export const getRegisters = async() =>
   await axios.get(`${url}/registers/all`)
 
-  export const getRegistersByArea = async(id_area) =>
-  await axios.get(`${url}/registers?id_area=${ id_area }`)
+export const addRegister = async(data) =>
+  await axios.post(`${url}/registers`, data)
+
+export const updateRegister = async(data) =>
+  await axios.put(`${url}/registers`, data)
+
+export const deleteRegister = async(data) =>
+  await axios.delete(`${url}/registers`, {data})

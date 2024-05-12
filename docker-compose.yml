@@ -9,7 +9,7 @@ services:
       - webcau_network
   app:
     build: ./app
-    image: app_webcau:1
+    image: app_webcau:2
     container_name: app_frontend
     ports:
       - 5173:5173

@@ -46,6 +46,10 @@ export const GlobalStyle = createGlobalStyle`
   body {
     background-color: var(--c-bg);
   }
+  input,
+  button {
+    font-family: 'Roboto';
+  }
   button {
     user-select: none;
   }
