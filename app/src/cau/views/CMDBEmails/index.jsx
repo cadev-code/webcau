@@ -3,11 +3,12 @@ import {
   useState 
 } from 'react'
 
-import { 
-  DataCRUD, 
-  OptionsManager, 
-  TitleActionBar 
-} from '../../components/CMDBEmails'
+import { TitleActionBar } from '../../components/CMDBEmails'
+
+import {
+  DataCRUD,
+  OptionsManager,
+} from '../../components/TableData'
 
 import { emailsDataRequest } from './emailsDataRequest'
 import { 
