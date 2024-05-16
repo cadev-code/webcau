@@ -7,7 +7,8 @@ import {
   InputFilterColumn, 
   PaginationContainer, 
   SelectFilterColumn, 
-  TableContainer 
+  TableContainer,
+  Container,
 } from './styled'
 import { 
   ArrowDownward, 
@@ -96,14 +97,17 @@ export const Table = ({
   })
 
   return (
-    <TableContainer>
+    <Container>
       <div>
-        <table>
-          <thead>
+        <TableContainer>
+          <div className="tHead">
             {table.getHeaderGroups().map(headerGroup => (
-              <tr key={headerGroup.id}>
+              <div className="tR" 
+                key={headerGroup.id}
+              >
                 {headerGroup.headers.map(header => (
-                  <th key={header.id}
+                  <div className="tH"
+                    key={header.id}
                     style={{
                       width: header.getSize()
                     }}
@@ -122,20 +126,22 @@ export const Table = ({
                           ]
                         }
                     </div>
-                    {/* whether the columns can be filtered then add the input */}
                     {header.column.getCanFilter() ? 
                       <Filter column={header.column}/>
                       : null}
-                  </th>
+                  </div>
                 ))}
-              </tr>
+              </div>
             ))}
-          </thead>
-          <tbody>
+          </div>
+          <div className="tBody">
             {table.getRowModel().rows.map(row => (
-              <tr key={row.id}>
+              <div className="tR" 
+                key={row.id}
+              >
                 {row.getVisibleCells().map(cell => (
-                  <td key={cell.id}
+                  <div className="tD" 
+                    key={cell.id}
                     style={{
                       width: cell.column.getSize()
                     }}
@@ -144,12 +150,12 @@ export const Table = ({
                       cell.column.columnDef.cell,
                       cell.getContext()
                     )}
-                  </td>
+                  </div>
                 ))}
-              </tr>
+              </div>
             ))}
-          </tbody>
-        </table>
+          </div>
+        </TableContainer>
       </div>
       <PaginationContainer>
         <div>
@@ -198,7 +204,7 @@ export const Table = ({
           ))}
         </select>
       </PaginationContainer>
-    </TableContainer>
+    </Container>
   )
 }
 

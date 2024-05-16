@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 
-export const TableContainer = styled.div`
+export const Container = styled.div`
   position: relative;
   
   & > div:first-of-type {
@@ -9,21 +9,25 @@ export const TableContainer = styled.div`
     border-radius: 5px 5px 0 5px;
     overflow: hidden;
   }
-  
-  table {
-    border-collapse: collapse;
-  }
 
-  thead {
-    display: block;
+`
+
+export const TableContainer = styled.div`
+  max-width: 1320px;
+  display: grid;
+  overflow: auto;
+  border-collapse: collapse;
+
+  .tHead {
+    display: flex;
     background-color: #12202f;
     border-bottom: 1px solid var(--opacity-text);
-    
-    tr {
-      padding-top: 5px;
+
+    .tR {
+      display: flex;
     }
-    
-    th {
+
+    .tH {
       padding: 10px 20px;
       font-size: 14px;
       font-weight: 500;
@@ -35,7 +39,7 @@ export const TableContainer = styled.div`
       &:last-of-type {
         border-right: none;
       }
-      
+
       div {
         display: flex;
         align-items: center;
@@ -49,24 +53,31 @@ export const TableContainer = styled.div`
       }
     }
   }
-  
-  tbody {
-    display: block;
+
+  .tBody {
     height: calc(40px * 12 + 10px);
     overflow-y: scroll;
     padding-bottom: 10px;
 
-    tr {
+    .tR {
+      display: flex;
       font-size: 16px;
-      
+
       &:nth-child(even) {
         background-color: #092038;
       }
     }
-    
-    td {
-      padding: 0 20px;
+
+    .tD {
       height: 40px;
+      padding: 0 20px;
+      display: flex;
+      justify-content: start;
+      align-items: center;
+
+      &:first-of-type {
+        justify-content: center;
+      }
     }
   }
 `
