@@ -20,7 +20,7 @@ import {
   deleteRegister, 
   updateArea, 
   updateList, 
-  updateRegister 
+  updateRegister
 } from '../../api/cmdbEmails.api'
 
 export const CMDBEmails = ({userData}) => {

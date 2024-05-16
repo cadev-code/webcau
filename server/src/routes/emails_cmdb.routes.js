@@ -3,14 +3,13 @@ import { Router } from 'express'
 import { 
   addArea, 
   addList, 
-  addRegisterByArea, 
+  addRegister, 
   deleteArea, 
   deleteList, 
-  deleteRegisterByArea, 
+  deleteRegisterByArea,
   getAreas, 
   getLists, 
-  getRegisters, 
-  getRegistersByArea, 
+  getRegisters,
   updateArea,
   updateList,
   updateRegisterByArea
@@ -29,8 +28,7 @@ router.put('/cmdb/emails/lists', updateList)
 router.delete('/cmdb/emails/lists', deleteList)
 
 router.get('/cmdb/emails/registers/all', getRegisters)
-router.get('/cmdb/emails/registers', getRegistersByArea)
-router.post('/cmdb/emails/registers', addRegisterByArea)
+router.post('/cmdb/emails/registers', addRegister)
 router.put('/cmdb/emails/registers', updateRegisterByArea)
 router.delete('/cmdb/emails/registers', deleteRegisterByArea)
 
