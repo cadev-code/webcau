@@ -42,8 +42,8 @@ export const CMDBEmails = ({userData}) => {
   } = emailsDataRequest(setAreasData, setListsData, setRegistersData)
 
   useEffect(() => {
-    console.log(listsData)
-  }, [getListsData])
+    console.log(registersData)
+  }, [registersData])
  
   useEffect(() => {
     getAreasData()
@@ -59,6 +59,14 @@ export const CMDBEmails = ({userData}) => {
       : column
     ))
   }, [areasData])
+
+  useEffect(() => {
+    setDefaultColumns(prevColumns => prevColumns.map(column => 
+      (column.meta && column.accessorKey === 'list')
+      ? {...column, meta: {...column.meta, options: ['Todo', ...listsData.map(({list}) => list)]}}
+      : column
+    ))
+  }, [listsData])
 
   const [defaultColumns, setDefaultColumns] = useState([
     {
@@ -81,6 +89,16 @@ export const CMDBEmails = ({userData}) => {
       accessorKey: 'area',
       size: 300,
       filterFn: 'equalsString',
+      // add the following options when it is an select input
+      meta: {
+        filterVariant: 'select',
+        options: []
+      }
+    },
+    {
+      header: 'Lista de Distribución',
+      accessorKey: 'list',
+      size: 340,
       // add the following options when it is an select input
       meta: {
         filterVariant: 'select',
