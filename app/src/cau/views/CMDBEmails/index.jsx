@@ -35,6 +35,10 @@ export const CMDBEmails = ({userData}) => {
     getAreasData, 
     getRegistersData,
   } = emailsDataRequest(setAreasData, setRegistersData)
+
+  useEffect(() => {
+    console.log(registersData)
+  }, [registersData])
  
   useEffect(() => {
     getAreasData()
@@ -44,7 +48,7 @@ export const CMDBEmails = ({userData}) => {
   // select filter options come from a fetch
   useEffect(() => {
     setDefaultColumns(prevColumns => prevColumns.map(column => 
-      (column.meta && column.meta.filterVariant === 'select')
+      (column.meta && column.accessorKey === 'area')
       ? {...column, meta: {...column.meta, options: ['Todo', ...areasData.map(({area}) => area)]}}
       : column
     ))
@@ -75,6 +79,15 @@ export const CMDBEmails = ({userData}) => {
       meta: {
         filterVariant: 'select',
         options: []
+      }
+    },
+    {
+      header: 'Estatus',
+      accessorKey: 'status',
+      size: 130,
+      meta: {
+        filterVariant: 'select',
+        options: ['Todo', 'Activo', 'Baja']
       }
     }
   ])
