@@ -13,7 +13,7 @@ export const Container = styled.div`
 `
 
 export const TableContainer = styled.div`
-  max-width: 1320px;
+  max-width: 1350px;
   display: grid;
   overflow: auto;
   border-collapse: collapse;

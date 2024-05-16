@@ -66,13 +66,13 @@ const getIdArea = async(area) => {
 }
 
 export const addRegisterByArea = async({ body }, res) => {
-  const { name, email, password, area } = body
+  const { name, email, password, area, status } = body
   const id_area = await getIdArea(area)
 
-  const query = 'INSERT INTO registers_emails_cmdb (`name`, `email`, `password`, `id_area`) VALUES (?,?,?,?)'
+  const query = 'INSERT INTO registers_emails_cmdb (`name`, `email`, `password`, `id_area`, `status`) VALUES (?,?,?,?,?)'
   
   try {
-     await pool.query(query, [name, email, password, id_area])
+     await pool.query(query, [name, email, password, id_area, status])
      res.status(200).send('Information added correctly.')
    } catch (error) {
      res.status(400).send('There was an error trying to add the information.')
@@ -108,12 +108,12 @@ export const getRegistersByArea = async(req, res) => {
 
 export const updateRegisterByArea = async({ body }, res) => {
   
-  const { id_register, name, email, password, area } = body
+  const { id_register, name, email, password, area, status } = body
   const id_area = await getIdArea(area)
-  const query = 'UPDATE registers_emails_cmdb SET `name` = ?, `email` = ?, `password` = ?, `id_area` = ? WHERE id_register = ?'
+  const query = 'UPDATE registers_emails_cmdb SET `name` = ?, `email` = ?, `password` = ?, `id_area` = ?, status = ? WHERE id_register = ?'
 
   try {
-    await pool.query(query, [name, email, password, id_area, id_register])
+    await pool.query(query, [name, email, password, id_area, status, id_register])
     res.status(200).send('Information was updated correctly.')
   } catch (error) {
     res.status(400).send('There was an error trying to update the information.')

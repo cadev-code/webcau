@@ -84,7 +84,7 @@ export const CMDBEmails = ({userData}) => {
     {
       header: 'Estatus',
       accessorKey: 'status',
-      size: 130,
+      size: 160,
       meta: {
         filterVariant: 'select',
         options: ['Todo', 'Activo', 'Baja']
