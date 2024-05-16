@@ -13,10 +13,13 @@ import {
 import { emailsDataRequest } from './emailsDataRequest'
 import { 
   addArea,
+  addList,
   addRegister, 
   deleteArea, 
+  deleteList, 
   deleteRegister, 
   updateArea, 
+  updateList, 
   updateRegister 
 } from '../../api/cmdbEmails.api'
 
@@ -29,20 +32,23 @@ export const CMDBEmails = ({userData}) => {
   }, [userData])
 
   const [areasData, setAreasData] = useState([])
+  const [listsData, setListsData] = useState([])
   const [registersData, setRegistersData] = useState([])
 
   const { 
     getAreasData, 
-    getRegistersData,
-  } = emailsDataRequest(setAreasData, setRegistersData)
+    getListsData,
+    getRegistersData
+  } = emailsDataRequest(setAreasData, setListsData, setRegistersData)
 
   useEffect(() => {
-    console.log(registersData)
-  }, [registersData])
+    console.log(listsData)
+  }, [getListsData])
  
   useEffect(() => {
     getAreasData()
     getRegistersData()
+    getListsData()
   }, [])
 
   // select filter options come from a fetch
@@ -93,13 +99,16 @@ export const CMDBEmails = ({userData}) => {
   ])
 
   const [openAddAction, setOpenAddAction] = useState({action: () => {}})
-  const [showOptionManager, setShowOptionManager] = useState(false)
+
+  const [showAreasManager, setShowAreasManager] = useState(false)
+  const [showListsManager, setShowListsManager] = useState(false)
 
   return (
     <>
       <TitleActionBar 
         addButtonAction={ openAddAction.action }
-        areasButtonAction={() => setShowOptionManager(true)}
+        areasButtonAction={() => setShowAreasManager(true)}
+        listsButtonAction={() => setShowListsManager(true)}
         userIsAdmin={ userIsAdmin }
       />
       <DataCRUD
@@ -113,7 +122,7 @@ export const CMDBEmails = ({userData}) => {
         userIsAdmin={ userIsAdmin }
       />
       {
-        showOptionManager &&
+        showAreasManager &&
           <OptionsManager
             title="Áreas"
             options={ areasData.map(area => ({id: area.id_area, text: area.area })) }
@@ -124,7 +133,24 @@ export const CMDBEmails = ({userData}) => {
               getAreasData()
               getRegistersData()
             }}
-            close={() => setShowOptionManager(false)}
+            userIsAdmin={ userIsAdmin }
+            close={() => setShowAreasManager(false)}
+          />
+      }
+      {
+        showListsManager &&
+          <OptionsManager 
+            title="Listas de Distribución"
+            options={ listsData.map(list => ({id: list.id_list, text: list.list})) }
+            addOptionMethod={ addList }
+            updateOptionMethod={ updateList }
+            deleteOptionMethod={ deleteList }
+            refreshOptions={() => {
+              getListsData()
+              getRegistersData()
+            }}
+            userIsAdmin={ userIsAdmin }
+            close={() => setShowListsManager(false)}
           />
       }
     </>

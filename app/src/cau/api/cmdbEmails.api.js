@@ -14,6 +14,18 @@ export const updateArea = async(data) =>
 export const deleteArea = async(id) =>
   await axios.delete(`${url}/areas?id_area=${id}`)
 
+export const getLists = async() =>
+  await axios.get(`${url}/lists`)
+
+export const addList = async(data) =>
+  await axios.post(`${url}/lists`, data)
+
+export const updateList = async(data) =>
+  await axios.put(`${url}/lists`, data)
+
+export const deleteList = async(id) =>
+  await axios.delete(`${url}/lists?id_list=${id}`)
+
 export const getRegisters = async() =>
   await axios.get(`${url}/registers/all`)
 

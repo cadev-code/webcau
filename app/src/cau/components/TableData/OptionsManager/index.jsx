@@ -31,6 +31,7 @@ export const OptionsManager = ({
   updateOptionMethod,
   deleteOptionMethod,
   refreshOptions,
+  userIsAdmin,
   close
 }) => {
 
@@ -124,52 +125,57 @@ export const OptionsManager = ({
                                 />
                           }
                           {
-                            !option.deleteMode
-                              ? <ActionBtns>
-                                  {
-                                    !option.editMode
-                                      ? <div
-                                          onClick={() => showEditMode(option)}
+                            userIsAdmin &&
+                              <>                            
+                                {
+                                  !option.deleteMode
+                                    ? <ActionBtns>
+                                        {
+                                          !option.editMode
+                                            ? <div
+                                                onClick={() => showEditMode(option)}
+                                              >
+                                                <Edit />
+                                              </div>
+                                            : <>
+                                                <div
+                                                  onClick={submitData}
+                                                >
+                                                  <Save />
+                                                </div>
+                                                <div
+                                                  onClick={() => changeDeleteMode(option.id)}
+                                                >
+                                                  <Delete />
+                                                </div>
+                                                <div
+                                                  onClick={() => closeEditMode(option)}
+                                                >
+                                                  <Close />
+                                                </div>
+                                              </>
+                                        }
+                                      </ActionBtns>
+                                    : <DeleteConfirm>
+                                        <button
+                                          onClick={() => {
+                                            setShowDeleteConfirm(true)
+                                            setOptionToDelete(option)
+                                          }}
                                         >
-                                          <Edit />
+                                          Eliminar
+                                        </button>
+                                        <div
+                                          onClick={() => {
+                                            changeDeleteMode(option.id)
+                                            setOptionToDelete({})
+                                          }}
+                                        >
+                                          <Close />
                                         </div>
-                                      : <>
-                                          <div
-                                            onClick={submitData}
-                                          >
-                                            <Save />
-                                          </div>
-                                          <div
-                                            onClick={() => changeDeleteMode(option.id)}
-                                          >
-                                            <Delete />
-                                          </div>
-                                          <div
-                                            onClick={() => closeEditMode(option)}
-                                          >
-                                            <Close />
-                                          </div>
-                                        </>
-                                  }
-                                </ActionBtns>
-                              : <DeleteConfirm>
-                                  <button
-                                    onClick={() => {
-                                      setShowDeleteConfirm(true)
-                                      setOptionToDelete(option)
-                                    }}
-                                  >
-                                    Eliminar
-                                  </button>
-                                  <div
-                                    onClick={() => {
-                                      changeDeleteMode(option.id)
-                                      setOptionToDelete({})
-                                    }}
-                                  >
-                                    <Close />
-                                  </div>
-                                </DeleteConfirm>
+                                      </DeleteConfirm>
+                                }
+                              </>
                           }
                         </Option>
                     ))
@@ -185,7 +191,7 @@ export const OptionsManager = ({
                 </AddInput>
           }
           {
-            (data.filter(option => option.editMode).length === 0) &&
+            userIsAdmin && (data.filter(option => option.editMode).length === 0) &&
               <AddActions>
                 {
                   !addMode

@@ -75,7 +75,7 @@ export const addList = async({ body }, res) => {
 
 export const getLists = async(req, res) => {
 
-  const query = 'SELECT * FROM lists_emails_cmdb ORDER BY `lists` ASC'
+  const query = 'SELECT * FROM lists_emails_cmdb ORDER BY `list` ASC'
 
   try {
     const [result] = await pool.query(query)
