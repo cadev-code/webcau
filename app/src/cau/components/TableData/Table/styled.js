@@ -6,17 +6,19 @@ export const Container = styled.div`
   & > div:first-of-type {
     background-color: var(--container-background);
     border: 1px solid var(--opacity-text);
-    border-radius: 5px 5px 0 5px;
     overflow: hidden;
   }
-
 `
 
 export const TableContainer = styled.div`
-  max-width: 1350px;
+  width: 1350px;
   display: grid;
   overflow: auto;
   border-collapse: collapse;
+
+  @media (max-width: 1600px) {
+    width: 1200px;
+  }
 
   .tHead {
     display: flex;
@@ -35,7 +37,7 @@ export const TableContainer = styled.div`
       text-align: left;
       user-select: none;
       border-right: 1px solid var(--border-input-color);
-      
+
       &:last-of-type {
         border-right: none;
       }
@@ -59,6 +61,10 @@ export const TableContainer = styled.div`
     overflow-y: scroll;
     padding-bottom: 10px;
 
+    @media (max-height: 830px) {
+      height: calc(40px * 10 + 10px);
+    }
+
     .tR {
       display: flex;
       font-size: 16px;
@@ -74,6 +80,7 @@ export const TableContainer = styled.div`
       display: flex;
       justify-content: start;
       align-items: center;
+      overflow: hidden;
 
       &:first-of-type {
         justify-content: center;
@@ -85,14 +92,13 @@ export const TableContainer = styled.div`
 export const PaginationContainer = styled.div`
   position: absolute;
   right: 0;
-  bottom: -51px;
+  bottom: -52px;
   padding: 10px;
   display: flex;
   align-items: center;
   gap: 10px;
   background-color: var(--container-background);
   border: 1px solid var(--opacity-text);
-  border-radius: 0 0 5px 5px;
 
   div:first-of-type {
     display: flex;
@@ -127,6 +133,52 @@ export const PaginationContainer = styled.div`
 
     option {
       color: white;
+    }
+  }
+`
+
+export const HideColumns = styled.div`
+  position: absolute;
+  top: 0;
+  right: -45px;
+  padding: 10px;
+  display: flex;
+  flex-direction: row-reverse;
+  gap: 5px;
+  background-color: #12202f;
+  border: 1px solid var(--opacity-text);
+
+  .btns {
+    display: flex;
+    justify-content: end;
+
+    div {
+      display: grid;
+      cursor: pointer;
+    }
+  }
+
+  .columns {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  }
+
+  .column {
+    display: flex;
+    gap: 10px;
+    cursor: pointer;
+
+    p {
+      font-size: 14px;
+    }
+
+    div {
+      display: grid;
+
+      svg {
+        font-size: 18px;
+      }
     }
   }
 `

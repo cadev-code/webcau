@@ -1,8 +1,7 @@
 import styled from 'styled-components'
 
 export const Container = styled.div`
-  position: relative; 
-  min-width: 430px;
+  position: relative;
   padding-bottom: 20px;
   background-color: var(--container-background);
   border: 1px solid var(--opacity-text);
@@ -47,7 +46,7 @@ export const OptionsContainer = styled.div`
 `
 
 export const Option = styled.div`
-  width: 380px;
+  min-width: 380px;
   padding: 10px;
   display: flex;
   align-items: center;

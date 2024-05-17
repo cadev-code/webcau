@@ -9,11 +9,15 @@ import {
   SelectFilterColumn, 
   TableContainer,
   Container,
+  HideColumns,
 } from './styled'
 import { 
   ArrowDownward, 
   ArrowUpward, 
-  Description
+  Close, 
+  Description,
+  Visibility,
+  VisibilityOff
 } from '@mui/icons-material'
 
 import { 
@@ -56,25 +60,28 @@ export const Table = ({
 
   // open modal
   // in all casses, a first column is added with a button to open the modal
+
+  const descriptionColumn = {
+    id: 'open_modal',
+    header: '',
+    cell: ({row}) => (
+      <div
+        onClick={() => {showModalData(data[row.id])}}
+        style={{
+          display: 'grid',
+          placeItems: 'center',
+          cursor: 'pointer'
+        }}
+      >
+        <Description />
+      </div>
+    ),
+    size: 70
+  }
+
   useEffect(() => {
     setColumns([
-      {
-        id: 'open_modal',
-        header: '',
-        cell: ({row}) => (
-          <div
-            onClick={() => {showModalData(data[row.id])}}
-            style={{
-              display: 'grid',
-              placeItems: 'center',
-              cursor: 'pointer'
-            }}
-          >
-            <Description />
-          </div>
-        ),
-        size: 70
-      },
+      descriptionColumn,
       ...defaultColumns
     ])
   }, [defaultColumns, data])
@@ -96,6 +103,55 @@ export const Table = ({
     onColumnFiltersChange: setColumnFilters
   })
 
+  const [hideColumns, setHideColumns] = useState([])
+  const [showHideColumns, setShowHideColumns] = useState(false)
+
+  useEffect(() => {
+    setHideColumns(defaultColumns.map(({header, accessorKey}) => (
+      {
+        header,
+        accessorKey,
+        hide: false
+      }
+    )))
+  }, [defaultColumns])
+
+  const hideColumnsOnChange = (columnChange) => {
+    if(hideColumns.filter(column => column.hide === false).length === 3 && columnChange.hide === false) return
+
+    if(!columnChange.hide) {
+      setColumnFilters(columnFilters.filter(filter => filter.id !== columnChange.accessorKey))
+    }
+
+    setHideColumns(columns => columns.map(column => (
+      column.accessorKey === columnChange.accessorKey
+        ? {
+          ...column,
+          hide: !column.hide  
+        } : column
+    )))
+  }
+
+  const changeColumns = () => {
+    const columnsToHide = []
+
+    hideColumns.forEach(column => {
+      column.hide === true &&
+        columnsToHide.push(column.accessorKey)
+    })
+
+    const visibleColumns = defaultColumns.filter(column => !columnsToHide.includes(column.accessorKey))
+
+    setColumns([
+      descriptionColumn,
+      ...visibleColumns
+    ])
+  }
+
+  useEffect(() => {
+    changeColumns()
+  }, [hideColumns])
+  
   return (
     <Container>
       <div>
@@ -204,6 +260,46 @@ export const Table = ({
           ))}
         </select>
       </PaginationContainer>
+      <HideColumns>
+        <div>
+          <div className="btns">
+            <div
+              onClick={() => setShowHideColumns(show => !show)}
+            >
+              {
+                !showHideColumns
+                  ? <Visibility />
+                  : <Close />
+              }
+            </div>
+        </div>
+        </div>
+        {
+          showHideColumns &&
+            <div className="columns">
+              {
+                hideColumns.map((column, i) => (
+                  <div className="column"
+                    key={i}
+                    style={{
+                      color: column.hide ? '#89979d' : 'white'
+                    }}
+                    onClick={() => hideColumnsOnChange(column)}
+                  >
+                    <div>
+                      {
+                        !column.hide
+                          ? <Visibility />
+                          : <VisibilityOff /> 
+                      }
+                    </div>
+                    <p>{column.header}</p>
+                  </div>
+                ))
+              }
+            </div>
+        }
+      </HideColumns>
     </Container>
   )
 }

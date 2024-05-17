@@ -40,10 +40,6 @@ export const CMDBEmails = ({userData}) => {
     getListsData,
     getRegistersData
   } = emailsDataRequest(setAreasData, setListsData, setRegistersData)
-
-  useEffect(() => {
-    console.log(registersData)
-  }, [registersData])
  
   useEffect(() => {
     getAreasData()
