@@ -1,18 +1,16 @@
 import axios from 'axios'
 
-const url = `${import.meta.env.VITE_URL_API_WEBCAU_DB}/cmdb`
+const url = `${import.meta.env.VITE_URL_API_WEBCAU_DB}/cmdb/computers`
 
-export const addData = async(newData) =>
-  await axios.post(`${url}/data/add`, newData)
+export const getAreas = async() =>
+  await axios.get(`${url}/areas`)
 
-export const updateData = async(editData) =>
-  await axios.put(`${url}/data/update`, editData)
+export const addArea = async(data) =>
+  await axios.post(`${url}/areas`, data)
 
-export const deleteData = async(id) =>
-  await axios.delete(`${url}/data/delete/${id}`)
+export const updateArea = async(data) =>
+  await axios.put(`${url}/areas`, data)
 
-export const getDataGeneralFilter = async(search) =>
-  await axios.get(`${url}/data/general/${ search }`)
+export const deleteArea = async(id) =>
+  await axios.delete(`${url}/areas?id_area=${id}`)
 
-export const getDataSpecificFilter = async(filters) =>
-  await axios.get(`${url}/data/specific?${ Object.keys(filters).map(key => `${key}=${filters[key]}`).join('&')}`)

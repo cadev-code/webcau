@@ -6,7 +6,7 @@ import { PORT } from './src/config.js'
 import printersRouter from './src/routes/printers.routes.js'
 import catalogueRouter from './src/routes/catalogue.routes.js'
 import officeRouter from './src/routes/office.routes.js'
-import cmdbRouter from './src/routes/cmdb.routes.js'
+import computers_cmdbRouter from './src/routes/computers_cmdb.routes.js'
 import emails_cmdbRouter from './src/routes/emails_cmdb.routes.js'
 import mapsRouter from './src/routes/maps.routes.js'
 
@@ -20,7 +20,7 @@ app.use(express.static('public'))
 app.use(printersRouter)
 app.use(catalogueRouter)
 app.use(officeRouter)
-app.use(cmdbRouter)
+app.use(computers_cmdbRouter)
 app.use(emails_cmdbRouter)
 app.use(mapsRouter)
 
