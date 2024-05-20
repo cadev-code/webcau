@@ -3,7 +3,7 @@ import {
   useState 
 } from 'react'
 
-import { TitleActionBar } from '../../components/CMDBEmails'
+import { TitleActionBar } from '../../components'
 
 import {
   DataCRUD,
@@ -120,10 +120,31 @@ export const CMDBEmails = ({userData}) => {
   return (
     <>
       <TitleActionBar 
-        addButtonAction={ openAddAction.action }
-        areasButtonAction={() => setShowAreasManager(true)}
-        listsButtonAction={() => setShowListsManager(true)}
-        userIsAdmin={ userIsAdmin }
+        title="CMDB Correos"
+        buttons={
+          <>
+            <button 
+              onClick={() => setShowListsManager(true)}
+            >
+              Listas de Distribución
+            </button>
+            {
+              userIsAdmin &&
+                <>
+                  <button
+                    onClick={() => setShowAreasManager(true)}
+                  >
+                    Áreas
+                  </button>
+                  <button className="blue"
+                    onClick={openAddAction.action}
+                  >
+                    Agregar Correo
+                  </button>
+                </>
+            }
+          </>
+        }
       />
       <DataCRUD
         defaultColumns={ defaultColumns }
