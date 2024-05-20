@@ -14,6 +14,7 @@ export const Container = styled.div`
   }
 
   .empty-message {
+    padding: 0 20px;
     text-align: center;
     color: var(--opacity-text);
     user-select: none;
