@@ -3,7 +3,14 @@ import { useEffect, useState } from 'react'
 import { TitleActionBar } from '../../components/TitleActionBar'
 import { OptionsManager } from '../../components/TableData'
 
-import { addArea, deleteArea, updateArea } from '../../api/cmdbComputers.api'
+import { 
+  addArea, 
+  addLicense, 
+  deleteArea, 
+  deleteLicense, 
+  updateArea, 
+  updateLicense 
+} from '../../api/cmdbComputers.api'
 import { computersDataRequest } from './computersDataRequest'
 
 // import { dataToExcel } from '../../helpers/dataToExcel'
@@ -17,16 +24,23 @@ export const CMDBComputers = ({ userData }) => {
   }, [userData])
   
   const [areasData, setAreasData] = useState([])
+  const [licensesData, setLicensesData] = useState([])
 
   const {
-    getAreasData
-  } = computersDataRequest(setAreasData)
+    getAreasData,
+    getLicensesData
+  } = computersDataRequest(
+    setAreasData,
+    setLicensesData
+  )
 
   useEffect(() => {
     getAreasData()
+    getLicensesData()
   }, [])
 
   const [showAreasManager, setShowAreasManager] = useState(false)
+  const [showLicensesManager, setShowLicensesManager] = useState(false)
 
   return (
     <>
@@ -34,7 +48,9 @@ export const CMDBComputers = ({ userData }) => {
         title="CMDB Equipos"
         buttons={
           <>
-            <button>
+            <button
+              onClick={() => setShowLicensesManager(true)}
+            >
               Licencias Siphone
             </button>
             {
@@ -67,6 +83,22 @@ export const CMDBComputers = ({ userData }) => {
             }}
             userIsAdmin={ userIsAdmin }
             close={() => setShowAreasManager(false)}
+          />
+      }
+      {
+        showLicensesManager &&
+          <OptionsManager 
+            title="Licencias Siphone"
+            options={ licensesData.map(license => ({id: license.id_license, text: license.license})) }
+            addOptionMethod={ addLicense }
+            updateOptionMethod={ updateLicense }
+            deleteOptionMethod={ deleteLicense }
+            refreshOptions={() => {
+              getLicensesData()
+              // añadir actualización de registros
+            }}
+            userIsAdmin={ userIsAdmin }
+            close={() => setShowLicensesManager(false)}
           />
       }
     </>

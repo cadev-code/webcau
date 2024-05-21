@@ -14,3 +14,17 @@ export const updateArea = async(data) =>
 export const deleteArea = async(id) =>
   await axios.delete(`${url}/areas?id_area=${id}`)
 
+
+
+export const getLicenses = async() =>
+  await axios.get(`${url}/licenses`)
+
+export const addLicense = async(data) =>
+  await axios.post(`${url}/licenses`, data)
+
+export const updateLicense = async(data) =>
+  await axios.put(`${url}/licenses`, data)
+
+export const deleteLicense = async(id) =>
+  await axios.delete(`${url}/licenses?id_license=${id}`)
+

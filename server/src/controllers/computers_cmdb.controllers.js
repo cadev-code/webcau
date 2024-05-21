@@ -94,11 +94,11 @@ export const updateLicense = async({ body }, res) => {
 
 export const deleteLicense = async(req, res) => {
 
-  const { id_area } = req.query
+  const { id_license } = req.query
   const query = 'DELETE FROM licenses_computers_cmdb WHERE `id_license` = ?'
   
   try {
-    await pool.query(query, [id_area])
+    await pool.query(query, [id_license])
     res.status(200).send('Information successfully deleted.')
   } catch (error) {
     res.status(200).send('There was an error trying to delete the information.')
