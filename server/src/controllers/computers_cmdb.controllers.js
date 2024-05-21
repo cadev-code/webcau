@@ -106,7 +106,64 @@ export const deleteLicense = async(req, res) => {
 
 }
 
+// models
+
+export const getModels = async(req, res) => {
+  const query = 'SELECT * FROM models_computers_cmdb ORDER BY `model` ASC'
+
+  try {
+    const [result] = await pool.query(query)
+    res.status(200).json(result)
+  } catch (error) {
+    res.status(400).send('Error when trying to obtain the information.')
+  }
+}
+
+export const addModel = async({ body }, res) => {
+  const { text } = body
+  const query = 'INSERT INTO models_computers_cmdb (`model`) VALUES (?)'
+
+  try {
+    await pool.query(query, [text])
+    res.status(200).send('Information uploaded correctly.')
+  } catch (error) {
+    res.status(400).send('There was an error trying to load the information.')
+  }
+}
+
+export const updateModel = async({ body }, res) => {
+  
+  const { id, text } = body
+  const query = 'UPDATE models_computers_cmdb SET `model` = ? WHERE `id_model` = ?'
+
+  try {
+    await pool.query(query, [text, id])
+    res.status(200).send('Information was updated correctly.')
+  } catch (error) {
+    res.status(400).send('There was an error trying to update the information.')
+  }
+
+}
+
+export const deleteModel = async(req, res) => {
+
+  const { id_model } = req.query
+  const query = 'DELETE FROM models_computers_cmdb WHERE `id_model` = ?'
+  
+  try {
+    await pool.query(query, [id_model])
+    res.status(200).send('Information successfully deleted.')
+  } catch (error) {
+    res.status(200).send('There was an error trying to delete the information.')
+  }
+
+}
+
 // registers
+
+export const getRegister = async(req, res) => {
+  const query = ''
+}
 
 export const addRegister = async({ body }, res) => {
   const query = 'INSERT INTO cmdb (idMapa, netBIOS, IP, mac, ext, hash, nodo, licSiph, vlan, staff, model, serviceTag, area, kc_monitor, kc_cpu) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)'

@@ -2,6 +2,8 @@ import axios from 'axios'
 
 const url = `${import.meta.env.VITE_URL_API_WEBCAU_DB}/cmdb/computers`
 
+// areas
+
 export const getAreas = async() =>
   await axios.get(`${url}/areas`)
 
@@ -14,7 +16,7 @@ export const updateArea = async(data) =>
 export const deleteArea = async(id) =>
   await axios.delete(`${url}/areas?id_area=${id}`)
 
-
+// licenses
 
 export const getLicenses = async() =>
   await axios.get(`${url}/licenses`)
@@ -27,4 +29,18 @@ export const updateLicense = async(data) =>
 
 export const deleteLicense = async(id) =>
   await axios.delete(`${url}/licenses?id_license=${id}`)
+
+// models
+
+export const getModels = async() =>
+  await axios.get(`${url}/models`)
+
+export const addModel = async(data) =>
+  await axios.post(`${url}/models`, data)
+
+export const updateModel = async(data) =>
+  await axios.put(`${url}/models`, data)
+
+export const deleteModel = async(id) =>
+  await axios.delete(`${url}/models?id_model=${id}`)
 
