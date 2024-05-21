@@ -13,11 +13,6 @@ export const getAreas = async(req, res) => {
   }
 }
 
-export const getRegisters = async(req, res) => {
-  const [result] = await pool.query('SELECT * FROM cmdb')
-  res.json(result)
-}
-
 export const addArea = async({ body }, res) => {
   const { text } = body
   const query = 'INSERT INTO areas_computers_cmdb (`area`) VALUES (?)'
@@ -33,7 +28,7 @@ export const addArea = async({ body }, res) => {
 export const updateArea = async({ body }, res) => {
   
   const { id, text } = body
-  const query = 'UPDATE areas_computers_cmdb SET `area` = ? WHERE id_area = ?'
+  const query = 'UPDATE areas_computers_cmdb SET `area` = ? WHERE `id_area` = ?'
 
   try {
     await pool.query(query, [text, id])
@@ -47,7 +42,60 @@ export const updateArea = async({ body }, res) => {
 export const deleteArea = async(req, res) => {
 
   const { id_area } = req.query
-  const query = 'DELETE FROM areas_computers_cmdb WHERE id_area = ?'
+  const query = 'DELETE FROM areas_computers_cmdb WHERE `id_area` = ?'
+  
+  try {
+    await pool.query(query, [id_area])
+    res.status(200).send('Information successfully deleted.')
+  } catch (error) {
+    res.status(200).send('There was an error trying to delete the information.')
+  }
+
+}
+
+// licenses
+
+export const getLicenses = async(req, res) => {
+  const query = 'SELECT * FROM licenses_computers_cmdb ORDER BY `license` ASC'
+
+  try {
+    const [result] = await pool.query(query)
+    res.status(200).json(result)
+  } catch (error) {
+    res.status(400).send('Error when trying to obtain the information.')
+  }
+}
+
+export const addLicense = async({ body }, res) => {
+  const { text } = body
+  const query = 'INSERT INTO licenses_computers_cmdb (`license`) VALUES (?)'
+
+  try {
+    await pool.query(query, [text])
+    res.status(200).send('Information uploaded correctly.')
+  } catch (error) {
+    res.status(400).send('There was an error trying to load the information.')
+  }
+}
+
+export const updateLicense = async({ body }, res) => {
+  
+  const { id, text } = body
+  const query = 'UPDATE licenses_computers_cmdb SET `license` = ? WHERE `id_license` = ?'
+
+  try {
+    await pool.query(query, [text, id])
+    res.status(200).send('Information was updated correctly.')
+  } catch (error) {
+    res.status(400).send('There was an error trying to update the information.')
+  }
+
+}
+
+export const deleteLicense = async(req, res) => {
+
+  const { id_area } = req.query
+  const query = 'DELETE FROM licenses_computers_cmdb WHERE `id_license` = ?'
   
   try {
     await pool.query(query, [id_area])
