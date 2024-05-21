@@ -6,10 +6,13 @@ import { OptionsManager } from '../../components/TableData'
 import { 
   addArea, 
   addLicense, 
+  addModel, 
   deleteArea, 
   deleteLicense, 
+  deleteModel, 
   updateArea, 
-  updateLicense 
+  updateLicense, 
+  updateModel
 } from '../../api/cmdbComputers.api'
 import { computersDataRequest } from './computersDataRequest'
 
@@ -25,22 +28,27 @@ export const CMDBComputers = ({ userData }) => {
   
   const [areasData, setAreasData] = useState([])
   const [licensesData, setLicensesData] = useState([])
+  const [modelsData, setModelsData] = useState([])
 
   const {
     getAreasData,
-    getLicensesData
+    getLicensesData,
+    getModelsData
   } = computersDataRequest(
     setAreasData,
-    setLicensesData
+    setLicensesData,
+    setModelsData
   )
 
   useEffect(() => {
     getAreasData()
     getLicensesData()
+    getModelsData()
   }, [])
 
   const [showAreasManager, setShowAreasManager] = useState(false)
   const [showLicensesManager, setShowLicensesManager] = useState(false)
+  const [showModelsManager, setShowModelsManager] = useState(false)
 
   return (
     <>
@@ -52,6 +60,11 @@ export const CMDBComputers = ({ userData }) => {
               onClick={() => setShowLicensesManager(true)}
             >
               Licencias Siphone
+            </button>
+            <button
+              onClick={() => setShowModelsManager(true)}
+            >
+              Modelos de Equipo
             </button>
             {
               userIsAdmin &&
@@ -99,6 +112,22 @@ export const CMDBComputers = ({ userData }) => {
             }}
             userIsAdmin={ userIsAdmin }
             close={() => setShowLicensesManager(false)}
+          />
+      }
+      {
+        showModelsManager &&
+          <OptionsManager 
+            title="Modelos de Equipo"
+            options={ modelsData.map(model => ({id: model.id_model, text: model.model})) }
+            addOptionMethod={ addModel }
+            updateOptionMethod={ updateModel }
+            deleteOptionMethod={ deleteModel }
+            refreshOptions={() => {
+              getModelsData()
+              // añadir actualización de registros
+            }}
+            userIsAdmin={ userIsAdmin }
+            close={() => setShowModelsManager(false)}
           />
       }
     </>

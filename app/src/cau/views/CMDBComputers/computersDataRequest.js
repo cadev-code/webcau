@@ -1,11 +1,13 @@
 import { 
   getAreas, 
-  getLicenses 
+  getLicenses, 
+  getModels
 } from '../../api/cmdbComputers.api'
 
 export const computersDataRequest = (
   setAreasData,
-  setLicensesData
+  setLicensesData,
+  setModelsData
 ) => {
 
   const getAreasData = async() => {
@@ -18,8 +20,14 @@ export const computersDataRequest = (
     setLicensesData(data)
   }
 
+  const getModelsData = async() => {
+    const { data } = await getModels()
+    setModelsData(data)
+  }
+
   return {
     getAreasData,
-    getLicensesData
+    getLicensesData,
+    getModelsData
   }
 }
