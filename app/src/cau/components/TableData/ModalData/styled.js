@@ -2,16 +2,19 @@ import styled from 'styled-components'
 
 export const Modal = styled.div`
   position: relative;
-  padding: 20px;
+  padding: 20px 0;
   background-color: var(--container-background);
   border: 1px solid var(--opacity-text);
   border-radius: 5px 0 5px 5px;
 `
 
 export const BoxContainer = styled.div`
+  max-height: 480px;
+  padding: 0 20px;
   display: flex;
   flex-direction: column;
   gap: 10px;
+  overflow: auto;
 `
 
 export const TextBox = styled.div`

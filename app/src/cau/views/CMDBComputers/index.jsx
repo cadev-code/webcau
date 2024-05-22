@@ -1,20 +1,24 @@
 import { useEffect, useState } from 'react'
 
 import { TitleActionBar } from '../../components/TitleActionBar'
-import { OptionsManager } from '../../components/TableData'
+import { DataCRUD, OptionsManager } from '../../components/TableData'
 
 import { 
   addArea, 
   addLicense, 
   addModel, 
+  addRegister, 
   deleteArea, 
   deleteLicense, 
   deleteModel, 
+  deleteRegister, 
   updateArea, 
   updateLicense, 
-  updateModel
+  updateModel,
+  updateRegister
 } from '../../api/cmdbComputers.api'
 import { computersDataRequest } from './computersDataRequest'
+import { columnsData } from './columnsData'
 
 // import { dataToExcel } from '../../helpers/dataToExcel'
 
@@ -29,22 +33,54 @@ export const CMDBComputers = ({ userData }) => {
   const [areasData, setAreasData] = useState([])
   const [licensesData, setLicensesData] = useState([])
   const [modelsData, setModelsData] = useState([])
+  const [registersData, setRegistersData] = useState([])
 
   const {
     getAreasData,
     getLicensesData,
-    getModelsData
+    getModelsData,
+    getRegistersData
   } = computersDataRequest(
     setAreasData,
     setLicensesData,
-    setModelsData
+    setModelsData,
+    setRegistersData
   )
 
   useEffect(() => {
     getAreasData()
     getLicensesData()
     getModelsData()
+    getRegistersData()
   }, [])
+
+  const [defaultColumns, setDefaultColumns] = useState(columnsData)
+  const [openAddAction, setOpenAddAction] = useState({action: () => {}})
+
+  useEffect(() => {
+    setDefaultColumns(prevColumns => prevColumns.map(column =>
+      (column.meta && column.accessorKey === 'area')
+        ? {...column, meta: {...column.meta, options: ['Todo', ...areasData.map(({area}) => area)]}}
+        : column
+    ))
+  }, [areasData])
+
+  useEffect(() => {
+    setDefaultColumns(prevColumns => prevColumns.map(column =>
+      (column.meta && column.accessorKey === 'license')
+        ? {...column, meta: {...column.meta, options: ['Todo', ...licensesData.map(({license}) => license)]}}
+        : column
+    ))
+  }, [licensesData])
+
+  useEffect(() => {
+    setDefaultColumns(prevColumns => prevColumns.map(column =>
+      (column.meta && column.accessorKey === 'model')
+        ? {...column, meta: {...column.meta, options: ['Todo', ...modelsData.map(({model}) => model)]}}
+        : column
+    ))
+  }, [modelsData])
+  
 
   const [showAreasManager, setShowAreasManager] = useState(false)
   const [showLicensesManager, setShowLicensesManager] = useState(false)
@@ -74,13 +110,25 @@ export const CMDBComputers = ({ userData }) => {
                   >
                     Áreas
                   </button>
-                  <button className="blue">
+                  <button className="blue"
+                    onClick={openAddAction.action}
+                  >
                     Agregar Equipo
                   </button> 
                 </>
             }
           </>
         }
+      />
+      <DataCRUD 
+        defaultColumns={ defaultColumns }
+        tableData={ registersData }
+        setOpenAddAction={ setOpenAddAction }
+        addRowMethod={ addRegister }
+        updateRowMethod={ updateRegister }
+        deleteRowMethod={ deleteRegister }
+        refreshData={ getRegistersData }
+        userIsAdmin={ userIsAdmin }
       />
       {
         showAreasManager &&

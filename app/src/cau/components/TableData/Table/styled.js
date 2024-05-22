@@ -75,8 +75,8 @@ export const TableContainer = styled.div`
     }
 
     .tD {
-      height: 40px;
-      padding: 0 20px;
+      min-height: 40px;
+      padding: 5px 20px;
       display: flex;
       justify-content: start;
       align-items: center;
