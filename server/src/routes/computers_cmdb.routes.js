@@ -3,15 +3,19 @@ import {
   addArea,
   addLicense,
   addModel,
+  addRegister,
   deleteArea,
   deleteLicense,
   deleteModel,
+  deleteRegister,
   getAreas,
   getLicenses,
   getModels,
+  getRegisters,
   updateArea,
   updateLicense,
   updateModel,
+  updateRegister,
 } from '../controllers/computers_cmdb.controllers.js'
 
 const router = Router()
@@ -31,5 +35,9 @@ router.post('/cmdb/computers/models', addModel)
 router.put('/cmdb/computers/models', updateModel)
 router.delete('/cmdb/computers/models', deleteModel)
 
+router.get('/cmdb/computers/registers', getRegisters)
+router.post('/cmdb/computers/registers', addRegister)
+router.put('/cmdb/computers/registers', updateRegister)
+router.delete('/cmdb/computers/registers', deleteRegister)
 
 export default router

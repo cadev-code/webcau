@@ -2,6 +2,8 @@ import axios from 'axios'
 
 const url = `${import.meta.env.VITE_URL_API_WEBCAU_DB}/cmdb/emails`
 
+// areas
+
 export const getAreas = async() =>
   await axios.get(`${url}/areas`)
 
@@ -14,6 +16,8 @@ export const updateArea = async(data) =>
 export const deleteArea = async(id) =>
   await axios.delete(`${url}/areas?id_area=${id}`)
 
+// lists
+
 export const getLists = async() =>
   await axios.get(`${url}/lists`)
 
@@ -25,6 +29,8 @@ export const updateList = async(data) =>
 
 export const deleteList = async(id) =>
   await axios.delete(`${url}/lists?id_list=${id}`)
+
+// registers
 
 export const getRegisters = async() =>
   await axios.get(`${url}/registers/all`)

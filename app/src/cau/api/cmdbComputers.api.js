@@ -44,3 +44,16 @@ export const updateModel = async(data) =>
 export const deleteModel = async(id) =>
   await axios.delete(`${url}/models?id_model=${id}`)
 
+// registers
+
+export const getRegisters = async() =>
+  await axios.get(`${url}/registers`)
+
+export const addRegister = async(data) =>
+  await axios.post(`${url}/registers`, data)
+
+export const updateRegister = async(data) =>
+  await axios.put(`${url}/registers`, data)
+
+export const deleteRegister = async(data) =>
+  await axios.delete(`${url}/registers`, {data})
