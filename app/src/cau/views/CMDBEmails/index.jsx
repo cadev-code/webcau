@@ -109,6 +109,7 @@ export const CMDBEmails = ({userData}) => {
         updateRowMethod= { updateRegister }
         deleteRowMethod={ deleteRegister }
         refreshData={ getRegistersData }
+        filenameToExport="cmdbCorreos"
         userIsAdmin={ userIsAdmin }
       />
       {

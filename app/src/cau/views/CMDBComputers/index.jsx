@@ -128,6 +128,7 @@ export const CMDBComputers = ({ userData }) => {
         updateRowMethod={ updateRegister }
         deleteRowMethod={ deleteRegister }
         refreshData={ getRegistersData }
+        filenameToExport="cmdbEquipos"
         userIsAdmin={ userIsAdmin }
       />
       {

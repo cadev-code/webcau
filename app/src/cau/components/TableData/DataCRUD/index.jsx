@@ -21,6 +21,7 @@ export const DataCRUD = ({
   updateRowMethod,
   deleteRowMethod,
   refreshData,
+  filenameToExport,
   userIsAdmin
  }) => {
 
@@ -83,7 +84,8 @@ export const DataCRUD = ({
           tableData={ tableData }
           defaultColumns={ defaultColumns }
           showModalData={ showModalData }
-          />
+          filenameToExport={ filenameToExport }
+        />
         {
           openModal &&
           <ModalData

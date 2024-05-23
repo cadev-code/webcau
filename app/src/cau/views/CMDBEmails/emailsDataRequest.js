@@ -12,7 +12,6 @@ export const emailsDataRequest = (
 ) => {
   const getAreasData = async() => {
     const { data } = await getAreas()
-    console.log(data)
     setAreasData(data)
   }
 

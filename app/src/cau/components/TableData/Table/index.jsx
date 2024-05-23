@@ -16,6 +16,8 @@ import {
   ArrowUpward, 
   Close, 
   Description,
+  Download,
+  SimCardDownload,
   Visibility,
   VisibilityOff
 } from '@mui/icons-material'
@@ -28,11 +30,13 @@ import {
   getSortedRowModel, 
   useReactTable 
 } from '@tanstack/react-table'
+import { dataToExcel } from '../../../helpers/dataToExcel'
 
 export const Table = ({ 
   tableData=[],
   defaultColumns,
-  showModalData
+  showModalData,
+  filenameToExport
 }) => {
 
   const [data, setData] = useState([])
@@ -102,6 +106,7 @@ export const Table = ({
     onPaginationChange: setPagination,
     onColumnFiltersChange: setColumnFilters
   })
+  
 
   const [hideColumns, setHideColumns] = useState([])
   const [showHideColumns, setShowHideColumns] = useState(false)
@@ -151,6 +156,11 @@ export const Table = ({
   useEffect(() => {
     changeColumns()
   }, [hideColumns])
+
+  const { exportToExcel } = dataToExcel(
+    filenameToExport,
+    table.getFilteredRowModel().rows.map(row => row.original) 
+  )
   
   return (
     <Container>
@@ -259,6 +269,11 @@ export const Table = ({
             </option>
           ))}
         </select>
+        <button className="downloadBtn"
+          onClick={ exportToExcel }
+        >
+          <Download />
+        </button>
       </PaginationContainer>
       <HideColumns>
         <div>
