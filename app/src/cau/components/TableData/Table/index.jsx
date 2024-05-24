@@ -1,5 +1,6 @@
 import { 
   useEffect, 
+  useRef, 
   useState 
 } from 'react'
 
@@ -161,11 +162,25 @@ export const Table = ({
     filenameToExport,
     table.getFilteredRowModel().rows.map(row => row.original) 
   )
+
+  const divVerticalScroll = useRef(null)
+  const divHorizontalScroll = useRef(null)
+
+  const resetTableScroll = () => {
+    if (divVerticalScroll.current) {
+      divVerticalScroll.current.scrollTop = 0
+    }
+    if (divHorizontalScroll.current) {
+      divHorizontalScroll.current.scrollLeft = 0
+    }
+  }
   
   return (
     <Container>
       <div>
-        <TableContainer>
+        <TableContainer
+          ref={ divHorizontalScroll }
+        >
           <div className="tHead">
             {table.getHeaderGroups().map(headerGroup => (
               <div className="tR" 
@@ -200,7 +215,9 @@ export const Table = ({
               </div>
             ))}
           </div>
-          <div className="tBody">
+          <div className="tBody"
+            ref={ divVerticalScroll }
+          >
             {table.getRowModel().rows.map(row => (
               <div className="tR" 
                 key={row.id}
@@ -226,25 +243,37 @@ export const Table = ({
       <PaginationContainer>
         <div>
           <button
-            onClick={() => table.firstPage()}
+            onClick={() => {
+              table.firstPage()
+              resetTableScroll()
+            }}
             disabled={!table.getCanPreviousPage()}
           >
             {'<<'}
           </button>
           <button
-            onClick={() => table.previousPage()}
+            onClick={() => {
+              table.previousPage()
+              resetTableScroll()
+            }}
             disabled={!table.getCanPreviousPage()}
           >
             {'<'}
           </button>
           <button
-            onClick={() => table.nextPage()}
+            onClick={() => {
+              table.nextPage()
+              resetTableScroll()
+            }}
             disabled={!table.getCanNextPage()}
           >
             {'>'}
           </button>
           <button
-            onClick={() => table.lastPage()}
+            onClick={() => {
+              table.lastPage()
+              resetTableScroll()
+            }}
             disabled={!table.getCanNextPage()}
           >
             {'>>'}
