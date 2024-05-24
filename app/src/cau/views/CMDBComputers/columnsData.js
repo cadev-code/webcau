@@ -2,27 +2,31 @@ export const columnsData = [
   {
     header: 'ID Mapa',
     accessorKey: 'idMapa',
-    size: 160
+    size: 160,
   },
   {
     header: 'Net-BIOS',
     accessorKey: 'netBIOS',
-    size: 240
+    size: 240,
+    required: true
   },
   {
     header: 'Dirección IP',
     accessorKey: 'IP',
-    size: 200
+    size: 200,
+    required: true
   },
   {
     header: 'Dirección Física',
     accessorKey: 'mac',
-    size: 240
+    size: 240,
+    required: true
   },
   {
     header: 'Área',
     accessorKey: 'area',
     size: 220,
+    required: true,
     filterFn: 'equalsString',
     // add the following options when it is an select input
     meta: {
@@ -43,11 +47,13 @@ export const columnsData = [
   {
     header: 'Nodo',
     accessorKey: 'nodo',
+    required: true,
     size: 180
   },
   {
     header: 'VLAN',
     accessorKey: 'vlan',
+    required: true,
     size: 140
   },
   {
@@ -65,6 +71,7 @@ export const columnsData = [
     header: 'Modelo de Equipo',
     accessorKey: 'model',
     size: 240,
+    required: true,
     filterFn: 'equalsString',
     // add the following options when it is an select input
     meta: {
@@ -75,7 +82,8 @@ export const columnsData = [
   {
     header: 'Etiqueta de Servicio',
     accessorKey: 'serviceTag',
-    size: 200
+    size: 200,
+    required: true
   },
   {
     header: 'KC Monitor',

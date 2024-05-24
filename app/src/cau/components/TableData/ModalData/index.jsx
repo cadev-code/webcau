@@ -64,9 +64,9 @@ export const ModalData = ({
       <Modal>
         <BoxContainer>
           {
-            boxes.map(({header, accessorKey, meta}) => (
+            boxes.map(({header, accessorKey, meta, required}) => (
               <TextBox key={ accessorKey }>
-                <span>{ header }</span>
+                <span>{ required && (editMode || addMode) ? `${header} *` : header }</span>
                 {!editMode && !addMode
                     ? <p>{ data[accessorKey] }</p>
                     : (meta && meta.filterVariant === 'select')

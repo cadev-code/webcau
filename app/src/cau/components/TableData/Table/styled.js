@@ -82,6 +82,7 @@ export const TableContainer = styled.div`
       display: flex;
       justify-content: end;
       align-items: center;
+      text-align: end;
       overflow: hidden;
 
       &:first-of-type {

@@ -2,22 +2,26 @@ export const columnsData = [
   {
     header: 'Nombre',
     accessorKey: 'name',
-    size: 340
+    size: 340,
+    required: true
   },
   {
     header: 'Correo',
     accessorKey: 'email',
-    size: 340
+    size: 340,
+    required: true
   },
   {
     header: 'Contraseña',
     accessorKey: 'password',
-    size: 240
+    size: 240,
+    required: true
   },
   {
     header: 'Área',
     accessorKey: 'area',
     size: 300,
+    required: true,
     filterFn: 'equalsString',
     // add the following options when it is an select input
     meta: {
@@ -39,6 +43,7 @@ export const columnsData = [
     header: 'Estatus',
     accessorKey: 'status',
     size: 160,
+    required: true,
     meta: {
       filterVariant: 'select',
       options: ['Todo', 'Activo', 'Baja']
