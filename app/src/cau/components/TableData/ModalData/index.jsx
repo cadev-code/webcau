@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 
 import { 
   ActionBtns,
@@ -59,10 +59,21 @@ export const ModalData = ({
     closeEditMode()
   }
 
+  const boxContainer = useRef(null)
+  const [boxContainerHeight, setBoxContainerHeight] = useState(480)
+
+  useEffect(() => {
+    setBoxContainerHeight(boxContainer.current.offsetHeight)
+  }, [boxes])
+  
+
   return (
     <BackgroundOpacity>
       <Modal>
-        <BoxContainer>
+        <BoxContainer
+          ref={ boxContainer }
+          boxContainerHeight={ boxContainerHeight }
+        >
           {
             boxes.map(({header, accessorKey, meta, required}) => (
               <TextBox key={ accessorKey }>

@@ -9,10 +9,11 @@ export const Modal = styled.div`
 `
 
 export const BoxContainer = styled.div`
-  max-height: 480px;
+  max-height: 450px;
   padding: 0 20px;
   display: flex;
   flex-direction: column;
+  flex-wrap: wrap;
   gap: 10px;
   overflow: auto;
 `
