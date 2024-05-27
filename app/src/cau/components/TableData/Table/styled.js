@@ -60,7 +60,6 @@ export const TableContainer = styled.div`
     height: calc(40px * 12 + 10px);
     overflow-y: scroll;
     padding-bottom: 10px;
-    direction: rtl;
 
     @media (max-height: 830px) {
       height: calc(40px * 10 + 10px);
@@ -68,7 +67,6 @@ export const TableContainer = styled.div`
 
     .tR {
       display: flex;
-      flex-direction: row-reverse;
       font-size: 16px;
 
       &:nth-child(even) {
@@ -80,9 +78,7 @@ export const TableContainer = styled.div`
       min-height: 40px;
       padding: 5px 20px;
       display: flex;
-      justify-content: end;
       align-items: center;
-      text-align: end;
       overflow: hidden;
 
       &:first-of-type {
