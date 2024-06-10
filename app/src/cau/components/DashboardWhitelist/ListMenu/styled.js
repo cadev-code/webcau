@@ -1,0 +1,107 @@
+import styled from 'styled-components'
+
+const border = '1px solid var(--border-input-color)'
+const transition = 'transition: all .1s;'
+
+export const ListContainer = styled.div`
+  width: 350px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background-color: var(--bg-container-600);
+  border-right: ${border};
+  border-radius: 5px 0 0 5px;
+
+  @media (max-width: 1600px) {
+    width: 312px;
+  }
+`
+
+export const ListTitle = styled.div`
+  width: 100%;
+  padding: 12px;
+  display: flex;
+  align-items: center;
+  background-color: var(--bg-container-700);
+  border-bottom: ${border};
+  border-radius: 5px 0 0;
+  cursor: pointer;
+  ${transition}
+
+  p {
+    font-size: 20px;
+    font-weight: 600;
+    user-select: none;
+
+    @media (max-width: 1600px) {
+      font-size: 16px;
+    }
+  }
+
+  div {
+    display: grid;
+    color: var(--border-color);
+
+    svg {
+      font-size: 28px;
+    }
+  }
+`
+
+export const ListItems = styled.nav`
+  ul {
+    display: flex;
+    flex-direction: column;
+
+    li {
+      list-style: none;
+    }
+  }
+
+  button {
+    width: 100%;
+    padding: 8px 16px;
+    text-align: start;
+    font-size: 16px;
+    font-weight: 500;
+    color: var(--opacity-text);
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    ${transition}
+
+    &:hover {
+      color: white;
+      background-color: var(--bg-container-400);
+    }
+
+    @media (max-width: 1600px) {
+      font-size: 14px;
+    }
+  }
+`
+
+export const ListFooter = styled.div`
+  padding: 12px 8px;
+  background-color: var(--bg-container-700);
+  border-top: ${border};
+  border-radius: 0 0 0 5px;
+
+  button {
+    width: 100%;
+    padding: 8px;
+    font-size: 14px;
+    font-weight: 500;
+    color: white;
+    background-color: var(--button-background);
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    ${transition}
+
+    &:hover {
+      opacity: 0.8;
+    }
+  }
+`
