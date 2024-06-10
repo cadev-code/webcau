@@ -1,6 +1,11 @@
+import { Container, Dashboard } from './styled'
 
 export const CMDBWhitelists = ({ userData }) => {
   return (
-    <div>index</div>
+    <Container>
+      <Dashboard>
+        
+      </Dashboard>
+    </Container>
   )
 }
