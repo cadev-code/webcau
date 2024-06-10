@@ -37,6 +37,18 @@ export const GlobalStyle = createGlobalStyle`
     --border-nav-color: #132F4C;
     --border-input-color: #414F5D;
     --opacity-text: #AAB7BD;
+
+    // BgContainer Color Palette
+    --bg-container-50: #6AA8E8;
+    --bg-container-100: #398BE1;
+    --bg-container-200: #1E6EC3;
+    --bg-container-300: #165291;
+    --bg-container-400: #0F3660;
+    --bg-container-500: #071A2E;
+    --bg-container-600: #061626;
+    --bg-container-700: #05111F;
+    --bg-container-800: #030D17;
+    --bg-container-900: #02090F;
   }
   * {
     padding: 0;
