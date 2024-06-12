@@ -130,6 +130,7 @@ export const AddInputForm = styled.div`
     border: ${border};
     border-radius: 5px;
     outline: none;
+    ${({invalidInput}) => (invalidInput && 'border: 1px solid #a31f1f;')}
 
     &::placeholder {
       color: white;
@@ -141,9 +142,13 @@ export const AddInputForm = styled.div`
     display: flex;
     gap: 8px;
 
-    button:last-of-type {
+    ${({invalidInput}) => (invalidInput && 
+      'button:last-of-type { opacity: 0.4; cursor: not-allowed; }'
+    )}
+
+    button:first-of-type {
       color: black;
       background-color: white;
     }
   }
-` 
+`

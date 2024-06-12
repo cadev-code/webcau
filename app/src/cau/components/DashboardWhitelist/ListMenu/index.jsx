@@ -2,10 +2,39 @@ import { useState } from 'react'
 import { AddInputForm, ListContainer, ListFooter, ListItems, ListMain, ListTitle } from './styled'
 
 import { ArrowDropDown } from '@mui/icons-material'
+import { addZone } from '../../../api/cmdbWhitelists'
 
-export const ListMenu = ({ zonesData = [] }) => {
-
+export const ListMenu = ({ zonesData = [], refreshData }) => {
   const [showAddListForm, setShowAddListForm] = useState(false)
+
+  const [inputValue, setInputValue] = useState('')
+  const [invalidInput, setInvalidInput] = useState(false)
+
+  const inputOnChange = ({target}) => {
+    setInputValue(target.value)
+    target.value === '' ? setInvalidInput(true) :  setInvalidInput(false)
+  }
+
+  const formSubmit = async() => {
+    if(inputValue.length === 0) {
+      setInvalidInput(true)
+      return
+    }
+    
+    try {
+      await addZone({zone: inputValue})
+      await refreshData()
+      closeForm()
+    } catch (error) {
+      console.log('error adding zone')
+    }
+  }
+
+  const closeForm = () => {
+    setShowAddListForm(false)
+    setInputValue('')
+    setInvalidInput(false)
+  }
 
   return (
     <ListContainer>
@@ -19,8 +48,8 @@ export const ListMenu = ({ zonesData = [] }) => {
         <ListItems isFormVisible={showAddListForm}>
           <ul>
             {
-              zonesData.map(({ zone }) => (
-                <li key={ zone }>
+              zonesData.map(({ id_zone, zone }) => (
+                <li key={ id_zone }>
                   <button>{ zone }</button>
                 </li>
               ))
@@ -31,20 +60,25 @@ export const ListMenu = ({ zonesData = [] }) => {
       <ListFooter isFormVisible={showAddListForm}>
         {
           showAddListForm
-            ? <AddInputForm>
+            ? <AddInputForm invalidInput={invalidInput}>
                 <input 
-                  type="text" 
+                  type="text"
+                  placeholder="Nombre de lista nueva..."
+                  value={inputValue}
+                  onChange={inputOnChange}
                   required
-                  placeholder="Nombre de Lista Nueva..."
                 />
                 <div>
-                  <button>
-                    Guardar Lista
-                  </button>
                   <button
-                    onClick={() => setShowAddListForm(false)}
+                    onClick={closeForm}
                   >
                     Cancelar
+                  </button>
+                  <button
+                    onClick={formSubmit}
+                    disabled={invalidInput}
+                  >
+                    Guardar Lista
                   </button>
                 </div>
               </AddInputForm>

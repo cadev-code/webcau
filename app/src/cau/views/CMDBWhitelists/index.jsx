@@ -22,6 +22,7 @@ export const CMDBWhitelists = ({ userData }) => {
       <Dashboard>
         <ListMenu 
           zonesData={zonesData}
+          refreshData={getZonesData}
         />
       </Dashboard>
     </Container>
