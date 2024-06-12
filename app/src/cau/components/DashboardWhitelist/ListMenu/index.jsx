@@ -2,6 +2,7 @@ import {
   ListContainer, 
   ListFooter, 
   ListItems, 
+  ListMain, 
   ListTitle 
 } from './styled'
 
@@ -10,10 +11,9 @@ import {
 } from '@mui/icons-material'
 
 export const ListMenu = ({ listData = [] }) => {
-
   return (
     <ListContainer>
-      <div>
+      <ListMain>
         <ListTitle>
           <p>Listas Blancas</p>
           <div>
@@ -30,7 +30,7 @@ export const ListMenu = ({ listData = [] }) => {
             </li>
           </ul>
         </ListItems>
-      </div>
+      </ListMain>
       <ListFooter>
         <button>
           Agregar Lista          

@@ -18,6 +18,10 @@ export const ListContainer = styled.div`
   }
 `
 
+export const ListMain = styled.div`
+  height: calc(100% - 58px);
+`
+
 export const ListTitle = styled.div`
   width: 100%;
   padding: 12px;
@@ -50,9 +54,14 @@ export const ListTitle = styled.div`
 `
 
 export const ListItems = styled.nav`
+  height: 100%;
+
   ul {
+    height: calc(100% - 58px);
+    padding-bottom: 20px;
     display: flex;
     flex-direction: column;
+    overflow-y: auto;
 
     li {
       list-style: none;
