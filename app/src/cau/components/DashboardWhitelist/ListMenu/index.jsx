@@ -1,10 +1,36 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { AddInputForm, ListContainer, ListFooter, ListItems, ListMain, ListTitle } from './styled'
 
-import { ArrowDropDown } from '@mui/icons-material'
+import { ArrowDropDown, ArrowDropUp } from '@mui/icons-material'
 import { addZone } from '../../../api/cmdbWhitelists'
 
 export const ListMenu = ({ zonesData = [], refreshData }) => {
+  const [listData, setListData] = useState([])
+  const [listSortOrder, setListSortOrder] = useState('default')
+
+  useEffect(() => {
+    setListData(zonesData)
+  }, [zonesData])
+
+  const handleSort = () => {
+    switch(listSortOrder) {
+      case 'default':
+        setListSortOrder('asc')
+        listData.sort((a, b) => a.zone.localeCompare(b.zone))
+        break
+      case 'asc':
+        setListSortOrder('desc')
+        listData.sort((a, b) => b.zone.localeCompare(a.zone))
+        break
+      case 'desc':
+        setListSortOrder('default')
+        listData.sort((a, b) => a.id_zone - b.id_zone)
+        break
+      default:
+        throw new Error('Invalid sort order')
+    }
+  }
+
   const [showAddListForm, setShowAddListForm] = useState(false)
 
   const [inputValue, setInputValue] = useState('')
@@ -24,6 +50,7 @@ export const ListMenu = ({ zonesData = [], refreshData }) => {
     try {
       await addZone({zone: inputValue})
       await refreshData()
+      setListSortOrder('default')
       closeForm()
     } catch (error) {
       console.log('error adding zone')
@@ -39,16 +66,23 @@ export const ListMenu = ({ zonesData = [], refreshData }) => {
   return (
     <ListContainer>
       <ListMain isFormVisible={showAddListForm}>
-        <ListTitle>
+        <ListTitle
+          onClick={handleSort}
+        >
           <p>Listas Blancas</p>
           <div>
-            <ArrowDropDown />
+            {
+              listSortOrder !== 'default' &&
+                (listSortOrder === 'asc'
+                 ? <ArrowDropUp />
+                 : <ArrowDropDown />)
+            }
           </div>
         </ListTitle>
         <ListItems isFormVisible={showAddListForm}>
           <ul>
             {
-              zonesData.map(({ id_zone, zone }) => (
+              listData.map(({ id_zone, zone }) => (
                 <li key={ id_zone }>
                   <button>{ zone }</button>
                 </li>

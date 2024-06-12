@@ -51,6 +51,10 @@ export const ListTitle = styled.div`
       font-size: 28px;
     }
   }
+
+  @media (max-width: 1600px) {
+    height: 53px;
+  }
 `
 
 export const ListItems = styled.nav`
