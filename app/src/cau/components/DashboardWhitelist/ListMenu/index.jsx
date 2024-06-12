@@ -10,7 +10,7 @@ import {
   ArrowDropDown
 } from '@mui/icons-material'
 
-export const ListMenu = ({ listData = [] }) => {
+export const ListMenu = ({ zonesData = [] }) => {
   return (
     <ListContainer>
       <ListMain>
@@ -22,18 +22,19 @@ export const ListMenu = ({ listData = [] }) => {
         </ListTitle>
         <ListItems>
           <ul>
-            <li>
-              <button>Bienestar Laboral</button>
-            </li>
-            <li>
-              <button>Generación de la Información con TDC</button>
-            </li>
+            {
+              zonesData.map(({ zone }) => (
+                <li key={ zone }>
+                  <button>{ zone }</button>
+                </li>
+              ))
+            }
           </ul>
         </ListItems>
       </ListMain>
       <ListFooter>
         <button>
-          Agregar Lista          
+          Agregar Lista
         </button>
       </ListFooter>
     </ListContainer>

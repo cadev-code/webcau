@@ -1,15 +1,11 @@
 import { useState, useEffect } from 'react'
 
-import { 
-  Container, 
-  Dashboard 
-} from './styled'
+import { Container, Dashboard } from './styled'
 import { ListMenu } from '../../components/DashboardWhitelist'
 
 import { getZones } from '../../api/cmdbWhitelists'
 
 export const CMDBWhitelists = ({ userData }) => {
-
   const [zonesData, setZonesData] = useState([])
 
   const getZonesData = async() => {
@@ -20,16 +16,12 @@ export const CMDBWhitelists = ({ userData }) => {
   useEffect(() => {
     getZonesData()
   }, [])
-
-  useEffect(() => {
-    console.log(zonesData)
-  }, [userData])
   
   return (
     <Container>
       <Dashboard>
         <ListMenu 
-          listData={[]}
+          zonesData={zonesData}
         />
       </Dashboard>
     </Container>
