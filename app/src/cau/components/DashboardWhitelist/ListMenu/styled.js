@@ -19,7 +19,7 @@ export const ListContainer = styled.div`
 `
 
 export const ListMain = styled.div`
-  height: calc(100% - 58px);
+  height: calc(100% - ${({isFormVisible}) => (isFormVisible ? '103px' : '58px')});
 `
 
 export const ListTitle = styled.div`
@@ -92,10 +92,11 @@ export const ListItems = styled.nav`
 `
 
 export const ListFooter = styled.div`
-  padding: 12px 8px;
+  padding: 12px;
   background-color: var(--bg-container-700);
   border-top: ${border};
   border-radius: 0 0 0 5px;
+  ${({isFormVisible}) => (isFormVisible && 'border: 1px solid var(--border-color);')}
 
   button {
     width: 100%;
@@ -114,3 +115,35 @@ export const ListFooter = styled.div`
     }
   }
 `
+
+export const AddInputForm = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+
+  input {
+    width: 100%;
+    padding: 8px;
+    font-size: 16px;
+    color: white;
+    background-color: transparent;
+    border: ${border};
+    border-radius: 5px;
+    outline: none;
+
+    &::placeholder {
+      color: white;
+      opacity: 0.6;
+    }
+  }
+
+  div {
+    display: flex;
+    gap: 8px;
+
+    button:last-of-type {
+      color: black;
+      background-color: white;
+    }
+  }
+` 
