@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 
-import { Container, Dashboard } from './styled'
-import { ListMenu } from '../../components/DashboardWhitelist'
+import { Container, Dashboard, Main } from './styled'
+import { ListMenu, ListName } from '../../components/DashboardWhitelist'
 
 import { getZones } from '../../api/cmdbWhitelists'
 
@@ -20,10 +20,13 @@ export const CMDBWhitelists = ({ userData }) => {
   return (
     <Container>
       <Dashboard>
-        <ListMenu 
+        <ListMenu
           zonesData={zonesData}
           refreshData={getZonesData}
         />
+        <Main>
+          <ListName />
+        </Main>
       </Dashboard>
     </Container>
   )

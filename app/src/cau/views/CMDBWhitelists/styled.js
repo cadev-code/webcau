@@ -15,3 +15,14 @@ export const Dashboard = styled.div`
   border-radius: 5px;
   border-collapse: collapse;
 `
+
+export const Main = styled.div`
+  width: calc(100% - 350px);
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+
+  @media (max-width: 1600px) {
+    width: calc(100% - 312px);
+  }
+`
