@@ -20,8 +20,10 @@ export const Container = styled.div`
 
   .edit-icon {
     display: grid;
-    cursor: pointer;
     color: var(--border-color);
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
   }
 
   @media (max-width: 1600px) {

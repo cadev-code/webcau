@@ -3,7 +3,6 @@ import { Container, EditInputForm } from './styled'
 import { Edit } from '@mui/icons-material'
 
 export const ListName = ({ zoneSelected }) => {
-  const { id_zone, zone } = zoneSelected
 
   const [showEditName, setShowEditName] = useState(false)
 
@@ -12,13 +11,13 @@ export const ListName = ({ zoneSelected }) => {
       {
         !showEditName
           ? <>
-              <p>{ zone }</p>
+              <p>{ zoneSelected?.zone }</p>
               {/* cambiar por button */}
-              <div className="edit-icon"
+              <button className="edit-icon"
                 onClick={() => setShowEditName(true)}
               >
                 <Edit />
-              </div>
+              </button>
             </>
           : <EditInputForm>
               <input type="text" />

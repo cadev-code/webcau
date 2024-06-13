@@ -71,27 +71,27 @@ export const ListItems = styled.nav`
       list-style: none;
     }
   }
+`
 
-  button {
-    width: 100%;
-    padding: 8px 16px;
-    text-align: start;
-    font-size: 16px;
-    font-weight: 500;
-    color: var(--opacity-text);
-    background-color: transparent;
-    border: none;
-    cursor: pointer;
-    ${transition}
+export const ListButton = styled.button`
+  width: 100%;
+  padding: 8px 16px;
+  text-align: start;
+  font-size: 16px;
+  font-weight: 500;
+  color: ${({isSelected}) => (isSelected ? 'white' : 'var(--opacity-text)')};
+  background-color: ${({isSelected}) => (isSelected ? 'var(--bg-container-400)' : 'transparent')};
+  border: none;
+  cursor: pointer;
+  ${transition}
 
-    &:hover {
-      color: white;
-      background-color: var(--bg-container-400);
-    }
+  &:hover {
+    color: white;
+    background-color: var(--bg-container-400);
+  }
 
-    @media (max-width: 1600px) {
-      font-size: 14px;
-    }
+  @media (max-width: 1600px) {
+    font-size: 14px;
   }
 `
 

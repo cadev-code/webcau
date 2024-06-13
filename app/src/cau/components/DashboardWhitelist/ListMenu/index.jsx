@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { AddInputForm, ListContainer, ListFooter, ListItems, ListMain, ListTitle } from './styled'
+import { AddInputForm, ListButton, ListContainer, ListFooter, ListItems, ListMain, ListTitle } from './styled'
 
 import { ArrowDropDown, ArrowDropUp } from '@mui/icons-material'
 import { addZone } from '../../../api/cmdbWhitelists'
@@ -84,11 +84,12 @@ export const ListMenu = ({ zonesData = [], refreshData, zoneSelected, setZoneSel
             {
               listData.map(({ id_zone, zone }) => (
                 <li key={ id_zone }>
-                  <button
+                  <ListButton
+                    isSelected={id_zone === zoneSelected.id_zone}
                     onClick={() => setZoneSelected({id_zone, zone})}
                   >
                     { zone }
-                  </button>
+                  </ListButton>
                 </li>
               ))
             }
