@@ -11,6 +11,16 @@ export const CMDBWhitelists = ({ userData }) => {
   const getZonesData = async() => {
     const { data } = await getZones()
     setZonesData(data)
+    setZoneSelected(data[0])
+  }
+
+  const refreshZonesData = async(actionType) => {
+    const { data } = await getZones()
+    setZonesData(data)
+
+    if(actionType === 'update') {
+      setZoneSelected(data.filter(zone => zone.id_zone === zoneSelected.id_zone)[0])
+    }
   }
 
   useEffect(() => {
@@ -18,9 +28,6 @@ export const CMDBWhitelists = ({ userData }) => {
   }, [])
 
   const [zoneSelected, setZoneSelected] = useState({})
-  useEffect(() => { // corregir
-    setZoneSelected(zonesData[0])
-  }, [zonesData])
 
   useEffect(() => {
     console.log(zoneSelected)
@@ -32,14 +39,14 @@ export const CMDBWhitelists = ({ userData }) => {
       <Dashboard>
         <ListMenu
           zonesData={zonesData}
-          refreshData={getZonesData}
+          refreshData={refreshZonesData}
           zoneSelected={zoneSelected}
           setZoneSelected={setZoneSelected}
         />
         <Main>
           <ListName 
             zoneSelected={zoneSelected}
-            refreshData={getZonesData}
+            refreshData={refreshZonesData}
           />
         </Main>
       </Dashboard>

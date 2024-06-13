@@ -25,7 +25,7 @@ export const ListName = ({ zoneSelected, refreshData }) => {
 
     try {
       await updateZone({id_zone: zoneSelected.id_zone, zone: inputValue})
-      await refreshData()
+      await refreshData('update')
       closeForm()
     } catch (error) {
       console.log('error updating zone')

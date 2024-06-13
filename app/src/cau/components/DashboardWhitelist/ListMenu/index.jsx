@@ -50,7 +50,7 @@ export const ListMenu = ({ zonesData = [], refreshData, zoneSelected, setZoneSel
     
     try {
       await addZone({zone: inputValue})
-      await refreshData()
+      await refreshData('add')
       setListSortOrder('default')
       closeForm()
     } catch (error) {
