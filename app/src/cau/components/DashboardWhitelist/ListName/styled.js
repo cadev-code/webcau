@@ -24,6 +24,11 @@ export const Container = styled.div`
     background-color: transparent;
     border: none;
     cursor: pointer;
+
+    &:disabled {
+      opacity: 0.4;
+      cursor: not-allowed;
+    }
   }
 
   @media (max-width: 1600px) {
@@ -43,6 +48,7 @@ export const EditInputForm = styled.div`
 
   input {
     height: 100%;
+    width: 360px;
     padding: 8px;
     font-size: 20px;
     color: white;

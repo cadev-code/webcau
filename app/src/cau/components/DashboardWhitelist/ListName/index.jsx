@@ -4,7 +4,12 @@ import { ConnectingAirportsOutlined, Edit } from '@mui/icons-material'
 import { listNameFormState } from '../helpers/listNameFormState'
 import { updateZone } from '../../../api/cmdbWhitelists'
 
-export const ListName = ({ zoneSelected, refreshData }) => {
+export const ListName = ({ 
+  zoneSelected, 
+  refreshData,
+  activeForm,
+  setActiveForm
+}) => {
 
   const {
     showForm,
@@ -15,7 +20,13 @@ export const ListName = ({ zoneSelected, refreshData }) => {
     setInvalidInput,
     inputOnChange,
     closeForm
-  } = listNameFormState()
+  } = listNameFormState(setActiveForm)
+
+  const openForm = () => {
+    setActiveForm(true)
+    setInputValue(zoneSelected?.zone)
+    setShowForm(true)
+  }
 
   const formSubmit = async() => {
     if(inputValue.length === 0) {
@@ -33,16 +44,14 @@ export const ListName = ({ zoneSelected, refreshData }) => {
   }
 
   return (
-    <Container>
+    <Container activeForm={activeForm}>
       {
         !showForm
           ? <>
               <p>{ zoneSelected?.zone }</p>
               <button className="edit-icon"
-                onClick={() => {
-                  setInputValue(zoneSelected?.zone)
-                  setShowForm(true)
-                }}
+                onClick={openForm}
+                disabled={activeForm}
               >
                 <Edit />
               </button>

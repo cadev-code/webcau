@@ -1,6 +1,6 @@
 import { useState } from 'react'
 
-export const listNameFormState = () => {
+export const listNameFormState = (setActiveForm) => {
   const [showForm, setShowForm] = useState(false)
 
   const [inputValue, setInputValue] = useState('')
@@ -15,6 +15,7 @@ export const listNameFormState = () => {
     setShowForm(false)
     setInputValue('')
     setInvalidInput(false)
+    setActiveForm(false)
   }
 
   return {

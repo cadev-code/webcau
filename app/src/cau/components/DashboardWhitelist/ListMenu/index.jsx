@@ -5,7 +5,14 @@ import { ArrowDropDown, ArrowDropUp } from '@mui/icons-material'
 import { addZone } from '../../../api/cmdbWhitelists'
 import { listNameFormState } from '../helpers/listNameFormState'
 
-export const ListMenu = ({ zonesData = [], refreshData, zoneSelected, setZoneSelected }) => {
+export const ListMenu = ({ 
+  zonesData = [], 
+  refreshData, 
+  zoneSelected, 
+  setZoneSelected,
+  activeForm,
+  setActiveForm
+ }) => {
   const [listData, setListData] = useState([])
   const [listSortOrder, setListSortOrder] = useState('default')
 
@@ -40,7 +47,12 @@ export const ListMenu = ({ zonesData = [], refreshData, zoneSelected, setZoneSel
     setInvalidInput,
     inputOnChange,
     closeForm
-  } = listNameFormState()
+  } = listNameFormState(setActiveForm)
+
+  const openForm = () => {
+    setActiveForm(true)
+    setShowForm(true)
+  }
 
   const formSubmit = async() => {
     if(inputValue.length === 0) {
@@ -82,6 +94,7 @@ export const ListMenu = ({ zonesData = [], refreshData, zoneSelected, setZoneSel
                   <ListButton
                     isSelected={id_zone === zoneSelected.id_zone}
                     onClick={() => setZoneSelected({id_zone, zone})}
+                    disabled={activeForm}
                   >
                     { zone }
                   </ListButton>
@@ -117,7 +130,8 @@ export const ListMenu = ({ zonesData = [], refreshData, zoneSelected, setZoneSel
                 </div>
               </AddInputForm>
             : <button
-                onClick={() => setShowForm(true)}
+                onClick={openForm}
+                disabled={activeForm}
               >
                 Agregar Lista
               </button>

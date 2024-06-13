@@ -90,6 +90,11 @@ export const ListButton = styled.button`
     background-color: var(--bg-container-400);
   }
 
+  &:hover:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+  }
+
   @media (max-width: 1600px) {
     font-size: 14px;
   }
@@ -116,6 +121,11 @@ export const ListFooter = styled.div`
 
     &:hover {
       opacity: 0.8;
+    }
+
+    &:disabled {
+      opacity: 0.4;
+      cursor: not-allowed;
     }
   }
 `
