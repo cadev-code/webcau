@@ -2,7 +2,8 @@ import { useState } from 'react'
 import { Container, EditInputForm } from './styled'
 import { Edit } from '@mui/icons-material'
 
-export const ListName = () => {
+export const ListName = ({ zoneSelected }) => {
+  const { id_zone, zone } = zoneSelected
 
   const [showEditName, setShowEditName] = useState(false)
 
@@ -11,7 +12,8 @@ export const ListName = () => {
       {
         !showEditName
           ? <>
-              <p>Bienestar Laboral</p>
+              <p>{ zone }</p>
+              {/* cambiar por button */}
               <div className="edit-icon"
                 onClick={() => setShowEditName(true)}
               >

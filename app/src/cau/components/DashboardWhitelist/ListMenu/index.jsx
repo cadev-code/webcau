@@ -4,7 +4,7 @@ import { AddInputForm, ListContainer, ListFooter, ListItems, ListMain, ListTitle
 import { ArrowDropDown, ArrowDropUp } from '@mui/icons-material'
 import { addZone } from '../../../api/cmdbWhitelists'
 
-export const ListMenu = ({ zonesData = [], refreshData }) => {
+export const ListMenu = ({ zonesData = [], refreshData, zoneSelected, setZoneSelected }) => {
   const [listData, setListData] = useState([])
   const [listSortOrder, setListSortOrder] = useState('default')
 
@@ -84,7 +84,11 @@ export const ListMenu = ({ zonesData = [], refreshData }) => {
             {
               listData.map(({ id_zone, zone }) => (
                 <li key={ id_zone }>
-                  <button>{ zone }</button>
+                  <button
+                    onClick={() => setZoneSelected({id_zone, zone})}
+                  >
+                    { zone }
+                  </button>
                 </li>
               ))
             }

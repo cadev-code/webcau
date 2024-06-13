@@ -16,6 +16,16 @@ export const CMDBWhitelists = ({ userData }) => {
   useEffect(() => {
     getZonesData()
   }, [])
+
+  const [zoneSelected, setZoneSelected] = useState({})
+  useEffect(() => {
+    setZoneSelected(zonesData[0])
+  }, [zonesData])
+
+  useEffect(() => {
+    console.log(zoneSelected)
+  }, [zoneSelected])
+  
   
   return (
     <Container>
@@ -23,9 +33,13 @@ export const CMDBWhitelists = ({ userData }) => {
         <ListMenu
           zonesData={zonesData}
           refreshData={getZonesData}
+          zoneSelected={zoneSelected}
+          setZoneSelected={setZoneSelected}
         />
         <Main>
-          <ListName />
+          <ListName 
+            zoneSelected={zoneSelected}
+          />
         </Main>
       </Dashboard>
     </Container>
