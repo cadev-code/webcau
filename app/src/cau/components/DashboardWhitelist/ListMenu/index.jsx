@@ -3,6 +3,7 @@ import { AddInputForm, ListButton, ListContainer, ListFooter, ListItems, ListMai
 
 import { ArrowDropDown, ArrowDropUp } from '@mui/icons-material'
 import { addZone } from '../../../api/cmdbWhitelists'
+import { listNameFormState } from '../helpers/listNameFormState'
 
 export const ListMenu = ({ zonesData = [], refreshData, zoneSelected, setZoneSelected }) => {
   const [listData, setListData] = useState([])
@@ -31,15 +32,15 @@ export const ListMenu = ({ zonesData = [], refreshData, zoneSelected, setZoneSel
     }
   }
 
-  const [showAddListForm, setShowAddListForm] = useState(false)
-
-  const [inputValue, setInputValue] = useState('')
-  const [invalidInput, setInvalidInput] = useState(false)
-
-  const inputOnChange = ({target}) => {
-    setInputValue(target.value)
-    target.value === '' ? setInvalidInput(true) :  setInvalidInput(false)
-  }
+  const { 
+    showForm,
+    setShowForm,
+    inputValue,
+    invalidInput,
+    setInvalidInput,
+    inputOnChange,
+    closeForm
+  } = listNameFormState()
 
   const formSubmit = async() => {
     if(inputValue.length === 0) {
@@ -57,15 +58,9 @@ export const ListMenu = ({ zonesData = [], refreshData, zoneSelected, setZoneSel
     }
   }
 
-  const closeForm = () => {
-    setShowAddListForm(false)
-    setInputValue('')
-    setInvalidInput(false)
-  }
-
   return (
     <ListContainer>
-      <ListMain isFormVisible={showAddListForm}>
+      <ListMain isFormVisible={showForm}>
         <ListTitle
           onClick={handleSort}
         >
@@ -79,7 +74,7 @@ export const ListMenu = ({ zonesData = [], refreshData, zoneSelected, setZoneSel
             }
           </div>
         </ListTitle>
-        <ListItems isFormVisible={showAddListForm}>
+        <ListItems isFormVisible={showForm}>
           <ul>
             {
               listData.map(({ id_zone, zone }) => (
@@ -96,9 +91,9 @@ export const ListMenu = ({ zonesData = [], refreshData, zoneSelected, setZoneSel
           </ul>
         </ListItems>
       </ListMain>
-      <ListFooter isFormVisible={showAddListForm}>
+      <ListFooter isFormVisible={showForm}>
         {
-          showAddListForm
+          showForm
             ? <AddInputForm invalidInput={invalidInput}>
                 <input 
                   type="text"
@@ -122,7 +117,7 @@ export const ListMenu = ({ zonesData = [], refreshData, zoneSelected, setZoneSel
                 </div>
               </AddInputForm>
             : <button
-                onClick={() => setShowAddListForm(true)}
+                onClick={() => setShowForm(true)}
               >
                 Agregar Lista
               </button>

@@ -1,32 +1,67 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Container, EditInputForm } from './styled'
-import { Edit } from '@mui/icons-material'
+import { ConnectingAirportsOutlined, Edit } from '@mui/icons-material'
+import { listNameFormState } from '../helpers/listNameFormState'
+import { updateZone } from '../../../api/cmdbWhitelists'
 
-export const ListName = ({ zoneSelected }) => {
+export const ListName = ({ zoneSelected, refreshData }) => {
 
-  const [showEditName, setShowEditName] = useState(false)
+  const {
+    showForm,
+    setShowForm,
+    inputValue,
+    setInputValue,
+    invalidInput,
+    setInvalidInput,
+    inputOnChange,
+    closeForm
+  } = listNameFormState()
+
+  const formSubmit = async() => {
+    if(inputValue.length === 0) {
+      setInvalidInput(true)
+      return
+    }
+
+    try {
+      await updateZone({id_zone: zoneSelected.id_zone, zone: inputValue})
+      await refreshData()
+      closeForm()
+    } catch (error) {
+      console.log('error updating zone')
+    }
+  }
 
   return (
     <Container>
       {
-        !showEditName
+        !showForm
           ? <>
               <p>{ zoneSelected?.zone }</p>
-              {/* cambiar por button */}
               <button className="edit-icon"
-                onClick={() => setShowEditName(true)}
+                onClick={() => {
+                  setInputValue(zoneSelected?.zone)
+                  setShowForm(true)
+                }}
               >
                 <Edit />
               </button>
             </>
-          : <EditInputForm>
-              <input type="text" />
+          : <EditInputForm invalidInput={invalidInput}>
+              <input 
+                type="text"
+                value={inputValue}
+                onChange={inputOnChange}
+              />
               <div>
-                <button>
+                <button
+                  onClick={formSubmit}
+                  disabled={invalidInput}
+                >
                   Guardar
                 </button>
                 <button
-                  onClick={() => setShowEditName(false)}
+                  onClick={closeForm}
                 >
                   Cancelar
                 </button>

@@ -47,7 +47,7 @@ export const EditInputForm = styled.div`
     font-size: 20px;
     color: white;
     background-color: transparent;
-    border: ${border};
+    border: ${({invalidInput}) => (invalidInput ? '1px solid #a31f1f' : border)};
     border-radius: 5px;
     outline: none;
   }
@@ -77,6 +77,10 @@ export const EditInputForm = styled.div`
         color: black;
         background-color: white;
       }
+
+      ${({invalidInput}) => (invalidInput && 
+        '&:first-of-type { opacity: 0.4; cursor: not-allowed; }'
+      )}
     }
   }
 

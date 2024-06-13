@@ -18,7 +18,7 @@ export const CMDBWhitelists = ({ userData }) => {
   }, [])
 
   const [zoneSelected, setZoneSelected] = useState({})
-  useEffect(() => {
+  useEffect(() => { // corregir
     setZoneSelected(zonesData[0])
   }, [zonesData])
 
@@ -39,6 +39,7 @@ export const CMDBWhitelists = ({ userData }) => {
         <Main>
           <ListName 
             zoneSelected={zoneSelected}
+            refreshData={getZonesData}
           />
         </Main>
       </Dashboard>
