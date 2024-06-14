@@ -1,6 +1,5 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { AddInputForm, ListButton, ListContainer, ListFooter, ListItems, ListMain, ListTitle } from './styled'
-
 import { ArrowDropDown, ArrowDropUp } from '@mui/icons-material'
 import { addZone } from '../../../api/cmdbWhitelists'
 import { listNameFormState } from '../helpers/listNameFormState'
@@ -39,6 +38,8 @@ export const ListMenu = ({
     }
   }
 
+  const inputRef = useRef(null)
+
   const { 
     showForm,
     setShowForm,
@@ -54,9 +55,15 @@ export const ListMenu = ({
     setShowForm(true)
   }
 
+  useEffect(() => {
+    showForm &&
+      inputRef.current.focus()
+  }, [showForm])
+
   const formSubmit = async() => {
     if(inputValue.length === 0) {
       setInvalidInput(true)
+      inputRef.current.focus()
       return
     }
     
@@ -109,6 +116,7 @@ export const ListMenu = ({
           showForm
             ? <AddInputForm invalidInput={invalidInput}>
                 <input 
+                  ref={inputRef}
                   type="text"
                   placeholder="Nombre de lista nueva..."
                   value={inputValue}

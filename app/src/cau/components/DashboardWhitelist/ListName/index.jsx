@@ -1,6 +1,6 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef } from 'react'
 import { Container, EditInputForm } from './styled'
-import { ConnectingAirportsOutlined, Edit } from '@mui/icons-material'
+import { Edit } from '@mui/icons-material'
 import { listNameFormState } from '../helpers/listNameFormState'
 import { updateZone } from '../../../api/cmdbWhitelists'
 
@@ -10,6 +10,8 @@ export const ListName = ({
   activeForm,
   setActiveForm
 }) => {
+
+  const inputRef = useRef(null)
 
   const {
     showForm,
@@ -28,9 +30,15 @@ export const ListName = ({
     setShowForm(true)
   }
 
+  useEffect(() => {
+    showForm &&
+      inputRef.current.focus()
+  }, [showForm])
+
   const formSubmit = async() => {
     if(inputValue.length === 0) {
       setInvalidInput(true)
+      inputRef.current.focus()
       return
     }
 
@@ -58,6 +66,7 @@ export const ListName = ({
             </>
           : <EditInputForm invalidInput={invalidInput}>
               <input 
+                ref={inputRef}
                 type="text"
                 value={inputValue}
                 onChange={inputOnChange}
