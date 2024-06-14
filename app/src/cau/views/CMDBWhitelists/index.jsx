@@ -1,8 +1,6 @@
 import { useState, useEffect } from 'react'
-
 import { Container, Dashboard, Main } from './styled'
-import { ListMenu, ListName } from '../../components/DashboardWhitelist'
-
+import { ListMenu, ListName, ListTables } from '../../components/DashboardWhitelist'
 import { getZones } from '../../api/cmdbWhitelists'
 
 export const CMDBWhitelists = ({ userData }) => {
@@ -48,6 +46,7 @@ export const CMDBWhitelists = ({ userData }) => {
             activeForm={activeForm}
             setActiveForm={setActiveForm}
           />
+          <ListTables />
         </Main>
       </Dashboard>
     </Container>
