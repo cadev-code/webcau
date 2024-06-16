@@ -5,12 +5,13 @@ import { getZones } from '../../api/cmdbWhitelists'
 
 export const CMDBWhitelists = ({ userData }) => {
   const [zonesData, setZonesData] = useState([])
+  const [zoneSelected, setZoneSelected] = useState({})
   const [activeForm, setActiveForm] = useState(false)
 
   const getZonesData = async() => {
     const { data } = await getZones()
     setZonesData(data)
-    setZoneSelected(data[0])
+    data.length > 0 && setZoneSelected(data[0])
   }
 
   useEffect(() => {
@@ -21,12 +22,14 @@ export const CMDBWhitelists = ({ userData }) => {
     const { data } = await getZones()
     setZonesData(data)
 
+    if(actionType === 'add') {
+      setZoneSelected(data[0])
+    }
+
     if(actionType === 'update') {
       setZoneSelected(data.filter(zone => zone.id_zone === zoneSelected.id_zone)[0])
     }
   }
-
-  const [zoneSelected, setZoneSelected] = useState({})
   
   return (
     <Container>
@@ -39,15 +42,18 @@ export const CMDBWhitelists = ({ userData }) => {
           activeForm={activeForm}
           setActiveForm={setActiveForm}
         />
-        <Main>
-          <ListName 
-            zoneSelected={zoneSelected}
-            refreshData={refreshZonesData}
-            activeForm={activeForm}
-            setActiveForm={setActiveForm}
-          />
-          <ListTables />
-        </Main>
+        {
+          zonesData.length > 0 &&
+            <Main>
+              <ListName 
+                zoneSelected={zoneSelected}
+                refreshData={refreshZonesData}
+                activeForm={activeForm}
+                setActiveForm={setActiveForm}
+              />
+              <ListTables />
+            </Main>
+        }
       </Dashboard>
     </Container>
   )
