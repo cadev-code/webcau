@@ -18,15 +18,13 @@ export const CMDBWhitelists = ({ userData }) => {
     getZonesData()
   }, [])
 
-  const refreshZonesData = async(actionType) => {
+  const refreshZonesData = async(actionType, newZoneData = {}) => {
     const { data } = await getZones()
     setZonesData(data)
 
     if(actionType === 'add') {
-      setZoneSelected(data[0])
-    }
-
-    if(actionType === 'update') {
+      setZoneSelected(data.filter(zone => zone.id_zone === newZoneData.id_zone)[0])
+    } else {
       setZoneSelected(data.filter(zone => zone.id_zone === zoneSelected.id_zone)[0])
     }
   }
