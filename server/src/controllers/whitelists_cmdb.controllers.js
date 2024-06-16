@@ -18,8 +18,9 @@ export const addZone = async(req, res) => {
   const query = 'INSERT INTO zones_whitelists_cmdb (`zone`) VALUES (?)'
 
   try {
-    await pool.query(query, [zone])
-    res.status(200).send('Information uploaded correctly.')
+    const [result] = await pool.query(query, [zone])
+    console.log(result.insertId)
+    res.status(200).json({ id_zone: result.insertId })
   } catch (error) {
     res.status(400).send('There was an error trying to load the information.')
   }
