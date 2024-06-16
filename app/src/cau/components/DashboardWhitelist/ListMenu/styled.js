@@ -69,6 +69,19 @@ export const ListItems = styled.nav`
 
     li {
       list-style: none;
+
+      p {
+        margin-top: 32px;
+        padding: 0 12px;
+        text-align: center;
+        font-size: 24px;
+        color: var(--opacity-text);
+        user-select: none;
+
+        @media (max-width: 1600px) {
+          font-size: 20px;
+        }
+      }
     }
   }
 `

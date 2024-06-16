@@ -108,6 +108,12 @@ export const ListMenu = ({
                 </li>
               ))
             }
+            {
+              listData.length === 0 &&
+                <li>
+                  <p>No hay Listas  por mostrar en la base de datos...</p>
+                </li>
+            }
           </ul>
         </ListItems>
       </ListMain>
