@@ -102,19 +102,51 @@ export const deleteComputer = async(req, res) => {
 // local emails
 
 export const getLocalEmails = async(req, res) => {
-  
+  const { id_zone } = req.body
+  const query = 'SELECT * FROM local_emails_whitelists_cmdb WHERE id_zone = ?'
+
+  try {
+    const [result] = await pool.query(query, [id_zone])
+    res.status(200).send(result)
+  } catch (error) {
+    res.status(400).send('Error when trying to obtain the information.')
+  }
 }
 
 export const addLocalEmail = async(req, res) => {
+  const { email, id_zone } = req.body
+  const query = 'INSERT INTO local_emails_whitelists_cmdb (`email`, `id_zone`) VALUES (?, ?)'
 
+  try {
+    await pool.query(query, [email, id_zone])
+    res.status(200).send('The information was loaded correctly.')
+  } catch (error) {
+    res.status(400).send('There was an error trying to load the information.')
+  }
 }
 
 export const updateLocalEmail = async(req, res) => {
+  const { id_email, email } = req.body
+  const query = 'UPDATE local_emails_whitelists_cmdb SET email = ? WHERE id_email = ?'
 
+  try {
+    await pool.query(query, [email, id_email])
+    res.status(200).send('The information was updated correctly.')
+  } catch (error) {
+    res.status(400).send('There was an error trying to update the information.')
+  }
 }
 
 export const deleteLocalEmail = async(req, res) => {
+  const { id_email } = req.query
+  const query = 'DELETE FROM local_emails_whitelists_cmdb WHERE id_email = ?'
 
+  try {
+    await pool.query(query, [id_email])
+    res.status(200).send('The information was deleted correctly.')
+  } catch (error) {
+    res.status(400).send('There was an error trying to delete the information.')
+  }
 }
 
 // customers emails
