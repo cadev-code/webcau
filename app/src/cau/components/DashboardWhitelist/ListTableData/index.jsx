@@ -2,14 +2,13 @@ import { flexRender, getCoreRowModel, useReactTable } from '@tanstack/react-tabl
 import { useEffect, useState } from 'react'
 import { Container, Footer, TBody, TBodyCell, THead, THeadCell, TRow, Table } from './styled'
 
-export const ListTableData = ({tableData}) => {
+export const ListTableData = ({defaultColumns, tableData}) => {
 
-  const [columns, setColumns] = useState([])
+  const [columns, setColumns] = useState(defaultColumns)
   const [data, setData] = useState([])
 
   useEffect(() => {
-    setColumns(tableData.columns)
-    setData(tableData.data)
+    setData(tableData)
   }, [tableData])
 
   const table = useReactTable({

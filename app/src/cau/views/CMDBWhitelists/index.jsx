@@ -49,7 +49,9 @@ export const CMDBWhitelists = ({ userData }) => {
                 activeForm={activeForm}
                 setActiveForm={setActiveForm}
               />
-              <ListTables />
+              <ListTables 
+                zoneSelected={zoneSelected}
+              />
             </Main>
         }
       </Dashboard>
