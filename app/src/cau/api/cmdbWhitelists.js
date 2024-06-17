@@ -15,8 +15,8 @@ export const updateZone = async(data) =>
 
 // computers
 
-export const getComputers = async() =>
-  await axios.get(`${url}/computers`)
+export const getComputers = async(id_zone) =>
+  await axios.get(`${url}/computers?id_zone=${id_zone}`)
 
 export const addComputer = async(data) =>
   await axios.post(`${url}/computers`, data)
@@ -29,8 +29,8 @@ export const deleteComputer = async(id_computer) =>
 
 // local emails
 
-export const getLocalEmails = async() =>
-  await axios.get(`${url}/emails/local`)
+export const getLocalEmails = async(id_zone) =>
+  await axios.get(`${url}/emails/local?id_zone=${id_zone}`)
 
 export const addLocalEmail = async(data) =>
   await axios.post(`${url}/emails/local`, data)
@@ -43,8 +43,8 @@ export const deleteLocalEmail = async(id_email) =>
 
 // customers emails
 
-export const getCustomersEmails = async() =>
-  await axios.get(`${url}/emails/customers`)
+export const getCustomersEmails = async(id_zone) =>
+  await axios.get(`${url}/emails/customers?id_zone=${id_zone}`)
 
 export const addCustomersEmail = async(data) =>
   await axios.post(`${url}/emails/customers`, data)

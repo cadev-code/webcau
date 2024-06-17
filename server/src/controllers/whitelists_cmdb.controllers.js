@@ -52,11 +52,11 @@ export const deleteZone = async(req, res) => {
 // computers
 
 export const getComputers = async(req, res) => {
-  const { id_zone } = req.body
+  const { id_zone } = req.query
   const query = 'SELECT * FROM computers_whitelists_cmdb WHERE id_zone = ?'
 
   try {
-    const [result] = await pool.query(query, [id_zone])
+    const [result] = await pool.query(query, id_zone)
     res.status(200).send(result)
   } catch (error) {
     res.status(400).send('Error when trying to obtain the information.')
@@ -102,7 +102,7 @@ export const deleteComputer = async(req, res) => {
 // local emails
 
 export const getLocalEmails = async(req, res) => {
-  const { id_zone } = req.body
+  const { id_zone } = req.query
   const query = 'SELECT * FROM local_emails_whitelists_cmdb WHERE id_zone = ?'
 
   try {
@@ -152,7 +152,7 @@ export const deleteLocalEmail = async(req, res) => {
 // customers emails
 
 export const getCustomersEmails = async(req, res) => {
-  const { id_zone } = req.body
+  const { id_zone } = req.query
   const query = 'SELECT * FROM customers_emails_whitelists_cmdb WHERE id_zone = ?'
 
   try {
