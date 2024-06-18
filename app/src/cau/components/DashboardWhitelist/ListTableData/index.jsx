@@ -1,7 +1,8 @@
 import { useEffect, useRef, useState } from 'react'
-import { Container, Footer, TBody, TBodyCell, THead, THeadCell, TRow, Table } from './styled'
-import { flexRender, getCoreRowModel, useReactTable } from '@tanstack/react-table'
+import { Container, Footer, TBody, TBodyCell, THead, THeadCell, TRow, TRowBtns, Table } from './styled'
 import { TableForm } from '../TableForm'
+import { Delete, Edit } from '@mui/icons-material'
+import { flexRender, getCoreRowModel, useReactTable } from '@tanstack/react-table'
 
 export const ListTableData = ({
   id_zone, 
@@ -64,20 +65,10 @@ export const ListTableData = ({
         </THead>
         <TBody>
           {table.getRowModel().rows.map(row => (
-            <TRow key={row.id}
-              className="row"
-            >
-              {row.getVisibleCells().map(cell => (
-                <TBodyCell key={cell.id}
-                  accessorKey={cell.column.columnDef.accessorKey}
-                >
-                  {flexRender(
-                    cell.column.columnDef.cell,
-                    cell.getContext()
-                  )}
-                </TBodyCell>
-              ))}
-            </TRow>
+            <TBodyRow 
+              row={row}
+              activeForm={activeForm}
+            />
           ))}
         </TBody>
       </Table>
@@ -107,5 +98,42 @@ export const ListTableData = ({
         }
       </Footer>
     </Container>
+  )
+}
+
+const TBodyRow = ({row, activeForm}) => {
+
+  const rowRef= useRef(null)
+  const [showBtns, setShowBtns] = useState(false)
+
+  return(
+    <TRow key={row.id}
+      ref={rowRef}
+      className="row"
+      onMouseOver={() => setShowBtns(true)}
+      onMouseLeave={() => setShowBtns(false)}
+    >
+      {row.getVisibleCells().map(cell => (
+        <TBodyCell key={cell.id}
+          accessorKey={cell.column.columnDef.accessorKey}
+        >
+          {flexRender(
+            cell.column.columnDef.cell,
+            cell.getContext()
+          )}
+        </TBodyCell>
+      ))}
+      {
+        (showBtns && !activeForm) &&
+        <TRowBtns>
+          <button>
+            <Edit />
+          </button>
+          <button>
+            <Delete />
+          </button>
+        </TRowBtns>
+      }
+    </TRow>
   )
 }

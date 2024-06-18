@@ -7,4 +7,5 @@ export const Container = styled.div`
   display: flex;
   gap: 20px;
   overflow-x: auto;
+  overflow-y: hidden;
 `

@@ -28,6 +28,10 @@ export const InputForm = styled.input`
     color: white;
     opacity: 0.6;
   }
+
+  @media (max-width: 1600px) {
+    font-size: 14px;
+  }
 `
 
 export const ButtonContainer = styled.div`
@@ -44,8 +48,13 @@ export const ButtonContainer = styled.div`
     }
 
     &:disabled {
+      color: white;
       opacity: 0.4;
       cursor: not-allowed;
+    }
+
+    @media (max-width: 1600px) {
+      padding: 4px 8px;
     }
   }
 `
