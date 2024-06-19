@@ -3,7 +3,7 @@ import { Container } from './styled'
 import { ListTableData } from '../ListTableData'
 import { tablesDataRequest } from '../helpers/tablesDataRequest'
 import { computersColumns, customersEmailsColumns, localEmailsColumns } from './tablesProps'
-import { addComputer, addCustomersEmail, addLocalEmail, updateComputer, updateCustomersEmail, updateLocalEmail } from '../../../api/cmdbWhitelists'
+import { addComputer, addCustomersEmail, addLocalEmail, deleteComputer, deleteCustomersEmail, deleteLocalEmail, updateComputer, updateCustomersEmail, updateLocalEmail } from '../../../api/cmdbWhitelists'
 
 export const ListTables = ({
   zoneSelected,
@@ -41,6 +41,7 @@ export const ListTables = ({
         tableData={computersData}
         addRegisterMethod={addComputer}
         editRegisterMethod={updateComputer}
+        deleteRegisterMethod={deleteComputer}
         refreshData={getComputersData}
         activeForm={activeForm}
         setActiveForm={setActiveForm}
@@ -51,6 +52,7 @@ export const ListTables = ({
         tableData={localEmailsData}
         addRegisterMethod={addLocalEmail}
         editRegisterMethod={updateLocalEmail}
+        deleteRegisterMethod={deleteLocalEmail}
         refreshData={getLocalEmailsData}
         activeForm={activeForm}
         setActiveForm={setActiveForm}
@@ -61,6 +63,7 @@ export const ListTables = ({
         tableData={customersEmailsData}
         addRegisterMethod={addCustomersEmail}
         editRegisterMethod={updateCustomersEmail}
+        deleteRegisterMethod={deleteCustomersEmail}
         refreshData={getCustomersEmailsData}
         activeForm={activeForm}
         setActiveForm={setActiveForm}

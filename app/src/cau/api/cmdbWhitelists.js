@@ -24,8 +24,8 @@ export const addComputer = async(data) =>
 export const updateComputer = async(data) =>
   await axios.put(`${url}/computers`, data)
 
-export const deleteComputer = async(id_computer) =>
-  await axios.delete(`${url}/computers?id_computer=${id_computer}`)
+export const deleteComputer = async(data) =>
+  await axios.delete(`${url}/computers?id_computer=${data.id_computer}`)
 
 // local emails
 
@@ -38,8 +38,8 @@ export const addLocalEmail = async(data) =>
 export const updateLocalEmail = async(data) =>
   await axios.put(`${url}/emails/local`, data)
 
-export const deleteLocalEmail = async(id_email) =>
-  await axios.delete(`${url}/emails/local?id_email=${id_email}`)
+export const deleteLocalEmail = async(data) =>
+  await axios.delete(`${url}/emails/local?id_email=${data.id_email}`)
 
 // customers emails
 
@@ -52,5 +52,5 @@ export const addCustomersEmail = async(data) =>
 export const updateCustomersEmail = async(data) =>
   await axios.put(`${url}/emails/customers`, data)
 
-export const deleteCustomersEmail = async(id_email) =>
-  await axios.delete(`${url}/emails/customers?id_email=${id_email}`)
+export const deleteCustomersEmail = async(data) =>
+  await axios.delete(`${url}/emails/customers?id_email=${data.id_email}`)

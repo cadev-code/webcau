@@ -10,6 +10,7 @@ export const ListTableData = ({
   tableData,
   addRegisterMethod,
   editRegisterMethod,
+  deleteRegisterMethod,
   refreshData,
   activeForm,
   setActiveForm
@@ -43,10 +44,6 @@ export const ListTableData = ({
       setActiveForm(false)
     }
   }, [showForm])
-
-  useEffect(() => {
-    console.log(tBodyRef.current.childElementCount)
-  }, [tBodyRef])
 
   return (
     <Container>
@@ -101,6 +98,7 @@ export const ListTableData = ({
               setDataToEdit={setDataToEdit}
               addRegister={addRegisterMethod}
               editRegister={editRegisterMethod}
+              deleteRegister={deleteRegisterMethod}
               refreshData={refreshData}
             />
         }
@@ -158,7 +156,9 @@ const TBodyRow = ({
           >
             <Edit />
           </button>
-          <button>
+          <button
+            onClick={() => btnOnClick('delete')}
+          >
             <Delete />
           </button>
         </TRowBtns>

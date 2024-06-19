@@ -3,6 +3,7 @@ import styled from 'styled-components'
 const border = '1px solid var(--border-input-color)'
 
 export const Form = styled.div`
+  width: 100%;
   display: flex;
   flex-direction: column;
   gap: 12px;
@@ -60,7 +61,7 @@ export const ButtonContainer = styled.div`
 
     &:last-of-type {
       color: white;
-      background-color: var(--button-background);
+      background-color: ${({mode}) => mode !== 'delete' ? 'var(--button-background)' : '#a31f1f'};
     }
 
     &:disabled {

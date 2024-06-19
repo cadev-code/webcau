@@ -11,6 +11,7 @@ export const TableForm = ({
   setDataToEdit,
   addRegister,
   editRegister,
+  deleteRegister,
   refreshData
 }) => {
 
@@ -58,6 +59,8 @@ export const TableForm = ({
         await addRegister({...inputValues, id_zone})
       } else if(mode === 'edit') {
         await editRegister({...dataToEdit, ...inputValues})
+      } else if(mode === 'delete') {
+        await deleteRegister(dataToEdit)
       }
       await refreshData(id_zone)
       closeForm()
@@ -74,7 +77,7 @@ export const TableForm = ({
            ? 'Agregar Registro'
             : mode === 'edit'
              ? 'Editar Registro'
-              : 'Eliminar Registro'
+              : '¿Eliminar Registro?'
         }
       </h3>
       <InputsContainer>
@@ -93,12 +96,15 @@ export const TableForm = ({
                   value={inputValues[accessorKey]}
                   onChange={inputOnChange}
                   isInvalid={invalidForm[accessorKey]}
+                  disabled={mode === 'delete'}
                 />
               </div>
             ))
         }
       </InputsContainer>
-      <ButtonContainer>
+      <ButtonContainer
+        mode={mode}
+      >
         <button
           onClick={closeForm}
         >
@@ -112,7 +118,7 @@ export const TableForm = ({
             ? 'Guardar Registro' 
             : mode === 'edit'
               ? 'Guardar Cambios'
-              : 'Eliminar Registro'}
+              : 'Eliminar'}
         </button>
       </ButtonContainer>
     </Form>
