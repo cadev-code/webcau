@@ -1,8 +1,8 @@
 import { useEffect, useRef, useState } from 'react'
 import { Container, Footer, TBody, TBodyCell, THead, THeadCell, TRow, TRowBtns, Table } from './styled'
 import { TableForm } from '../TableForm'
-import { Delete, Edit } from '@mui/icons-material'
-import { flexRender, getCoreRowModel, useReactTable } from '@tanstack/react-table'
+import { ArrowDownward, ArrowUpward, Delete, Edit } from '@mui/icons-material'
+import { flexRender, getCoreRowModel, getSortedRowModel, useReactTable } from '@tanstack/react-table'
 
 export const ListTableData = ({
   id_zone, 
@@ -23,10 +23,17 @@ export const ListTableData = ({
     setData(tableData)
   }, [tableData])
 
+  const [sorting, setSorting] = useState([])
+
   const table = useReactTable({
     columns,
     data,
-    getCoreRowModel: getCoreRowModel()
+    getCoreRowModel: getCoreRowModel(),
+    getSortedRowModel: getSortedRowModel(),
+    state: {
+      sorting
+    },
+    onSortingChange: setSorting
   })
 
   const tBodyRef = useRef(null)
@@ -58,11 +65,20 @@ export const ListTableData = ({
                   }}
                   accessorKey={header.column.columnDef.accessorKey}
                 >
-                  {header.isPlaceholder
-                    ? null: flexRender(
-                      header.column.columnDef.header,
-                      header.getContext()
-                    )}
+                  <div
+                    onClick={header.column.getToggleSortingHandler()}
+                  >
+                    {header.isPlaceholder
+                      ? null: flexRender(
+                        header.column.columnDef.header,
+                        header.getContext()
+                      )}
+                    {
+                      {'asc': <ArrowUpward />, 'desc': <ArrowDownward />}[
+                        header.column.getIsSorted() ?? null
+                      ]
+                    }
+                  </div>
                 </THeadCell>
               ))}
             </TRow>

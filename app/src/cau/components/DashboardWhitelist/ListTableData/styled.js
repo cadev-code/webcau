@@ -66,6 +66,17 @@ export const THeadCell = styled.div`
   @media (max-width: 1600px) {
     ${({accessorKey}) => (accessorKey === 'netbios' ? 'width: 176px;' : accessorKey && 'width: 316px;')};
   }
+
+  div {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+
+    svg {
+      font-size: 20px;
+      color: var(--border-color);
+    }
+  }
 `
 
 export const TBody = styled.div`
