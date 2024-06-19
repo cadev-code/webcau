@@ -97,7 +97,7 @@ export const TBodyCell = styled.div`
 `
 
 export const Footer = styled.div`
-  padding: ${({showForm}) => (showForm ? '20px' : '12px')};
+  padding: ${({showForm}) => (showForm ? '16px' : '12px')};
   text-align: end;
   background-color: var(--bg-container-700);
   border: ${border};

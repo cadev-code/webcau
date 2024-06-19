@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { ButtonContainer, Form, InputForm, InputsContainer } from "./styled"
 
 export const TableForm = ({
@@ -14,20 +14,18 @@ export const TableForm = ({
   const filteredColumns = columns[0].columns ? columns[0].columns : columns
 
   const defaultInputValues = {}
-  filteredColumns.forEach(({accessorKey}) => defaultInputValues[accessorKey] = '')
+  const defaultInvalidForm = {}
+  filteredColumns.forEach(({accessorKey}) => {
+    defaultInputValues[accessorKey] = ''
+    defaultInvalidForm[accessorKey] = false
+  })
 
   const [inputValues, setInputValues] = useState(defaultInputValues)
-  const [invalidForm, setInvalidForm] = useState(false)
+  const [invalidForm, setInvalidForm] = useState(defaultInvalidForm)
 
   const inputOnChange = ({target}) => {
-    const newValue = { ...inputValues, [target.id]: target.value }
-    setInputValues(newValue)
-    const values = Object.values(newValue)
-    if(values.filter(value => value === '').length === 0) {
-      setInvalidForm(false)
-    } else {
-      setInvalidForm(true)
-    }
+    setInputValues({ ...inputValues, [target.id]: target.value })
+    setInvalidForm({...invalidForm, [target.id]: target.value === ''})
   }
 
   const closeForm = () => {
@@ -36,9 +34,14 @@ export const TableForm = ({
   }
 
   const formSubmit = async() => {
-    const values = Object.values(inputValues)
-    if(values.filter(value => value === '').length > 0) {
-      setInvalidForm(true)
+    if(Object.values(inputValues).filter(value => value === '').length > 0) {
+      setInvalidForm(prev => {
+        const newInvalidForm = {...prev}
+        Object.keys(inputValues).forEach(key => {
+          newInvalidForm[key] = inputValues[key] === ''
+        })
+        return newInvalidForm
+      })
       return
     }
 
@@ -63,7 +66,7 @@ export const TableForm = ({
                 placeholder={header}
                 value={inputValues[accessorKey]}
                 onChange={inputOnChange}
-                isInvalid={invalidForm && inputValues[accessorKey] === ''}
+                isInvalid={invalidForm[accessorKey]}
               />
             ))
         }
@@ -76,7 +79,7 @@ export const TableForm = ({
         </button>
         <button
           onClick={formSubmit}
-          disabled={invalidForm}
+          disabled={Object.values(invalidForm).filter(value => value).length > 0}
         >
           Guardar Registro
         </button>
