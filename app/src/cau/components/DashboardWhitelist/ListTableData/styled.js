@@ -69,19 +69,19 @@ export const THeadCell = styled.div`
 `
 
 export const TBody = styled.div`
+  height: 100%;
   position: relative;
-  padding-bottom: 12px;
   display: flex;
   flex-direction: column;
-  overflow-y: auto;
+  overflow-y: scroll;
 
   .row:nth-child(even) {
     background-color: var(--bg-container-500);
   }
 
-  .row:hover {
-    background-color: var(--bg-container-400);
-  }
+  ${({showForm}) => (!showForm && '.row:hover {background-color: var(--bg-container-400);}')}
+
+  ${({showForm, childsLength}) => (showForm && `${childsLength > 14 ? '.row' : '&'}::before { content: ''; position: absolute; top: 0; left: 0; height: 100%; width: 100%; background-color: var(--bg-container-900); opacity: 0.6; z-index: 1;}`)}
 `
 
 export const TBodyCell = styled.div`
@@ -99,7 +99,7 @@ export const TBodyCell = styled.div`
 export const Footer = styled.div`
   padding: ${({showForm}) => (showForm ? '16px' : '12px')};
   text-align: end;
-  background-color: var(--bg-container-700);
+  background-color: var(--bg-container-800);
   border: ${border};
   border-top: none;
   border-radius: 0 0 5px 5px;

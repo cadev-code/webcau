@@ -6,12 +6,28 @@ export const Form = styled.div`
   display: flex;
   flex-direction: column;
   gap: 12px;
+  text-align: start;
+
+  h3 {
+    user-select: none;
+  }
 `
 
 export const InputsContainer = styled.div`
   display: flex;
   flex-direction: column;
   gap: 8px;
+
+  div {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+
+    span {
+      font-size: 14px;
+      opacity: 0.75;
+    }
+  }
 `
 
 export const InputForm = styled.input`

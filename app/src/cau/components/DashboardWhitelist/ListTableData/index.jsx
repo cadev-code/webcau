@@ -9,6 +9,7 @@ export const ListTableData = ({
   defaultColumns, 
   tableData,
   addRegisterMethod,
+  editRegisterMethod,
   refreshData,
   activeForm,
   setActiveForm
@@ -27,9 +28,12 @@ export const ListTableData = ({
     getCoreRowModel: getCoreRowModel()
   })
 
-  const [showForm, setShowForm] = useState({show: false, mode: ''})
-  const [footerHeight, setFooterHeight] = useState('50px')
+  const tBodyRef = useRef(null)
   const footerRef = useRef(null)
+  const [footerHeight, setFooterHeight] = useState('50px')
+
+  const [showForm, setShowForm] = useState({show: false, mode: ''})
+  const [dataToEdit, setDataToEdit] = useState({})
 
   useEffect(() => {
     if(showForm.show) {
@@ -39,6 +43,10 @@ export const ListTableData = ({
       setActiveForm(false)
     }
   }, [showForm])
+
+  useEffect(() => {
+    console.log(tBodyRef.current.childElementCount)
+  }, [tBodyRef])
 
   return (
     <Container>
@@ -63,11 +71,17 @@ export const ListTableData = ({
             </TRow>
           ))}
         </THead>
-        <TBody>
+        <TBody
+          ref={tBodyRef}
+          showForm={showForm.show}
+          childsLength={tBodyRef.current?.childElementCount}
+        >
           {table.getRowModel().rows.map(row => (
-            <TBodyRow 
+            <TBodyRow key={row.id}
               row={row}
               activeForm={activeForm}
+              setShowForm={setShowForm}
+              setDataToEdit={setDataToEdit}
             />
           ))}
         </TBody>
@@ -83,7 +97,10 @@ export const ListTableData = ({
               columns={columns}
               setShowForm={setShowForm}
               setFooterHeight={setFooterHeight}
+              dataToEdit={dataToEdit}
+              setDataToEdit={setDataToEdit}
               addRegister={addRegisterMethod}
+              editRegister={editRegisterMethod}
               refreshData={refreshData}
             />
         }
@@ -101,10 +118,20 @@ export const ListTableData = ({
   )
 }
 
-const TBodyRow = ({row, activeForm}) => {
+const TBodyRow = ({
+  row, 
+  activeForm, 
+  setShowForm,
+  setDataToEdit
+}) => {
 
   const rowRef= useRef(null)
   const [showBtns, setShowBtns] = useState(false)
+
+  const btnOnClick = (mode) => {
+    setDataToEdit(row.original)
+    setShowForm({ show: true, mode })
+  }
 
   return(
     <TRow key={row.id}
@@ -126,7 +153,9 @@ const TBodyRow = ({row, activeForm}) => {
       {
         (showBtns && !activeForm) &&
         <TRowBtns>
-          <button>
+          <button
+            onClick={() => btnOnClick('edit')}
+          >
             <Edit />
           </button>
           <button>

@@ -1,5 +1,5 @@
-import { useEffect, useState } from "react"
-import { ButtonContainer, Form, InputForm, InputsContainer } from "./styled"
+import { useEffect, useState } from 'react'
+import { ButtonContainer, Form, InputForm, InputsContainer } from './styled'
 
 export const TableForm = ({
   mode,
@@ -7,16 +7,23 @@ export const TableForm = ({
   columns, 
   setShowForm, 
   setFooterHeight,
+  dataToEdit = [],
+  setDataToEdit,
   addRegister,
+  editRegister,
   refreshData
 }) => {
+
   // la tabla equipos tiene dos header groups
   const filteredColumns = columns[0].columns ? columns[0].columns : columns
 
   const defaultInputValues = {}
   const defaultInvalidForm = {}
   filteredColumns.forEach(({accessorKey}) => {
-    defaultInputValues[accessorKey] = ''
+    mode === 'add'
+      ? defaultInputValues[accessorKey] = ''
+      : defaultInputValues[accessorKey] = dataToEdit[accessorKey]
+
     defaultInvalidForm[accessorKey] = false
   })
 
@@ -30,6 +37,7 @@ export const TableForm = ({
 
   const closeForm = () => {
     setFooterHeight('50px')
+    mode !== 'add' && setDataToEdit({})
     setShowForm({show: false, mode: ''})
   }
 
@@ -46,7 +54,11 @@ export const TableForm = ({
     }
 
     try {
-      await addRegister({...inputValues, id_zone})
+      if(mode === 'add') {
+        await addRegister({...inputValues, id_zone})
+      } else if(mode === 'edit') {
+        await editRegister({...dataToEdit, ...inputValues})
+      }
       await refreshData(id_zone)
       closeForm()
     } catch (error) {
@@ -56,18 +68,33 @@ export const TableForm = ({
 
   return (
     <Form>
+      <h3>
+        {
+          mode === 'add'
+           ? 'Agregar Registro'
+            : mode === 'edit'
+             ? 'Editar Registro'
+              : 'Eliminar Registro'
+        }
+      </h3>
       <InputsContainer>
         {
           filteredColumns.map(({header, accessorKey}) => (
-              <InputForm
-                key={accessorKey}
-                id={accessorKey}
-                type="text"
-                placeholder={header}
-                value={inputValues[accessorKey]}
-                onChange={inputOnChange}
-                isInvalid={invalidForm[accessorKey]}
-              />
+              <div key={accessorKey}>
+                {
+                  mode === 'edit' &&
+                    <span>Anterior: {dataToEdit[accessorKey]}</span>
+                }
+                <InputForm
+                  key={accessorKey}
+                  id={accessorKey}
+                  type="text"
+                  placeholder={header}
+                  value={inputValues[accessorKey]}
+                  onChange={inputOnChange}
+                  isInvalid={invalidForm[accessorKey]}
+                />
+              </div>
             ))
         }
       </InputsContainer>
@@ -81,7 +108,11 @@ export const TableForm = ({
           onClick={formSubmit}
           disabled={Object.values(invalidForm).filter(value => value).length > 0}
         >
-          Guardar Registro
+          {mode === 'add' 
+            ? 'Guardar Registro' 
+            : mode === 'edit'
+              ? 'Guardar Cambios'
+              : 'Eliminar Registro'}
         </button>
       </ButtonContainer>
     </Form>
