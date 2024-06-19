@@ -71,6 +71,7 @@ export const THeadCell = styled.div`
     display: flex;
     align-items: center;
     gap: 4px;
+    ${({accessorKey}) => accessorKey && 'cursor: pointer;'}
 
     svg {
       font-size: 20px;
@@ -92,7 +93,7 @@ export const TBody = styled.div`
 
   ${({showForm}) => (!showForm && '.row:hover {background-color: var(--bg-container-400);}')}
 
-  ${({showForm, childsLength}) => (showForm && `${childsLength > 14 ? '.row' : '&'}::before { content: ''; position: absolute; top: 0; left: 0; height: 100%; width: 100%; background-color: var(--bg-container-900); opacity: 0.6; z-index: 1;}`)}
+  ${({showForm, childsLength}) => (showForm && `${childsLength > 13 ? '.row' : '&'}::before { content: ''; position: absolute; top: 0; left: 0; height: 100%; width: 100%; background-color: var(--bg-container-900); opacity: 0.6; z-index: 1;}`)}
 `
 
 export const TBodyCell = styled.div`
@@ -136,4 +137,16 @@ export const Footer = styled.div`
       cursor: not-allowed;
     }
   }
+`
+
+export const InputFilterColumn = styled.input`
+  width: 100%;
+  margin-top: 8px;
+  padding: 4px 8px;
+  font-size: 16px;
+  color: white;
+  background-color: var(--bg-container-600);
+  border: ${border};
+  border-radius: 5px;
+  outline: none;
 `

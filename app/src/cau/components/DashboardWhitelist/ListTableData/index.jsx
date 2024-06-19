@@ -1,8 +1,8 @@
 import { useEffect, useRef, useState } from 'react'
-import { Container, Footer, TBody, TBodyCell, THead, THeadCell, TRow, TRowBtns, Table } from './styled'
+import { Container, Footer, InputFilterColumn, TBody, TBodyCell, THead, THeadCell, TRow, TRowBtns, Table } from './styled'
 import { TableForm } from '../TableForm'
 import { ArrowDownward, ArrowUpward, Delete, Edit } from '@mui/icons-material'
-import { flexRender, getCoreRowModel, getSortedRowModel, useReactTable } from '@tanstack/react-table'
+import { flexRender, getCoreRowModel, getFilteredRowModel, getSortedRowModel, useReactTable } from '@tanstack/react-table'
 
 export const ListTableData = ({
   id_zone, 
@@ -24,16 +24,20 @@ export const ListTableData = ({
   }, [tableData])
 
   const [sorting, setSorting] = useState([])
+  const [columnFilters, setColumnFilters] = useState([])
 
   const table = useReactTable({
     columns,
     data,
     getCoreRowModel: getCoreRowModel(),
     getSortedRowModel: getSortedRowModel(),
+    getFilteredRowModel: getFilteredRowModel(),
     state: {
-      sorting
+      sorting,
+      columnFilters
     },
-    onSortingChange: setSorting
+    onSortingChange: setSorting,
+    onColumnFiltersChange: setColumnFilters
   })
 
   const tBodyRef = useRef(null)
@@ -79,6 +83,9 @@ export const ListTableData = ({
                       ]
                     }
                   </div>
+                  {header.column.getCanFilter() ?
+                    <Filter column={header.column}/>
+                    : null}
                 </THeadCell>
               ))}
             </TRow>
@@ -129,6 +136,25 @@ export const ListTableData = ({
         }
       </Footer>
     </Container>
+  )
+}
+
+const Filter = ({column}) => {
+
+  const filterValue = column.getFilterValue()
+  const [inputValue, setInputValue] = useState(filterValue ?? '')
+
+  const inputOnChange = ({target}) => {
+    setInputValue(target.value)
+    column.setFilterValue(target.value)
+  }
+
+  return (
+    <InputFilterColumn 
+      type="text"
+      value={inputValue}
+      onChange={inputOnChange}
+    />
   )
 }
 
