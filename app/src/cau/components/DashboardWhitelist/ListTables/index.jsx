@@ -2,8 +2,7 @@ import { useEffect, useState } from 'react'
 import { Container } from './styled'
 import { ListTableData } from '../ListTableData'
 import { tablesDataRequest } from '../helpers/tablesDataRequest'
-import { computersColumns, customersEmailsColumns, localEmailsColumns } from './tablesProps'
-import { addComputer, addCustomersEmail, addLocalEmail, deleteComputer, deleteCustomersEmail, deleteLocalEmail, updateComputer, updateCustomersEmail, updateLocalEmail } from '../../../api/cmdbWhitelists'
+import { tablesProps } from './tablesProps' 
 
 export const ListTables = ({
   zoneSelected,
@@ -35,39 +34,21 @@ export const ListTables = ({
 
   return (
     <Container>
-      <ListTableData
-        id_zone={zoneSelected.id_zone}
-        defaultColumns={computersColumns}
-        tableData={computersData}
-        addRegisterMethod={addComputer}
-        editRegisterMethod={updateComputer}
-        deleteRegisterMethod={deleteComputer}
-        refreshData={getComputersData}
-        activeForm={activeForm}
-        setActiveForm={setActiveForm}
-      />      
-      <ListTableData 
-        id_zone={zoneSelected.id_zone}
-        defaultColumns={localEmailsColumns}
-        tableData={localEmailsData}
-        addRegisterMethod={addLocalEmail}
-        editRegisterMethod={updateLocalEmail}
-        deleteRegisterMethod={deleteLocalEmail}
-        refreshData={getLocalEmailsData}
-        activeForm={activeForm}
-        setActiveForm={setActiveForm}
-      />      
-      <ListTableData 
-        id_zone={zoneSelected.id_zone}
-        defaultColumns={customersEmailsColumns}
-        tableData={customersEmailsData}
-        addRegisterMethod={addCustomersEmail}
-        editRegisterMethod={updateCustomersEmail}
-        deleteRegisterMethod={deleteCustomersEmail}
-        refreshData={getCustomersEmailsData}
-        activeForm={activeForm}
-        setActiveForm={setActiveForm}
-      />
+      {
+        tablesProps.map(table => (
+            <ListTableData
+              id_zone={zoneSelected.id_zone}
+              defaultColumns={table.columns}
+              tableData={table.db === 'computers' ? computersData : table.db === 'localEmails' ? localEmailsData : customersEmailsData}
+              addRegisterMethod={table.addMethod}
+              editRegisterMethod={table.editMethod}
+              deleteRegisterMethod={table.deleteMethod}
+              refreshData={table.db === 'computers' ? getComputersData : table.db === 'localEmails' ? getLocalEmailsData : getCustomersEmailsData}
+              activeForm={activeForm}
+              setActiveForm={setActiveForm}
+            />      
+        ))
+      }
     </Container>
   )
 }
