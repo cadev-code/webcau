@@ -40,7 +40,6 @@ export const ListTableData = ({
     onColumnFiltersChange: setColumnFilters
   })
 
-  const tBodyRef = useRef(null)
   const footerRef = useRef(null)
   const [footerHeight, setFooterHeight] = useState('50px')
 
@@ -92,9 +91,7 @@ export const ListTableData = ({
           ))}
         </THead>
         <TBody
-          ref={tBodyRef}
           showForm={showForm.show}
-          childsLength={tBodyRef.current?.childElementCount}
         >
           {table.getRowModel().rows.map(row => (
             <TBodyRow key={row.id}

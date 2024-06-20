@@ -87,13 +87,17 @@ export const TBody = styled.div`
   flex-direction: column;
   overflow-y: scroll;
 
+  .row {
+    background-color: var(--bg-container-600);
+  }
+
   .row:nth-child(even) {
     background-color: var(--bg-container-500);
   }
 
   ${({showForm}) => (!showForm && '.row:hover {background-color: var(--bg-container-400);}')}
 
-  ${({showForm, childsLength}) => (showForm && `${childsLength > 13 ? '.row' : '&'}::before { content: ''; position: absolute; top: 0; left: 0; height: 100%; width: 100%; background-color: var(--bg-container-900); opacity: 0.6; z-index: 1;}`)}
+  ${({showForm}) => (showForm && `&{background-color: #030e18;} .row::before { content: ''; position: absolute; top: 0; left: 0; height: 100%; width: 100%; background-color: var(--bg-container-900); opacity: 0.6; z-index: 1;}`)}
 `
 
 export const TBodyCell = styled.div`
@@ -149,4 +153,8 @@ export const InputFilterColumn = styled.input`
   border: ${border};
   border-radius: 5px;
   outline: none;
+
+  @media (max-width: 1600px) {
+    font-size: 14px;
+  }
 `
