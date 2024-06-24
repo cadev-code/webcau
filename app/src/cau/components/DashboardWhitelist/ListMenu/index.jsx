@@ -6,6 +6,7 @@ import { listNameFormState } from '../helpers/listNameFormState'
 
 export const ListMenu = ({ 
   userIsAdmin,
+  zonesIsLoading,
   zonesData = [], 
   refreshData, 
   zoneSelected, 
@@ -111,12 +112,6 @@ export const ListMenu = ({
                   </ListButton>
                 </li>
               ))
-            }
-            {
-              listData.length === 0 &&
-                <li>
-                  <p>No hay Listas  por mostrar en la base de datos...</p>
-                </li>
             }
           </ul>
         </ListItems>
