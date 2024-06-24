@@ -5,6 +5,7 @@ import { listNameFormState } from '../helpers/listNameFormState'
 import { updateZone } from '../../../api/cmdbWhitelists'
 
 export const ListName = ({ 
+  userIsAdmin,
   zoneSelected, 
   refreshData,
   activeForm,
@@ -57,12 +58,15 @@ export const ListName = ({
         !showForm
           ? <>
               <p>{ zoneSelected?.zone }</p>
-              <button className="edit-icon"
-                onClick={openForm}
-                disabled={activeForm}
-              >
-                <Edit />
-              </button>
+              {
+                userIsAdmin &&
+                  <button className="edit-icon"
+                    onClick={openForm}
+                    disabled={activeForm}
+                  >
+                    <Edit />
+                  </button>
+              }
             </>
           : <EditInputForm invalidInput={invalidInput}>
               <input 

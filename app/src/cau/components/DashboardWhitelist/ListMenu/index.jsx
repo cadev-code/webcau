@@ -5,13 +5,14 @@ import { addZone } from '../../../api/cmdbWhitelists'
 import { listNameFormState } from '../helpers/listNameFormState'
 
 export const ListMenu = ({ 
+  userIsAdmin,
   zonesData = [], 
   refreshData, 
   zoneSelected, 
   setZoneSelected,
   activeForm,
   setActiveForm
- }) => {
+}) => {
   const [listData, setListData] = useState([])
   const [listSortOrder, setListSortOrder] = useState('default')
 
@@ -79,7 +80,10 @@ export const ListMenu = ({
 
   return (
     <ListContainer>
-      <ListMain isFormVisible={showForm}>
+      <ListMain
+        userIsAdmin={userIsAdmin}
+        isFormVisible={showForm}
+      >
         <ListTitle
           onClick={handleSort}
         >
@@ -117,40 +121,43 @@ export const ListMenu = ({
           </ul>
         </ListItems>
       </ListMain>
-      <ListFooter isFormVisible={showForm}>
-        {
-          showForm
-            ? <AddInputForm invalidInput={invalidInput}>
-                <input 
-                  ref={inputRef}
-                  type="text"
-                  placeholder="Nombre de lista nueva..."
-                  value={inputValue}
-                  onChange={inputOnChange}
-                  required
-                />
-                <div>
-                  <button
-                    onClick={closeForm}
+      {
+        userIsAdmin &&
+          <ListFooter isFormVisible={showForm}>
+            {
+              showForm
+                ? <AddInputForm invalidInput={invalidInput}>
+                    <input 
+                      ref={inputRef}
+                      type="text"
+                      placeholder="Nombre de lista nueva..."
+                      value={inputValue}
+                      onChange={inputOnChange}
+                      required
+                    />
+                    <div>
+                      <button
+                        onClick={closeForm}
+                      >
+                        Cancelar
+                      </button>
+                      <button
+                        onClick={formSubmit}
+                        disabled={invalidInput}
+                      >
+                        Guardar Lista
+                      </button>
+                    </div>
+                  </AddInputForm>
+                : <button
+                    onClick={openForm}
+                    disabled={activeForm}
                   >
-                    Cancelar
+                    Agregar Lista
                   </button>
-                  <button
-                    onClick={formSubmit}
-                    disabled={invalidInput}
-                  >
-                    Guardar Lista
-                  </button>
-                </div>
-              </AddInputForm>
-            : <button
-                onClick={openForm}
-                disabled={activeForm}
-              >
-                Agregar Lista
-              </button>
-        }
-      </ListFooter>
+            }
+          </ListFooter>
+      }
     </ListContainer>
   )
 }

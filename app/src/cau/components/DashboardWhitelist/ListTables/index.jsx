@@ -5,6 +5,7 @@ import { tablesDataRequest } from '../helpers/tablesDataRequest'
 import { tablesProps } from './tablesProps' 
 
 export const ListTables = ({
+  userIsAdmin,
   zoneSelected,
   activeForm,
   setActiveForm
@@ -37,6 +38,8 @@ export const ListTables = ({
       {
         tablesProps.map(table => (
             <ListTableData
+              key={table.db}
+              userIsAdmin={userIsAdmin}
               id_zone={zoneSelected.id_zone}
               defaultColumns={table.columns}
               tableData={table.db === 'computers' ? computersData : table.db === 'localEmails' ? localEmailsData : customersEmailsData}

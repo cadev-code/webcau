@@ -5,6 +5,7 @@ import { ArrowDownward, ArrowUpward, Delete, Edit } from '@mui/icons-material'
 import { flexRender, getCoreRowModel, getFilteredRowModel, getSortedRowModel, useReactTable } from '@tanstack/react-table'
 
 export const ListTableData = ({
+  userIsAdmin,
   id_zone, 
   defaultColumns, 
   tableData,
@@ -41,7 +42,7 @@ export const ListTableData = ({
   })
 
   const footerRef = useRef(null)
-  const [footerHeight, setFooterHeight] = useState('50px')
+  const [footerHeight, setFooterHeight] = useState(userIsAdmin ? '50px' : '0px')
 
   const [showForm, setShowForm] = useState({show: false, mode: ''})
   const [dataToEdit, setDataToEdit] = useState({})
@@ -57,7 +58,10 @@ export const ListTableData = ({
 
   return (
     <Container>
-      <Table footerHeight={footerHeight}>
+      <Table 
+        userIsAdmin={userIsAdmin}
+        footerHeight={footerHeight}
+      >
         <THead>
           {table.getHeaderGroups().map((headerGroup) => (
             <TRow key={headerGroup.id}>
@@ -95,6 +99,7 @@ export const ListTableData = ({
         >
           {table.getRowModel().rows.map(row => (
             <TBodyRow key={row.id}
+              userIsAdmin={userIsAdmin}
               row={row}
               activeForm={activeForm}
               setShowForm={setShowForm}
@@ -103,35 +108,38 @@ export const ListTableData = ({
           ))}
         </TBody>
       </Table>
-      <Footer ref={footerRef}
-        showForm={showForm.show}
-      >
-        {
-          showForm.show &&
-            <TableForm
-              mode={showForm.mode} 
-              id_zone={id_zone}
-              columns={columns}
-              setShowForm={setShowForm}
-              setFooterHeight={setFooterHeight}
-              dataToEdit={dataToEdit}
-              setDataToEdit={setDataToEdit}
-              addRegister={addRegisterMethod}
-              editRegister={editRegisterMethod}
-              deleteRegister={deleteRegisterMethod}
-              refreshData={refreshData}
-            />
-        }
-        {
-          !showForm.show &&
-          <button
-            onClick={() => setShowForm({show: true, mode: 'add'})}
-            disabled={activeForm}
+      {
+        userIsAdmin &&
+          <Footer ref={footerRef}
+            showForm={showForm.show}
           >
-            Agregar Registro
-          </button>
-        }
-      </Footer>
+            {
+              showForm.show &&
+                <TableForm
+                  mode={showForm.mode} 
+                  id_zone={id_zone}
+                  columns={columns}
+                  setShowForm={setShowForm}
+                  setFooterHeight={setFooterHeight}
+                  dataToEdit={dataToEdit}
+                  setDataToEdit={setDataToEdit}
+                  addRegister={addRegisterMethod}
+                  editRegister={editRegisterMethod}
+                  deleteRegister={deleteRegisterMethod}
+                  refreshData={refreshData}
+                />
+            }
+            {
+              !showForm.show &&
+              <button
+                onClick={() => setShowForm({show: true, mode: 'add'})}
+                disabled={activeForm}
+              >
+                Agregar Registro
+              </button>
+            }
+          </Footer>
+      }
     </Container>
   )
 }
@@ -156,6 +164,7 @@ const Filter = ({column}) => {
 }
 
 const TBodyRow = ({
+  userIsAdmin,
   row, 
   activeForm, 
   setShowForm,
@@ -188,7 +197,7 @@ const TBodyRow = ({
         </TBodyCell>
       ))}
       {
-        (showBtns && !activeForm) &&
+        (userIsAdmin && showBtns && !activeForm) &&
         <TRowBtns>
           <button
             onClick={() => btnOnClick('edit')}

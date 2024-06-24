@@ -4,6 +4,12 @@ import { ListMenu, ListName, ListTables } from '../../components/DashboardWhitel
 import { getZones } from '../../api/cmdbWhitelists'
 
 export const CMDBWhitelists = ({ userData }) => {
+  const [userIsAdmin, setUserIsAdmin] = useState(false)
+
+  useEffect(() => {
+    setUserIsAdmin(userData.permissions.includes('whitelists'))
+  }, [userData])
+
   const [zonesData, setZonesData] = useState([])
   const [zoneSelected, setZoneSelected] = useState({})
   const [activeForm, setActiveForm] = useState(false)
@@ -33,6 +39,7 @@ export const CMDBWhitelists = ({ userData }) => {
     <Container>
       <Dashboard>
         <ListMenu
+          userIsAdmin={userIsAdmin}
           zonesData={zonesData}
           refreshData={refreshZonesData}
           zoneSelected={zoneSelected}
@@ -43,13 +50,15 @@ export const CMDBWhitelists = ({ userData }) => {
         {
           zonesData.length > 0 &&
             <Main>
-              <ListName 
+              <ListName
+                userIsAdmin={userIsAdmin}
                 zoneSelected={zoneSelected}
                 refreshData={refreshZonesData}
                 activeForm={activeForm}
                 setActiveForm={setActiveForm}
               />
               <ListTables 
+                userIsAdmin={userIsAdmin}
                 zoneSelected={zoneSelected}
                 activeForm={activeForm}
                 setActiveForm={setActiveForm}
