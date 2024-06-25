@@ -3,18 +3,22 @@ import {
   addArea,
   addLicense,
   addModel,
+  addOrigin,
   addRegister,
   deleteArea,
   deleteLicense,
   deleteModel,
+  deleteOrigin,
   deleteRegister,
   getAreas,
   getLicenses,
   getModels,
+  getOrigins,
   getRegisters,
   updateArea,
   updateLicense,
   updateModel,
+  updateOrigin,
   updateRegister,
 } from '../controllers/computers_cmdb.controllers.js'
 
@@ -34,6 +38,11 @@ router.get('/cmdb/computers/models', getModels)
 router.post('/cmdb/computers/models', addModel)
 router.put('/cmdb/computers/models', updateModel)
 router.delete('/cmdb/computers/models', deleteModel)
+
+router.get('/cmdb/computers/origins', getOrigins)
+router.post('/cmdb/computers/origins', addOrigin)
+router.put('/cmdb/computers/origins', updateOrigin)
+router.delete('/cmdb/computers/origins', deleteOrigin)
 
 router.get('/cmdb/computers/registers', getRegisters)
 router.post('/cmdb/computers/registers', addRegister)

@@ -153,6 +153,55 @@ export const deleteModel = async(req, res) => {
 
 }
 
+// origins
+
+export const getOrigins = async(req, res) => {
+  const query = 'SELECT * FROM origin_computers_cmdb ORDER BY `origin` ASC'
+
+  try {
+    const [result] = await pool.query(query)
+    res.status(200).json(result)
+  } catch (error) {
+    res.status(400).send('Error when trying to obtain the information.')
+  }
+}
+
+export const addOrigin = async({ body }, res) => {
+  const { text } = body
+  const query = 'INSERT INTO origin_computers_cmdb (`origin`) VALUES (?)'
+
+  try {
+    await pool.query(query, [text])
+    res.status(200).send('Information uploaded correctly.')
+  } catch (error) {
+    res.status(400).send('There was an error trying to load the information.')
+  }
+}
+
+export const updateOrigin = async({ body }, res) => {
+  const { id, text } = body
+  const query = 'UPDATE origin_computers_cmdb SET `origin` = ? WHERE `id_origin` = ?'
+
+  try {
+    await pool.query(query, [text, id])
+    res.status(200).send('Information was updated correctly.')
+  } catch (error) {
+    res.status(400).send('There was an error trying to update the information.')
+  }
+}
+
+export const deleteOrigin = async(req, res) => {
+  const { id_origin } = req.query
+  const query = 'DELETE FROM origin_computers_cmdb WHERE `id_origin` = ?'
+  
+  try {
+    await pool.query(query, [id_origin])
+    res.status(200).send('Information successfully deleted.')
+  } catch (error) {
+    res.status(200).send('There was an error trying to delete the information.')
+  }
+}
+
 // registers
 
 const getIdArea = async(area) => {

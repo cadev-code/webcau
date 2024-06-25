@@ -44,6 +44,20 @@ export const updateModel = async(data) =>
 export const deleteModel = async(id) =>
   await axios.delete(`${url}/models?id_model=${id}`)
 
+// origins
+
+export const getOrigins = async() =>
+  await axios.get(`${url}/origins`)
+
+export const addOrigin = async(data) =>
+  await axios.post(`${url}/origins`, data)
+
+export const updateOrigin = async(data) =>
+  await axios.put(`${url}/origins`, data)
+
+export const deleteOrigin = async(id) =>
+  await axios.delete(`${url}/origins?id_origin=${id}`)
+
 // registers
 
 export const getRegisters = async() =>
