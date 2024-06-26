@@ -68,6 +68,17 @@ export const columnsData = [
     }
   },
   {
+    header: 'Origen',
+    accessorKey: 'origin',
+    size: 180,
+    required: true,
+    filterFn: 'equalsString',
+    meta: {
+      filterVariant: 'select',
+      options: []
+    }
+  },
+  {
     header: 'Modelo de Equipo',
     accessorKey: 'model',
     size: 240,

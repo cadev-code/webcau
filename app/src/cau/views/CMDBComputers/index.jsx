@@ -61,10 +61,6 @@ export const CMDBComputers = ({ userData }) => {
     getRegistersData()
   }, [])
 
-  useEffect(() => {
-    console.log(registersData)
-  }, [registersData])
-
   const [defaultColumns, setDefaultColumns] = useState(columnsData)
   const [openAddAction, setOpenAddAction] = useState({action: () => {}})
 
@@ -91,6 +87,14 @@ export const CMDBComputers = ({ userData }) => {
         : column
     ))
   }, [modelsData])
+
+  useEffect(() => {
+    setDefaultColumns(prevColumns => prevColumns.map(column =>
+      (column.meta && column.accessorKey === 'origin')
+        ? {...column, meta: {...column.meta, options: ['Todo', ...originData.map(({origin}) => origin)]}}
+        : column
+    ))
+  }, [originData])
   
 
   const [showAreasManager, setShowAreasManager] = useState(false)
