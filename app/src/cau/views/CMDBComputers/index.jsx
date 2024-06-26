@@ -7,14 +7,17 @@ import {
   addArea, 
   addLicense, 
   addModel, 
+  addOrigin, 
   addRegister, 
   deleteArea, 
   deleteLicense, 
   deleteModel, 
+  deleteOrigin, 
   deleteRegister, 
   updateArea, 
   updateLicense, 
   updateModel,
+  updateOrigin,
   updateRegister
 } from '../../api/cmdbComputers.api'
 import { computersDataRequest } from './computersDataRequest'
@@ -34,17 +37,20 @@ export const CMDBComputers = ({ userData }) => {
   const [licensesData, setLicensesData] = useState([])
   const [modelsData, setModelsData] = useState([])
   const [registersData, setRegistersData] = useState([])
+  const [originData, setOriginData] = useState([])
 
   const {
     getAreasData,
     getLicensesData,
     getModelsData,
-    getRegistersData
+    getRegistersData,
+    getOriginData
   } = computersDataRequest(
     setAreasData,
     setLicensesData,
     setModelsData,
-    setRegistersData
+    setRegistersData,
+    setOriginData
   )
 
   useEffect(() => {
@@ -52,6 +58,7 @@ export const CMDBComputers = ({ userData }) => {
     getLicensesData()
     getModelsData()
     getRegistersData()
+    getOriginData()
   }, [])
 
   const [defaultColumns, setDefaultColumns] = useState(columnsData)
@@ -85,6 +92,7 @@ export const CMDBComputers = ({ userData }) => {
   const [showAreasManager, setShowAreasManager] = useState(false)
   const [showLicensesManager, setShowLicensesManager] = useState(false)
   const [showModelsManager, setShowModelsManager] = useState(false)
+  const [showOriginManager, setShowOriginManager] = useState(false)
 
   return (
     <>
@@ -105,6 +113,11 @@ export const CMDBComputers = ({ userData }) => {
             {
               userIsAdmin &&
                 <>
+                  <button
+                    onClick={() => setShowOriginManager(true)}
+                  >
+                    Origen de Equipos
+                  </button>
                   <button
                     onClick={() => setShowAreasManager(true)}
                   >
@@ -141,7 +154,6 @@ export const CMDBComputers = ({ userData }) => {
             deleteOptionMethod={ deleteArea }
             refreshOptions={() => {
               getAreasData()
-              // añadir actualización de registros
             }}
             userIsAdmin={ userIsAdmin }
             close={() => setShowAreasManager(false)}
@@ -157,7 +169,6 @@ export const CMDBComputers = ({ userData }) => {
             deleteOptionMethod={ deleteLicense }
             refreshOptions={() => {
               getLicensesData()
-              // añadir actualización de registros
             }}
             userIsAdmin={ userIsAdmin }
             close={() => setShowLicensesManager(false)}
@@ -173,12 +184,26 @@ export const CMDBComputers = ({ userData }) => {
             deleteOptionMethod={ deleteModel }
             refreshOptions={() => {
               getModelsData()
-              // añadir actualización de registros
             }}
             userIsAdmin={ userIsAdmin }
             close={() => setShowModelsManager(false)}
           />
       }
+      {
+        showOriginManager &&
+          <OptionsManager 
+            title="Origen de Equipo"
+            options={ originData.map(origin => ({id: origin.id_origin, text: origin.origin})) }
+            addOptionMethod={ addOrigin }
+            updateOptionMethod={ updateOrigin }
+            deleteOptionMethod={ deleteOrigin }
+            refreshOptions={() => {
+              getOriginData()
+            }}
+            userIsAdmin={ userIsAdmin }
+            close={() => setShowOriginManager(false)}
+          />
+      }
     </>
   )
-} 
+}
