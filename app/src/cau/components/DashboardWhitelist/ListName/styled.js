@@ -7,25 +7,52 @@ export const Container = styled.div`
   height: 69px;
   padding: 16px 24px;
   display: flex;
-  gap: 16px;
   align-items: center;
+  justify-content: space-between;
   background-color: var(--bg-container-700);
   border-bottom: ${border};
   border-radius: 0 5px 0 0;
 
-  p {
-    font-size: 24px;
-    font-weight: 600;
+  .title {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+
+    p {
+      font-size: 24px;
+      font-weight: 600;
+    }
+
+    .edit-icon {
+      display: grid;
+      color: var(--border-color);
+      background-color: transparent;
+      border: none;
+      cursor: pointer;
+
+      &:disabled {
+        opacity: 0.4;
+        cursor: not-allowed;
+      }
+    }
   }
 
-  .edit-icon {
+  .download-btn {
+    height: 100%;
+    padding: 0 4px;
     display: grid;
-    color: var(--border-color);
-    background-color: transparent;
+    place-content: center;
+    background-color: white;
     border: none;
+    border-radius: 4px;
     cursor: pointer;
 
+    &:hover {
+      opacity: 0.8;
+    }
+
     &:disabled {
+      color: black;
       opacity: 0.4;
       cursor: not-allowed;
     }

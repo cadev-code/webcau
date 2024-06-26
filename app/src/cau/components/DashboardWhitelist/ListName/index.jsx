@@ -1,6 +1,6 @@
 import { useEffect, useRef } from 'react'
 import { Container, EditInputForm } from './styled'
-import { Edit } from '@mui/icons-material'
+import { Download, Edit } from '@mui/icons-material'
 import { listNameFormState } from '../helpers/listNameFormState'
 import { updateZone } from '../../../api/cmdbWhitelists'
 
@@ -57,16 +57,23 @@ export const ListName = ({
       {
         !showForm
           ? <>
-              <p>{ zoneSelected?.zone }</p>
-              {
-                userIsAdmin &&
-                  <button className="edit-icon"
-                    onClick={openForm}
-                    disabled={activeForm}
-                  >
-                    <Edit />
-                  </button>
-              }
+              <div className="title">
+                <p>{ zoneSelected?.zone }</p>
+                {
+                  userIsAdmin &&
+                    <button className="edit-icon"
+                      onClick={openForm}
+                      disabled={activeForm}
+                    >
+                      <Edit />
+                    </button>
+                }
+              </div>
+              <button className="download-btn"
+                disabled={activeForm}
+              >
+                <Download />
+              </button>
             </>
           : <EditInputForm invalidInput={invalidInput}>
               <input 
