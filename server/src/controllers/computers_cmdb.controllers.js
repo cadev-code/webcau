@@ -220,7 +220,7 @@ const getIdModel = async(model) => {
 }
 
 export const getRegisters = async(req, res) => {
-  const query = 'SELECT cmdb.id, cmdb.idMapa, cmdb.netBIOS, cmdb.IP, cmdb.mac, cmdb.ext, cmdb.hash, cmdb.nodo, cmdb.vlan, cmdb.staff, cmdb.kc_monitor, cmdb.kc_cpu, cmdb.serviceTag,areas_computers_cmdb.area,licenses_computers_cmdb.license,models_computers_cmdb.model FROM cmdb INNER JOIN areas_computers_cmdb ON cmdb.id_area = areas_computers_cmdb.id_area INNER JOIN licenses_computers_cmdb ON cmdb.id_license = licenses_computers_cmdb.id_license INNER JOIN models_computers_cmdb ON cmdb.id_model = models_computers_cmdb.id_model'
+  const query = 'SELECT cmdb.id, cmdb.idMapa, cmdb.netBIOS, cmdb.IP, cmdb.mac, cmdb.ext, cmdb.hash, cmdb.nodo, cmdb.vlan, cmdb.staff, cmdb.kc_monitor, cmdb.kc_cpu, cmdb.serviceTag,areas_computers_cmdb.area,licenses_computers_cmdb.license,models_computers_cmdb.model,origin_computers_cmdb.origin FROM cmdb INNER JOIN areas_computers_cmdb ON cmdb.id_area = areas_computers_cmdb.id_area INNER JOIN licenses_computers_cmdb ON cmdb.id_license = licenses_computers_cmdb.id_license INNER JOIN models_computers_cmdb ON cmdb.id_model = models_computers_cmdb.id_model INNER JOIN origin_computers_cmdb ON cmdb.id_origin = origin_computers_cmdb.id_origin'
 
   try {
     const [result] = await pool.query(query)

@@ -57,9 +57,13 @@ export const CMDBComputers = ({ userData }) => {
     getAreasData()
     getLicensesData()
     getModelsData()
-    getRegistersData()
     getOriginData()
+    getRegistersData()
   }, [])
+
+  useEffect(() => {
+    console.log(registersData)
+  }, [registersData])
 
   const [defaultColumns, setDefaultColumns] = useState(columnsData)
   const [openAddAction, setOpenAddAction] = useState({action: () => {}})
