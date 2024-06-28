@@ -9,7 +9,8 @@ export const ListName = ({
   zoneSelected, 
   refreshData,
   activeForm,
-  setActiveForm
+  setActiveForm,
+  setExportingData
 }) => {
 
   const inputRef = useRef(null)
@@ -70,6 +71,7 @@ export const ListName = ({
                 }
               </div>
               <button className="download-btn"
+                onClick={() => setExportingData(true)}
                 disabled={activeForm}
               >
                 <Download />

@@ -8,7 +8,10 @@ export const ListTables = ({
   userIsAdmin,
   zoneSelected,
   activeForm,
-  setActiveForm
+  setActiveForm,
+  exportingData,
+  setExportingData,
+  exportData
 }) => {
 
   const [computersData, setComputersData] = useState([])
@@ -32,6 +35,12 @@ export const ListTables = ({
       getCustomersEmailsData(zoneSelected.id_zone)
     }
   }, [zoneSelected])
+
+  useEffect(() => {
+    exportingData &&
+    exportData(zoneSelected.zone, computersData, localEmailsData, customersEmailsData)
+    setExportingData(false)
+  }, [exportingData])
 
   return (
     <Container>

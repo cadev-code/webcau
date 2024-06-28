@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import { Container, Dashboard, Main } from './styled'
 import { ListMenu, ListName, ListTables } from '../../components/DashboardWhitelist'
 import { getZones } from '../../api/cmdbWhitelists'
+import { exportData } from './exportData'
 
 export const CMDBWhitelists = ({ userData }) => {
   const [userIsAdmin, setUserIsAdmin] = useState(false)
@@ -34,6 +35,9 @@ export const CMDBWhitelists = ({ userData }) => {
       setZoneSelected(data.filter(zone => zone.id_zone === zoneSelected.id_zone)[0])
     }
   }
+
+  // export data
+  const [exportingData, setExportingData] = useState(false)
   
   return (
     <Container>
@@ -56,12 +60,16 @@ export const CMDBWhitelists = ({ userData }) => {
                 refreshData={refreshZonesData}
                 activeForm={activeForm}
                 setActiveForm={setActiveForm}
+                setExportingData={setExportingData}
               />
               <ListTables 
                 userIsAdmin={userIsAdmin}
                 zoneSelected={zoneSelected}
                 activeForm={activeForm}
                 setActiveForm={setActiveForm}
+                exportingData={exportingData}
+                setExportingData={setExportingData}
+                exportData={exportData}
               />
             </Main>
         }
