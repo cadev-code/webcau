@@ -10,6 +10,7 @@ import {
   Catalogue,
   CMDB,
   CMDBComputers,
+  CMDBDirectory,
   CMDBEmails,
   CMDBWhitelists,
   Maps,
@@ -38,6 +39,7 @@ export const CauRouter = () => {
         <Route path="cmdb/equipos" element={ <CMDBComputers userData={ userData } /> } />
         <Route path="cmdb/correos" element={ <CMDBEmails userData={ userData } /> } />
         <Route path="cmdb/listas" element={ <CMDBWhitelists userData={ userData } /> } />
+        <Route path="cmdb/directory" element={ <CMDBDirectory userData={ userData } /> } />
 
         <Route path="mapas" element={ <Maps userData={ userData } /> } />
       </Route>

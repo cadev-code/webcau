@@ -1,6 +1,7 @@
 export * from './Catalogue'
 export * from './CMDB'
 export * from './CMDBComputers'
+export * from './CMDBDirectory'
 export * from './CMDBEmails'
 export * from './CMDBWhitelists'
 export * from './Maps'
