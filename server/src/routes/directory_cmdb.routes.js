@@ -1,5 +1,5 @@
 import { Router } from 'express'
-import { addArea, addUO, deleteArea, deleteUO, getAreas, getUO, updateArea, updateUO } from '../controllers/directory_cmdb.controllers.js'
+import { addArea, addDomain, addUO, deleteArea, deleteDomain, deleteUO, getAreas, getDomains, getUO, updateArea, updateDomain, updateUO } from '../controllers/directory_cmdb.controllers.js'
 
 const router = Router()
 
@@ -12,5 +12,10 @@ router.get('/cmdb/directory/areas', getAreas)
 router.post('/cmdb/directory/areas', addArea)
 router.put('/cmdb/directory/areas', updateArea)
 router.delete('/cmdb/directory/areas', deleteArea)
+
+router.get('/cmdb/directory/domains', getDomains)
+router.post('/cmdb/directory/domains', addDomain)
+router.put('/cmdb/directory/domains', updateDomain)
+router.delete('/cmdb/directory/domains', deleteDomain)
 
 export default router

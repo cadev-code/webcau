@@ -97,3 +97,52 @@ export const deleteArea = async(req, res) => {
     res.status(400).send('There was an error trying to delete the information.')
   }
 }
+
+// domains
+
+export const getDomains = async(req, res) => {
+  const query = 'SELECT * FROM domains_directory_cmdb ORDER BY `domain` ASC'
+
+  try {
+    const [result] = await pool.query(query)
+    res.status(200).json(result)
+  } catch (error) {
+    res.status(400).send('Error when trying to obtain the information.')
+  }
+}
+
+export const addDomain = async(req, res) => {
+  const { text } = req.body
+  const query = 'INSERT INTO domains_directory_cmdb (`domain`) VALUES (?)'
+
+  try {
+    await pool.query(query, [text])
+    res.status(200).send('Information uploaded correctly.')
+  } catch (error) {
+    res.status(400).send('There was an error trying to load the information.')
+  }
+}
+
+export const updateDomain = async(req, res) => {
+  const { id, text } = req.body
+  const query = 'UPDATE domains_directory_cmdb SET `domain` =? WHERE id_domain = ?'
+
+  try {
+    await pool.query(query, [text, id])
+    res.status(200).send('Information was updated correctly.')
+  } catch (error) {
+    res.status(400).send('There was an error trying to upadate the information.')
+  }
+}
+
+export const deleteDomain = async(req, res) => {
+  const { id_domain } = req.query
+  const query = 'DELETE FROM domains_directory_cmdb WHERE id_domain =?'
+
+  try {
+    await pool.query(query, [id_domain])
+    res.status(200).send('Information successfully deleted.')
+  } catch (error) {
+    res.status(400).send('There was an error trying to delete the information.')
+  }
+}
