@@ -146,3 +146,77 @@ export const deleteDomain = async(req, res) => {
     res.status(400).send('There was an error trying to delete the information.')
   }
 }
+
+// users
+
+export const getUsers = async(req, res) => {
+  const query = 'SELECT users_directory_cmdb.id_user, users_directory_cmdb.name, users_directory_cmdb.user, users_directory_cmdb.user_x, users_directory_cmdb.status, domains_directory_cmdb.domain, uo_directory_cmdb.uo, areas_directory_cmdb.area FROM users_directory_cmdb INNER JOIN domains_directory_cmdb ON users_directory_cmdb.id_domain = domains_directory_cmdb.id_domain INNER JOIN uo_directory_cmdb ON users_directory_cmdb.id_uo = uo_directory_cmdb.id_uo INNER JOIN areas_directory_cmdb ON users_directory_cmdb.id_area = areas_directory_cmdb.id_area ORDER BY users_directory_cmdb.id_user ASC'
+
+  try {
+    const [result] = await pool.query(query)
+    res.status(200).json(result)
+  } catch (error) {
+    res.status(400).send('Error when trying to obtain the information.')
+  }
+}
+
+const getIdDomain = async(domain) => {
+  const [result] = await pool.query('SELECT `id_domain` FROM domains_directory_cmdb WHERE `domain` = ?', [domain])
+  return result[0].id_domain
+}
+
+const getIdUO = async(uo) => {
+  const [result] = await pool.query('SELECT `id_uo` FROM uo_directory_cmdb WHERE `uo` = ?', [uo])
+  return result[0].id_uo
+}
+
+const getIdArea = async(area) => {
+  const [result] = await pool.query('SELECT `id_area` FROM areas_directory_cmdb WHERE `area` = ?', [area])
+  return result[0].id_area
+}
+
+export const addUser = async(req, res) => {
+  const { name, user, user_x, status, domain, uo, area } = req.body
+  const id_domain = await getIdDomain(domain)
+  const id_uo = await getIdUO(uo)
+  const id_area = await getIdArea(area)
+
+  const query = 'INSERT INTO users_directory_cmdb (name, user, user_x, status, id_domain, id_uo, id_area) VALUES (?,?,?,?,?,?,?)'
+
+  try {
+    await pool.query(query, [name, user, user_x, status, id_domain, id_uo, id_area])
+    res.status(200).send('Information uploaded correctly.')
+  } catch (error) {
+    res.status(400).send('There was an error trying to add the information.')
+  }
+}
+
+export const updateUser = async(req, res) => {
+  const { id_user, name, user, user_x, status, domain, uo, area } = req.body
+  const id_domain = await getIdDomain(domain)
+  const id_uo = await getIdUO(uo)
+  const id_area = await getIdArea(area)
+
+  const query = 'UPDATE users_directory_cmdb SET name = ?, user = ?, user_x = ?, status = ?, id_domain = ?, id_uo = ?, id_area = ? WHERE id_user = ?'
+
+  try {
+    await pool.query(query, [name, user, user_x, status, id_domain, id_uo, id_area, id_user])
+    res.status(200).send('Information was updated correctly.')
+  } catch (error) {
+    console.log(error)
+    res.status(400).send('There was an error trying to update the information.')
+  }
+}
+
+export const deleteUser = async(req, res) => {
+  const { id_user } = req.body
+
+  const query = 'DELETE FROM users_directory_cmdb WHERE id_user = ?'
+
+  try {
+    await pool.query(query, [id_user])
+    res.status()
+  } catch (error) {
+    res.status(400).send('There was an error trying to delete the information.')
+  }
+}
