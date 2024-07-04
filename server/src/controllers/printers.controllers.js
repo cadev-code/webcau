@@ -1,7 +1,7 @@
 import { pool } from '../db.js'
 
 export const getPrinters = async(req, res) => {
-  const [result] = await pool.query('SELECT * FROM printers')
+  const [result] = await pool.query('SELECT * FROM printers ORDER BY `status` ASC')
 
   res.json(result)
 }
