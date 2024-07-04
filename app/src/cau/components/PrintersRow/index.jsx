@@ -62,7 +62,7 @@ export const PrintersRow = ({ printerData, date }) => {
         <Typography
           color={ blue[200] } 
           sx={{ fontSize: 20, fontWeight: 600, cursor: 'pointer' }}
-          onClick={() => window.open(`http://${IP}`, '_blank') }
+          onClick={() => IP !== '---' && window.open(`http://${IP}`, '_blank') }
         >{ model }</Typography>
         <Typography color={ grey.A400 }>{ noSerie }</Typography>
         <Typography color={ grey.A400 }>{ IP }</Typography>
