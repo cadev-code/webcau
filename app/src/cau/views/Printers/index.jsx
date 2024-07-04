@@ -278,18 +278,19 @@ export const Printers = ({ userData }) => {
             : <PrintersBodyEdit>
               {
                 printers.map( printer => (
-                  <PrintersRowEdit
-                    key={ printer.noSerie } 
-                    printerData={ printer }
-                    agent={ agent }
-                    date={ date } 
-                    tonersChanges={ tonersChanges }
-                    setTonersChanges={ setTonersChanges }
-                    registersChanges={ registersChanges }
-                    setRegistersChanges={ setRegistersChanges }
-                    datesReportChanges={ datesReportChanges }
-                    setDatesReportChanges={ setDatesReportChanges }
-                  />
+                  printer.status === 'Activo' &&
+                    <PrintersRowEdit
+                      key={ printer.noSerie } 
+                      printerData={ printer }
+                      agent={ agent }
+                      date={ date } 
+                      tonersChanges={ tonersChanges }
+                      setTonersChanges={ setTonersChanges }
+                      registersChanges={ registersChanges }
+                      setRegistersChanges={ setRegistersChanges }
+                      datesReportChanges={ datesReportChanges }
+                      setDatesReportChanges={ setDatesReportChanges }
+                    />
                 ))
               }
             </PrintersBodyEdit>
