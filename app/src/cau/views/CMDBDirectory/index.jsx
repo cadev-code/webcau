@@ -2,25 +2,30 @@ import { useEffect, useState } from 'react'
 import { TitleActionBar } from '../../components'
 import { OptionsManager } from '../../components/TableData'
 import { directoryDataRequest } from './directoryDataRequest'
-import { addUO, deleteUO, updateUO } from '../../api/cmdbDirectory.api'
+import { addDomain, addUO, deleteDomain, deleteUO, updateDomain, updateUO } from '../../api/cmdbDirectory.api'
 
 export const CMDBDirectory = ({userData}) => {
 
   
   const [uoData, setUoData] = useState([])
+  const [domainsData, setDomainsData] = useState([])
 
   const {
-    getUOData
+    getUOData,
+    getDomainsData
   } = directoryDataRequest(
-    setUoData
+    setUoData,
+    setDomainsData
   )
   
   useEffect(() => {
     getUOData()
+    getDomainsData()
   }, [])
   
 
   const [showUoManager, setShowUoManager] = useState(false)
+  const [showDomainsManager, setShowDomainsManager] = useState(true)
 
   return (
     <>
@@ -33,7 +38,9 @@ export const CMDBDirectory = ({userData}) => {
             >
               Unidades Organizacionales
             </button>
-            <button>
+            <button
+              onClick={() => setShowDomainsManager(true)}
+            >
               Dominios
             </button>
             {
@@ -60,6 +67,22 @@ export const CMDBDirectory = ({userData}) => {
             deleteOptionMethod={deleteUO}
             refreshOptions={() => {
               getUOData()
+              // añadir getUsersData()
+            }}
+            userIsAdmin={true}
+          />
+      }
+      {
+        showDomainsManager &&
+          <OptionsManager 
+            title="Dominios"
+            options={domainsData.map(domain => ({id: domain.id_domain, text: domain.domain}))}
+            close={() => setShowDomainsManager(false)}
+            addOptionMethod={addDomain}
+            updateOptionMethod={updateDomain}
+            deleteOptionMethod={deleteDomain}
+            refreshOptions={() => {
+              getDomainsData()
               // añadir getUsersData()
             }}
             userIsAdmin={true}
