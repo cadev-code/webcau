@@ -29,3 +29,17 @@ export const updateDomain = async(data) =>
 
 export const deleteDomain = async(id) =>
   await axios.delete(`${url}/domains?id_domain=${id}`)
+
+// areas
+
+export const getAreas = async() =>
+  await axios.get(`${url}/areas`)
+
+export const addArea = async(data) =>
+  await axios.post(`${url}/areas`, data)
+
+export const updateArea = async(data) =>
+  await axios.put(`${url}/areas`, data)
+
+export const deleteArea = async(id) =>
+  await axios.delete(`${url}/areas?id_area=${id}`)
