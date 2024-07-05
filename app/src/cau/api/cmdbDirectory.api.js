@@ -2,6 +2,8 @@ import axios from 'axios'
 
 const url = `${import.meta.env.VITE_URL_API_WEBCAU_DB}/cmdb/directory`
 
+// uo's
+
 export const getUO = async() =>
   await axios.get(`${url}/uo`)
 
@@ -13,3 +15,17 @@ export const updateUO = async(data) =>
 
 export const deleteUO = async(id) =>
   await axios.delete(`${url}/uo?id_uo=${id}`)
+
+// domains
+
+export const getDomains = async() =>
+  await axios.get(`${url}/domains`)
+
+export const addDomain = async(data) =>
+  await axios.post(`${url}/domains`, data)
+
+export const updateDomain = async(data) =>
+  await axios.put(`${url}/domains`, data)
+
+export const deleteDomain = async(id) =>
+  await axios.delete(`${url}/domains?id_domain=${id}`)
