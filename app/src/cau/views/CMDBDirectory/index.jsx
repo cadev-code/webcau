@@ -2,30 +2,35 @@ import { useEffect, useState } from 'react'
 import { TitleActionBar } from '../../components'
 import { OptionsManager } from '../../components/TableData'
 import { directoryDataRequest } from './directoryDataRequest'
-import { addDomain, addUO, deleteDomain, deleteUO, updateDomain, updateUO } from '../../api/cmdbDirectory.api'
+import { addArea, addDomain, addUO, deleteArea, deleteDomain, deleteUO, updateArea, updateDomain, updateUO } from '../../api/cmdbDirectory.api'
 
 export const CMDBDirectory = ({userData}) => {
 
   
   const [uoData, setUoData] = useState([])
   const [domainsData, setDomainsData] = useState([])
+  const [areasData, setAreasData] = useState([])
 
   const {
     getUOData,
-    getDomainsData
+    getDomainsData,
+    getAreasData
   } = directoryDataRequest(
     setUoData,
-    setDomainsData
+    setDomainsData,
+    setAreasData
   )
   
   useEffect(() => {
     getUOData()
     getDomainsData()
+    getAreasData()
   }, [])
   
 
   const [showUoManager, setShowUoManager] = useState(false)
-  const [showDomainsManager, setShowDomainsManager] = useState(true)
+  const [showDomainsManager, setShowDomainsManager] = useState(false)
+  const [showAreasManager, setShowAreasManager] = useState(true)
 
   return (
     <>
@@ -45,7 +50,9 @@ export const CMDBDirectory = ({userData}) => {
             </button>
             {
               <>
-                <button>
+                <button
+                  onClick={() => setShowAreasManager(true)}
+                >
                   Áreas
                 </button>
                 <button className="blue">
@@ -83,6 +90,22 @@ export const CMDBDirectory = ({userData}) => {
             deleteOptionMethod={deleteDomain}
             refreshOptions={() => {
               getDomainsData()
+              // añadir getUsersData()
+            }}
+            userIsAdmin={true}
+          />
+      }
+      {
+        showAreasManager && 
+          <OptionsManager 
+            title="Áreas"
+            options={areasData.map(area => ({id: area.id_area, text: area.area}))}
+            close={() => setShowAreasManager(false)}
+            addOptionMethod={addArea}
+            updateOptionMethod={updateArea}
+            deleteOptionMethod={deleteArea}
+            refreshOptions={() => {
+              getAreasData()
               // añadir getUsersData()
             }}
             userIsAdmin={true}

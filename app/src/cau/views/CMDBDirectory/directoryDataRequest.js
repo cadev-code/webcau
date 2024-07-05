@@ -1,8 +1,9 @@
-import { getDomains, getUO } from '../../api/cmdbDirectory.api'
+import { getAreas, getDomains, getUO } from '../../api/cmdbDirectory.api'
 
 export const directoryDataRequest = (
   setUoData,
-  setDomainsData
+  setDomainsData,
+  setAreasData
 ) => {
   
   const getUOData = async() => {
@@ -15,8 +16,14 @@ export const directoryDataRequest = (
     setDomainsData(data)
   }
 
+  const getAreasData = async() => {
+    const { data } = await getAreas()
+    setAreasData(data)
+  }
+
   return {
     getUOData,
-    getDomainsData
+    getDomainsData,
+    getAreasData
   }
 }
