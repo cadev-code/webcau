@@ -2,22 +2,30 @@ export const directoryTableColumns = [
   {
     header: 'Nombre',
     accessorKey: 'name',
+    size: 340,
+    required: true
   },
   {
     header: 'Usuario',
-    accessorKey: 'user'
+    accessorKey: 'user',
+    size: 200,
+    required: true
   },
   {
     header: 'X-Usuario',
-    accessorKey: 'user_x'
+    accessorKey: 'user_x',
+    size: 160,
+    required: true
   },
   {
-    header: 'Estatus',
-    accessorKey: 'status',
+    header: 'Unidad Organizacional',
+    accessorKey: 'uo',
     meta: {
       filterVariant: 'select',
-      options: ['Todo', 'Activo', 'Baja']
-    }
+      options: []
+    },
+    size: 300,
+    required: true
   },
   {
     header: 'Dominio',
@@ -25,16 +33,9 @@ export const directoryTableColumns = [
     meta: {
       filterVariant: 'select',
       options: []
-    }
-  },
-  {
-    header: 'Unidad Organizacional',
-    accessorKey: 'uo',
-    size: '200',
-    meta: {
-      filterVariant: 'select',
-      options: []
-    }
+    },
+    size: 220,
+    required: true
   },
   {
     header: 'Área',
@@ -42,6 +43,18 @@ export const directoryTableColumns = [
     meta: {
       filterVariant: 'select',
       options: []
-    }
+    },
+    size: 300,
+    required: true
+  },
+  {
+    header: 'Estatus',
+    accessorKey: 'status',
+    meta: {
+      filterVariant: 'select',
+      options: ['Todo', 'Activo', 'Baja']
+    },
+    size: 140,
+    required: true
   },
 ]
