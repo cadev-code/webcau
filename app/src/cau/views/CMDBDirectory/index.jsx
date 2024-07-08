@@ -1,12 +1,12 @@
 import { useEffect, useState } from 'react'
 import { TitleActionBar } from '../../components'
-import { OptionsManager } from '../../components/TableData'
+import { DataCRUD, OptionsManager } from '../../components/TableData'
 import { directoryDataRequest } from './directoryDataRequest'
 import { addArea, addDomain, addUO, deleteArea, deleteDomain, deleteUO, updateArea, updateDomain, updateUO } from '../../api/cmdbDirectory.api'
+import { directoryTableColumns } from './defaultColumns'
 
 export const CMDBDirectory = ({userData}) => {
 
-  
   const [uoData, setUoData] = useState([])
   const [domainsData, setDomainsData] = useState([])
   const [areasData, setAreasData] = useState([])
@@ -26,11 +26,38 @@ export const CMDBDirectory = ({userData}) => {
     getDomainsData()
     getAreasData()
   }, [])
-  
 
+  const [defaultColumns, setDefaultColumns] = useState(directoryTableColumns)
+
+  useEffect(() => {
+    setDefaultColumns(prevColumns => prevColumns.map(column => 
+      column.accessorKey === 'domain'
+        ? {...column, meta: {...column.meta, options: ['Todo', ...domainsData.map(({domain}) => domain)]}}
+        : column 
+    ))
+  }, [domainsData])
+
+  useEffect(() => {
+    setDefaultColumns(prevColumns => prevColumns.map(column => 
+      column.accessorKey === 'uo'
+        ? {...column, meta: {...column.meta, options: ['Todo', ...uoData.map(({uo}) => uo)]}}
+        : column  
+    ))
+  }, [uoData])
+
+  useEffect(() => {
+    setDefaultColumns(prevColumns => prevColumns.map(column => 
+      column.accessorKey === 'area'
+        ? {...column, meta: {...column.meta, options: ['Todo', ...areasData.map(({area}) => area)]}}
+        : column
+    ))
+  }, [areasData])
+  
   const [showUoManager, setShowUoManager] = useState(false)
   const [showDomainsManager, setShowDomainsManager] = useState(false)
-  const [showAreasManager, setShowAreasManager] = useState(true)
+  const [showAreasManager, setShowAreasManager] = useState(false)
+
+  const [openAddAction, setOpenAddAction] = useState({ action: () => {} })
 
   return (
     <>
@@ -111,6 +138,11 @@ export const CMDBDirectory = ({userData}) => {
             userIsAdmin={true}
           />
       }
+      <DataCRUD 
+        defaultColumns={defaultColumns}
+        tableData={[]}
+        setOpenAddAction={setOpenAddAction}
+      />
     </>
   )
 }
