@@ -10,22 +10,31 @@ export const CMDBDirectory = ({userData}) => {
   const [uoData, setUoData] = useState([])
   const [domainsData, setDomainsData] = useState([])
   const [areasData, setAreasData] = useState([])
+  const [usersData, setUsersData] = useState([])
 
   const {
     getUOData,
     getDomainsData,
-    getAreasData
+    getAreasData,
+    getUsersData
   } = directoryDataRequest(
     setUoData,
     setDomainsData,
-    setAreasData
+    setAreasData,
+    setUsersData
   )
   
   useEffect(() => {
     getUOData()
     getDomainsData()
     getAreasData()
+    getUsersData()
   }, [])
+
+  useEffect(() => {
+    console.log(usersData)
+  }, [usersData])
+  
 
   const [defaultColumns, setDefaultColumns] = useState(directoryTableColumns)
 
@@ -140,8 +149,9 @@ export const CMDBDirectory = ({userData}) => {
       }
       <DataCRUD 
         defaultColumns={defaultColumns}
-        tableData={[]}
+        tableData={usersData}
         setOpenAddAction={setOpenAddAction}
+        userIsAdmin={true}
       />
     </>
   )
