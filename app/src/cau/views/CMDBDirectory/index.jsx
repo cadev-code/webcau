@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import { TitleActionBar } from '../../components'
 import { DataCRUD, OptionsManager } from '../../components/TableData'
 import { directoryDataRequest } from './directoryDataRequest'
-import { addArea, addDomain, addUO, deleteArea, deleteDomain, deleteUO, updateArea, updateDomain, updateUO } from '../../api/cmdbDirectory.api'
+import { addArea, addDomain, addUO, addUser, deleteArea, deleteDomain, deleteUO, deleteUser, updateArea, updateDomain, updateUO, updateUser } from '../../api/cmdbDirectory.api'
 import { directoryTableColumns } from './defaultColumns'
 
 export const CMDBDirectory = ({userData}) => {
@@ -30,11 +30,6 @@ export const CMDBDirectory = ({userData}) => {
     getAreasData()
     getUsersData()
   }, [])
-
-  useEffect(() => {
-    console.log(usersData)
-  }, [usersData])
-  
 
   const [defaultColumns, setDefaultColumns] = useState(directoryTableColumns)
 
@@ -91,7 +86,9 @@ export const CMDBDirectory = ({userData}) => {
                 >
                   Áreas
                 </button>
-                <button className="blue">
+                <button className="blue"
+                  onClick={openAddAction.action}
+                >
                   Agregar Usuario
                 </button>
               </>
@@ -151,6 +148,8 @@ export const CMDBDirectory = ({userData}) => {
         defaultColumns={defaultColumns}
         tableData={usersData}
         setOpenAddAction={setOpenAddAction}
+        addRowMethod={addUser}
+        refreshData={getUsersData}
         userIsAdmin={true}
       />
     </>
