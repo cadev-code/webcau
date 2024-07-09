@@ -149,6 +149,7 @@ export const CMDBDirectory = ({userData}) => {
         tableData={usersData}
         setOpenAddAction={setOpenAddAction}
         addRowMethod={addUser}
+        updateRowMethod={updateUser}
         refreshData={getUsersData}
         userIsAdmin={true}
       />
