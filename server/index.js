@@ -1,6 +1,5 @@
 import express from 'express'
 import cors from 'cors'
-import multer from 'multer'
 
 import { PORT } from './src/config.js'
 import printersRouter from './src/routes/printers.routes.js'
@@ -9,6 +8,7 @@ import officeRouter from './src/routes/office.routes.js'
 import computers_cmdbRouter from './src/routes/computers_cmdb.routes.js'
 import emails_cmdbRouter from './src/routes/emails_cmdb.routes.js'
 import whitelists_cmdbRouter from './src/routes/whitelists_cmdb.routes.js'
+import directory_cmdbRouter from './src/routes/directory_cmdb.routes.js'
 import mapsRouter from './src/routes/maps.routes.js'
 
 const app = express()
@@ -24,6 +24,7 @@ app.use(officeRouter)
 app.use(computers_cmdbRouter)
 app.use(emails_cmdbRouter)
 app.use(whitelists_cmdbRouter)
+app.use(directory_cmdbRouter)
 app.use(mapsRouter)
 
 app.listen(PORT, '0.0.0.0')
