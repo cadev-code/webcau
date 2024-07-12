@@ -215,7 +215,7 @@ export const deleteUser = async(req, res) => {
 
   try {
     await pool.query(query, [id_user])
-    res.status()
+    res.status(200).send('Information was deleted correctly.')
   } catch (error) {
     res.status(400).send('There was an error trying to delete the information.')
   }
