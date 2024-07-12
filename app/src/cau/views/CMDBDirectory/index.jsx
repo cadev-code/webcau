@@ -7,6 +7,12 @@ import { directoryTableColumns } from './defaultColumns'
 
 export const CMDBDirectory = ({userData}) => {
 
+  const [userIsAdmin, setUserIsAdmin] = useState(false)
+
+  useEffect(() => {
+    setUserIsAdmin(userData.permissions.includes('directory_cmdb'))
+  }, [userData])
+
   const [uoData, setUoData] = useState([])
   const [domainsData, setDomainsData] = useState([])
   const [areasData, setAreasData] = useState([])
@@ -74,24 +80,25 @@ export const CMDBDirectory = ({userData}) => {
             >
               Unidades Organizacionales
             </button>
-            <button
-              onClick={() => setShowDomainsManager(true)}
-            >
-              Dominios
-            </button>
             {
-              <>
-                <button
-                  onClick={() => setShowAreasManager(true)}
-                >
-                  Áreas
-                </button>
-                <button className="blue"
-                  onClick={openAddAction.action}
-                >
-                  Agregar Usuario
-                </button>
-              </>
+              userIsAdmin &&
+                <>
+                  <button
+                    onClick={() => setShowDomainsManager(true)}
+                  >
+                    Dominios
+                  </button>
+                  <button
+                    onClick={() => setShowAreasManager(true)}
+                  >
+                    Áreas
+                  </button>
+                  <button className="blue"
+                    onClick={openAddAction.action}
+                  >
+                    Agregar Usuario
+                  </button>
+                </>
             }
           </>
         }
@@ -109,7 +116,7 @@ export const CMDBDirectory = ({userData}) => {
               getUOData()
               // añadir getUsersData()
             }}
-            userIsAdmin={true}
+            userIsAdmin={userIsAdmin}
           />
       }
       {
@@ -125,7 +132,7 @@ export const CMDBDirectory = ({userData}) => {
               getDomainsData()
               // añadir getUsersData()
             }}
-            userIsAdmin={true}
+            userIsAdmin={userIsAdmin}
           />
       }
       {
@@ -141,7 +148,7 @@ export const CMDBDirectory = ({userData}) => {
               getAreasData()
               // añadir getUsersData()
             }}
-            userIsAdmin={true}
+            userIsAdmin={userIsAdmin}
           />
       }
       <DataCRUD 
@@ -152,7 +159,7 @@ export const CMDBDirectory = ({userData}) => {
         updateRowMethod={updateUser}
         deleteRowMethod={deleteUser}
         refreshData={getUsersData}
-        userIsAdmin={true}
+        userIsAdmin={userIsAdmin}
       />
     </>
   )
