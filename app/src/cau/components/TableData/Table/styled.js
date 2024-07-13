@@ -1,9 +1,12 @@
 import styled from 'styled-components'
 
 export const Container = styled.div`
+  max-width: 100%;
+  height: calc(100% - 67px);
   position: relative;
   
   & > div:first-of-type {
+    height: 100%;
     background-color: var(--container-background);
     border: 1px solid var(--opacity-text);
     overflow: hidden;
@@ -11,16 +14,18 @@ export const Container = styled.div`
 `
 
 export const TableContainer = styled.div`
-  width: 1350px;
-  display: grid;
+  position: relative;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: start;
   overflow: auto;
   border-collapse: collapse;
 
-  @media (max-width: 1600px) {
-    width: 1200px;
-  }
-
   .tHead {
+    position: sticky;
+    top: 0;
+    left: 0;
     display: flex;
     background-color: #12202f;
     border-bottom: 1px solid var(--opacity-text);
@@ -57,8 +62,7 @@ export const TableContainer = styled.div`
   }
 
   .tBody {
-    height: calc(40px * 12 + 10px);
-    overflow-y: scroll;
+    height: 100%;
     padding-bottom: 10px;
 
     @media (max-height: 830px) {

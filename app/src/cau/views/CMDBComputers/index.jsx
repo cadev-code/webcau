@@ -22,6 +22,7 @@ import {
 } from '../../api/cmdbComputers.api'
 import { computersDataRequest } from './computersDataRequest'
 import { columnsData } from './columnsData'
+import { Container } from './styled'
 
 // import { dataToExcel } from '../../helpers/dataToExcel'
 
@@ -103,7 +104,7 @@ export const CMDBComputers = ({ userData }) => {
   const [showOriginManager, setShowOriginManager] = useState(false)
 
   return (
-    <>
+    <Container>
       <TitleActionBar
         title="CMDB Equipos"
         buttons={
@@ -212,6 +213,6 @@ export const CMDBComputers = ({ userData }) => {
             close={() => setShowOriginManager(false)}
           />
       }
-    </>
+    </ Container>
   )
 }
