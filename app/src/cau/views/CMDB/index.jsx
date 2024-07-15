@@ -21,8 +21,8 @@ export const CMDB = () => {
     { text: 'Correos', icon: <EmailOutlined className="icon" />, path: 'correos' },
     { text: 'Listas Blancas', icon: <ContactMail className="icon" />, path: 'listas' },
     { text: 'Active Directory', icon: <Group className="icon" />, path: 'directory' },
+    { text: 'Recursos Compartidos', icon: <FolderOpenOutlined className="icon" />, path: 'recursos' },
     // { text: 'Laptops', icon: <LaptopMacOutlined className="icon" />, path: 'laptops' },
-    // { text: 'Recursos Compartidos', icon: <FolderOpenOutlined className="icon" />, path: 'recursos' },
     // { text: 'Biométricos', icon: <FingerprintOutlined className="icon" />, path: 'biometricos' },
     // { text: 'Extensiones Staff', icon: <Call className="icon" />, path: 'extensiones' },
   ]
