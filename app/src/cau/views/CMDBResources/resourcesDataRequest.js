@@ -1,8 +1,14 @@
-import { getResources } from '../../api/cmdbResources.api'
+import { getAreas, getResources } from '../../api/cmdbResources.api'
 
 export const resourcesDataRequest = (
-  setResourcesData
+  setResourcesData,
+  setAreasData
 ) => {
+
+  const getAreasData = async() => {
+    const { data } = await getAreas()
+    setAreasData(data)
+  }
   
   const getResourcesData = async() => {
     const { data } = await getResources()
@@ -10,6 +16,7 @@ export const resourcesDataRequest = (
   }
 
   return {
-    getResourcesData
+    getResourcesData,
+    getAreasData
   }
 }
