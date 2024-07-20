@@ -25,8 +25,15 @@ export const CMDBResources = ({ userData }) => {
     getAreasData()
   }, [])
 
-  const [showAreasOptions, setShowAreasOptions] = useState(true)
+  useEffect(() => {
+    setDefaultColumns(prevColumns => prevColumns.map(column => 
+      column.accessorKey === 'area'
+        ? { ...column, meta: { ...column.meta, options: ['Todo', ...areasData.map(({area}) => area)] } }
+        : column  
+    ))
+  }, [areasData])
 
+  const [showAreasOptions, setShowAreasOptions] = useState(false)
   const [openAddAction, setOpenAddAction] = useState({ action: () => {} })
 
   return (

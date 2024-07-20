@@ -12,13 +12,13 @@ export const resourcesTableColumns = [
     required: true
   },
   {
-    header: 'Permisos',
-    accessorKey: 'permissions',
+    header: 'Área',
+    accessorKey: 'area',
     size: 300,
     meta: {
       filterVariant: 'select',
-      options: ['Todo', 'Control Total', 'Lectura', 'Escritura', 'Lectura y Escritura']
+      options: []
     },
     required: true
-  },
+  }
 ]
