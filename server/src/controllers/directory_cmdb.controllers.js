@@ -147,6 +147,55 @@ export const deleteDomain = async(req, res) => {
   }
 }
 
+// positions
+
+export const getPositions = async(req, res) => {
+  const query = 'SELECT * FROM positions_directory_cmdb'
+
+  try {
+    const [result] = await pool.query(query)
+    res.status(200).json(result)
+  } catch (error) {
+    res.status(200).send('There was an error trying to obtain the information.')
+  }
+}
+
+export const addPosition = async(req, res) => {
+  const { text } = req.body
+  const query = 'INSERT INTO positions_directory_cmdb (`position`) VALUES (?)'
+
+  try {
+    await pool.query(query, [text])
+    res.status(200).send('Information uploaded correctly.')
+  } catch (error) {
+    res.status(400).send('There was an error trying to upload the information.')
+  }
+}
+
+export const updatePosition = async(req, res) => {
+  const { id, text } = req.body
+  const query = 'UPDATE positions_directory_cmdb SET `position` = ? WHERE `id_position` = ?'
+
+  try {
+    await pool.query(query, [text, id])
+    res.status(200).send('Information updated correctly.')
+  } catch (error) {
+    res.status(400).send('There was an error trying to update the information.')
+  }
+}
+
+export const deletePosition = async(req, res) => {
+  const { id_position } = req.query
+  const query = 'DELETE FROM positions_directory_cmdb WHERE `id_position` = ?'
+
+  try {
+    await pool.query(query, [id_position])
+    res.status(200).send('Information deleted correctly.')
+  } catch (error) {
+    res.status(400).send('There was an error trying to delete the information.')
+  }
+}
+
 // users
 
 export const getUsers = async(req, res) => {
