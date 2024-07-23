@@ -52,7 +52,7 @@ export const deleteArea = async(req, res) => {
 // resources
 
 export const getResources = async(req, res) => {
-  const query = 'SELECT * FROM resources_cmdb'
+  const query = 'SELECT resources_cmdb.id_resource, resources_cmdb.resource_name, resources_cmdb.capacity, areas_resources_cmdb.area FROM resources_cmdb INNER JOIN areas_resources_cmdb ON resources_cmdb.id_area = areas_resources_cmdb.id_area'
 
   try {
     const [result] = await pool.query(query)
@@ -62,12 +62,18 @@ export const getResources = async(req, res) => {
   }
 }
 
+const getIdArea = async(area) => {
+  const [result] = await pool.query('SELECT `id_area` FROM areas_resources_cmdb WHERE `area` = ?', [area])
+  return result[0].id_area
+}
+
 export const addResource = async(req, res) => {
-  const { resource_name, capacity, permissions } = req.body
-  const query = 'INSERT INTO resources_cmdb (`resource_name`, `capacity`, `permissions`) VALUES (?, ?, ?)'
+  const { resource_name, capacity, area } = req.body
+  const query = 'INSERT INTO resources_cmdb (`resource_name`, `capacity`, `id_area`) VALUES (?, ?, ?)'
+  const id_area = await getIdArea(area)
 
   try {
-    await pool.query(query, [resource_name, capacity, permissions])
+    await pool.query(query, [resource_name, capacity, id_area])
     res.status(200).send('Information uploaded correctly.')
   } catch (error) {
     res.status(400).send('There was an error trying to load the information.')
@@ -75,11 +81,12 @@ export const addResource = async(req, res) => {
 }
 
 export const updateResource = async(req, res) => {
-  const { id_resource, resource_name, capacity, permissions } = req.body
-  const query = 'UPDATE resources_cmdb SET resource_name = ?, capacity = ?, permissions = ? WHERE id_resource = ?'
+  const { id_resource, resource_name, capacity, area } = req.body
+  const query = 'UPDATE resources_cmdb SET resource_name = ?, capacity = ?, id_area = ? WHERE id_resource = ?'
+  const id_area = await getIdArea(area)
 
   try {
-    await pool.query(query, [resource_name, capacity, permissions, id_resource])
+    await pool.query(query, [resource_name, capacity, id_area, id_resource])
     res.status(200).send('Information updated correctly.')
   } catch (error) {
     res.status(400).send('There was an error trying to update the information.')
