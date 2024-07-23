@@ -48,6 +48,16 @@ export const directoryTableColumns = [
     required: true
   },
   {
+    header: 'Puesto',
+    accessorKey: 'position',
+    meta: {
+      filterVariant: 'select',
+      options: []
+    },
+    size: 300,
+    required: true
+  },
+  {
     header: 'Estatus',
     accessorKey: 'status',
     meta: {

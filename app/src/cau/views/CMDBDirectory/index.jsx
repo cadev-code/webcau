@@ -66,6 +66,14 @@ export const CMDBDirectory = ({userData}) => {
         : column
     ))
   }, [areasData])
+
+  useEffect(() => {
+    setDefaultColumns(prevColumns => prevColumns.map(column => 
+      column.accessorKey === 'position'
+        ? {...column, meta: {...column.meta, options: ['Todo', ...positionsData.map(({position}) => position)]}}
+        : column
+    ))
+  }, [positionsData])
   
   const [showUoManager, setShowUoManager] = useState(false)
   const [showDomainsManager, setShowDomainsManager] = useState(false)
