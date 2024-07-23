@@ -3,7 +3,7 @@ import { TitleActionBar } from '../../components'
 import { DataCRUD, OptionsManager } from '../../components/TableData'
 import { resourcesTableColumns } from './defaultColumns'
 import { resourcesDataRequest } from './resourcesDataRequest'
-import { addArea, deleteArea, updateArea } from '../../api/cmdbResources.api'
+import { addArea, addResource, deleteArea, deleteResource, updateArea, updateResource } from '../../api/cmdbResources.api'
 
 export const CMDBResources = ({ userData }) => {
 
@@ -48,10 +48,10 @@ export const CMDBResources = ({ userData }) => {
               Áreas
             </button>
             {
-              // agregar permisos de admin
+              //TODO: agregar permisos de admin
               true &&
                 <button className="blue"
-                  onClick={() => {}}
+                  onClick={openAddAction.action}
                 >
                   Agregar Recurso
                 </button>
@@ -79,6 +79,14 @@ export const CMDBResources = ({ userData }) => {
         defaultColumns={defaultColumns}
         tableData={resourcesData}
         setOpenAddAction={setOpenAddAction}
+        addRowMethod={addResource}
+        updateRowMethod={updateResource}
+        deleteRowMethod={deleteResource}
+        refreshData={() => {
+          getAreasData()
+          getResourcesData()
+        }}
+        filenameToExport="cmdb_Recursos_Compartidos"
         userIsAdmin={true}
       />
     </>
