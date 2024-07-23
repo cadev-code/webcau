@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import { TitleActionBar } from '../../components'
 import { DataCRUD, OptionsManager } from '../../components/TableData'
 import { directoryDataRequest } from './directoryDataRequest'
-import { addArea, addDomain, addUO, addUser, deleteArea, deleteDomain, deleteUO, deleteUser, updateArea, updateDomain, updateUO, updateUser } from '../../api/cmdbDirectory.api'
+import { addArea, addDomain, addPosition, addUO, addUser, deleteArea, deleteDomain, deletePosition, deleteUO, deleteUser, updateArea, updateDomain, updatePosition, updateUO, updateUser } from '../../api/cmdbDirectory.api'
 import { directoryTableColumns } from './defaultColumns'
 
 export const CMDBDirectory = ({userData}) => {
@@ -16,17 +16,20 @@ export const CMDBDirectory = ({userData}) => {
   const [uoData, setUoData] = useState([])
   const [domainsData, setDomainsData] = useState([])
   const [areasData, setAreasData] = useState([])
+  const [positionsData, setPositionsData] = useState([])
   const [usersData, setUsersData] = useState([])
 
   const {
     getUOData,
     getDomainsData,
     getAreasData,
+    getPositionsData,
     getUsersData
   } = directoryDataRequest(
     setUoData,
     setDomainsData,
     setAreasData,
+    setPositionsData,
     setUsersData
   )
   
@@ -34,6 +37,7 @@ export const CMDBDirectory = ({userData}) => {
     getUOData()
     getDomainsData()
     getAreasData()
+    getPositionsData()
     getUsersData()
   }, [])
 
@@ -66,6 +70,7 @@ export const CMDBDirectory = ({userData}) => {
   const [showUoManager, setShowUoManager] = useState(false)
   const [showDomainsManager, setShowDomainsManager] = useState(false)
   const [showAreasManager, setShowAreasManager] = useState(false)
+  const [showPositionsManager, setShowPositionsManager] = useState(false)
 
   const [openAddAction, setOpenAddAction] = useState({ action: () => {} })
 
@@ -87,6 +92,11 @@ export const CMDBDirectory = ({userData}) => {
                     onClick={() => setShowDomainsManager(true)}
                   >
                     Dominios
+                  </button>
+                  <button
+                    onClick={() => setShowPositionsManager(true)}
+                  >
+                    Puestos
                   </button>
                   <button
                     onClick={() => setShowAreasManager(true)}
@@ -114,7 +124,7 @@ export const CMDBDirectory = ({userData}) => {
             deleteOptionMethod={deleteUO}
             refreshOptions={() => {
               getUOData()
-              // añadir getUsersData()
+              getUsersData()
             }}
             userIsAdmin={userIsAdmin}
           />
@@ -130,7 +140,7 @@ export const CMDBDirectory = ({userData}) => {
             deleteOptionMethod={deleteDomain}
             refreshOptions={() => {
               getDomainsData()
-              // añadir getUsersData()
+              getUsersData()
             }}
             userIsAdmin={userIsAdmin}
           />
@@ -146,7 +156,23 @@ export const CMDBDirectory = ({userData}) => {
             deleteOptionMethod={deleteArea}
             refreshOptions={() => {
               getAreasData()
-              // añadir getUsersData()
+              getUsersData()
+            }}
+            userIsAdmin={userIsAdmin}
+          />
+      }
+      {
+        showPositionsManager &&
+          <OptionsManager 
+            title="Puestos"
+            options={positionsData.map(position => ({id: position.id_position, text: position.position}))}
+            close={() => setShowPositionsManager(false)}
+            addOptionMethod={addPosition}
+            updateOptionMethod={updatePosition}
+            deleteOptionMethod={deletePosition}
+            refreshOptions={() => {
+              getPositionsData()
+              getUsersData()
             }}
             userIsAdmin={userIsAdmin}
           />
