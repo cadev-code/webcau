@@ -24,7 +24,7 @@ export const directoryTableColumns = [
       filterVariant: 'select',
       options: []
     },
-    size: 300,
+    size: 340,
     required: true
   },
   {
