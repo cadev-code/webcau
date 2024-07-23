@@ -44,6 +44,20 @@ export const updateArea = async(data) =>
 export const deleteArea = async(id) =>
   await axios.delete(`${url}/areas?id_area=${id}`)
 
+// positions
+
+export const getPositions = async() => 
+  await axios.get(`${url}/positions`)
+
+export const addPosition = async(data) =>
+  await axios.post(`${url}/positions`, data)
+
+export const updatePosition = async(data) =>
+  await axios.put(`${url}/positions`, data)
+
+export const deletePosition = async(id) => 
+  await axios.delete(`${url}/positions?id_position=${id}`)
+
 // users
 
 export const getUsers = async() =>
