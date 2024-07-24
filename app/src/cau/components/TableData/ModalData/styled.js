@@ -55,6 +55,13 @@ export const TextBox = styled.div`
     &:focus:invalid {
       border-color: #ff3939;
     }
+
+    &[type=number]::-webkit-inner-spin-button, 
+    &[type=number]::-webkit-outer-spin-button { 
+      -webkit-appearance: none; 
+      margin: 0; 
+    }
+    &[type=number] { -moz-appearance:textfield; }
   }
 `
 

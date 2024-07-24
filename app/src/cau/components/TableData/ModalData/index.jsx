@@ -75,7 +75,7 @@ export const ModalData = ({
           boxContainerHeight={ boxContainerHeight }
         >
           {
-            boxes.map(({header, accessorKey, meta, required}) => (
+            boxes.map(({header, accessorKey, meta, required, inputType}) => (
               <TextBox key={ accessorKey }>
                 <span>{ required && (editMode || addMode) ? `${header} *` : header }</span>
                 {!editMode && !addMode
@@ -98,6 +98,7 @@ export const ModalData = ({
                           </select>
                         : <input
                             id={ accessorKey }
+                            type={ inputType || 'text' }
                             value={ inputChanges[accessorKey] }
                             onChange={ inputOnChange }
                             required

@@ -9,7 +9,8 @@ export const resourcesTableColumns = [
     header: 'Capacidad (GB)',
     accessorKey: 'capacity',
     size: 160,
-    required: true
+    required: true,
+    inputType: 'number'
   },
   {
     header: 'Área',
