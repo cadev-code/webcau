@@ -48,7 +48,7 @@ export const CMDBResources = ({ userData }) => {
               Áreas
             </button>
             {
-              //TODO: agregar permisos de admin
+              // agregar permisos de admin
               true &&
                 <button className="blue"
                   onClick={openAddAction.action}

@@ -10,6 +10,7 @@ export const resourcesTableColumns = [
     accessorKey: 'capacity',
     size: 160,
     required: true,
+    filterFn: 'equalsString',
     inputType: 'number'
   },
   {
