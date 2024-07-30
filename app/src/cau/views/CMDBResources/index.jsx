@@ -7,6 +7,11 @@ import { addArea, addResource, deleteArea, deleteResource, updateArea, updateRes
 
 export const CMDBResources = ({ userData }) => {
 
+  const [userIsAdmin, setUserIsAdmin] = useState(false)
+  useEffect(() => {
+    setUserIsAdmin(userData.permissions.includes('resources_cmdb'))
+  }, [userData])
+
   const [defaultColumns, setDefaultColumns] = useState(resourcesTableColumns)
 
   const [areasData, setAreasData] = useState([])
@@ -48,8 +53,7 @@ export const CMDBResources = ({ userData }) => {
               Áreas
             </button>
             {
-              // agregar permisos de admin
-              true &&
+              userIsAdmin &&
                 <button className="blue"
                   onClick={openAddAction.action}
                 >
@@ -72,7 +76,7 @@ export const CMDBResources = ({ userData }) => {
               getAreasData()
               getResourcesData()
             }}
-            userIsAdmin={true}
+            userIsAdmin={userIsAdmin}
           />
       }
       <DataCRUD
@@ -87,7 +91,8 @@ export const CMDBResources = ({ userData }) => {
           getResourcesData()
         }}
         filenameToExport="cmdb_Recursos_Compartidos"
-        userIsAdmin={true}
+        version="resources"
+        userIsAdmin={userIsAdmin}
       />
     </>
   )

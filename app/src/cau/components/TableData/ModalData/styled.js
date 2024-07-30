@@ -9,7 +9,8 @@ export const Modal = styled.div`
 `
 
 export const BoxContainer = styled.div`
-  max-height: 450px;
+  max-height: 500px;
+  max-width: 640px;
   padding: 0 20px;
   display: flex;
   flex-direction: column;
@@ -62,6 +63,90 @@ export const TextBox = styled.div`
       margin: 0; 
     }
     &[type=number] { -moz-appearance:textfield; }
+  }
+
+  &.resources {
+    button {
+      width: 100%;
+      padding: 2px 4px;
+      font-size: 14px;
+      font-weight: 400;
+      color: white;
+      background-color: var(--button-background);
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .files-container {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+
+      .file {
+        padding: 4px 8px;
+        display: flex;
+        gap: 8px;
+        justify-content: space-between;
+        background-color: var(--bg-container-600);
+        border-radius: 5px;
+
+        div {
+          display: flex;
+
+          button {
+            width: auto;
+            color: rgb(255, 57, 57);
+            background-color: transparent;
+            border: none;
+            cursor: pointer;
+          }
+        }
+        .edit {
+          color: var(--opacity-text);
+        }
+        .delete {
+          color: rgb(255, 57, 57);
+        }
+      }
+    }
+
+    .actions-container {
+      margin-top: 8px;
+      display: flex;
+      gap: 4px;
+
+      button {
+        width: 100%;
+        color: white;
+        background-color: var(--button-background);
+      }
+    }
+
+    .form {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+
+      input {
+        width: 100%;
+      }
+
+      div:last-of-type {
+        display: flex;
+        gap: 4px;
+
+        button {
+          width: 50%;
+          color: white;
+          background-color: var(--button-background);
+
+          &:first-of-type {
+            background-color: var(--border-input-color);
+          }
+        }
+      }
+    }
   }
 `
 

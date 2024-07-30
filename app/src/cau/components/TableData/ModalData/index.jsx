@@ -25,6 +25,7 @@ export const ModalData = ({
   closeModalData,
   submitData,
   deleteData,
+  version,
   userIsAdmin
 }) => {
 
@@ -65,7 +66,8 @@ export const ModalData = ({
   useEffect(() => {
     setBoxContainerHeight(boxContainer.current.offsetHeight)
   }, [boxes])
-  
+
+  const [hideContent, setHideContent] = useState(false)
 
   return (
     <BackgroundOpacity>
@@ -74,38 +76,43 @@ export const ModalData = ({
           ref={ boxContainer }
           boxContainerHeight={ boxContainerHeight }
         >
-          {
-            boxes.map(({header, accessorKey, meta, required, inputType}) => (
-              <TextBox key={ accessorKey }>
-                <span>{ required && (editMode || addMode) ? `${header} *` : header }</span>
-                {!editMode && !addMode
-                    ? <p>{ data[accessorKey] }</p>
-                    : (meta && meta.filterVariant === 'select')
-                        ? <select
-                            id={ accessorKey }
-                            value={ inputChanges[accessorKey] }
-                            onChange={ inputOnChange }
-                          >
-                            {
-                              ['', ...meta.options].map((option, i) => (
-                                <option key={ i } 
-                                  value={ option }
-                                >
-                                  { option }
-                                </option>
-                              ))
-                            }
-                          </select>
-                        : <input
-                            id={ accessorKey }
-                            type={ inputType || 'text' }
-                            value={ inputChanges[accessorKey] }
-                            onChange={ inputOnChange }
-                            required
-                          />}
-              </TextBox>
-            ))
-          }
+          {boxes.map(({header, accessorKey, meta, required, inputType}) => (
+            <TextBox key={ accessorKey }>
+              <span>{ required && (editMode || addMode) ? `${header} *` : header }</span>
+              {!editMode && !addMode
+                  ? <p>{ data[accessorKey] }</p>
+                  : (meta && meta.filterVariant === 'select')
+                      ? <select
+                          id={ accessorKey }
+                          value={ inputChanges[accessorKey] }
+                          onChange={ inputOnChange }
+                        >
+                          {
+                            ['', ...meta.options].map((option, i) => (
+                              <option key={ i } 
+                                value={ option }
+                              >
+                                { option }
+                              </option>
+                            ))
+                          }
+                        </select>
+                      : <input
+                          id={ accessorKey }
+                          type={ inputType || 'text' }
+                          value={ inputChanges[accessorKey] }
+                          onChange={ inputOnChange }
+                          required
+                        />}
+            </TextBox>
+          ))}
+          {!editMode && !addMode && version === "resources" && (
+            <ResourcesFiles 
+              resourceData={data}
+              setHideContent={setHideContent}
+              userIsAdmin={userIsAdmin}
+            />
+          )}
         </BoxContainer>
         <CloseBtn
           onClick={closeModalData}
@@ -113,7 +120,7 @@ export const ModalData = ({
           <Close />
         </CloseBtn>
         {
-          userIsAdmin &&
+          userIsAdmin && !hideContent &&
             <>
               {!editMode && !addMode ?
                 (
@@ -166,5 +173,101 @@ export const ModalData = ({
         severity={ alertState.severity }
       />
     </BackgroundOpacity>
+  )
+}
+
+const ResourcesFiles = ({ resourceData, setHideContent, userIsAdmin }) => {
+
+  const [showForm, setShowForm] = useState({show: false, type: '', mode: ''})
+  const [fileToEdit, setFileToEdit] = useState({})
+
+  const dataTest = [
+    {id_file: 1, file: "COBRANZA_GEST_SMARTC_xxxxxxxxxx_xxxxxx.txt", type: "receive", id_resource: 2},
+    {id_file: 2, file: "COBRANZA_IREN_SMARTC_xxxxxxxxxx.txt", type: "receive", id_resource: 2},
+    {id_file: 3, file: "Metas_IRENE.txt", type: "upload", id_resource: 2},
+    {id_file: 4, file: "staff_smartcenter_fecha.txt", type: "upload", id_resource: 2},
+    {id_file: 5, file: "*.doc, *.docx, *.ods, *.pdf, *.pps, *.ppsx, *.ppt, *.pptx, *.txt, *.txtx, *.xls, *.xlsm, *.xlsmx, *.xlsx", type: "upload", id_resource: 2},
+  ]
+
+  const [inputValue, setInputValue] = useState('')
+  const inputOnChange = ({target}) => setInputValue(target.value)
+
+  const openForm = (type, mode) => {
+    setShowForm({show: true, type, mode})
+    setHideContent(true)
+  }
+
+  const closeForm = () => {
+    setShowForm({show: false, type: '', mode: ''})
+    setHideContent(false)
+    setInputValue('')
+  }
+
+  const openEditMode = (type) => {
+    openForm(type)
+  }
+
+  return (
+    <>
+      {[
+        {label: "Archivos por Guardar", type: "upload"},
+        {label: "Archivos por Recibir", type: "receive"}
+      ].map(({label, type}) => (
+        <TextBox className="resources">
+          <span>{label}</span>
+          <div className="files-container">
+            {dataTest.map((file, i) => file.type === type && (
+              <div className="file" key={i}>
+                <p>{file.file}</p>
+                {
+                  !showForm.show &&
+                  <div>
+                    <button className="edit"
+                      onClick={() => {
+                        openEditMode(type, "edit")
+                        setFileToEdit(file)
+                        setInputValue(file.file)
+                      }}
+                    >
+                      Editar
+                    </button>
+                    <button className="delete">
+                      Borrar
+                    </button>
+                  </div>
+                }
+              </div>
+            ))}
+          </div>
+          {!showForm.show && (
+            <div className="actions-container">
+              <button
+                onClick={() => openForm(type, "add")}
+              >
+                Agregar Archivo
+              </button>
+            </div>
+          )}
+          {showForm.show && showForm.type === type && (
+            <div className="form">
+              <input
+                type="text"
+                value={inputValue}
+                onChange={inputOnChange}
+              />
+              <div>
+                {["cancel", "save"].map((btn, i) => (
+                  <button key={i}
+                    onClick={btn === "cancel" ? closeForm : () => {}}
+                  >
+                    {btn === "cancel" ? "Cancelar" : "Guardar"}
+                  </button>
+                ))}
+              </div>
+            </div>
+          )}
+        </TextBox>
+      ))}
+    </>
   )
 }
