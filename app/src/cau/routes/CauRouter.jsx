@@ -18,6 +18,7 @@ import {
   Printers,
 } from '../views'
 import { useSelector } from 'react-redux'
+import { Tools } from '../views/Tools'
 
 export const CauRouter = () => {
 
@@ -42,6 +43,7 @@ export const CauRouter = () => {
         <Route path="cmdb/directory" element={ <CMDBDirectory userData={ userData } /> } />
 
         <Route path="mapas" element={ <Maps userData={ userData } /> } />
+        <Route path="herramientas" element={ <Tools /> }/>
       </Route>
 
       <Route path="main/" element={ <Navigate to="menu" /> } />

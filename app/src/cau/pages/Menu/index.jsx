@@ -7,11 +7,12 @@ import {
   AutoStories, 
   Computer,
   LibraryBooks, 
+  Link, 
   LocationOn, 
   Print,
 } from '@mui/icons-material'
 import { 
-  Box, 
+  Box,
   Typography 
 } from '@mui/material'
 
@@ -83,8 +84,12 @@ export const Menu = () => {
             icon={ <Computer sx={{ fontSize: 80, mb: 1 }} /> }
             link="cmdb"
           />
+          <ButtonMenu 
+            text="Herramientas"
+            icon={ <Link sx={{ fontSize: 80, mb: 1 }} /> }
+            link="herramientas"
+          />
         </Box>
-
       </Box>
       <Box sx={{ position: 'fixed', top: 30, right: 30 }}>
         <ButtonLogout/>
