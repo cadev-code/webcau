@@ -40,8 +40,7 @@ export const Navbar = ({ btns=[] }) => {
       }}
     >
     <Toolbar 
-      sx={{ 
-        maxWidth: 1200, 
+      sx={{
         width: '100%', 
         margin: '0 auto', 
         justifyContent: 'space-between',
