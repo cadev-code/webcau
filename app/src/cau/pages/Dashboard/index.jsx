@@ -21,7 +21,6 @@ export const Dashboard = () => {
           { title: 'Impresoras', link: 'impresoras' },
           { title: 'Licencias Office', link: 'office' },
           { title: 'CMDB', link: 'cmdb' },
-          { title: 'Herramientas', link: 'herramientas' },
         ]} 
       />
       

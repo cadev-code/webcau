@@ -17,9 +17,10 @@ import {
 } from '@mui/material'
 
 // styles imports
-import { MenuContainer } from './styles'
+import { MenuContainer, ToolsContainer } from './styles'
 import { blue } from '@mui/material/colors'
 import { useState } from 'react'
+import { toolsData } from './toolsData'
 
 export const Menu = () => {
 
@@ -27,7 +28,14 @@ export const Menu = () => {
 
   return (
     <MenuContainer>
-      <Box>
+      <Box
+        sx={{
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'center',
+          alignItems: 'center'
+        }}
+      >
         <Typography 
           variant="h1"
           sx={{
@@ -56,6 +64,7 @@ export const Menu = () => {
             display: 'flex', 
             flexWrap: 'wrap', 
             justifyContent: 'center',
+            alignItems: 'center',
             gap: 3, 
           }}
         >
@@ -84,11 +93,26 @@ export const Menu = () => {
             icon={ <Computer sx={{ fontSize: 80, mb: 1 }} /> }
             link="cmdb"
           />
-          <ButtonMenu 
-            text="Herramientas"
-            icon={ <Link sx={{ fontSize: 80, mb: 1 }} /> }
-            link="herramientas"
-          />
+        </Box>
+        <Box>
+          <ToolsContainer>
+            {
+              toolsData.map(list => (
+                <div>
+                  {
+                    list.map(({text, url, subText}) => (
+                      <button
+                        onClick={() => window.open(url, '_blank')}
+                      >
+                        {text}
+                        {subText && <span>{subText}</span>}
+                      </button>
+                    ))
+                  }
+                </div>
+              ))
+            }
+          </ToolsContainer>
         </Box>
       </Box>
       <Box sx={{ position: 'fixed', top: 30, right: 30 }}>
