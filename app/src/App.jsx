@@ -39,6 +39,11 @@ export const App = () => {
       : dispatch(
         setAuthenticatedUser([])
       )
+
+      document.addEventListener('copy', (e) => {
+        const selectedText = window.getSelection().toString()
+        e.clipboardData.setData('text/plain', selectedText)
+      })
   }, [])
 
   return (
