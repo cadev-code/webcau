@@ -41,6 +41,7 @@ export const App = () => {
       )
 
       document.addEventListener('copy', (e) => {
+        e.preventDefault()
         const selectedText = window.getSelection().toString()
         e.clipboardData.setData('text/plain', selectedText)
       })
