@@ -1,5 +1,4 @@
 import { useEffect, useRef, useState } from 'react'
-
 import { 
   ActionBtns,
   BoxContainer, 
@@ -14,7 +13,6 @@ import {
   Delete, 
   Edit 
 } from '@mui/icons-material'
-
 import { alertActions } from '../../../helpers/alertActions'
 
 export const ModalData = ({
@@ -189,6 +187,7 @@ const ResourcesFiles = ({ resourceData, setHideContent, userIsAdmin }) => {
     {id_file: 5, file: "*.doc, *.docx, *.ods, *.pdf, *.pps, *.ppsx, *.ppt, *.pptx, *.txt, *.txtx, *.xls, *.xlsm, *.xlsmx, *.xlsx", type: "upload", id_resource: 2},
   ]
 
+  const input = useRef(null)
   const [inputValue, setInputValue] = useState('')
   const inputOnChange = ({target}) => setInputValue(target.value)
 
@@ -197,30 +196,37 @@ const ResourcesFiles = ({ resourceData, setHideContent, userIsAdmin }) => {
     setHideContent(true)
   }
 
+  useEffect(() => {
+    showForm.show && showForm.mode !== 'delete' &&
+      input.current.focus()
+  }, [showForm.show])
+
   const closeForm = () => {
+    setFileToEdit({})
     setShowForm({show: false, type: '', mode: ''})
     setHideContent(false)
     setInputValue('')
   }
 
-  const openEditMode = (type) => {
-    openForm(type)
+  const openEditMode = (type, mode) => {
+    openForm(type, mode)
   }
-
+  
   return (
     <>
       {[
         {label: "Archivos por Guardar", type: "upload"},
         {label: "Archivos por Recibir", type: "receive"}
-      ].map(({label, type}) => (
-        <TextBox className="resources">
+      ].map(({label, type}, i) => (
+        <TextBox key={i} className="resources">
           <span>{label}</span>
           <div className="files-container">
-            {dataTest.map((file, i) => file.type === type && (
-              <div className="file" key={i}>
+            {dataTest.map((file, i) => (file.type === type) && (!showForm.show || showForm.type !== type)  && (
+              <div className="file" 
+                key={i}
+              >
                 <p>{file.file}</p>
-                {
-                  !showForm.show &&
+                {!showForm.show &&
                   <div>
                     <button className="edit"
                       onClick={() => {
@@ -231,7 +237,12 @@ const ResourcesFiles = ({ resourceData, setHideContent, userIsAdmin }) => {
                     >
                       Editar
                     </button>
-                    <button className="delete">
+                    <button className="delete"
+                      onClick={() => {
+                        openEditMode(type, "delete")
+                        setFileToEdit(file)
+                      }}
+                    >
                       Borrar
                     </button>
                   </div>
@@ -250,17 +261,27 @@ const ResourcesFiles = ({ resourceData, setHideContent, userIsAdmin }) => {
           )}
           {showForm.show && showForm.type === type && (
             <div className="form">
-              <input
-                type="text"
-                value={inputValue}
-                onChange={inputOnChange}
-              />
+              {showForm.mode !== 'add' && (
+                <p>{fileToEdit.file}</p>
+              )}
+              {showForm.mode !== 'delete' && (
+                <input
+                  ref={input}
+                  type="text"
+                  value={inputValue}
+                  onChange={inputOnChange}
+                />
+              )}
               <div>
                 {["cancel", "save"].map((btn, i) => (
                   <button key={i}
+                    className={
+                      (showForm.mode === 'delete' && btn === 'save') 
+                      ? 'delete' : ''
+                    }
                     onClick={btn === "cancel" ? closeForm : () => {}}
                   >
-                    {btn === "cancel" ? "Cancelar" : "Guardar"}
+                    {btn === "cancel" ? "Cancelar" : showForm.mode === 'add' ? "Agregar" : showForm.mode === 'edit' ? "Guardar Cambios" : 'Eliminar'}
                   </button>
                 ))}
               </div>

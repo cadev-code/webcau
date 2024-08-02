@@ -141,6 +141,10 @@ export const TextBox = styled.div`
           color: white;
           background-color: var(--button-background);
 
+          &.delete {
+            background-color: #d52020;
+          }
+
           &:first-of-type {
             background-color: var(--border-input-color);
           }
