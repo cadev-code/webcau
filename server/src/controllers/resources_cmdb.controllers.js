@@ -49,6 +49,55 @@ export const deleteArea = async(req, res) => {
   }
 }
 
+// files
+export const getFiles = async(req, res) => {
+  const {id_resource} = req.body
+  const query = 'SELECT * FROM files_resources_cmdb WHERE `id_resource` = ?'
+
+  try {
+    const [result] = await pool.query(query, [id_resource])
+    res.status(200).json(result)
+  } catch (error) {
+    res.statud(400).send('There was an error trying obtain the information.')
+  }
+}
+
+export const addFile = async(req, res) => {
+  const { filename, type, id_resource } = req.body
+  const query = 'INSERT INTO files_resources_cmdb (`filename`, `type`, `id_resource`) VALUES (?,?,?)'
+
+  try {
+    await pool.query(query, [filename, type, id_resource])
+    res.status(200).send('Information loaded correctly.')
+  } catch (error) {
+    res.status(400).send('There was an error trying to load the information.')
+  }
+}
+
+export const updateFile = async(req, res) => {
+  const { id_file, filename } = req.body
+  const query = 'UPDATE files_resources_cmdb SET `filename` = ?  WHERE id_file = ?'
+
+  try {
+    await pool.query(query, [filename, id_file])
+    res.status(200).send('Information updated correctly.')
+  } catch (error) {
+    res.status(400).send('There was an error trying to update the information.')
+  }
+}
+
+export const deleteFile = async(req, res) => {
+  const { id_file } = req.query
+  const query = 'DELETE FROM files_resources_cmdb WHERE id_file =?'
+
+  try {
+    await pool.query(query, [id_file])
+    res.status(200).send('Information deleted correctly.')
+  } catch (error) {
+    res.status(400).send('There was an error trying to delete the information.')
+  }
+}
+
 // resources
 
 export const getResources = async(req, res) => {
