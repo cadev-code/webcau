@@ -51,7 +51,7 @@ export const deleteArea = async(req, res) => {
 
 // files
 export const getFiles = async(req, res) => {
-  const {id_resource} = req.body
+  const {id_resource} = req.query
   const query = 'SELECT * FROM files_resources_cmdb WHERE `id_resource` = ?'
 
   try {
