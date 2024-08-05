@@ -109,7 +109,7 @@ export const ResourcesFiles = ({ resourceData, setHideContent, userIsAdmin }) =>
                 key={i}
               >
                 <p>{file.filename}</p>
-                {!showForm.show &&
+                {!showForm.show && userIsAdmin && (
                   <div>
                     <button className="edit"
                       onClick={() => {
@@ -129,11 +129,11 @@ export const ResourcesFiles = ({ resourceData, setHideContent, userIsAdmin }) =>
                       Borrar
                     </button>
                   </div>
-                }
+                )}
               </div>
             ))}
           </div>
-          {!showForm.show && (
+          {!showForm.show && userIsAdmin && (
             <div className="actions-container">
               <button
                 onClick={() => openForm(type, "add")}
