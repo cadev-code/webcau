@@ -9,6 +9,7 @@ import computers_cmdbRouter from './src/routes/computers_cmdb.routes.js'
 import emails_cmdbRouter from './src/routes/emails_cmdb.routes.js'
 import whitelists_cmdbRouter from './src/routes/whitelists_cmdb.routes.js'
 import directory_cmdbRouter from './src/routes/directory_cmdb.routes.js'
+import resources_cmdbRouter from './src/routes/resources_cmdb.routes.js'
 import mapsRouter from './src/routes/maps.routes.js'
 
 const app = express()
@@ -25,7 +26,8 @@ app.use(computers_cmdbRouter)
 app.use(emails_cmdbRouter)
 app.use(whitelists_cmdbRouter)
 app.use(directory_cmdbRouter)
+app.use(resources_cmdbRouter)
 app.use(mapsRouter)
 
 app.listen(PORT, '0.0.0.0')
-console.log(`server on running in port ${ PORT }`)
+console.log(`server on running in port ${PORT}`)

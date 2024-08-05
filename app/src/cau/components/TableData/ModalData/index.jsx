@@ -1,5 +1,4 @@
 import { useEffect, useRef, useState } from 'react'
-
 import { 
   ActionBtns,
   BoxContainer, 
@@ -14,8 +13,8 @@ import {
   Delete, 
   Edit 
 } from '@mui/icons-material'
-
 import { alertActions } from '../../../helpers/alertActions'
+import { ResourcesFiles } from '../ResourcesFilesData'
 
 export const ModalData = ({
   data,
@@ -25,6 +24,7 @@ export const ModalData = ({
   closeModalData,
   submitData,
   deleteData,
+  version,
   userIsAdmin
 }) => {
 
@@ -65,7 +65,8 @@ export const ModalData = ({
   useEffect(() => {
     setBoxContainerHeight(boxContainer.current.offsetHeight)
   }, [boxes])
-  
+
+  const [hideContent, setHideContent] = useState(false)
 
   return (
     <BackgroundOpacity>
@@ -74,37 +75,43 @@ export const ModalData = ({
           ref={ boxContainer }
           boxContainerHeight={ boxContainerHeight }
         >
-          {
-            boxes.map(({header, accessorKey, meta, required}) => (
-              <TextBox key={ accessorKey }>
-                <span>{ required && (editMode || addMode) ? `${header} *` : header }</span>
-                {!editMode && !addMode
-                    ? <p>{ data[accessorKey] }</p>
-                    : (meta && meta.filterVariant === 'select')
-                        ? <select
-                            id={ accessorKey }
-                            value={ inputChanges[accessorKey] }
-                            onChange={ inputOnChange }
-                          >
-                            {
-                              ['', ...meta.options].map((option, i) => (
-                                <option key={ i } 
-                                  value={ option }
-                                >
-                                  { option }
-                                </option>
-                              ))
-                            }
-                          </select>
-                        : <input
-                            id={ accessorKey }
-                            value={ inputChanges[accessorKey] }
-                            onChange={ inputOnChange }
-                            required
-                          />}
-              </TextBox>
-            ))
-          }
+          {boxes.map(({header, accessorKey, meta, required, inputType}) => (
+            <TextBox key={ accessorKey }>
+              <span>{ required && (editMode || addMode) ? `${header} *` : header }</span>
+              {!editMode && !addMode
+                  ? <p>{ data[accessorKey] }</p>
+                  : (meta && meta.filterVariant === 'select')
+                      ? <select
+                          id={ accessorKey }
+                          value={ inputChanges[accessorKey] }
+                          onChange={ inputOnChange }
+                        >
+                          {
+                            ['', ...meta.options].map((option, i) => (
+                              <option key={ i } 
+                                value={ option }
+                              >
+                                { option }
+                              </option>
+                            ))
+                          }
+                        </select>
+                      : <input
+                          id={ accessorKey }
+                          type={ inputType || 'text' }
+                          value={ inputChanges[accessorKey] }
+                          onChange={ inputOnChange }
+                          required
+                        />}
+            </TextBox>
+          ))}
+          {!editMode && !addMode && version === "resources" && (
+            <ResourcesFiles
+              resourceData={data}
+              setHideContent={setHideContent}
+              userIsAdmin={userIsAdmin}
+            />
+          )}
         </BoxContainer>
         <CloseBtn
           onClick={closeModalData}
@@ -112,7 +119,7 @@ export const ModalData = ({
           <Close />
         </CloseBtn>
         {
-          userIsAdmin &&
+          userIsAdmin && !hideContent &&
             <>
               {!editMode && !addMode ?
                 (

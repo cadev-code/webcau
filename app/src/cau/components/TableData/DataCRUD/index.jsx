@@ -22,6 +22,7 @@ export const DataCRUD = ({
   deleteRowMethod,
   refreshData,
   filenameToExport,
+  version="",
   userIsAdmin
  }) => {
 
@@ -97,6 +98,7 @@ export const DataCRUD = ({
             closeModalData={ closeModalData }
             submitData={ submitData }
             deleteData={ deleteData }
+            version={ version }
             userIsAdmin={ userIsAdmin }
           />
         }
