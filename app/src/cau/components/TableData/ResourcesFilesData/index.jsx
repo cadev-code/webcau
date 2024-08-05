@@ -1,17 +1,24 @@
 import { useEffect, useRef, useState } from 'react'
 import { TextBox } from '../ModalData/styled'
+import { addFile, deleteFile, getFiles, updateFile } from '../../../api/cmdbResources.api'
+import { Alert } from '../../../../components/Alert'
+import { alertActions } from '../../../helpers/alertActions'
+import { breadcrumbsClasses } from '@mui/material'
 
 export const ResourcesFiles = ({ resourceData, setHideContent, userIsAdmin }) => {
+
+  const [filesData, setFilesData] = useState([])
+  const getFilesData = async() => {
+    const { data } = await getFiles(resourceData.id_resource)
+    setFilesData(data)
+  }
+
+  useEffect(() => {
+    getFilesData()
+  }, [])
+
   const [showForm, setShowForm] = useState({show: false, type: '', mode: ''})
   const [fileToEdit, setFileToEdit] = useState({})
-
-  const dataTest = [
-    {id_file: 1, filename: "COBRANZA_GEST_SMARTC_xxxxxxxxxx_xxxxxx.txt", type: "receive", id_resource: 2},
-    {id_file: 2, filename: "COBRANZA_IREN_SMARTC_xxxxxxxxxx.txt", type: "receive", id_resource: 2},
-    {id_file: 3, filename: "Metas_IRENE.txt", type: "upload", id_resource: 2},
-    {id_file: 4, filename: "staff_smartcenter_fecha.txt", type: "upload", id_resource: 2},
-    {id_file: 5, filename: "*.doc, *.docx, *.ods, *.pdf, *.pps, *.ppsx, *.ppt, *.pptx, *.txt, *.txtx, *.xls, *.xlsm, *.xlsmx, *.xlsx", type: "upload", id_resource: 2},
-  ]
 
   const input = useRef(null)
   const [inputValue, setInputValue] = useState('')
@@ -37,6 +44,56 @@ export const ResourcesFiles = ({ resourceData, setHideContent, userIsAdmin }) =>
   const openEditMode = (type, mode) => {
     openForm(type, mode)
   }
+
+  const formSubmit = async(type = '') => {
+    if(showForm.mode !== 'delete' && inputValue.length < 2) {
+      setAlertState({message: "El nombre del archivo debe tener al menos 2 caracteres.", severity: "error", itShow: true})
+      resetAlertState()
+      return
+    }
+    try {
+      switch(showForm.mode) {
+        case 'add':
+          await addFile({
+            filename: inputValue, 
+            type,
+            id_resource: resourceData.id_resource,
+          })
+          break;
+        case 'edit': 
+          await updateFile({
+            id_file: fileToEdit.id_file,
+            filename: inputValue,
+          })
+          break;
+        case 'delete':
+          await deleteFile(fileToEdit.id_file)
+          break;
+      }
+      await getFilesData()
+      closeForm()
+      setAlertState({
+        message: 'Archivo ' + (showForm.mode === 'add'? 'agregado' : 'actualizado') + ' correctamente.',
+        severity: 'success',
+        itShow: true
+      })
+      resetAlertState()
+    } catch (error) {
+      setAlertState({
+        message: 'Hubo un error en el servidor, intente nuevamente.',
+        severity: 'error',
+        itShow: true
+      })
+      resetAlertState()
+    }
+  }
+
+  const {
+    alertState,
+    setAlertState,
+    resetAlertState,
+    changeStateAlert
+  } = alertActions()
   
   return (
     <>
@@ -47,7 +104,7 @@ export const ResourcesFiles = ({ resourceData, setHideContent, userIsAdmin }) =>
         <TextBox key={i} className="resources">
           <span>{label}</span>
           <div className="files-container">
-            {dataTest.map((file, i) => (file.type === type) && (!showForm.show || showForm.type !== type)  && (
+            {filesData.map((file, i) => (file.type === type) && (!showForm.show || showForm.type !== type)  && (
               <div className="file" 
                 key={i}
               >
@@ -105,7 +162,7 @@ export const ResourcesFiles = ({ resourceData, setHideContent, userIsAdmin }) =>
                       (showForm.mode === 'delete' && btn === 'save') 
                       ? 'delete' : ''
                     }
-                    onClick={btn === "cancel" ? closeForm : () => {}}
+                    onClick={btn === "cancel" ? closeForm : () => formSubmit(type)}
                   >
                     {btn === "cancel" ? "Cancelar" : showForm.mode === 'add' ? "Agregar" : showForm.mode === 'edit' ? "Guardar Cambios" : 'Eliminar'}
                   </button>
@@ -115,6 +172,12 @@ export const ResourcesFiles = ({ resourceData, setHideContent, userIsAdmin }) =>
           )}
         </TextBox>
       ))}
+      <Alert 
+        text={ alertState.message }
+        severity={ alertState.severity }
+        showAlert={ alertState.itShow }
+        setShowAlert={ changeStateAlert }
+      />
     </>
   )
 }
