@@ -16,6 +16,19 @@ export const updateArea = async(data) =>
 export const deleteArea = async(id) =>
   await axios.delete(`${url}/areas?id_area=${id}`)
 
+// files
+export const getFiles = async(id_resource) =>
+  await axios.get(`${url}/files?id_resource=${id_resource}`)
+
+export const addFile = async(data) =>
+  await axios.post(`${url}/files`, data)
+
+export const updateFile = async(data) =>
+  await axios.put(`${url}/files`, data)
+
+export const deleteFile = async(id_file) =>
+  await axios.delete(`${url}/files?id_file=${id_file}`)
+
 // resources
 
 export const getResources = async() =>
