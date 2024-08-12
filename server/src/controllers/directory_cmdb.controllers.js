@@ -276,3 +276,63 @@ export const deleteUser = async(req, res) => {
     res.status(400).send('There was an error trying to delete the information.')
   }
 }
+
+// resources_directory
+export const getResources = async(req, res) => {
+  const query = 'SELECT `id_resource`, `resource_name` FROM resources_cmdb'
+
+  try {
+    const [result] = await pool.query(query)
+    res.status(200).json(result)
+  } catch (error) {
+    res.status(400).send('There was an error trying to obtain the information.')   
+  }
+}
+
+export const getUserResources = async(req, res) => {
+  const { id_user } = req.query
+  const query = 'SELECT resources_directory_cmdb.id, resources_cmdb.resource_name, resources_directory_cmdb.permissions FROM resources_directory_cmdb INNER JOIN resources_cmdb ON resources_directory_cmdb.id_resource = resources_cmdb.id_resource WHERE id_user = ?'
+
+  try {
+    const [result] = await pool.query(query, [id_user])
+    res.status(200).json(result)
+  } catch (error) {
+    res.status(400).send('There was an error trying to obtain the information.')
+  }
+}
+
+export const addUserResource = async(req, res) => {
+  const { id_user, id_resource, permissions } = req.body
+  const query = 'INSERT INTO resources_directory_cmdb (id_user, id_resource, permissions) VALUES (?,?,?)'
+
+  try {
+    await pool.query(query, [id_user, id_resource, permissions])
+    res.status(200).send('Information uploaded correctly.')
+  } catch (error) {
+    res.status(400).send('There was an error to load the information.')
+  }
+}
+
+export const updateUserResource = async(req, res) => {
+  const { id, permissions } = req.body
+  const query = 'UPDATE resources_directory_cmdb SET permissions = ? WHERE id = ?'
+
+  try {
+    await pool.query(query, [permissions, id])
+    res.status(200).send('Information updated correctly.')
+  } catch (error) {
+    res.status(400).send('There was an error trying to update the information.')
+  }
+}
+
+export const deleteUserResource = async(req, res) => {
+  const { id } = req.query
+  const query = 'DELETE FROM resources_directory_cmdb WHERE id = ?'
+
+  try {
+    await pool.query(query, [id])
+    res.status(200).send('Information deleted correctly.')
+  } catch (error) {
+    res.status(400).send('There was an error trying to delete the information.')
+  }
+}
