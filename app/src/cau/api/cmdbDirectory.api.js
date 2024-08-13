@@ -71,3 +71,10 @@ export const updateUser = async(data) =>
 
 export const deleteUser = async(data) =>
   await axios.delete(`${url}/users`, {data})
+
+// user_resources
+export const getResources = async() =>
+  await axios.get(`${url}/resources`)
+
+export const getUserResources = async(id_user) =>
+  await axios.get(`${url}/users/resources?id_user=${id_user}`)
