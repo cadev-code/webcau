@@ -194,6 +194,7 @@ export const CMDBDirectory = ({userData}) => {
         deleteRowMethod={deleteUser}
         refreshData={getUsersData}
         userIsAdmin={userIsAdmin}
+        version="directory"
       />
     </>
   )

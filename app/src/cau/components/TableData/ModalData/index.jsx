@@ -1,20 +1,10 @@
 import { useEffect, useRef, useState } from 'react'
-import { 
-  ActionBtns,
-  BoxContainer, 
-  CloseBtn, 
-  FormBtns, 
-  Modal, 
-  TextBox 
-} from './styled'
+import { ActionBtns, BoxContainer, CloseBtn, FormBtns, Modal, TextBox } from './styled'
 import { Alert, BackgroundOpacity, ConfirmDialog } from '../../../../components'
-import { 
-  Close, 
-  Delete, 
-  Edit 
-} from '@mui/icons-material'
+import { Close, Delete, Edit } from '@mui/icons-material'
 import { alertActions } from '../../../helpers/alertActions'
 import { ResourcesFiles } from '../ResourcesFilesData'
+import { UserResourcesData } from '../UserResourcesData'
 
 export const ModalData = ({
   data,
@@ -27,7 +17,7 @@ export const ModalData = ({
   version,
   userIsAdmin
 }) => {
-
+  
   // edit mode
   const [editMode, setEditMode] = useState(false)
   const [inputChanges, setInputChanges] = useState(addMode ? defaultInputChanges : {})
@@ -105,11 +95,16 @@ export const ModalData = ({
                         />}
             </TextBox>
           ))}
-          {!editMode && !addMode && version === "resources" && (
+          {!editMode && !addMode && version === 'resources' && (
             <ResourcesFiles
               resourceData={data}
               setHideContent={setHideContent}
               userIsAdmin={userIsAdmin}
+            />
+          )}
+          {!editMode && !addMode && version === 'directory' && (
+            <UserResourcesData 
+              id_user={data.id_user}
             />
           )}
         </BoxContainer>
