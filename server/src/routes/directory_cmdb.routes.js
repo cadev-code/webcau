@@ -28,7 +28,7 @@ router.post('/cmdb/directory/users', addUser)
 router.put('/cmdb/directory/users', updateUser)
 router.delete('/cmdb/directory/users', deleteUser)
 
-router.get('/cmdb/resources/directory', getResources)
+router.get('/cmdb/directory/resources', getResources)
 router.get('/cmdb/directory/users/resources', getUserResources)
 router.post('/cmdb/directory/users/resources', addUserResource)
 router.put('/cmdb/directory/users/resources', updateUserResource)
