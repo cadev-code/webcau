@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { getResources, getUserResources } from '../../../api/cmdbDirectory.api'
+import { addUserResource, getResources, getUserResources } from '../../../api/cmdbDirectory.api'
 import { TextBox } from '../ModalData/styled'
 
 export const UserResourcesData = ({ id_user, alertState }) => {
@@ -35,7 +35,7 @@ export const UserResourcesData = ({ id_user, alertState }) => {
     }
   }, [showForm])
 
-  const [inputValue, setInputValue] = useState({resource: 0, permissions: ''})
+  const [inputValue, setInputValue] = useState({id_resource: 0, permissions: ''})
 
   const onInputChange = ({target}) => {
     const { name, value } = target
@@ -44,19 +44,30 @@ export const UserResourcesData = ({ id_user, alertState }) => {
 
   const closeForm = () => {
     setShowForm({show: false, mode: ''})
-    setInputValue({resource: "0", permissions: ''})
+    setInputValue({id_resource: "0", permissions: ''})
     setAlertState({itShow: false, message: '', severity: 'error'})
   }
 
   const { setAlertState, resetAlertState } = alertState
 
-  const submitForm = () => {
-    if(inputValue.resource === "0" || inputValue.permissions === '') {
+  const submitForm = async() => {
+    if(inputValue.id_resource === "0" || inputValue.permissions === '') {
       setAlertState({itShow: true, message: 'No puede haber campos vacíos.', severity: 'error'})
       resetAlertState()
       return
     }
 
+    switch(showForm.mode) {
+      case 'add':
+        await addUserResource({
+          ...inputValue,
+          id_resource: Number(inputValue.id_resource),
+          id_user
+        })
+        break;
+    }
+
+    await getUserResourcesData()
     closeForm()
   }
 
@@ -76,9 +87,9 @@ export const UserResourcesData = ({ id_user, alertState }) => {
       {showForm.show && (
         <div className="form">
           <select 
-            name="resource" 
-            id="resource"
-            value={inputValue.resource}
+            name="id_resource" 
+            id="id_resource"
+            value={inputValue.id_resource}
             onChange={onInputChange}
           >
             <option value="0">-- Recurso --</option>
