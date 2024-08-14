@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import { getResources, getUserResources } from '../../../api/cmdbDirectory.api'
 import { TextBox } from '../ModalData/styled'
 
-export const UserResourcesData = ({ id_user }) => {
+export const UserResourcesData = ({ id_user, alertState }) => {
 
   const [showForm, setShowForm] = useState({show: false, mode: ''})
   const [userResourcesData, setUserResourcesData] = useState([])
@@ -38,7 +38,20 @@ export const UserResourcesData = ({ id_user }) => {
 
   const closeForm = () => {
     setShowForm({show: false, mode: ''})
-    setInputValue({resource: 0, permissions: ''})
+    setInputValue({resource: "0", permissions: ''})
+    setAlertState({itShow: false, message: '', severity: 'error'})
+  }
+
+  const { setAlertState, resetAlertState } = alertState
+
+  const submitForm = () => {
+    if(inputValue.resource === "0" || inputValue.permissions === '') {
+      setAlertState({itShow: true, message: 'No puede haber campos vacíos.', severity: 'error'})
+      resetAlertState()
+      return
+    }
+
+    closeForm()
   }
 
   return (
@@ -47,7 +60,7 @@ export const UserResourcesData = ({ id_user }) => {
       {!showForm.show && (
         <div className="files-container">
           {userResourcesData.map(({resource_name, permissions}, i) => (
-            <div className="file directory">
+            <div className="file directory" key={i}>
               <p>{resource_name}</p>
               <span>{permissions}</span>
             </div>
@@ -62,7 +75,7 @@ export const UserResourcesData = ({ id_user }) => {
             value={inputValue.resource}
             onChange={onInputChange}
           >
-            <option value={0}>-- Recurso --</option>
+            <option value="0">-- Recurso --</option>
             {resourcesData.map(({id_resource, resource_name}) => (
               <option key={id_resource} value={id_resource}>
                 {resource_name}
@@ -72,17 +85,20 @@ export const UserResourcesData = ({ id_user }) => {
           <select 
             name="permissions" 
             id="permissions"
+            value={inputValue.permissions}
+            onChange={onInputChange}
           >
+            <option value="">-- Permisos --</option>
             {['Lectura', 'Lectura y Escritura', 'Control Total'].map((option, i) => (
-              <option value={i}>
+              <option key={i} value={option}>
                 {option}
               </option>
             ))}
           </select>
           <div>
             {['cancel', 'save'].map(btn => (
-              <button
-                onClick={btn === 'cancel' && closeForm}
+              <button key={btn}
+                onClick={btn === 'cancel' ? closeForm : submitForm}
               >
                 {btn === 'cancel'? 'Cancelar' : 'Asignar'}
               </button>

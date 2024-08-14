@@ -105,6 +105,10 @@ export const ModalData = ({
           {!editMode && !addMode && version === 'directory' && (
             <UserResourcesData 
               id_user={data.id_user}
+              alertState={{
+                setAlertState,
+                resetAlertState
+              }}
             />
           )}
         </BoxContainer>
