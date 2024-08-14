@@ -78,3 +78,6 @@ export const getResources = async() =>
 
 export const getUserResources = async(id_user) =>
   await axios.get(`${url}/users/resources?id_user=${id_user}`)
+
+export const addUserResource = async(data) =>
+  await axios.post(`${url}/users/resources`, data)
