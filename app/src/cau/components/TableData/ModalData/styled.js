@@ -108,6 +108,24 @@ export const TextBox = styled.div`
         .delete {
           color: rgb(255, 57, 57);
         }
+
+        &.directory {
+          padding: 8px;
+          gap: 16px;
+
+          span {
+            padding: 0 4px;
+            display: grid;
+            place-content: center;
+            background-color: #1a2531;
+            border-radius: 5px;
+            user-select: none;
+          }
+
+          &:last-of-type {
+            margin-bottom: 8px;
+          }
+        }
       }
     }
 
@@ -149,6 +167,13 @@ export const TextBox = styled.div`
             background-color: var(--border-input-color);
           }
         }
+      }
+    }
+
+    .form {
+      select {
+        width: 100%;
+        outline: none;
       }
     }
   }
