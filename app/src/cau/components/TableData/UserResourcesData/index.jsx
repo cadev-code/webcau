@@ -15,6 +15,12 @@ export const UserResourcesData = ({ id_user, alertState }) => {
 
   const getResourcesData = async() => {
     const { data } = await getResources()
+    if(userResourcesData.length !== 0) {
+      const resourcesAssigned = userResourcesData.map(data => data.resource_name)
+      const filteredResources = data.filter(resource => !resourcesAssigned.includes(resource.resource_name))
+      setResourcesData(filteredResources)
+      return
+    }
     setResourcesData(data)
   }
 
