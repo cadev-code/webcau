@@ -267,10 +267,9 @@ export const updateUser = async(req, res) => {
 export const deleteUser = async(req, res) => {
   const { id_user } = req.body
 
-  const query = 'DELETE FROM users_directory_cmdb WHERE id_user = ?'
-
   try {
-    await pool.query(query, [id_user])
+    await pool.query('DELETE FROM resources_directory_cmdb WHERE id_user = ?', [id_user])
+    await pool.query('DELETE FROM users_directory_cmdb WHERE id_user = ?', [id_user])
     res.status(200).send('Information was deleted correctly.')
   } catch (error) {
     res.status(400).send('There was an error trying to delete the information.')
