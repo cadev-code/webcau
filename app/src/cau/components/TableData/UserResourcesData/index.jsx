@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { addUserResource, getResources, getUserResources } from '../../../api/cmdbDirectory.api'
 import { TextBox } from '../ModalData/styled'
+import { Close, Delete, Edit } from '@mui/icons-material'
 
 export const UserResourcesData = ({ id_user, alertState }) => {
 
@@ -36,6 +37,7 @@ export const UserResourcesData = ({ id_user, alertState }) => {
   }, [showForm])
 
   const [inputValue, setInputValue] = useState({id_resource: 0, permissions: ''})
+  const [dataToDelete, setDataToDelete] = useState({})
 
   const onInputChange = ({target}) => {
     const { name, value } = target
@@ -71,53 +73,71 @@ export const UserResourcesData = ({ id_user, alertState }) => {
     closeForm()
   }
 
+  const deleteOnClick = (resource) => {
+    setDataToDelete(resource)
+    setShowForm({show: true, mode: 'delete'})
+  }
+
   return (
     <TextBox className="resources">
       <span>Recursos Compartidos</span>
       {!showForm.show && (
         <div className="files-container">
-          {userResourcesData.map(({resource_name, permissions}, i) => (
+          {userResourcesData.map((resource, i) => (
             <div className="file directory" key={i}>
-              <p>{resource_name}</p>
-              <span>{permissions}</span>
+              <p>{resource.resource_name}</p>
+              <span>{resource.permissions}</span>
+              <div className="actions">
+                <button onClick={() => deleteOnClick(resource)}>
+                  <Close />
+                </button>
+              </div>
             </div>
           ))}
         </div>
       )}
       {showForm.show && (
         <div className="form">
-          <select 
-            name="id_resource" 
-            id="id_resource"
-            value={inputValue.id_resource}
-            onChange={onInputChange}
-          >
-            <option value="0">-- Recurso --</option>
-            {resourcesData.map(({id_resource, resource_name}) => (
-              <option key={id_resource} value={id_resource}>
-                {resource_name}
-              </option>
-            ))}
-          </select>
-          <select 
-            name="permissions" 
-            id="permissions"
-            value={inputValue.permissions}
-            onChange={onInputChange}
-          >
-            <option value="">-- Permisos --</option>
-            {['Lectura', 'Lectura y Escritura', 'Control Total'].map((option, i) => (
-              <option key={i} value={option}>
-                {option}
-              </option>
-            ))}
-          </select>
+          {showForm.mode === 'add' ? (
+            <>
+              <select 
+                name="id_resource" 
+                id="id_resource"
+                value={inputValue.id_resource}
+                onChange={onInputChange}
+              >
+                <option value="0">-- Recurso --</option>
+                {resourcesData.map(({id_resource, resource_name}) => (
+                  <option key={id_resource} value={id_resource}>
+                    {resource_name}
+                  </option>
+                ))}
+              </select>
+              <select 
+                name="permissions" 
+                id="permissions"
+                value={inputValue.permissions}
+                onChange={onInputChange}
+              >
+                <option value="">-- Permisos --</option>
+                {['Lectura', 'Lectura y Escritura', 'Control Total'].map((option, i) => (
+                  <option key={i} value={option}>
+                    {option}
+                  </option>
+                ))}
+              </select>
+            </>) : (
+              <div>
+                {dataToDelete.resource_name}
+              </div>
+            )}
           <div>
             {['cancel', 'save'].map(btn => (
               <button key={btn}
                 onClick={btn === 'cancel' ? closeForm : submitForm}
+                className={showForm.mode === 'delete' && 'delete'}
               >
-                {btn === 'cancel'? 'Cancelar' : 'Asignar'}
+                {btn === 'cancel' ? 'Cancelar' : showForm.mode === 'add' ? 'Asignar' : 'Retirar Recurso'}
               </button>
             ))}
           </div>

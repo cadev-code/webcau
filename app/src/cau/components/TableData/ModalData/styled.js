@@ -111,7 +111,12 @@ export const TextBox = styled.div`
 
         &.directory {
           padding: 8px;
+          justify-content: start;
           gap: 16px;
+
+          p {
+            margin-right: auto;
+          }
 
           span {
             padding: 0 4px;
@@ -119,11 +124,28 @@ export const TextBox = styled.div`
             place-content: center;
             background-color: #1a2531;
             border-radius: 5px;
-            user-select: none;
           }
 
           &:last-of-type {
             margin-bottom: 8px;
+          }
+
+          .actions {
+            display: flex;
+
+            button {
+              display: grid;
+              place-content: center;
+              color: white;
+
+              svg {
+                font-size: 20px;
+              }
+
+              &:last-of-type {
+                color: #ff3939;
+              }
+            }
           }
         }
       }
