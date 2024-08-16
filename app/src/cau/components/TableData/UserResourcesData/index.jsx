@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { addUserResource, getResources, getUserResources } from '../../../api/cmdbDirectory.api'
+import { addUserResource, deleteUserResource, getResources, getUserResources } from '../../../api/cmdbDirectory.api'
 import { TextBox } from '../ModalData/styled'
 import { Close, Delete, Edit } from '@mui/icons-material'
 
@@ -53,7 +53,7 @@ export const UserResourcesData = ({ id_user, alertState }) => {
   const { setAlertState, resetAlertState } = alertState
 
   const submitForm = async() => {
-    if(inputValue.id_resource === "0" || inputValue.permissions === '') {
+    if(showForm.mode === 'add' && (inputValue.id_resource === "0" || inputValue.permissions === '')) {
       setAlertState({itShow: true, message: 'No puede haber campos vacíos.', severity: 'error'})
       resetAlertState()
       return
@@ -66,6 +66,9 @@ export const UserResourcesData = ({ id_user, alertState }) => {
           id_resource: Number(inputValue.id_resource),
           id_user
         })
+        break;
+      case 'delete':
+        await deleteUserResource(dataToDelete.id)
         break;
     }
 
@@ -135,7 +138,7 @@ export const UserResourcesData = ({ id_user, alertState }) => {
             {['cancel', 'save'].map(btn => (
               <button key={btn}
                 onClick={btn === 'cancel' ? closeForm : submitForm}
-                className={showForm.mode === 'delete' && 'delete'}
+                className={showForm.mode === 'delete' ? 'delete' : ''}
               >
                 {btn === 'cancel' ? 'Cancelar' : showForm.mode === 'add' ? 'Asignar' : 'Retirar Recurso'}
               </button>

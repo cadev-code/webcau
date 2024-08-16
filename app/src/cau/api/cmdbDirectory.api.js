@@ -81,3 +81,6 @@ export const getUserResources = async(id_user) =>
 
 export const addUserResource = async(data) =>
   await axios.post(`${url}/users/resources`, data)
+
+export const deleteUserResource = async(id) => 
+  await axios.delete(`${url}/users/resources?id=${id}`)
