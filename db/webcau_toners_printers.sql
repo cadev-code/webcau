@@ -1,0 +1,58 @@
+-- MySQL dump 10.13  Distrib 8.0.33, for Win64 (x86_64)
+--
+-- Host: localhost    Database: webcau
+-- ------------------------------------------------------
+-- Server version	8.0.33
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!50503 SET NAMES utf8 */;
+/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
+/*!40103 SET TIME_ZONE='+00:00' */;
+/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+
+--
+-- Table structure for table `toners_printers`
+--
+
+CREATE DATABASE IF NOT EXISTS webcau;
+
+use webcau;
+
+DROP TABLE IF EXISTS `toners_printers`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `toners_printers` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `noSeriePrint_t` varchar(14) NOT NULL,
+  `color` varchar(16) NOT NULL,
+  `color_key` varchar(1) NOT NULL,
+  `amount` int NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `toners_printers`
+--
+
+LOCK TABLES `toners_printers` WRITE;
+/*!40000 ALTER TABLE `toners_printers` DISABLE KEYS */;
+INSERT INTO `toners_printers` VALUES (1,'V7E6200825','NEGRO (K)','K',0),(2,'V7E6200825','CIAN (C)','C',0),(3,'V7E6200825','MAGENTA (M)','M',0),(4,'V7E6200825','AMARILLO (Y)','Y',0),(5,'L896404787','NEGRO (K)','K',0),(6,'L896404787','CIAN (C)','C',0),(7,'L896404787','MAGENTA (M)','M',0),(8,'L896404787','AMARILLO (Y)','Y',0),(9,'V7B6301211','NEGRO (K)','K',0),(10,'V7B6301211','CIAN (C)','C',0),(11,'V7B6301211','MAGENTA (M)','M',0),(12,'V7B6301211','AMARILLO (Y)','Y',0),(13,'L856116037','NEGRO (K)','K',0),(14,'L856116037','CIAN (C)','C',0),(15,'L856116037','MAGENTA (M)','M',0),(16,'L856116037','AMARILLO (Y)','Y',0),(17,'L893700256','NEGRO (K)','K',0),(18,'L893700256','CIAN (C)','C',0),(19,'L893700256','MAGENTA (M)','M',0),(20,'L893700256','AMARILLO (Y)','Y',0);
+/*!40000 ALTER TABLE `toners_printers` ENABLE KEYS */;
+UNLOCK TABLES;
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+
+-- Dump completed on 2024-04-19 22:29:21

@@ -1,0 +1,2 @@
+CREATE DATABASE authcau;
+CREATE DATABASE webcau;
