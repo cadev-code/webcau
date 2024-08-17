@@ -3,7 +3,7 @@ import { addUserResource, deleteUserResource, getResources, getUserResources } f
 import { TextBox } from '../ModalData/styled'
 import { Close, Delete, Edit } from '@mui/icons-material'
 
-export const UserResourcesData = ({ id_user, alertState }) => {
+export const UserResourcesData = ({ id_user, alertState, userIsAdmin }) => {
 
   const [showForm, setShowForm] = useState({show: false, mode: ''})
   const [userResourcesData, setUserResourcesData] = useState([])
@@ -90,11 +90,13 @@ export const UserResourcesData = ({ id_user, alertState }) => {
             <div className="file directory" key={i}>
               <p>{resource.resource_name}</p>
               <span>{resource.permissions}</span>
-              <div className="actions">
-                <button onClick={() => deleteOnClick(resource)}>
-                  <Close />
-                </button>
-              </div>
+              {userIsAdmin && (
+                <div className="actions">
+                  <button onClick={() => deleteOnClick(resource)}>
+                    <Close />
+                  </button>
+                </div>
+              )}
             </div>
           ))}
         </div>
@@ -146,7 +148,7 @@ export const UserResourcesData = ({ id_user, alertState }) => {
           </div>
         </div>
       )}
-      {!showForm.show && (
+      {!showForm.show && userIsAdmin && (
         <button onClick={() => setShowForm({show: true, mode: 'add'})}>
           Asignar Recurso
         </button>

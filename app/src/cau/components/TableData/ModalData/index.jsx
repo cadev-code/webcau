@@ -109,6 +109,7 @@ export const ModalData = ({
                 setAlertState,
                 resetAlertState
               }}
+              userIsAdmin={userIsAdmin}
             />
           )}
         </BoxContainer>
