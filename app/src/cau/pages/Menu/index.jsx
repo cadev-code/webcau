@@ -19,12 +19,10 @@ import {
 // styles imports
 import { MenuContainer, ToolsContainer } from './styles'
 import { blue } from '@mui/material/colors'
-import { useState } from 'react'
 import { toolsData } from './toolsData'
 
 export const Menu = () => {
 
-  const [btnActive, setBtnActive] = useState('')
 
   return (
     <MenuContainer>
@@ -97,11 +95,11 @@ export const Menu = () => {
         <Box>
           <ToolsContainer>
             {
-              toolsData.map(list => (
-                <div>
+              toolsData.map((list, i) => (
+                <div key={i}>
                   {
-                    list.map(({text, url, subText}) => (
-                      <button
+                    list.map(({text, url, subText}, i) => (
+                      <button key={i}
                         onClick={() => window.open(url, '_blank')}
                       >
                         {text}
