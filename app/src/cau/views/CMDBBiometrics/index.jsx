@@ -1,6 +1,11 @@
+import { TitleActionBar } from '../../components'
 
 export const CMDBBiometrics = () => {
   return (
-    <div>CMDBBiometrics</div>
+    <>
+      <TitleActionBar 
+        title="CMDB Biométricos"
+      />
+    </>
   )
 }
