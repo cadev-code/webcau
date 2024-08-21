@@ -5,6 +5,13 @@ export const CMDBBiometrics = () => {
     <>
       <TitleActionBar 
         title="CMDB Biométricos"
+        buttons={
+          <>
+            <button onClick={() => console.log('campañas')}>
+              Campañas
+            </button>
+          </>
+        }
       />
     </>
   )
