@@ -1,10 +1,21 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { TitleActionBar } from '../../components'
 import { OptionsManager } from '../../components/TableData/OptionsManager'
+import { biometricsDataRequest } from './biometricsDataRequest'
 
 export const CMDBBiometrics = () => {
 
+  const [campaignsData, setCampaignsData] = useState([])
+
   const [showCampaigns, setShowCampaigns] = useState(true)
+
+  const { 
+    getCampaignsData
+  } = biometricsDataRequest(setCampaignsData)
+
+  useEffect(() => {
+    getCampaignsData()
+  }, [])
 
   return (
     <>
