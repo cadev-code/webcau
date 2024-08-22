@@ -3,9 +3,9 @@ import { addCampaign, deleteCampaign, getCampaigns, updateCampaign } from '../co
 
 const router = Router()
 
-router.get('/cmdb/biometrics/campaign', getCampaigns)
-router.post('/cmdb/biometrics/campaign', addCampaign)
-router.put('/cmdb/biometrics/campaign', updateCampaign)
-router.delete('/cmdb/biometrics/campaign', deleteCampaign)
+router.get('/cmdb/biometrics/campaigns', getCampaigns)
+router.post('/cmdb/biometrics/campaigns', addCampaign)
+router.put('/cmdb/biometrics/campaigns', updateCampaign)
+router.delete('/cmdb/biometrics/campaigns', deleteCampaign)
 
 export default router
