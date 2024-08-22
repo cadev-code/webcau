@@ -16,12 +16,14 @@ export const CMDBBiometrics = () => {
 
   const { 
     getCampaignsData,
-    getMarksData
-  } = biometricsDataRequest(setCampaignsData, setMarksData)
+    getMarksData,
+    getModelsData
+  } = biometricsDataRequest(setCampaignsData, setMarksData, setModelsData)
 
   useEffect(() => {
     getCampaignsData()
     getMarksData()
+    getModelsData()
   }, [])
 
   return (
@@ -72,8 +74,8 @@ export const CMDBBiometrics = () => {
         showModels &&
           <OptionsManager 
             title="Modelos"
-            options={[]}
-            refreshOptions={() => {}}
+            options={modelsData.map(({id_model, model}) => ({id: id_model, text: model}))}
+            refreshOptions={getModelsData}
             close={() => setShowModels(false)}
             userIsAdmin={true}
           />
