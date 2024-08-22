@@ -7,16 +7,19 @@ import { addCampaign, deleteCampaign, updateCampaign } from '../../api/cmdbBiome
 export const CMDBBiometrics = () => {
 
   const [campaignsData, setCampaignsData] = useState([])
+  const [marksData, setMarksData] = useState([])
 
   const [showCampaigns, setShowCampaigns] = useState(false)
   const [showMarks, setShowMarks] = useState(true)
 
   const { 
-    getCampaignsData
-  } = biometricsDataRequest(setCampaignsData)
+    getCampaignsData,
+    getMarksData
+  } = biometricsDataRequest(setCampaignsData, setMarksData)
 
   useEffect(() => {
     getCampaignsData()
+    getMarksData()
   }, [])
 
   return (
@@ -28,7 +31,7 @@ export const CMDBBiometrics = () => {
             <button onClick={() => setShowCampaigns(true)}>
               Campañas
             </button>
-            <button onClick={() => setShowMarks(true)}>
+            <button onClick={() => setShowMarks(true )}>
               Marcas
             </button>
           </>
@@ -51,7 +54,7 @@ export const CMDBBiometrics = () => {
         showMarks &&
           <OptionsManager 
             title="Marcas"
-            options={[]}
+            options={marksData.map(({id_mark, mark}) => ({id: id_mark, text: mark}))}
             refreshOptions={() => {}}
             close={() => setShowMarks(false)}
             userIsAdmin={true}
