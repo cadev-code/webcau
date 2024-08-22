@@ -16,3 +16,15 @@ CREATE TABLE marks_biometrics_cmdb(
 
 INSERT INTO marks_biometrics_cmdb (`mark`) VALUES ('ZKTeco Inc'),
 ('INFRA');
+
+CREATE TABLE models_biometrics_cmdb(
+  `id_model` INT AUTO_INCREMENT NOT NULL,
+  `model` VARCHAR(255) NOT NULL,
+  PRIMARY KEY (`id_model`)
+);
+
+INSERT INTO models_biometrics_cmdb (`model`) VALUES ('F18/HID'),
+('F18'),
+('MB160'),
+('F4VISTA'),
+('F18/M');
