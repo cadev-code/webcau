@@ -33,6 +33,7 @@ export const CMDBBiometrics = () => {
         showCampaigns &&
           <OptionsManager 
             title="Campañas"
+            options={campaignsData.map(({id_campaign, campaign}) => ({id: id_campaign, text: campaign}))}
             close={() => setShowCampaigns(false)}
             userIsAdmin={true}
           />
