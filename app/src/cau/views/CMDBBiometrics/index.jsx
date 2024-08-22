@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { TitleActionBar } from '../../components'
 import { OptionsManager } from '../../components/TableData/OptionsManager'
 import { biometricsDataRequest } from './biometricsDataRequest'
+import { addCampaign } from '../../api/cmdbBiometrics.api'
 
 export const CMDBBiometrics = () => {
 
@@ -34,6 +35,8 @@ export const CMDBBiometrics = () => {
           <OptionsManager 
             title="Campañas"
             options={campaignsData.map(({id_campaign, campaign}) => ({id: id_campaign, text: campaign}))}
+            addOptionMethod={addCampaign}
+            refreshOptions={getCampaignsData}
             close={() => setShowCampaigns(false)}
             userIsAdmin={true}
           />
