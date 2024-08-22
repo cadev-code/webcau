@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import { TitleActionBar } from '../../components'
 import { OptionsManager } from '../../components/TableData/OptionsManager'
 import { biometricsDataRequest } from './biometricsDataRequest'
-import { addCampaign, addMark, addModel, deleteCampaign, deleteMark, updateCampaign, updateMark, updateModel } from '../../api/cmdbBiometrics.api'
+import { addCampaign, addMark, addModel, deleteCampaign, deleteMark, deleteModel, updateCampaign, updateMark, updateModel } from '../../api/cmdbBiometrics.api'
 
 export const CMDBBiometrics = () => {
 
@@ -77,6 +77,7 @@ export const CMDBBiometrics = () => {
             options={modelsData.map(({id_model, model}) => ({id: id_model, text: model}))}
             addOptionMethod={addModel}
             updateOptionMethod={updateModel}
+            deleteOptionMethod={deleteModel}
             refreshOptions={getModelsData}
             close={() => setShowModels(false)}
             userIsAdmin={true}
