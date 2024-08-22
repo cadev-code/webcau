@@ -8,7 +8,8 @@ export const CMDBBiometrics = () => {
 
   const [campaignsData, setCampaignsData] = useState([])
 
-  const [showCampaigns, setShowCampaigns] = useState(true)
+  const [showCampaigns, setShowCampaigns] = useState(false)
+  const [showMarks, setShowMarks] = useState(true)
 
   const { 
     getCampaignsData
@@ -27,6 +28,9 @@ export const CMDBBiometrics = () => {
             <button onClick={() => setShowCampaigns(true)}>
               Campañas
             </button>
+            <button onClick={() => setShowMarks(true)}>
+              Marcas
+            </button>
           </>
         }
       />
@@ -40,6 +44,16 @@ export const CMDBBiometrics = () => {
             deleteOptionMethod={deleteCampaign}
             refreshOptions={getCampaignsData}
             close={() => setShowCampaigns(false)}
+            userIsAdmin={true}
+          />
+      }
+      {
+        showMarks &&
+          <OptionsManager 
+            title="Marcas"
+            options={[]}
+            refreshOptions={() => {}}
+            close={() => setShowMarks(false)}
             userIsAdmin={true}
           />
       }
