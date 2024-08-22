@@ -29,3 +29,17 @@ export const updateMark = async(data) =>
 
 export const deleteMark = async(id) =>
   await axios.delete(`${URL}/marks?id_mark=${id}`)
+
+// models
+
+export const getModels = async() =>
+  await axios.get(`${URL}/models`)
+
+export const addModel = async(data) =>
+  await axios.post(`${URL}/models`, data)
+
+export const updateModel = async(data) =>
+  await axios.put(`${URL}/models`, data)
+
+export const deleteModel = async(id) =>
+  await axios.delete(`${URL}/models?id_model=${id}`)
