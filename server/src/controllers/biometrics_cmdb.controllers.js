@@ -97,3 +97,52 @@ export const deleteMark = async(req, res) => {
     res.status(400).send('There was an error to trying delete the information.')
   }
 }
+
+// models
+
+export const getModels = async(req, res) => {
+  const query = 'SELECT * FROM models_biometrics_cmdb'
+
+  try {
+    const [result] = await pool.query(query)
+    res.status(200).json(result)
+  } catch (error) {
+    res.status(400).send('There was an error to trying obtain the information.')
+  }
+}
+
+export const addModel = async(req, res) => {
+  const { text } = req.body
+  const query = 'INSERT INTO models_biometrics_cmdb (`model`) VALUES (?)'
+
+  try {
+    await pool.query(query, [text])
+    res.status(200).send('Information uploaded correctly.')
+  } catch (error) {
+    res.status(400).send('There was an error to trying upload the information.')
+  }
+}
+
+export const updateModel = async(req, res) => {
+  const { id, text } = req.body
+  const query = 'UPDATE models_biometrics_cmdb SET `model` = ? WHERE `id_model` = ?'
+  
+  try {
+    await pool.query(query, [text, id])
+    res.status(200).send('Information updated correctly.')
+  } catch(error) {
+    res.status(400).send('There was an error to trying update the information.')
+  }
+}
+
+export const deleteModel = async(req, res) => {
+  const { id_model } = req.query
+  const query = 'DELETE FROM models_biometrics_cmdb WHERE `id_model` = ?'
+  
+  try {
+    await pool.query(query, [id_model])
+    res.status(200).send('Information deleted correctly.')
+  } catch(error) {
+    res.status(400).send('There was an error to trying delete the information.')
+  }
+}
