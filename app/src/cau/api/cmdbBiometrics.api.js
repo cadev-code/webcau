@@ -43,3 +43,17 @@ export const updateModel = async(data) =>
 
 export const deleteModel = async(id) =>
   await axios.delete(`${URL}/models?id_model=${id}`)
+
+// assignments
+
+export const getAssignments = async() =>
+  await axios.get(`${URL}/assignments`)
+
+export const addAssignment = async(data) =>
+  await axios.post(`${URL}/assignments`, data)
+
+export const updateAssignment = async(data) =>
+  await axios.put(`${URL}/assignments`, data)
+
+export const deleteAssignment = async(id) =>
+  await axios.delete(`${URL}/assignments?id_assignment=${id}`)
