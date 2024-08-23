@@ -12,7 +12,8 @@ export const CMDBBiometrics = () => {
 
   const [showCampaigns, setShowCampaigns] = useState(false)
   const [showMarks, setShowMarks] = useState(false)
-  const [showModels, setShowModels] = useState(true)
+  const [showModels, setShowModels] = useState(false)
+  const [showAssignments, setShowAssignments] = useState(true)
 
   const { 
     getCampaignsData,
@@ -32,15 +33,23 @@ export const CMDBBiometrics = () => {
         title="CMDB Biométricos"
         buttons={
           <>
-            <button onClick={() => setShowCampaigns(true)}>
-              Campañas
-            </button>
-            <button onClick={() => setShowMarks(true)}>
-              Marcas
-            </button>
-            <button onClick={() => setShowModels(true)}>
-              Modelos
-            </button>
+          {/* user is addmin down ||| */}
+          {true && (
+            <>
+              <button onClick={() => setShowCampaigns(true)}>
+                Campañas
+              </button>
+              <button onClick={() => setShowMarks(true)}>
+                Marcas
+              </button>
+              <button onClick={() => setShowModels(true)}>
+                Modelos
+              </button>
+              <button onClick={() => setShowAssignments(true)}>
+                Asignaciones
+              </button>
+            </>
+          )}
           </>
         }
       />
@@ -80,6 +89,16 @@ export const CMDBBiometrics = () => {
             deleteOptionMethod={deleteModel}
             refreshOptions={getModelsData}
             close={() => setShowModels(false)}
+            userIsAdmin={true}
+          />
+      }
+      {
+        showAssignments &&
+          <OptionsManager 
+            title="Asignaciones"
+            options={[]}
+            refreshOptions={() => {}}
+            close={() => setShowAssignments(false)}
             userIsAdmin={true}
           />
       }
