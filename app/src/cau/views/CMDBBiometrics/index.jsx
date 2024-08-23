@@ -9,6 +9,7 @@ export const CMDBBiometrics = () => {
   const [campaignsData, setCampaignsData] = useState([])
   const [marksData, setMarksData] = useState([])
   const [modelsData, setModelsData] = useState([])
+  const [assignmentsData, setAssignmentsData] = useState([])
 
   const [showCampaigns, setShowCampaigns] = useState(false)
   const [showMarks, setShowMarks] = useState(false)
@@ -18,13 +19,15 @@ export const CMDBBiometrics = () => {
   const { 
     getCampaignsData,
     getMarksData,
-    getModelsData
-  } = biometricsDataRequest(setCampaignsData, setMarksData, setModelsData)
+    getModelsData,
+    getAssignmentData
+  } = biometricsDataRequest(setCampaignsData, setMarksData, setModelsData, setAssignmentsData)
 
   useEffect(() => {
     getCampaignsData()
     getMarksData()
     getModelsData()
+    getAssignmentData()
   }, [])
 
   return (
@@ -33,9 +36,12 @@ export const CMDBBiometrics = () => {
         title="CMDB Biométricos"
         buttons={
           <>
-          {/* user is addmin down ||| */}
+          {/* user is admin down ||| */}
           {true && (
             <>
+              <button onClick={() => setShowAssignments(true)}>
+                Asignaciones
+              </button>
               <button onClick={() => setShowCampaigns(true)}>
                 Campañas
               </button>
@@ -44,9 +50,6 @@ export const CMDBBiometrics = () => {
               </button>
               <button onClick={() => setShowModels(true)}>
                 Modelos
-              </button>
-              <button onClick={() => setShowAssignments(true)}>
-                Asignaciones
               </button>
             </>
           )}
@@ -96,8 +99,8 @@ export const CMDBBiometrics = () => {
         showAssignments &&
           <OptionsManager 
             title="Asignaciones"
-            options={[]}
-            refreshOptions={() => {}}
+            options={assignmentsData.map(({id_assigment, assignment}) => ({id: id_assigment, text: assignment}))}
+            refreshOptions={getAssignmentData}
             close={() => setShowAssignments(false)}
             userIsAdmin={true}
           />

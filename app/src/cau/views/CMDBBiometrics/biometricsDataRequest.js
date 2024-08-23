@@ -1,6 +1,6 @@
-import { getCampaigns, getMarks, getModels } from '../../api/cmdbBiometrics.api'
+import { getAssignments, getCampaigns, getMarks, getModels } from '../../api/cmdbBiometrics.api'
 
-export const biometricsDataRequest = (setCampaignsData, setMarksData, setModelsData) => {
+export const biometricsDataRequest = (setCampaignsData, setMarksData, setModelsData, setAssignmentsData) => {
 
   const getCampaignsData = async() => {
     const { data } = await getCampaigns()
@@ -16,10 +16,16 @@ export const biometricsDataRequest = (setCampaignsData, setMarksData, setModelsD
     const { data } = await getModels()
     setModelsData(data)
   }
+
+  const getAssignmentData = async() => {
+    const { data } = await getAssignments()
+    setAssignmentsData(data)
+  }
   
   return {
     getCampaignsData,
     getMarksData,
-    getModelsData
+    getModelsData,
+    getAssignmentData
   }
 }
