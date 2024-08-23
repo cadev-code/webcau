@@ -28,3 +28,17 @@ INSERT INTO models_biometrics_cmdb (`model`) VALUES ('F18/HID'),
 ('MB160'),
 ('F4VISTA'),
 ('F18/M');
+
+CREATE TABLE assignments_biometrics_cmdb(
+  `id_assignment` INT AUTO_INCREMENT NOT NULL,
+  `assignment` VARCHAR(255) NOT NULL,
+  PRIMARY KEY (`id_assignment`)
+);
+
+INSERT INTO assignments_biometrics_cmdb (`assignment`) VALUES ('Comedor'),
+('Discado'),
+('Nomina'),
+('Nomina 2'),
+('Acceso caseta'),
+('Torniquetes'),
+('SITE');
