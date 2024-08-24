@@ -3,6 +3,8 @@ import { TitleActionBar } from '../../components'
 import { OptionsManager } from '../../components/TableData/OptionsManager'
 import { biometricsDataRequest } from './biometricsDataRequest'
 import { addAssignment, addCampaign, addMark, addModel, deleteAssignment, deleteCampaign, deleteMark, deleteModel, updateAssignment, updateCampaign, updateMark, updateModel } from '../../api/cmdbBiometrics.api'
+import { DataCRUD } from '../../components/TableData'
+import { biometricsTableColumns } from './defaultColumns'
 
 export const CMDBBiometrics = () => {
 
@@ -11,10 +13,12 @@ export const CMDBBiometrics = () => {
   const [modelsData, setModelsData] = useState([])
   const [assignmentsData, setAssignmentsData] = useState([])
 
+  const [defaultColumns, setDefaultColumns] = useState(biometricsTableColumns)
+
   const [showCampaigns, setShowCampaigns] = useState(false)
   const [showMarks, setShowMarks] = useState(false)
   const [showModels, setShowModels] = useState(false)
-  const [showAssignments, setShowAssignments] = useState(true)
+  const [showAssignments, setShowAssignments] = useState(false)
 
   const { 
     getCampaignsData,
@@ -29,6 +33,8 @@ export const CMDBBiometrics = () => {
     getModelsData()
     getAssignmentData()
   }, [])
+
+  const [openAddAction, setOpenAddAction] = useState({action: () => {}})
 
   return (
     <>
@@ -108,6 +114,12 @@ export const CMDBBiometrics = () => {
             userIsAdmin={true}
           />
       }
+      <DataCRUD
+        defaultColumns={defaultColumns}
+        tableData={[]}
+        setOpenAddAction={setOpenAddAction}
+        userIsAdmin={true}
+      />
     </>
   )
 }
