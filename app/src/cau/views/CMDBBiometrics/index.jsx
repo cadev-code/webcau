@@ -39,6 +39,38 @@ export const CMDBBiometrics = () => {
 
   const [openAddAction, setOpenAddAction] = useState({action: () => {}})
 
+  useEffect(() => {
+    setDefaultColumns(prevColumns => prevColumns.map(column => 
+      column.accessorKey === 'campaign'
+        ? {...column, meta: {...column.meta, options: ['Todo', ...campaignsData.map(({campaign}) => campaign)]}}
+        : column  
+    ))
+  }, [campaignsData])
+
+  useEffect(() => {
+    setDefaultColumns(prevColumns => prevColumns.map(column => 
+      column.accessorKey === 'mark'
+        ? {...column, meta: {...column.meta, options: ['Todo', ...marksData.map(({mark}) => mark)]}}
+        : column  
+    ))
+  }, [marksData])
+
+  useEffect(() => {
+    setDefaultColumns(prevColumns => prevColumns.map(column => 
+      column.accessorKey === 'model'
+        ? {...column, meta: {...column.meta, options: ['Todo', ...modelsData.map(({model}) => model)]}}
+        : column  
+    ))
+  }, [modelsData])
+
+  useEffect(() => {
+    setDefaultColumns(prevColumns => prevColumns.map(column => 
+      column.accessorKey === 'assignment'
+        ? {...column, meta: {...column.meta, options: ['Todo', ...assignmentsData.map(({assignment}) => assignment)]}}
+        : column  
+    ))
+  }, [assignmentsData])
+
   return (
     <>
       <TitleActionBar 
