@@ -69,5 +69,5 @@ export const addDevice = async(data) =>
 export const updateDevice = async(data) => 
   await axios.put(`${URL}/devices`, data)
 
-export const deleteDevice = async(data)
+export const deleteDevice = async(data) =>
   await axios.delete(`${URL}/devices`, {data})
