@@ -195,3 +195,80 @@ export const deleteAssignment = async(req, res) => {
     res.status(400).send('There was an error to trying delete the information.')
   }
 }
+
+// devices
+
+// get ID's
+const getIdAssignment = async(assignment) => {
+  const [result] = await pool.query('SELECT `id_assignment` FROM assignments_biometrics_cmdb WHERE assignment = ?', [assignment])
+  return result[0].id_assignment
+}
+const getIdCampaign = async(campaign) => {
+  const [result] = await pool.query('SELECT `id_campaign` FROM campaigns_biometrics_cmdb WHERE `campaign` = ?', [campaign])
+  return result[0].id_campaign
+}
+const getIdMark = async(mark) => {
+  const [result] = await pool.query('SELECT `id_mark` FROM marks_biometrics_cmdb WHERE `mark` = ?', [mark])
+  return result[0].id_mark
+}
+const getIdModel = async(model) => {
+  const [result] = await pool.query('SELECT `id_model` FROM models_biometrics_cmdb WHERE `model` = ?', [model])
+  return result[0].id_model
+}
+
+export const getDevices = async(req, res) => {
+  const query = 'SELECT devices_biometrics_cmdb.id_device, assignments_biometrics_cmdb.assignment, campaigns_biometrics_cmdb.campaign, marks_biometrics_cmdb.mark, models_biometrics_cmdb.model, devices_biometrics_cmdb.serial_number, devices_biometrics_cmdb.ip, devices_biometrics_cmdb.mac, devices_biometrics_cmdb.user, devices_biometrics_cmdb.password FROM devices_biometrics_cmdb INNER JOIN assignments_biometrics_cmdb ON devices_biometrics_cmdb.id_assignment = assignments_biometrics_cmdb.id_assignment INNER JOIN campaigns_biometrics_cmdb ON devices_biometrics_cmdb.id_campaign = campaigns_biometrics_cmdb.id_campaign INNER JOIN marks_biometrics_cmdb ON devices_biometrics_cmdb.id_mark = marks_biometrics_cmdb.id_mark INNER JOIN models_biometrics_cmdb ON devices_biometrics_cmdb.id_model = models_biometrics_cmdb.id_model'
+  
+  try {
+    const [result] = await pool.query(query)
+    res.status(200).json(result)
+  } catch(error) {
+    res.status(400).send('There was an error to trying obtain the information')
+  }
+}
+
+export const addDevice = async(req, res) => {
+  const { assignment, campaign, mark, model, serial_number, ip, mac, user, password } = req.body
+  const id_assignment = await getIdAssignment(assignment)
+  const id_campaign = await getIdCampaign(campaign)
+  const id_mark = await getIdMark(mark)
+  const id_model = await getIdModel(model)
+
+  const query = 'INSERT INTO devices_biometrics_cmdb (`id_assignment`, `id_campaign`, `id_mark`, `id_model`, `serial_number`, `ip`, `mac`, `user`, `password`) VALUES (?,?,?,?,?,?,?,?,?)'
+  
+  try {
+    await pool.query(query, [id_assignment, id_campaign, id_mark, id_model, serial_number, ip, mac, user, password])
+    res.status(200).send('Information uploaded correctly.')
+  } catch(error) {
+    res.status(400).send('There was an error to trying upload the information.')
+  }
+}
+
+export const updateDevice = async(req, res) => {
+  const { id_device, assignment, campaign, mark, model, serial_number, ip, mac, user, password } = req.body
+  const id_assignment = await getIdAssignment(assignment)
+  const id_campaign = await getIdCampaign(campaign)
+  const id_mark = await getIdMark(mark)
+  const id_model = await getIdModel(model)
+
+  const query = 'UPDATE devices_biometrics_cmdb SET `id_assignment` = ?, `id_campaign` = ?, `id_mark` = ?, `id_model` = ?, `serial_number` = ?, `ip` = ?, `mac` = ?, `user` = ?, `password` = ? WHERE `id_device` = ?'
+  
+  try {
+    await pool.query(query, [id_assignment, id_campaign, id_mark, id_model, serial_number, ip, mac, user, password, id_device])
+    res.status(200).send('Information updated correctly.')
+  } catch(error) {
+    res.status(400).send('There was an error to trying update the information.')
+  }
+}
+
+export const deleteDevice = async(req, res) => {
+  const { id_device } = req.body
+  const query = 'DELETE FROM devices_biometrics_cmdb WHERE id_device = ?'
+  
+  try {
+    await pool.query(query, [id_device])
+    res.status(200).send('Information deleted correctly.')
+  } catch(error) {
+    res.status(400).send('There was an error to trying delete the information.')
+  }
+}
