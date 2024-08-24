@@ -3,24 +3,40 @@ export const biometricsTableColumns = [
     header: 'Asignación',
     accessorKey: 'assignment',
     size: 200,
+    meta: {
+      filterVariant: 'select',
+      options: []
+    },
     required: true
   },
   {
     header: 'Campaña',
     accessorKey: 'campaign',
     size: 200,
+    meta: {
+      filterVariant: 'select',
+      options: []
+    },
     required: true
   },
   {
     header: 'Marca',
     accessorKey: 'mark',
     size: 200,
+    meta: {
+      filterVariant: 'select',
+      options: []
+    },
     required: true
   },
   {
     header: 'Modelo',
     accessorKey: 'model',
     size: 200,
+    meta: {
+      filterVariant: 'select',
+      options: []
+    },
     required: true
   },
   {
