@@ -14,6 +14,7 @@ export const CMDBBiometrics = () => {
   const [assignmentsData, setAssignmentsData] = useState([])
 
   const [defaultColumns, setDefaultColumns] = useState(biometricsTableColumns)
+  const [devicesData, setDevicesData] = useState([])
 
   const [showCampaigns, setShowCampaigns] = useState(false)
   const [showMarks, setShowMarks] = useState(false)
@@ -24,14 +25,16 @@ export const CMDBBiometrics = () => {
     getCampaignsData,
     getMarksData,
     getModelsData,
-    getAssignmentData
-  } = biometricsDataRequest(setCampaignsData, setMarksData, setModelsData, setAssignmentsData)
+    getAssignmentData,
+    getDevicesData
+  } = biometricsDataRequest(setCampaignsData, setMarksData, setModelsData, setAssignmentsData, setDevicesData)
 
   useEffect(() => {
     getCampaignsData()
     getMarksData()
     getModelsData()
     getAssignmentData()
+    getDevicesData()
   }, [])
 
   const [openAddAction, setOpenAddAction] = useState({action: () => {}})
@@ -116,7 +119,7 @@ export const CMDBBiometrics = () => {
       }
       <DataCRUD
         defaultColumns={defaultColumns}
-        tableData={[]}
+        tableData={devicesData}
         setOpenAddAction={setOpenAddAction}
         userIsAdmin={true}
       />
