@@ -7,7 +7,8 @@ export const biometricsTableColumns = [
       filterVariant: 'select',
       options: []
     },
-    required: true
+    required: true,
+    filterFn: 'equalsString'
   },
   {
     header: 'Campaña',
@@ -17,7 +18,8 @@ export const biometricsTableColumns = [
       filterVariant: 'select',
       options: []
     },
-    required: true
+    required: true,
+    filterFn: 'equalsString'
   },
   {
     header: 'Marca',
@@ -27,7 +29,8 @@ export const biometricsTableColumns = [
       filterVariant: 'select',
       options: []
     },
-    required: true
+    required: true,
+    filterFn: 'equalsString'
   },
   {
     header: 'Modelo',
@@ -37,7 +40,8 @@ export const biometricsTableColumns = [
       filterVariant: 'select',
       options: []
     },
-    required: true
+    required: true,
+    filterFn: 'equalsString'
   },
   {
     header: 'Número de Serie',
