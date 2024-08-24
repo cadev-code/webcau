@@ -57,3 +57,17 @@ export const updateAssignment = async(data) =>
 
 export const deleteAssignment = async(id) =>
   await axios.delete(`${URL}/assignments?id_assignment=${id}`)
+
+// devices
+
+export const getDevices = async() =>
+  await axios.get(`${URL}/devices`)
+
+export const addDevice = async(data) =>
+  await axios.post(`${URL}/devices`, data)
+
+export const updateDevice = async(data) => 
+  await axios.put(`${URL}/devices`, data)
+
+export const deleteDevice = async(data)
+  await axios.delete(`${URL}/devices`, {data})
