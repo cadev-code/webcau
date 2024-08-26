@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import { TitleActionBar } from '../../components'
 import { OptionsManager } from '../../components/TableData/OptionsManager'
 import { biometricsDataRequest } from './biometricsDataRequest'
-import { addAssignment, addCampaign, addMark, addModel, deleteAssignment, deleteCampaign, deleteMark, deleteModel, updateAssignment, updateCampaign, updateMark, updateModel } from '../../api/cmdbBiometrics.api'
+import { addAssignment, addCampaign, addDevice, addMark, addModel, deleteAssignment, deleteCampaign, deleteMark, deleteModel, updateAssignment, updateCampaign, updateMark, updateModel } from '../../api/cmdbBiometrics.api'
 import { DataCRUD } from '../../components/TableData'
 import { biometricsTableColumns } from './defaultColumns'
 
@@ -92,6 +92,11 @@ export const CMDBBiometrics = () => {
               <button onClick={() => setShowModels(true)}>
                 Modelos
               </button>
+              <button className="blue"
+                onClick={openAddAction.action}
+              >
+                Agregar Biométrico
+              </button>
             </>
           )}
           </>
@@ -152,6 +157,8 @@ export const CMDBBiometrics = () => {
       <DataCRUD
         defaultColumns={defaultColumns}
         tableData={devicesData}
+        addRowMethod={addDevice}
+        refreshData={getDevicesData}
         setOpenAddAction={setOpenAddAction}
         userIsAdmin={true}
       />
