@@ -193,6 +193,7 @@ export const CMDBDirectory = ({userData}) => {
         updateRowMethod={updateUser}
         deleteRowMethod={deleteUser}
         refreshData={getUsersData}
+        filenameToExport="cmdb_Usuarios_Active"
         userIsAdmin={userIsAdmin}
         version="directory"
       />
