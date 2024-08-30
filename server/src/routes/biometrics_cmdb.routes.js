@@ -1,5 +1,5 @@
 import { Router } from 'express'
-import { addAssignment, addCampaign, addDevice, addMark, addModel, deleteAssignment, deleteCampaign, deleteMark, deleteModel, getAssignments, getCampaigns, getDevices, getMarks, getModels, updateAssignment, updateCampaign, updateDevice, updateMark, updateModel } from '../controllers/biometrics_cmdb.controllers.js'
+import { addAssignment, addCampaign, addDevice, addMark, addModel, deleteAssignment, deleteCampaign, deleteDevice, deleteMark, deleteModel, getAssignments, getCampaigns, getDevices, getMarks, getModels, updateAssignment, updateCampaign, updateDevice, updateMark, updateModel } from '../controllers/biometrics_cmdb.controllers.js'
 
 const router = Router()
 
@@ -26,5 +26,6 @@ router.delete('/cmdb/biometrics/assignments', deleteAssignment)
 router.get('/cmdb/biometrics/devices', getDevices)
 router.post('/cmdb/biometrics/devices', addDevice)
 router.put('/cmdb/biometrics/devices', updateDevice)
+router.delete('/cmdb/biometrics/devices', deleteDevice)
 
 export default router
