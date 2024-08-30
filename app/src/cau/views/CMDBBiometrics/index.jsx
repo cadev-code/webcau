@@ -162,6 +162,7 @@ export const CMDBBiometrics = () => {
         deleteRowMethod={deleteDevice}
         refreshData={getDevicesData}
         setOpenAddAction={setOpenAddAction}
+        filenameToExport="cmdb_Biometricos"
         userIsAdmin={true}
       />
     </>
