@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import { TitleActionBar } from '../../components'
 import { OptionsManager } from '../../components/TableData/OptionsManager'
 import { biometricsDataRequest } from './biometricsDataRequest'
-import { addAssignment, addCampaign, addDevice, addMark, addModel, deleteAssignment, deleteCampaign, deleteMark, deleteModel, updateAssignment, updateCampaign, updateMark, updateModel } from '../../api/cmdbBiometrics.api'
+import { addAssignment, addCampaign, addDevice, addMark, addModel, deleteAssignment, deleteCampaign, deleteMark, deleteModel, updateAssignment, updateCampaign, updateDevice, updateMark, updateModel } from '../../api/cmdbBiometrics.api'
 import { DataCRUD } from '../../components/TableData'
 import { biometricsTableColumns } from './defaultColumns'
 
@@ -158,6 +158,7 @@ export const CMDBBiometrics = () => {
         defaultColumns={defaultColumns}
         tableData={devicesData}
         addRowMethod={addDevice}
+        updateRowMethod={updateDevice}
         refreshData={getDevicesData}
         setOpenAddAction={setOpenAddAction}
         userIsAdmin={true}
