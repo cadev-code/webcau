@@ -6,7 +6,13 @@ import { addAssignment, addCampaign, addDevice, addMark, addModel, deleteAssignm
 import { DataCRUD } from '../../components/TableData'
 import { biometricsTableColumns } from './defaultColumns'
 
-export const CMDBBiometrics = () => {
+export const CMDBBiometrics = ({userData}) => {
+
+  const [userIsAdmin, setUserIsAdmin] = useState(false)
+
+  useEffect(() => {
+    setUserIsAdmin(userData.permissions.includes('biometrics_cmdb'))
+  }, [userData])
 
   const [campaignsData, setCampaignsData] = useState([])
   const [marksData, setMarksData] = useState([])
@@ -77,8 +83,7 @@ export const CMDBBiometrics = () => {
         title="CMDB Biométricos"
         buttons={
           <>
-          {/* user is admin down ||| */}
-          {true && (
+          {userIsAdmin && (
             <>
               <button onClick={() => setShowAssignments(true)}>
                 Asignaciones
@@ -112,7 +117,7 @@ export const CMDBBiometrics = () => {
             deleteOptionMethod={deleteCampaign}
             refreshOptions={getCampaignsData}
             close={() => setShowCampaigns(false)}
-            userIsAdmin={true}
+            userIsAdmin={userIsAdmin}
           />
       }
       {
@@ -125,7 +130,7 @@ export const CMDBBiometrics = () => {
             deleteOptionMethod={deleteMark}
             refreshOptions={getMarksData}
             close={() => setShowMarks(false)}
-            userIsAdmin={true}
+            userIsAdmin={userIsAdmin}
           />
       }
       {
@@ -138,7 +143,7 @@ export const CMDBBiometrics = () => {
             deleteOptionMethod={deleteModel}
             refreshOptions={getModelsData}
             close={() => setShowModels(false)}
-            userIsAdmin={true}
+            userIsAdmin={userIsAdmin}
           />
       }
       {
@@ -151,7 +156,7 @@ export const CMDBBiometrics = () => {
             deleteOptionMethod={deleteAssignment}
             refreshOptions={getAssignmentData}
             close={() => setShowAssignments(false)}
-            userIsAdmin={true}
+            userIsAdmin={userIsAdmin}
           />
       }
       <DataCRUD
@@ -163,7 +168,7 @@ export const CMDBBiometrics = () => {
         refreshData={getDevicesData}
         setOpenAddAction={setOpenAddAction}
         filenameToExport="cmdb_Biometricos"
-        userIsAdmin={true}
+        userIsAdmin={userIsAdmin}
       />
     </>
   )
