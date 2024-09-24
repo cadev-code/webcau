@@ -7,16 +7,19 @@ import { addArea, deleteArea, updateArea } from '../../api/cmdbLaptops.api'
 export const CMDBLaptops = () => {
 
   const [areasData, setAreasData] = useState([])
+  const [marksData, setMarksData] = useState([])
 
   const [showAreas, setShowAreas] = useState(false)
   const [showMarks, setShowMarks] = useState(true)
 
-  const { getAreasData } = laptopsDataRequest(
+  const { getAreasData, getMarksData } = laptopsDataRequest(
     setAreasData,
+    setMarksData
   )
 
   useEffect(() => {
     getAreasData()
+    getMarksData()
   }, [])
 
   return (
@@ -49,7 +52,7 @@ export const CMDBLaptops = () => {
       {showMarks && (
         <OptionsManager 
           title="Marcas"
-          options={[]}
+          options={marksData.map(({id_mark, mark}) => ({id: id_mark, text: mark}))}
           close={() => setShowMarks(false)}
           userIsAdmin={true}
         />

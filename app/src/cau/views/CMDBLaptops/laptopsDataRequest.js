@@ -1,8 +1,9 @@
-import { getAreas } from "../../api/cmdbLaptops.api"
+import { getAreas, getMarks } from '../../api/cmdbLaptops.api'
 
 
 export const laptopsDataRequest = (
   setAreasData,
+  setMarksData
 ) => {
 
   const getAreasData = async() => {
@@ -10,7 +11,13 @@ export const laptopsDataRequest = (
     setAreasData(data)
   }
 
+  const getMarksData = async() => {
+    const { data } = await getMarks()
+    setMarksData(data)
+  }
+
   return {
-    getAreasData
+    getAreasData,
+    getMarksData
   }
 }
