@@ -8,7 +8,8 @@ export const CMDBLaptops = () => {
 
   const [areasData, setAreasData] = useState([])
 
-  const [showAreas, setShowAreas] = useState(true)
+  const [showAreas, setShowAreas] = useState(false)
+  const [showMarks, setShowMarks] = useState(true)
 
   const { getAreasData } = laptopsDataRequest(
     setAreasData,
@@ -27,6 +28,9 @@ export const CMDBLaptops = () => {
             <button onClick={() => setShowAreas(true)}>
               Áreas
             </button>
+            <button onClick={() => setShowMarks(true)}>
+              Marcas
+            </button>
           </>
         }
       />
@@ -39,6 +43,14 @@ export const CMDBLaptops = () => {
           deleteOptionMethod={deleteArea}
           refreshOptions={getAreasData}
           close={() => setShowAreas(false)}
+          userIsAdmin={true}
+        />
+      )}
+      {showMarks && (
+        <OptionsManager 
+          title="Marcas"
+          options={[]}
+          close={() => setShowMarks(false)}
           userIsAdmin={true}
         />
       )}
