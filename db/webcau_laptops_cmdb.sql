@@ -12,3 +12,13 @@ INSERT INTO areas_laptops_cmdb (`area`) VALUES ('Capacitación Soluciones de Pag
 ('Coordinacion de Nomina'),
 ('Gerencia Operativa BBVA Soluciones de Pago'),
 ('Gerencia Technology Account Manager');
+
+CREATE TABLE marks_laptops_cmdb(
+  `id_mark` INT NOT NULL AUTO_INCREMENT,
+  `mark` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
+  PRIMARY KEY (`id_mark`)
+);
+
+INSERT INTO marks_laptops_cmdb (`mark`) VALUES ('Hewlett-Packard'),
+('Dell '),
+('Lenovo');
