@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import { TitleActionBar } from '../../components'
 import { OptionsManager } from '../../components/TableData'
 import { laptopsDataRequest } from './laptopsDataRequest'
-import { addArea, deleteArea, updateArea } from '../../api/cmdbLaptops.api'
+import { addArea, addMark, deleteArea, deleteMark, updateArea, updateMark } from '../../api/cmdbLaptops.api'
 
 export const CMDBLaptops = () => {
 
@@ -53,6 +53,10 @@ export const CMDBLaptops = () => {
         <OptionsManager 
           title="Marcas"
           options={marksData.map(({id_mark, mark}) => ({id: id_mark, text: mark}))}
+          addOptionMethod={addMark}
+          updateOptionMethod={updateMark}
+          deleteOptionMethod={deleteMark}
+          refreshOptions={getMarksData}
           close={() => setShowMarks(false)}
           userIsAdmin={true}
         />
