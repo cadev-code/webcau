@@ -13,3 +13,16 @@ export const updateArea = async(data) =>
 
 export const deleteArea = async(id) =>
   await axios.delete(`${url}/areas?id_area=${id}`)
+
+
+export const getMarks = async() =>
+  await axios.get(`${url}/marks`)
+
+export const addMark = async(data) =>
+  await axios.post(`${url}/marks`, data)
+
+export const updateMark = async(data) =>
+  await axios.put(`${url}/marks`, data)
+
+export const deleteMark = async(id) =>
+  await axios.delete(`${url}/marks?id_mark=${id}`)
