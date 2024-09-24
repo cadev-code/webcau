@@ -1,5 +1,16 @@
+import { TitleActionBar } from '../../components'
+
 export const CMDBLaptops = () => {
   return (
-    <div>CMDBLaptops</div>
+    <>
+      <TitleActionBar 
+        title="CMDB Laptops"
+        buttons={
+          <>
+            
+          </>
+        }
+      />
+    </>
   )
 }
