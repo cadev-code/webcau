@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import { TitleActionBar } from '../../components'
 import { OptionsManager } from '../../components/TableData'
 import { laptopsDataRequest } from './laptopsDataRequest'
-import { addArea, updateArea } from '../../api/cmdbLaptops.api'
+import { addArea, deleteArea, updateArea } from '../../api/cmdbLaptops.api'
 
 export const CMDBLaptops = () => {
 
@@ -36,6 +36,7 @@ export const CMDBLaptops = () => {
           options={areasData.map(({id_area, area}) => ({id: id_area, text: area}))}
           addOptionMethod={addArea}
           updateOptionMethod={updateArea}
+          deleteOptionMethod={deleteArea}
           refreshOptions={getAreasData}
           close={() => setShowAreas(false)}
           userIsAdmin={true}
