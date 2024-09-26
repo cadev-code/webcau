@@ -29,6 +29,22 @@ export const CMDBLaptops = () => {
   const [defaultColumns, setDefaultColumns] = useState(laptopsTableColumns)
   const [openAddAction, setOpenAddAction] = useState({action: () => {}})
 
+  useEffect(() => {
+    setDefaultColumns(prevColumns => prevColumns.map(column => (
+      column.accessorKey === 'area'
+        ? {...column, meta: {...column.meta, options: ['Todo', ...areasData.map(({area}) => area)]}}
+        : column
+    )))
+  }, [areasData])
+
+  useEffect(() => {
+    setDefaultColumns(prevColumns => prevColumns.map(column => (
+      column.accessorKey === 'mark'
+        ? {...column, meta: {...column.meta, options: ['Todo', ...marksData.map(({mark}) => mark)]}}
+        : column
+    )))
+  }, [marksData])
+
   return (
     <>
       <TitleActionBar 
