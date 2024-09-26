@@ -2,7 +2,7 @@ export const laptopsTableColumns = [
   {
     header: 'Área',
     accessorKey: 'area',
-    size: 220,
+    size: 400,
     meta: {
       filterVariant: 'select',
       options: []
@@ -12,13 +12,13 @@ export const laptopsTableColumns = [
   {
     header: 'Nombre',
     accessorKey: 'name',
-    size: 340,
+    size: 360,
     require: true
   },
   {
     header: 'Marca',
     accessorKey: 'mark',
-    size: 180,
+    size: 200,
     required: true,
     meta: {
       filterVariant: 'select',
@@ -28,7 +28,7 @@ export const laptopsTableColumns = [
   {
     header: 'Modelo',
     accessorKey: 'model',
-    size: 180,
+    size: 240,
     required: true
   },
   {
@@ -40,7 +40,7 @@ export const laptopsTableColumns = [
   {
     header: 'Dispositivo',
     accessorKey: 'device',
-    size: 180,
+    size: 200,
     required: true
   }
 ]
