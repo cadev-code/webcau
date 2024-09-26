@@ -1,8 +1,9 @@
 import { useEffect, useState } from 'react'
 import { TitleActionBar } from '../../components'
-import { OptionsManager } from '../../components/TableData'
+import { DataCRUD, OptionsManager } from '../../components/TableData'
 import { laptopsDataRequest } from './laptopsDataRequest'
 import { addArea, addMark, deleteArea, deleteMark, updateArea, updateMark } from '../../api/cmdbLaptops.api'
+import { laptopsTableColumns } from './defaultColumns'
 
 export const CMDBLaptops = () => {
 
@@ -10,7 +11,7 @@ export const CMDBLaptops = () => {
   const [marksData, setMarksData] = useState([])
 
   const [showAreas, setShowAreas] = useState(false)
-  const [showMarks, setShowMarks] = useState(true)
+  const [showMarks, setShowMarks] = useState(false)
 
   const { getAreasData, getMarksData } = laptopsDataRequest(
     setAreasData,
@@ -21,6 +22,9 @@ export const CMDBLaptops = () => {
     getAreasData()
     getMarksData()
   }, [])
+
+  const [defaultColumns, setDefaultColumns] = useState(laptopsTableColumns)
+  const [openAddAction, setOpenAddAction] = useState({action: () => {}})
 
   return (
     <>
@@ -61,6 +65,17 @@ export const CMDBLaptops = () => {
           userIsAdmin={true}
         />
       )}
+      <DataCRUD 
+        defaultColumns={defaultColumns}
+        tableData={[]}
+        addRowMethod={() => {}}
+        updateRowMethod={() => {}}
+        deleteRowMethod={() => {}}
+        refreshData={() => {}}
+        setOpenAddAction={setOpenAddAction}
+        filenameToExport="cmdb_Laptops"
+        userIsAdmin={true}
+      />
     </>
   )
 }
