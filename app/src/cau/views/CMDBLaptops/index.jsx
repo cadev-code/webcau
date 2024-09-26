@@ -9,18 +9,21 @@ export const CMDBLaptops = () => {
 
   const [areasData, setAreasData] = useState([])
   const [marksData, setMarksData] = useState([])
+  const [laptopsData, setLaptopsData] = useState([])
 
   const [showAreas, setShowAreas] = useState(false)
   const [showMarks, setShowMarks] = useState(false)
 
-  const { getAreasData, getMarksData } = laptopsDataRequest(
+  const { getAreasData, getMarksData, getLaptopsData } = laptopsDataRequest(
     setAreasData,
-    setMarksData
+    setMarksData,
+    setLaptopsData
   )
 
   useEffect(() => {
     getAreasData()
     getMarksData()
+    getLaptopsData()
   }, [])
 
   const [defaultColumns, setDefaultColumns] = useState(laptopsTableColumns)
@@ -67,7 +70,7 @@ export const CMDBLaptops = () => {
       )}
       <DataCRUD 
         defaultColumns={defaultColumns}
-        tableData={[]}
+        tableData={laptopsData}
         addRowMethod={() => {}}
         updateRowMethod={() => {}}
         deleteRowMethod={() => {}}
