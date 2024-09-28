@@ -57,6 +57,12 @@ export const CMDBLaptops = () => {
             <button onClick={() => setShowMarks(true)}>
               Marcas
             </button>
+            {
+              true &&
+                <button className="blue" onClick={openAddAction.action}>
+                  Agregar Laptop
+                </button>
+            }
           </>
         }
       />
