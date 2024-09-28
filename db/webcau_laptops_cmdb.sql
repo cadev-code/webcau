@@ -24,7 +24,7 @@ CREATE TABLE marks_laptops_cmdb(
 );
 
 INSERT INTO marks_laptops_cmdb (`mark`) VALUES ('Hewlett-Packard'),
-('Dell '),
+('Dell'),
 ('Lenovo');
 
 CREATE TABLE laptops_cmdb(
@@ -54,3 +54,40 @@ INSERT INTO laptops_cmdb (`id_area`,`name`,`id_mark`,`model`,`st`,`device`) VALU
 (6,'Saul Garcia Corona',3,'Cargador y cable','SA 18D24954','Cargador y cable'),
 (6,'Saul Garcia Corona',3,'Teclado y Funda','','Teclado y Funda'),
 (6,'Saul Garcia Corona',3,'Precision Pen 2','US3223','Precision Pen 2');
+
+CREATE TABLE notes_laptops_cmdb(
+  `id_note` INT NOT NULL AUTO_INCREMENT,
+  `id_laptop` INT NOT NULL,
+  `note` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
+  PRIMARY KEY (`id_note`),
+  FOREIGN KEY (`id_laptop`) REFERENCES laptops_cmdb(`id_laptop`)
+);
+
+INSERT INTO notes_laptops_cmdb (`id_laptop`, `note`) VALUES (1,'Laptop Nota 1'),
+(1,'Laptop Nota 2'),
+(2,'Laptop Nota 1'),
+(2,'Laptop Nota 2'),
+(3,'Laptop Nota 1'),
+(3,'Laptop Nota 2'),
+(4,'Laptop Nota 1'),
+(4,'Laptop Nota 2'),
+(5,'Laptop Nota 1'),
+(5,'Laptop Nota 2'),
+(6,'Laptop Nota 1'),
+(6,'Laptop Nota 2'),
+(7,'Laptop Nota 1'),
+(7,'Laptop Nota 2'),
+(8,'Laptop Nota 1'),
+(8,'Laptop Nota 2'),
+(9,'Laptop Nota 1'),
+(9,'Laptop Nota 2'),
+(10,'Laptop Nota 1'),
+(10,'Laptop Nota 2'),
+(11,'Laptop Nota 1'),
+(11,'Laptop Nota 2'),
+(12,'Laptop Nota 1'),
+(12,'Laptop Nota 2'),
+(13,'Laptop Nota 1'),
+(13,'Laptop Nota 2'),
+(14,'Laptop Nota 1'),
+(14,'Laptop Nota 2');
