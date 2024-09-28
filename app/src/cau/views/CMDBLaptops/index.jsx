@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import { TitleActionBar } from '../../components'
 import { DataCRUD, OptionsManager } from '../../components/TableData'
 import { laptopsDataRequest } from './laptopsDataRequest'
-import { addArea, addMark, deleteArea, deleteMark, updateArea, updateMark } from '../../api/cmdbLaptops.api'
+import { addArea, addLaptop, addMark, deleteArea, deleteLaptop, deleteMark, updateArea, updateLaptop, updateMark } from '../../api/cmdbLaptops.api'
 import { laptopsTableColumns } from './defaultColumns'
 
 export const CMDBLaptops = () => {
@@ -93,10 +93,10 @@ export const CMDBLaptops = () => {
       <DataCRUD 
         defaultColumns={defaultColumns}
         tableData={laptopsData}
-        addRowMethod={() => {}}
-        updateRowMethod={() => {}}
-        deleteRowMethod={() => {}}
-        refreshData={() => {}}
+        addRowMethod={addLaptop}
+        updateRowMethod={updateLaptop}
+        deleteRowMethod={deleteLaptop}
+        refreshData={getLaptopsData}
         setOpenAddAction={setOpenAddAction}
         filenameToExport="cmdb_Laptops"
         userIsAdmin={true}
