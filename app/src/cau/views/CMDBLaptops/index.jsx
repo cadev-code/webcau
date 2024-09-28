@@ -99,6 +99,7 @@ export const CMDBLaptops = () => {
         refreshData={getLaptopsData}
         setOpenAddAction={setOpenAddAction}
         filenameToExport="cmdb_Laptops"
+        version="laptops"
         userIsAdmin={true}
       />
     </>
