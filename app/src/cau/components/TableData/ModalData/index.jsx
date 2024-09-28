@@ -115,7 +115,7 @@ export const ModalData = ({
           )}
           {!editMode && !addMode && version === 'laptops' && (
             <LaptopsNotesData 
-              
+              id_laptop={data.id_laptop}
             />
           )}
         </BoxContainer>

@@ -1,8 +1,20 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { TextBox } from '../ModalData/styled'
 import { Close } from '@mui/icons-material'
+import { getNotes } from '../../../api/cmdbLaptops.api'
 
-export const LaptopsNotesData = () => {
+export const LaptopsNotesData = ({ id_laptop }) => {
+
+  const [notesData, setNotesData] = useState([])
+
+  const getNotesData = async() => {
+    const { data } = await getNotes(id_laptop)
+    setNotesData(data)
+  }
+
+  useEffect(() => {
+    getNotesData()
+  }, [])
 
   const [showForm, setShowForm] = useState({show: false, mode: ''})
 
@@ -11,18 +23,14 @@ export const LaptopsNotesData = () => {
       <span>Notas</span>
       {!showForm.show && (
         <div className="notes-container">
-          <div className="note">
-            <p>Nota 1 de Laptop</p>
-            <button onClick={() => setShowForm({show: true, mode: 'delete'})}>
-              <Close />
-            </button>
-          </div>
-          <div className="note">
-            <p>Nota 2 de Laptop</p>
-            <button onClick={() => setShowForm({show: true, mode: 'delete'})}>
-              <Close />
-            </button>
-          </div>
+          {notesData.map(({id_note, id_laptop, note}) => (
+            <div key={id_note} className="note">
+              <p>{note}</p>
+              <button onClick={() => setShowForm({show: true, mode: 'delete'})}>
+                <Close />
+              </button>
+            </div>
+          ))}
         </div>
       )}
       {showForm.show && (
