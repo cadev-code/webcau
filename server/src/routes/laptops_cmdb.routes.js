@@ -1,5 +1,5 @@
 import { Router } from 'express'
-import { addArea, addLaptop, addMark, deleteArea, deleteLaptop, deleteMark, getAreas, getLatptops, getMarks, updateArea, updateLaptop, updateMark } from '../controllers/laptops_cmdb.controllers.js'
+import { addArea, addLaptop, addMark, addNote, deleteArea, deleteLaptop, deleteMark, deleteNote, getAreas, getLatptops, getMarks, getNotes, updateArea, updateLaptop, updateMark, updateNote } from '../controllers/laptops_cmdb.controllers.js'
 
 const router = Router()
 
@@ -17,5 +17,10 @@ router.get('/cmdb/laptops', getLatptops)
 router.post('/cmdb/laptops', addLaptop)
 router.put('/cmdb/laptops', updateLaptop)
 router.delete('/cmdb/laptops', deleteLaptop)
+
+router.get('/cmdb/laptops/notes', getNotes)
+router.post('/cmdb/laptops/notes', addNote)
+router.put('/cmdb/laptops/notes', updateNote)
+router.delete('/cmdb/laptops/notes', deleteNote)
 
 export default router

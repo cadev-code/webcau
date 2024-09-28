@@ -162,3 +162,53 @@ export const deleteLaptop = async(req, res) => {
     res.status(400).send('There was an error to trying delete the information.')
   }
 }
+
+// notes
+
+export const getNotes = async(req, res) => {
+  const { id_laptop } = req.query
+  const query = 'SELECT * FROM notes_laptops_cmdb WHERE `id_laptop` = ?'
+  
+  try {
+    const [result] = await pool.query(query, [id_laptop])
+    res.status(200).json(result)
+  } catch(error) {
+    res.status(400).send('There was an error to trying obtain the information.')
+  }
+}
+
+export const addNote = async(req, res) => {
+  const { id_laptop, note } = req.body
+  const query = 'INSERT INTO notes_laptops_cmdb (`id_laptop`, `note`) VALUES (?,?)'
+  
+  try {
+    await pool.query(query, [id_laptop, note])
+    res.status(200).send('Information uploaded correctly.')
+  } catch(error) {
+    res.status(400).send('There was an error to trying upload the information.')
+  }
+}
+
+export const updateNote = async(req, res) => {
+  const { id_note, note } = req.body
+  const query = 'UPDATE notes_laptops_cmdb SET  `note` = ? WHERE `id_note` = ?'
+  
+  try {
+    await pool.query(query, [note, id_note])
+    res.status(200).send('Information updated correctly.  ')
+  } catch(error) {
+    res.status(400).send('There was an error to trying update the information.')
+  }
+}
+
+export const deleteNote = async(req, res) => {
+  const { id_note } = req.query
+  const query = 'DELETE FROM notes_laptops_cmdb WHERE `id_note` = ?'
+  
+  try {
+    await pool.query(query, [id_note])
+    res.status(200).send('Information deleted correctly.')
+  } catch(error) {
+    res.status(400).send('There was an error to trying delete the information.')
+  }
+}
