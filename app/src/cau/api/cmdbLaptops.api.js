@@ -26,3 +26,16 @@ export const updateMark = async(data) =>
 
 export const deleteMark = async(id) =>
   await axios.delete(`${url}/marks?id_mark=${id}`)
+
+
+export const getLaptops = async() =>
+  await axios.get(url)
+
+export const addLaptop = async(data) =>
+  await axios.post(url, data)
+
+export const updateLaptop = async(data) =>
+  await axios.put(url, data)
+
+export const deleteLaptop = async(data) =>
+  await axios.delete(url, {data})
