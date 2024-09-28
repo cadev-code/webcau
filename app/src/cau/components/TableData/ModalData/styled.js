@@ -199,6 +199,67 @@ export const TextBox = styled.div`
       }
     }
   }
+
+  &.notes {
+    button {
+      margin-top: 4px;
+      padding: 2px 4px;
+      font-size: 14px;
+      font-weight: 400;
+      color: white;
+      background-color: var(--button-background);
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .notes-container {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+
+      .note {
+        padding: 4px 8px;
+        display: flex;
+        gap: 8px;
+        justify-content: space-between;
+        background-color: var(--bg-container-600);
+        border-radius: 5px;
+
+        button {
+          padding: 0;
+          display: grid;
+          place-content: center;
+          color: rgb(255, 57, 57);
+          background-color: transparent;
+          border: none;
+          cursor: pointer;
+
+          svg {
+            font-size: 20px;
+          }
+        }
+      }
+    }
+
+    .form {
+      .buttons {
+        display: flex;
+        gap: 4px;
+
+        button {
+          width: 100%;
+
+          &:first-of-type {
+            background-color: var(--border-input-color);
+          }
+          &.delete {
+            background-color: rgb(213, 32, 32);
+          }
+        }
+      }
+    }
+  }
 `
 
 export const CloseBtn = styled.div`
