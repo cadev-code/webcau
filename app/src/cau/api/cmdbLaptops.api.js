@@ -39,3 +39,16 @@ export const updateLaptop = async(data) =>
 
 export const deleteLaptop = async(data) =>
   await axios.delete(url, {data})
+
+
+export const getNotes = async(id_laptop) =>
+  await axios.get(`${url}/notes?id_laptop=${id_laptop}`)
+
+export const addNote = async(data) =>
+  await axios.post(`${url}/notes`, data)
+
+export const updateNote = async(data) =>
+  await axios.put(`${url}/notes`, data)
+
+export const deleteNote = async(id_note) =>
+  await axios.delete(`${url}/notes?id_note=${id_note}`)
