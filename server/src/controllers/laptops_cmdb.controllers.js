@@ -156,6 +156,7 @@ export const deleteLaptop = async(req, res) => {
   const query = 'DELETE FROM laptops_cmdb WHERE id_laptop = ?'
 
   try {
+    await pool.query('DELETE FROM notes_laptops_cmdb WHERE id_laptop = ?', [id_laptop])
     await pool.query(query, [id_laptop])
     res.status(200).send('Information deleted correctly.')
   } catch (error) {
