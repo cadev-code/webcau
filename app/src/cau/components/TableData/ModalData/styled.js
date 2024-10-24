@@ -256,6 +256,10 @@ export const TextBox = styled.div`
           &.delete {
             background-color: rgb(213, 32, 32);
           }
+          &:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+          }
         }
       }
     }

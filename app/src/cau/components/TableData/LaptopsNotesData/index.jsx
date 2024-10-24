@@ -3,7 +3,7 @@ import { TextBox } from '../ModalData/styled'
 import { Close } from '@mui/icons-material'
 import { addNote, deleteNote, getNotes } from '../../../api/cmdbLaptops.api'
 
-export const LaptopsNotesData = ({ id_laptop }) => {
+export const LaptopsNotesData = ({ id_laptop, userIsAdmin }) => {
 
   const [notesData, setNotesData] = useState([])
 
@@ -54,9 +54,11 @@ export const LaptopsNotesData = ({ id_laptop }) => {
           {notesData.map((data) => (
             <div key={data.id_note} className="note">
               <p>{data.note}</p>
-              <button onClick={() => openForm('delete', data)}>
-                <Close />
-              </button>
+              {userIsAdmin && (
+                <button onClick={() => openForm('delete', data)}>
+                  <Close />
+                </button>
+              )}
             </div>
           ))}
         </div>
@@ -79,13 +81,14 @@ export const LaptopsNotesData = ({ id_laptop }) => {
             <button 
               className={showForm.mode === 'delete' ? 'delete' : ''}
               onClick={() => onSubmitForm(showForm.mode)}
+              disabled={formValues.note.length < 3}
             >
               {showForm.mode === 'add' ? 'Guardar' : 'Eliminar'}
             </button>
           </div>
         </div>
       )}
-      {!showForm.show && (
+      {!showForm.show && userIsAdmin && (
         <button onClick={() => openForm('add')}>
           Agregar Nota
         </button>

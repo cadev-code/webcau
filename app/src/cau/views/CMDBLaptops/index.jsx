@@ -5,7 +5,13 @@ import { laptopsDataRequest } from './laptopsDataRequest'
 import { addArea, addLaptop, addMark, deleteArea, deleteLaptop, deleteMark, updateArea, updateLaptop, updateMark } from '../../api/cmdbLaptops.api'
 import { laptopsTableColumns } from './defaultColumns'
 
-export const CMDBLaptops = () => {
+export const CMDBLaptops = ({ userData }) => {
+
+  const [userIsAdmin, setUserIsAdmin] = useState(false)
+
+  useEffect(() => {
+    setUserIsAdmin(userData.permissions.includes('laptops_cmdb'))
+  }, [userData])
 
   const [areasData, setAreasData] = useState([])
   const [marksData, setMarksData] = useState([])
@@ -58,7 +64,7 @@ export const CMDBLaptops = () => {
               Marcas
             </button>
             {
-              true &&
+              userIsAdmin &&
                 <button className="blue" onClick={openAddAction.action}>
                   Agregar Laptop
                 </button>
@@ -75,7 +81,7 @@ export const CMDBLaptops = () => {
           deleteOptionMethod={deleteArea}
           refreshOptions={getAreasData}
           close={() => setShowAreas(false)}
-          userIsAdmin={true}
+          userIsAdmin={userIsAdmin}
         />
       )}
       {showMarks && (
@@ -87,7 +93,7 @@ export const CMDBLaptops = () => {
           deleteOptionMethod={deleteMark}
           refreshOptions={getMarksData}
           close={() => setShowMarks(false)}
-          userIsAdmin={true}
+          userIsAdmin={userIsAdmin}
         />
       )}
       <DataCRUD 
@@ -100,7 +106,7 @@ export const CMDBLaptops = () => {
         setOpenAddAction={setOpenAddAction}
         filenameToExport="cmdb_Laptops"
         version="laptops"
-        userIsAdmin={true}
+        userIsAdmin={userIsAdmin}
       />
     </>
   )
