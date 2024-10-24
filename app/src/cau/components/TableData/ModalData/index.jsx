@@ -5,6 +5,7 @@ import { Close, Delete, Edit } from '@mui/icons-material'
 import { alertActions } from '../../../helpers/alertActions'
 import { ResourcesFiles } from '../ResourcesFilesData'
 import { UserResourcesData } from '../UserResourcesData'
+import { LaptopsNotesData } from '../LaptopsNotesData'
 
 export const ModalData = ({
   data,
@@ -109,6 +110,12 @@ export const ModalData = ({
                 setAlertState,
                 resetAlertState
               }}
+              userIsAdmin={userIsAdmin}
+            />
+          )}
+          {!editMode && !addMode && version === 'laptops' && (
+            <LaptopsNotesData 
+              id_laptop={data.id_laptop}
               userIsAdmin={userIsAdmin}
             />
           )}

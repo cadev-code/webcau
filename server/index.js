@@ -11,6 +11,7 @@ import whitelists_cmdbRouter from './src/routes/whitelists_cmdb.routes.js'
 import directory_cmdbRouter from './src/routes/directory_cmdb.routes.js'
 import resources_cmdbRouter from './src/routes/resources_cmdb.routes.js'
 import biometrics_cmdbRouter from './src/routes/biometrics_cmdb.routes.js'
+import laptops_cmdbRouter from './src/routes/laptops_cmdb.routes.js'
 import mapsRouter from './src/routes/maps.routes.js'
 
 const app = express()
@@ -29,6 +30,7 @@ app.use(whitelists_cmdbRouter)
 app.use(directory_cmdbRouter)
 app.use(resources_cmdbRouter)
 app.use(biometrics_cmdbRouter)
+app.use(laptops_cmdbRouter)
 app.use(mapsRouter)
 
 app.listen(PORT, '0.0.0.0')
