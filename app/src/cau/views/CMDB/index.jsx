@@ -24,7 +24,7 @@ export const CMDB = () => {
     { text: 'Recursos Compartidos', icon: <FolderOpenOutlined className="icon" />, path: 'recursos' },
     { text: 'Biométricos', icon: <FingerprintOutlined className="icon" />, path: 'biometricos' },
     { text: 'Laptops', icon: <LaptopMacOutlined className="icon" />, path: 'laptops' },
-    // { text: 'Extensiones Staff', icon: <Call className="icon" />, path: 'extensiones' },
+    { text: 'Extensiones', icon: <Call className="icon" />, path: 'extensiones' },
   ]
 
   const navigate = useNavigate()

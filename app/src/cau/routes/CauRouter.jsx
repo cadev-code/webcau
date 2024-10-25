@@ -21,6 +21,7 @@ import {
   Printers,
 } from '../views'
 import { useSelector } from 'react-redux'
+import { CMDBExtensions } from '../views/CMDBExtensions'
 
 export const CauRouter = () => {
 
@@ -46,6 +47,7 @@ export const CauRouter = () => {
         <Route path="cmdb/recursos" element={ <CMDBResources userData={ userData } /> }/>
         <Route path="cmdb/biometricos" element={ <CMDBBiometrics userData={ userData } /> }/>
         <Route path="cmdb/laptops" element={ <CMDBLaptops userData={ userData } /> }/>
+        <Route path="cmdb/extensiones" element={ <CMDBExtensions userData={ userData } /> }/>
 
         <Route path="mapas" element={ <Maps userData={ userData } /> } />
       </Route>
