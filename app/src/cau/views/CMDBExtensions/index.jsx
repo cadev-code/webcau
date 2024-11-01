@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { TitleActionBar } from '../../components'
 import { OptionsManager } from '../../components/TableData'
 import { extensionsDataRequest } from './extensionsDataRequest'
+import { addArea, deleteArea, updateArea } from '../../api/cmdbExtensions.api'
 
 export const CMDBExtensions = () => {
 
@@ -35,9 +36,9 @@ export const CMDBExtensions = () => {
         <OptionsManager 
           title="Áreas"
           options={areasData.map(({id_area, area}) => ({id: id_area, text: area}))}
-          addOptionMethod={() => {}}
-          updateOptionMethod={() => {}}
-          deleteOptionMethod={() => {}}
+          addOptionMethod={addArea}
+          updateOptionMethod={updateArea}
+          deleteOptionMethod={deleteArea}
           refreshOptions={getAreasData}
           close={() => setShowAreas(false)}
           userIsAdmin={true}
