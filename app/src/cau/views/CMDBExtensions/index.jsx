@@ -8,6 +8,7 @@ export const CMDBExtensions = () => {
 
   const [areasData, setAreasData] = useState([])
   const [typesData, setTypesData] = useState([])
+  const [sitesData, setSitesData] = useState([])
 
   const [showAreas, setShowAreas] = useState(false)
   const [showTypes, setShowTypes] = useState(false)
@@ -15,12 +16,14 @@ export const CMDBExtensions = () => {
 
   const {
     getAreasData,
-    getTypesData
-  } = extensionsDataRequest(setAreasData, setTypesData)
+    getTypesData,
+    getSitesData
+  } = extensionsDataRequest(setAreasData, setTypesData, setSitesData)
 
   useEffect(() => {
     getAreasData()
     getTypesData()
+    getSitesData()
   }, [])
 
   return (
@@ -74,7 +77,7 @@ export const CMDBExtensions = () => {
       {showSites && (
         <OptionsManager 
           title="Edificios"
-          options={[]}
+          options={sitesData.map(({id_site, site}) => ({id: id_site, text: site}))}
           addOptionMethod={() => {}}
           updateOptionMethod={() => {}}
           deleteOptionMethod={() => {}}
