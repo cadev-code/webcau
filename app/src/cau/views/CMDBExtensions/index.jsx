@@ -7,15 +7,19 @@ import { addArea, deleteArea, updateArea } from '../../api/cmdbExtensions.api'
 export const CMDBExtensions = () => {
 
   const [areasData, setAreasData] = useState([])
+  const [typesData, setTypesData] = useState([])
 
   const [showAreas, setShowAreas] = useState(false)
+  const [showTypes, setShowTypes] = useState(false)
 
   const {
-    getAreasData
-  } = extensionsDataRequest(setAreasData)
+    getAreasData,
+    getTypesData
+  } = extensionsDataRequest(setAreasData, setTypesData)
 
   useEffect(() => {
     getAreasData()
+    getTypesData()
   }, [])
 
   return (
@@ -29,6 +33,11 @@ export const CMDBExtensions = () => {
             >
               Areas
             </button>
+            <button
+              onClick={() => setShowTypes(true)}
+            >
+              Tipos de Extensión
+            </button>
           </>
         }
       />
@@ -37,10 +46,22 @@ export const CMDBExtensions = () => {
           title="Áreas"
           options={areasData.map(({id_area, area}) => ({id: id_area, text: area}))}
           addOptionMethod={addArea}
-          updateOptionMethod={updateArea}
+          updateOptionMethod={updateArea} 
           deleteOptionMethod={deleteArea}
           refreshOptions={getAreasData}
           close={() => setShowAreas(false)}
+          userIsAdmin={true}
+        />
+      )}
+      {showTypes && (
+        <OptionsManager 
+          title="Tipos de Extensión"
+          options={typesData.map(({id_type, type}) => ({id: id_type, text: type}))}
+          addOptionMethod={() => {}}
+          updateOptionMethod={() => {}}
+          deleteOptionMethod={() => {}}
+          refreshOptions={() => {}}
+          close={() => setShowTypes(false)}
           userIsAdmin={true}
         />
       )}
