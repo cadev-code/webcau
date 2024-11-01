@@ -1,10 +1,21 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { TitleActionBar } from '../../components'
 import { OptionsManager } from '../../components/TableData'
+import { extensionsDataRequest } from './extensionsDataRequest'
 
 export const CMDBExtensions = () => {
 
+  const [areasData, setAreasData] = useState([])
+
   const [showAreas, setShowAreas] = useState(false)
+
+  const {
+    getAreasData
+  } = extensionsDataRequest(setAreasData)
+
+  useEffect(() => {
+    getAreasData()
+  }, [])
 
   return (
     <>
@@ -23,11 +34,11 @@ export const CMDBExtensions = () => {
       {showAreas && (
         <OptionsManager 
           title="Áreas"
-          options={[]}
+          options={areasData.map(({id_area, area}) => ({id: id_area, text: area}))}
           addOptionMethod={() => {}}
           updateOptionMethod={() => {}}
           deleteOptionMethod={() => {}}
-          refreshOptions={() => {}}
+          refreshOptions={getAreasData}
           close={() => setShowAreas(false)}
           userIsAdmin={true}
         />
