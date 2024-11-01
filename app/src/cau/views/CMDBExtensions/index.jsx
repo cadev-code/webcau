@@ -11,6 +11,7 @@ export const CMDBExtensions = () => {
 
   const [showAreas, setShowAreas] = useState(false)
   const [showTypes, setShowTypes] = useState(false)
+  const [showSites, setShowSites] = useState(false)
 
   const {
     getAreasData,
@@ -38,6 +39,11 @@ export const CMDBExtensions = () => {
             >
               Tipos de Extensión
             </button>
+            <button
+              onClick={() => setShowSites(true)}
+            >
+              Edificios
+            </button>
           </>
         }
       />
@@ -62,6 +68,18 @@ export const CMDBExtensions = () => {
           deleteOptionMethod={deleteType}
           refreshOptions={getTypesData}
           close={() => setShowTypes(false)}
+          userIsAdmin={true}
+        />
+      )}
+      {showSites && (
+        <OptionsManager 
+          title="Edificios"
+          options={[]}
+          addOptionMethod={() => {}}
+          updateOptionMethod={() => {}}
+          deleteOptionMethod={() => {}}
+          refreshOptions={() => {}}
+          close={() => setShowSites(false)}
           userIsAdmin={true}
         />
       )}
