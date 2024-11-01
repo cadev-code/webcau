@@ -29,3 +29,17 @@ export const updateType = async(data) =>
 
 export const deleteType = async(id) =>
   await axios.delete(`${url}/types?id_type=${id}`)
+
+// sites
+
+export const getSites = async() =>
+  await axios.get(`${url}/sites`)
+
+export const addSite = async(data) =>
+  await axios.post(`${url}/sites`, data)
+
+export const updateSite = async(data) =>
+  await axios.put(`${url}/sites`, data)
+
+export const deleteSite = async(id) =>
+  await axios.delete(`${url}/sites?id_site=${id}`)
