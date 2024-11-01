@@ -13,3 +13,9 @@ CREATE TABLE types_extensions_cmdb(
   `type` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
   PRIMARY KEY (`id_type`)
 );
+
+CREATE TABLE sites_extensions_cmdb(
+  `id_site` INTO NOT NULL AUTO_INCREMENT,
+  `site` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
+  PRIMARY KEY (`id_site`)
+);
