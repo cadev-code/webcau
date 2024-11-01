@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { TitleActionBar } from '../../components'
 import { OptionsManager } from '../../components/TableData'
 import { extensionsDataRequest } from './extensionsDataRequest'
-import { addArea, addType, deleteArea, deleteType, updateArea, updateType } from '../../api/cmdbExtensions.api'
+import { addArea, addSite, addType, deleteArea, deleteSite, deleteType, updateArea, updateSite, updateType } from '../../api/cmdbExtensions.api'
 
 export const CMDBExtensions = () => {
 
@@ -78,10 +78,10 @@ export const CMDBExtensions = () => {
         <OptionsManager 
           title="Edificios"
           options={sitesData.map(({id_site, site}) => ({id: id_site, text: site}))}
-          addOptionMethod={() => {}}
-          updateOptionMethod={() => {}}
-          deleteOptionMethod={() => {}}
-          refreshOptions={() => {}}
+          addOptionMethod={addSite}
+          updateOptionMethod={updateSite}
+          deleteOptionMethod={deleteSite}
+          refreshOptions={getSitesData}
           close={() => setShowSites(false)}
           userIsAdmin={true}
         />
