@@ -97,3 +97,52 @@ export const deleteType = async(req, res) => {
     res.status(400).send('There was an error to trying delete the information.')
   }
 }
+
+// sites
+
+export const getSites = async(req, res) => {
+  const query = 'SELECT * FROM sites_extensions_cmdb'
+  
+  try {
+    const [result] = await pool.query(query)
+    res.status(200).json(result)
+  } catch(error) {
+    res.status(400).send('There was an error to trying obtain the information.')
+  }
+}
+
+export const addSite = async(req, res) => {
+  const { text } = req.body
+  const query = 'INSERT INTO sites_extensions_cmdb (`site`) VALUES (?)'
+  
+  try {
+    await pool.query(query, [text])
+    res.status(200).send('Information uploaded correctly.')
+  } catch(error) {
+    res.status(400).send('There was an error to trying upload the information.')
+  }
+}
+
+export const updateSite = async(req, res) => {
+  const { id, text } = req.body
+  const query = 'UPDATE sites_extensions_cmdb SET `site` = ? WHERE `id_site` = ?'
+  
+  try {
+    await pool.query(query, [text, id])
+    res.status(200).send('Information updated correctly.')
+  } catch(error) {
+    res.status(400).send('There was an error to trying update the information.')
+  }
+}
+
+export const deleteSite = async(req, res) => {
+  const { id_site } = req.query
+  const query = 'DELETE FROM sites_extensions_cmdb WHERE `id_site` = ?'
+  
+  try {
+    await pool.query(query, [id_site])
+    res.status(200).send('Information deleted correctly.')
+  } catch(error) {
+    res.status(400).send('There was an error to trying delete the information.')
+  }
+}
