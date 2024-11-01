@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { TitleActionBar } from '../../components'
 import { OptionsManager } from '../../components/TableData'
 import { extensionsDataRequest } from './extensionsDataRequest'
-import { addArea, deleteArea, updateArea } from '../../api/cmdbExtensions.api'
+import { addArea, addType, deleteArea, deleteType, updateArea, updateType } from '../../api/cmdbExtensions.api'
 
 export const CMDBExtensions = () => {
 
@@ -57,10 +57,10 @@ export const CMDBExtensions = () => {
         <OptionsManager 
           title="Tipos de Extensión"
           options={typesData.map(({id_type, type}) => ({id: id_type, text: type}))}
-          addOptionMethod={() => {}}
-          updateOptionMethod={() => {}}
-          deleteOptionMethod={() => {}}
-          refreshOptions={() => {}}
+          addOptionMethod={addType}
+          updateOptionMethod={updateType}
+          deleteOptionMethod={deleteType}
+          refreshOptions={getTypesData}
           close={() => setShowTypes(false)}
           userIsAdmin={true}
         />
