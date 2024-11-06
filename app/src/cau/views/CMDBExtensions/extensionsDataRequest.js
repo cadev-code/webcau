@@ -1,9 +1,10 @@
-import { getAreas, getSites, getTypes } from '../../api/cmdbExtensions.api'
+import { getAreas, getExtensions, getSites, getTypes } from '../../api/cmdbExtensions.api'
 
 export const extensionsDataRequest = (
   setAreasData,
   setTypesData,
-  setSitesData
+  setSitesData,
+  setExtensionsData
 ) => {
   const getAreasData = async() => {
     const { data } = await getAreas()
@@ -20,9 +21,15 @@ export const extensionsDataRequest = (
     setSitesData(data)
   }
 
+  const getExtensionsData = async() => {
+    const { data } = await getExtensions()
+    setExtensionsData(data)
+  }
+
   return {
     getAreasData,
     getTypesData,
-    getSitesData
+    getSitesData,
+    getExtensionsData
   }
 }

@@ -10,6 +10,7 @@ export const CMDBExtensions = () => {
   const [areasData, setAreasData] = useState([])
   const [typesData, setTypesData] = useState([])
   const [sitesData, setSitesData] = useState([])
+  const [extensionsData, setExtensionsData] = useState([])
 
   const [showAreas, setShowAreas] = useState(false)
   const [showTypes, setShowTypes] = useState(false)
@@ -18,13 +19,15 @@ export const CMDBExtensions = () => {
   const {
     getAreasData,
     getTypesData,
-    getSitesData
-  } = extensionsDataRequest(setAreasData, setTypesData, setSitesData)
+    getSitesData,
+    getExtensionsData
+  } = extensionsDataRequest(setAreasData, setTypesData, setSitesData, setExtensionsData)
 
   useEffect(() => {
     getAreasData()
     getTypesData()
     getSitesData()
+    getExtensionsData()
   }, [])
 
   const [openAddAction, setOpenAddAction] = useState({action: () => {}})
@@ -117,7 +120,7 @@ export const CMDBExtensions = () => {
       )}
       <DataCRUD 
         defaultColumns={defaultColumns}
-        tableData={[]}
+        tableData={extensionsData}
         addRowMethod={() => {}}
         updateRowMethod={() => {}}
         deleteRowMethod={() => {}}

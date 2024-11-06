@@ -27,7 +27,7 @@ export const extensionsTableColumns = [
   },
   {
     header: 'Número de Extensión',
-    accessorKey: 'extensions_number',
+    accessorKey: 'extension_number',
     size: 200,
     required: true
   },
@@ -43,7 +43,7 @@ export const extensionsTableColumns = [
   },
   {
     header: 'Ticket',
-    accessorKey: 'ticker',
+    accessorKey: 'ticket',
     size: 200,
     required: true
   }
