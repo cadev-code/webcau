@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import { TitleActionBar } from '../../components'
-import { OptionsManager } from '../../components/TableData'
+import { DataCRUD, OptionsManager } from '../../components/TableData'
 import { extensionsDataRequest } from './extensionsDataRequest'
 import { addArea, addSite, addType, deleteArea, deleteSite, deleteType, updateArea, updateSite, updateType } from '../../api/cmdbExtensions.api'
+import { extensionsTableColumns } from './defaultColumns'
 
 export const CMDBExtensions = () => {
 
@@ -25,6 +26,34 @@ export const CMDBExtensions = () => {
     getTypesData()
     getSitesData()
   }, [])
+
+  const [openAddAction, setOpenAddAction] = useState({action: () => {}})
+
+  const [defaultColumns, setDefaultColumns] = useState(extensionsTableColumns)
+
+  useEffect(() => {
+    setDefaultColumns(prevColumns => prevColumns.map(column => (
+      column.accessorKey === 'area'
+        ? {...column, meta: { ...column.meta, options: ['Todo', ...areasData.map(({area}) => area)] }}
+        : column
+      )))
+  }, [areasData])
+
+  useEffect(() => {
+    setDefaultColumns(prevColumns => prevColumns.map(column => (
+      column.accessorKey === 'type'
+        ? {...column, meta: { ...column.meta, options: ['Todo', ...typesData.map(({type}) => type)] }}
+        : column
+      )))
+  }, [typesData])
+
+  useEffect(() => {
+    setDefaultColumns(prevColumns => prevColumns.map(column => (
+      column.accessorKey === 'site'
+        ? {...column, meta: { ...column.meta, options: ['Todo', ...sitesData.map(({site}) => site)] }}
+        : column
+      )))
+  }, [sitesData])
 
   return (
     <>
@@ -86,6 +115,17 @@ export const CMDBExtensions = () => {
           userIsAdmin={true}
         />
       )}
+      <DataCRUD 
+        defaultColumns={defaultColumns}
+        tableData={[]}
+        addRowMethod={() => {}}
+        updateRowMethod={() => {}}
+        deleteRowMethod={() => {}}
+        refreshData={() => {}}
+        setOpenAddAction={setOpenAddAction}
+        filenameToExport="cmdb_Extensions"
+        userIsAdmin={true}
+      />
     </>
   )
 }
