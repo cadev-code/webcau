@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { TitleActionBar } from '../../components'
 import { DataCRUD, OptionsManager } from '../../components/TableData'
 import { extensionsDataRequest } from './extensionsDataRequest'
-import { addArea, addSite, addType, deleteArea, deleteSite, deleteType, updateArea, updateSite, updateType } from '../../api/cmdbExtensions.api'
+import { addArea, addExtension, addSite, addType, deleteArea, deleteExtension, deleteSite, deleteType, updateArea, updateExtension, updateSite, updateType } from '../../api/cmdbExtensions.api'
 import { extensionsTableColumns } from './defaultColumns'
 
 export const CMDBExtensions = () => {
@@ -126,10 +126,10 @@ export const CMDBExtensions = () => {
       <DataCRUD 
         defaultColumns={defaultColumns}
         tableData={extensionsData}
-        addRowMethod={() => {}}
-        updateRowMethod={() => {}}
-        deleteRowMethod={() => {}}
-        refreshData={() => {}}
+        addRowMethod={addExtension}
+        updateRowMethod={updateExtension}
+        deleteRowMethod={deleteExtension}
+        refreshData={getExtensionsData}
         setOpenAddAction={setOpenAddAction}
         filenameToExport="cmdb_Extensions"
         userIsAdmin={true}
