@@ -79,6 +79,11 @@ export const CMDBExtensions = () => {
             >
               Edificios
             </button>
+            <button className="blue"
+              onClick={openAddAction.action}
+            >
+              Agregar Extensión
+            </button>
           </>
         }
       />
