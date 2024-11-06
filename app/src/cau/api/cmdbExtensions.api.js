@@ -2,8 +2,6 @@ import axios from 'axios'
 
 const url = `${import.meta.env.VITE_URL_API_WEBCAU_DB}/cmdb/extensions`
 
-// areas
-
 export const getAreas = async() =>
   await axios.get(`${url}/areas`)
 
@@ -16,7 +14,6 @@ export const updateArea = async(data) =>
 export const deleteArea = async(id) =>
   await axios.delete(`${url}/areas?id_area=${id}`)
 
-// types
 
 export const getTypes = async() =>
   await axios.get(`${url}/types`)
@@ -30,7 +27,6 @@ export const updateType = async(data) =>
 export const deleteType = async(id) =>
   await axios.delete(`${url}/types?id_type=${id}`)
 
-// sites
 
 export const getSites = async() =>
   await axios.get(`${url}/sites`)
@@ -43,3 +39,16 @@ export const updateSite = async(data) =>
 
 export const deleteSite = async(id) =>
   await axios.delete(`${url}/sites?id_site=${id}`)
+
+
+export const getExtensions = async() =>
+  await axios.get(url)
+
+export const addExtension = async(data) =>
+  await axios.post(url, data)
+
+export const updateExtension = async(data) =>
+  await axios.put(url, data)
+
+export const deleteExtension = async(data) =>
+  await axios.delete(url, {data})
