@@ -1,5 +1,5 @@
 import { Router } from 'express'
-import { addArea, addSite, addType, deleteArea, deleteSite, deleteType, getAreas, getSites, getTypes, updateArea, updateSite, updateType } from '../controllers/extensions_cmdb.controllers.js'
+import { addArea, addExtension, addSite, addType, deleteArea, deleteSite, deleteType, getAreas, getExtensions, getSites, getTypes, updateArea, updateExtension, updateSite, updateType } from '../controllers/extensions_cmdb.controllers.js'
 
 const router = Router()
 
@@ -17,5 +17,9 @@ router.get('/cmdb/extensions/sites', getSites)
 router.post('/cmdb/extensions/sites', addSite)
 router.put('/cmdb/extensions/sites', updateSite)
 router.delete('/cmdb/extensions/sites', deleteSite)
+
+router.get('/cmdb/extensions', getExtensions)
+router.post('/cmdb/extensions', addExtension)
+router.put('/cmdb/extensions', updateExtension)
 
 export default router
