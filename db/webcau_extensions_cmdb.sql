@@ -45,3 +45,5 @@ CREATE TABLE extensions_cmdb(
   FOREIGN KEY (`id_type`) REFERENCES types_extensions_cmdb(`id_type`),
   FOREIGN KEY (`id_site`) REFERENCES sites_extensions_cmdb(`id_site`)
 );
+
+ALTER TABLE extensions_cmdb ADD `authcode` VARCHAR(255) NOT NULL;
