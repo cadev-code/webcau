@@ -175,17 +175,16 @@ export const getExtensions = async(req, res) => {
 }
 
 export const addExtension = async(req, res) => {
-  const { name, area, type, extension_number, site, ticket } = req.body
-  console.log(req.body)
+  const { name, area, type, extension_number, site, ticket, authcode } = req.body
 
   const id_area = await getIdArea(area)
   const id_type = await getIdType(type)
   const id_site = await getIdSite(site)
 
-  const query = 'INSERT INTO extensions_cmdb (`name`, `id_area`, `id_type`, `extension_number`, `id_site`, `ticket`) VALUES (?,?,?,?,?,?)'
+  const query = 'INSERT INTO extensions_cmdb (`name`, `id_area`, `id_type`, `extension_number`, `id_site`, `ticket`, `authcode`) VALUES (?,?,?,?,?,?,?)'
 
   try {
-    await pool.query(query, [name, id_area, id_type, extension_number, id_site, ticket])
+    await pool.query(query, [name, id_area, id_type, extension_number, id_site, ticket, authcode])
     res.status(200).send('Information uploaded correctly.')
   } catch (error) {
     res.status(400).send('There was an error to trying upload the information.')
@@ -193,16 +192,16 @@ export const addExtension = async(req, res) => {
 }
 
 export const updateExtension = async(req, res) => {
-  const { id_extension, name, area, type, extension_number, site, ticket } = req.body
+  const { id_extension, name, area, type, extension_number, site, ticket, authcode } = req.body
 
   const id_area = await getIdArea(area)
   const id_type = await getIdType(type)
   const id_site = await getIdSite(site)
 
-  const query = 'UPDATE extensions_cmdb SET `name` = ?, `id_area` = ?, `id_type` = ?, `extension_number` = ?, `id_site` = ?, `ticket` = ? WHERE `id_extension` = ?'
+  const query = 'UPDATE extensions_cmdb SET `name` = ?, `id_area` = ?, `id_type` = ?, `extension_number` = ?, `id_site` = ?, `ticket` = ?, authcode = ? WHERE `id_extension` = ?'
 
   try {
-    await pool.query(query, [name, id_area, id_type, extension_number, id_site, ticket, id_extension])
+    await pool.query(query, [name, id_area, id_type, extension_number, id_site, ticket, authcode, id_extension])
     res.status(200).send('Information updated correctly.')
   } catch (error) {
     res.status(400).send('There was an error to trying update the information.')
