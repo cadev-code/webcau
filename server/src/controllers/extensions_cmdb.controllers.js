@@ -164,7 +164,7 @@ const getIdSite = async(site) => {
 }
 
 export const getExtensions = async(req, res) => {
-  const query = 'SELECT extensions_cmdb.`id_extension`, extensions_cmdb.`name`, areas_extensions_cmdb.`area`, types_extensions_cmdb.`type`, extensions_cmdb.`extension_number`, sites_extensions_cmdb.`site`, extensions_cmdb.`ticket` FROM extensions_cmdb INNER JOIN areas_extensions_cmdb ON extensions_cmdb.`id_area` = areas_extensions_cmdb.`id_area` INNER JOIN types_extensions_cmdb ON extensions_cmdb.`id_type` = types_extensions_cmdb.`id_type` INNER JOIN sites_extensions_cmdb ON extensions_cmdb.`id_site` = sites_extensions_cmdb.`id_site` ORDER BY extensions_cmdb.`id_extension` DESC'
+  const query = 'SELECT extensions_cmdb.`id_extension`, extensions_cmdb.`name`, areas_extensions_cmdb.`area`, types_extensions_cmdb.`type`, extensions_cmdb.`extension_number`, sites_extensions_cmdb.`site`, extensions_cmdb.`ticket`, extensions_cmdb.`authcode` FROM extensions_cmdb INNER JOIN areas_extensions_cmdb ON extensions_cmdb.`id_area` = areas_extensions_cmdb.`id_area` INNER JOIN types_extensions_cmdb ON extensions_cmdb.`id_type` = types_extensions_cmdb.`id_type` INNER JOIN sites_extensions_cmdb ON extensions_cmdb.`id_site` = sites_extensions_cmdb.`id_site` ORDER BY extensions_cmdb.`id_extension` DESC'
 
   try {
     const [result] = await pool.query(query)
