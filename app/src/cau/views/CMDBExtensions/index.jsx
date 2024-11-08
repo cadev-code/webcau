@@ -5,7 +5,13 @@ import { extensionsDataRequest } from './extensionsDataRequest'
 import { addArea, addExtension, addSite, addType, deleteArea, deleteExtension, deleteSite, deleteType, updateArea, updateExtension, updateSite, updateType } from '../../api/cmdbExtensions.api'
 import { extensionsTableColumns } from './defaultColumns'
 
-export const CMDBExtensions = () => {
+export const CMDBExtensions = ({ userData }) => {
+
+  const [userIsAdmin, setUserIsAdmin] = useState(false)
+
+  useEffect(() => {
+    setUserIsAdmin(userData.permissions.includes('extensions_cmdb'))
+  }, [userData])
 
   const [areasData, setAreasData] = useState([])
   const [typesData, setTypesData] = useState([])
@@ -64,26 +70,30 @@ export const CMDBExtensions = () => {
         title="CMDB Extensiones"
         buttons={
           <>
-            <button
-              onClick={() => setShowAreas(true)}
-            >
-              Areas
-            </button>
-            <button
-              onClick={() => setShowTypes(true)}
-            >
-              Tipos de Extensión
-            </button>
-            <button
-              onClick={() => setShowSites(true)}
-            >
-              Edificios
-            </button>
-            <button className="blue"
-              onClick={openAddAction.action}
-            >
-              Agregar Extensión
-            </button>
+            {userIsAdmin && (
+              <>
+                <button
+                  onClick={() => setShowAreas(true)}
+                >
+                  Areas
+                </button>
+                <button
+                  onClick={() => setShowTypes(true)}
+                >
+                  Tipos de Extensión
+                </button>
+                <button
+                  onClick={() => setShowSites(true)}
+                >
+                  Edificios
+                </button>
+                <button className="blue"
+                  onClick={openAddAction.action}
+                >
+                  Agregar Extensión
+                </button>
+              </>
+            )}
           </>
         }
       />
@@ -96,7 +106,7 @@ export const CMDBExtensions = () => {
           deleteOptionMethod={deleteArea}
           refreshOptions={getAreasData}
           close={() => setShowAreas(false)}
-          userIsAdmin={true}
+          userIsAdmin={userIsAdmin}
         />
       )}
       {showTypes && (
@@ -108,7 +118,7 @@ export const CMDBExtensions = () => {
           deleteOptionMethod={deleteType}
           refreshOptions={getTypesData}
           close={() => setShowTypes(false)}
-          userIsAdmin={true}
+          userIsAdmin={userIsAdmin}
         />
       )}
       {showSites && (
@@ -120,7 +130,7 @@ export const CMDBExtensions = () => {
           deleteOptionMethod={deleteSite}
           refreshOptions={getSitesData}
           close={() => setShowSites(false)}
-          userIsAdmin={true}
+          userIsAdmin={userIsAdmin}
         />
       )}
       <DataCRUD 
@@ -132,7 +142,7 @@ export const CMDBExtensions = () => {
         refreshData={getExtensionsData}
         setOpenAddAction={setOpenAddAction}
         filenameToExport="cmdb_Extensions"
-        userIsAdmin={true}
+        userIsAdmin={userIsAdmin}
       />
     </>
   )
