@@ -41,6 +41,14 @@ export const CMDBExtensions = ({ userData }) => {
   const [defaultColumns, setDefaultColumns] = useState(extensionsTableColumns)
 
   useEffect(() => {
+    if(userIsAdmin && defaultColumns.filter(column => column.accessorKey === 'authcode').length === 0) {
+      const columns = defaultColumns
+      columns.splice(4,0,{ header: 'Authcodes', accessorKey: 'authcode', size: 200, required: true })
+      setDefaultColumns(columns)
+    }
+  }, [userIsAdmin])
+
+  useEffect(() => {
     setDefaultColumns(prevColumns => prevColumns.map(column => (
       column.accessorKey === 'area'
         ? {...column, meta: { ...column.meta, options: ['Todo', ...areasData.map(({area}) => area)] }}

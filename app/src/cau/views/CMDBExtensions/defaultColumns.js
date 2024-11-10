@@ -32,12 +32,6 @@ export const extensionsTableColumns = [
     required: true
   },
   {
-    header: 'Authcodes',
-    accessorKey: 'authcode',
-    size: 200,
-    required: true
-  },
-  {
     header: 'Edificio',
     accessorKey: 'site',
     size: 200,
