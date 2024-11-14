@@ -153,3 +153,16 @@ export const deleteResource = async(req, res) => {
     res.status(400).send('There was an error to trying to delete the information.')
   }
 }
+
+// users resources
+export const getResourceUsers = async(req, res) => {
+  const { id_resource } = req.query
+  const query = 'SELECT * FROM resources_directory_cmdb WHERE id_resource = ?'
+  
+  try {
+    const [result] = await pool.query(query, [id_resource])
+    res.status(200).json(result)
+  } catch(error) {
+    res.status(400).send('There was an error to trying obtain the information.')
+  }
+}

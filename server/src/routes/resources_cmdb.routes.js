@@ -1,5 +1,5 @@
 import { Router } from 'express'
-import { addArea, addFile, addResource, deleteArea, deleteFile, deleteResource, getAreas, getFiles, getResources, updateArea, updateFile, updateResource } from '../controllers/resources_cmdb.controllers.js'
+import { addArea, addFile, addResource, deleteArea, deleteFile, deleteResource, getAreas, getFiles, getResources, getResourceUsers, updateArea, updateFile, updateResource } from '../controllers/resources_cmdb.controllers.js'
 
 const router = Router()
 
@@ -17,5 +17,7 @@ router.get('/cmdb/resources', getResources)
 router.post('/cmdb/resources', addResource)
 router.put('/cmdb/resources', updateResource)
 router.delete('/cmdb/resources', deleteResource)
+
+router.get('/cmdb/resources/users', getResourceUsers)
 
 export default router
