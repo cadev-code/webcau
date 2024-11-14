@@ -42,3 +42,7 @@ export const updateResource = async(data) =>
 
 export const deleteResource = async(data) =>
   await axios.delete(url, {data})
+
+// users resources
+export const getResourceUsers = async(id_resource) =>
+  await axios.get(`${url}/users?id_resource=${id_resource}`)
