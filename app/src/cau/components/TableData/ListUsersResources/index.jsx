@@ -1,9 +1,19 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { BoxContainer } from '../ModalData/styled'
+import { getResourceUsers } from '../../../api/cmdbResources.api'
 
-export const ListUsersResources = () => {
+export const ListUsersResources = ({id_resource}) => {
 
   const [usersData, setUsersData] = useState([])
+
+  const getUsersData = async() => {
+    const { data } = await getResourceUsers(id_resource)
+    setUsersData(data)
+  }
+
+  useEffect(() => {
+    getUsersData()
+  }, [])
 
   return (
     <BoxContainer className="resources_users">

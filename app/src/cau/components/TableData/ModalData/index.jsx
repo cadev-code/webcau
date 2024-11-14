@@ -122,7 +122,9 @@ export const ModalData = ({
           )}
         </BoxContainer>
         {version === 'resources' && (
-          <ListUsersResources />
+          <ListUsersResources 
+            id_resource={data.id_resource}
+          />
         )}
         <CloseBtn
           onClick={closeModalData}
