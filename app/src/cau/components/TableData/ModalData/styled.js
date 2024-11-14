@@ -2,10 +2,15 @@ import styled from 'styled-components'
 
 export const Modal = styled.div`
   position: relative;
+  display: flex;
   padding: 20px 0;
   background-color: var(--container-background);
   border: 1px solid var(--opacity-text);
   border-radius: 5px 0 5px 5px;
+
+  .resources_users {
+    padding-left: 0;
+  }
 `
 
 export const BoxContainer = styled.div`
@@ -16,6 +21,10 @@ export const BoxContainer = styled.div`
   flex-direction: column;
   gap: 10px;
   overflow: auto;
+
+  &:last-of-type {
+    padding: 0;
+  }
 `
 
 export const TextBox = styled.div`

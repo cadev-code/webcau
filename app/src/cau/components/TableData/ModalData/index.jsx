@@ -6,6 +6,7 @@ import { alertActions } from '../../../helpers/alertActions'
 import { ResourcesFiles } from '../ResourcesFilesData'
 import { UserResourcesData } from '../UserResourcesData'
 import { LaptopsNotesData } from '../LaptopsNotesData'
+import { ListUsersResources } from '../ListUsersResources'
 
 export const ModalData = ({
   data,
@@ -120,6 +121,9 @@ export const ModalData = ({
             />
           )}
         </BoxContainer>
+        {version === 'resources' && (
+          <ListUsersResources />
+        )}
         <CloseBtn
           onClick={closeModalData}
         >
