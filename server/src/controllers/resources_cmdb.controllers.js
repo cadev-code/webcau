@@ -157,7 +157,7 @@ export const deleteResource = async(req, res) => {
 // users resources
 export const getResourceUsers = async(req, res) => {
   const { id_resource } = req.query
-  const query = 'SELECT * FROM resources_directory_cmdb WHERE id_resource = ?'
+  const query = 'SELECT resources_directory_cmdb.`id`, users_directory_cmdb.`name`, users_directory_cmdb.`user`, resources_directory_cmdb.`id_resource`, resources_directory_cmdb.`permissions` FROM resources_directory_cmdb INNER JOIN users_directory_cmdb ON resources_directory_cmdb.`id_user` = users_directory_cmdb.`id_user` WHERE id_resource = ?'
   
   try {
     const [result] = await pool.query(query, [id_resource])
