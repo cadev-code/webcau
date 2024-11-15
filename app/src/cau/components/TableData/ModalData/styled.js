@@ -16,6 +16,18 @@ export const Modal = styled.div`
       margin-bottom: 8px;
       font-size: 20px;
     }
+
+    button {
+      width: 100%;
+      padding: 2px 4px;
+      font-size: 14px;
+      font-weight: 400;
+      color: white;
+      background-color: var(--button-background);
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
     
     .users-list {
       padding: 8px;
@@ -27,22 +39,39 @@ export const Modal = styled.div`
       border-radius: 4px 0 0 4px;
     }
 
+    .form-container {
+      margin-top: 8px;
+      padding: 4px;
+      display: flex;
+      flex-direction: column;
+      border: 1px solid var(--border-input-color);
+      border-radius: 4px;
+
+      select {
+        margin: 2px 0;
+        padding: 5px 10px;
+        font-size: 16px;
+        color: white;
+        background-color: #0f2237;
+        border: none;
+        border-radius: 5px;
+      }
+
+      .buttons {
+        margin-top: 4px;
+        display: flex;
+        gap: 4px;
+
+        button:first-of-type{
+          background-color: var(--border-input-color);
+        }
+      }
+    }
+
     .buttons-container {
       padding-top: 4px;
       display: flex;
       justify-content: end;
-  
-      button {
-        width: 100%;
-        padding: 2px 4px;
-        font-size: 14px;
-        font-weight: 400;
-        color: white;
-        background-color: var(--button-background);
-        border: none;
-        border-radius: 5px;
-        cursor: pointer;
-      }
     }
   }
 
