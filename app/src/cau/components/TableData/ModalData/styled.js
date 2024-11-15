@@ -18,12 +18,34 @@ export const Modal = styled.div`
     }
     
     .users-list {
+      padding: 8px;
       display: flex;
       flex-direction: column;
       gap: 4px;
       overflow-y: scroll;
+      border: 1px solid var(--border-input-color);
+      border-radius: 4px 0 0 4px;
+    }
+
+    .buttons-container {
+      padding-top: 4px;
+      display: flex;
+      justify-content: end;
+  
+      button {
+        width: 100%;
+        padding: 2px 4px;
+        font-size: 14px;
+        font-weight: 400;
+        color: white;
+        background-color: var(--button-background);
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+      }
     }
   }
+
 `
 
 export const UserResource = styled.div`

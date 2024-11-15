@@ -32,6 +32,11 @@ export const ListUsersResources = ({id_resource}) => {
           </UserResource>
         ))}
       </div>
+      <div className="buttons-container">
+        <button>
+          Agregar Usuario
+        </button>
+      </div>
     </BoxContainer>
   )
 }
