@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { BoxContainer, UserResource } from '../ModalData/styled'
 import { getResourceUsers } from '../../../api/cmdbResources.api'
-import { getUsers } from '../../../api/cmdbDirectory.api'
+import { addUserResource, getUsers } from '../../../api/cmdbDirectory.api'
 
 export const ListUsersResources = ({id_resource, hideContent, setHideContent}) => {
 
@@ -41,6 +41,8 @@ export const ListUsersResources = ({id_resource, hideContent, setHideContent}) =
           setShowForm={setShowForm}
           hideContent={hideContent}
           setHideContent={setHideContent}
+          id_resource={id_resource}
+          getUsersData={getUsersData}
         />
       )}
       {!showForm && !hideContent && (
@@ -57,9 +59,9 @@ export const ListUsersResources = ({id_resource, hideContent, setHideContent}) =
   )
 }
 
-const Form = ({usersData, setShowForm, setHideContent}) => {
+const Form = ({usersData, setShowForm, setHideContent, id_resource, getUsersData}) => {
 
-  const [formValues, setFormValues] = useState({id_user: 0, permissions: ''})
+  const [formValues, setFormValues] = useState({id_user: '0', permissions: ''})
   const [allUsers, setAllUsers] = useState([])
 
   const onChangeInput = ({ target }) =>
@@ -79,6 +81,21 @@ const Form = ({usersData, setShowForm, setHideContent}) => {
   useEffect(() => {
     getAllUsersData()
   }, [])
+
+  const closeForm = () => {
+    setShowForm(false)
+    setHideContent()
+  }
+
+  const onSubmitForm = async() => {
+    if(formValues.id_user === '0' || formValues.permissions === '') {
+      return
+    }
+
+    await addUserResource({...formValues, id_user: Number(formValues.id_user), id_resource})
+    await getUsersData()
+    closeForm()
+  }
 
   return (
     <div className="form-container">
@@ -108,15 +125,12 @@ const Form = ({usersData, setShowForm, setHideContent}) => {
       </select>
       <div className="buttons">
         <button 
-          onClick={() => {
-            setShowForm(false)
-            setHideContent(false)
-          }}
+          onClick={closeForm}
         >
           Cancelar
         </button>
         <button
-          onClick={() => {}}
+          onClick={onSubmitForm}
         >
           Agregar
         </button>
