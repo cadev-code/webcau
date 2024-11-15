@@ -39,6 +39,47 @@ export const Modal = styled.div`
       border-radius: 4px 0 0 4px;
     }
 
+    .user-container {
+      display: flex;
+      gap: 8px;
+
+      input[type="checkbox"] {
+        accent-color: rgb(255, 57, 57);
+      }
+    }
+
+    .user-data {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      align-items: center;
+      padding: 4px 8px;
+      background-color: var(--bg-container-600);
+      border: 1px solid transparent;
+      border-radius: 4px;
+
+      &.border-red {
+        border-color: rgb(255, 57, 57);
+      }
+
+      div {
+        .blue {
+          font-size: 14px;
+          color: var(--border-color);
+        }
+      }
+
+      span {
+        padding: 2px 4px;
+        font-size: 12px;
+        color: var(--opacity-text);
+        background-color: rgb(26, 37, 49);
+        border-radius: 4px;
+        user-select: none;
+      }
+    }
+
     .form-container {
       margin-top: 8px;
       padding: 4px;
@@ -80,32 +121,6 @@ export const Modal = styled.div`
     }
   }
 
-`
-
-export const UserResource = styled.div`
-  display: flex;
-  justify-content: space-between;
-  gap: 16px;
-  align-items: center;
-  padding: 4px 8px;
-  background-color: var(--bg-container-600);
-  border-radius: 4px;
-
-  div {
-    .blue {
-      font-size: 14px;
-      color: var(--border-color);
-    }
-  }
-
-  span {
-    padding: 2px 4px;
-    font-size: 12px;
-    color: var(--opacity-text);
-    background-color: rgb(26, 37, 49);
-    border-radius: 4px;
-    user-select: none;
-  }
 `
 
 export const BoxContainer = styled.div`

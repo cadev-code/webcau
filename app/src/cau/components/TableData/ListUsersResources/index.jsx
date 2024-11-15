@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { BoxContainer, UserResource } from '../ModalData/styled'
+import { BoxContainer } from '../ModalData/styled'
 import { getResourceUsers } from '../../../api/cmdbResources.api'
 import { addUserResource, getUsers } from '../../../api/cmdbDirectory.api'
 
@@ -26,13 +26,10 @@ export const ListUsersResources = ({id_resource, hideContent, setHideContent}) =
       )}
       <div className="users-list">
         {usersData.map(user => (
-          <UserResource key={user.id}>
-            <div>
-              <p>{user.name}</p>
-              <p className="blue">{user.user}</p>
-            </div>
-            <span>{user.permissions}</span>
-          </UserResource>
+          <UserResource 
+            key={user.id}
+            user={user} 
+          />
         ))}
       </div>
       {showForm && (
@@ -59,6 +56,28 @@ export const ListUsersResources = ({id_resource, hideContent, setHideContent}) =
         </div>
       )}
     </BoxContainer>
+  )
+}
+
+const UserResource = ({user}) => {
+
+  const [toRemove, setToRemove] = useState(false)
+
+  return (
+    <div className="user-container">
+      <div className={`user-data ${toRemove ? "border-red" : ""}`} key={user.id}>
+        <div>
+          <p>{user.name}</p>
+          <p className="blue">{user.user}</p>
+        </div>
+        <span>{user.permissions}</span>
+      </div>
+      <input 
+        checked={toRemove}
+        type="checkbox" 
+        onChange={() => setToRemove(!toRemove)}
+      />
+    </div>
   )
 }
 
