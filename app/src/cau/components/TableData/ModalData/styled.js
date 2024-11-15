@@ -8,8 +8,47 @@ export const Modal = styled.div`
   border: 1px solid var(--opacity-text);
   border-radius: 5px 0 5px 5px;
 
-  .resources_users {
+  .resources-users {
     padding-left: 0;
+    gap: 0;
+    
+    h3 {
+      margin-bottom: 8px;
+      font-size: 20px;
+    }
+    
+    .users-list {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      overflow-y: scroll;
+    }
+  }
+`
+
+export const UserResource = styled.div`
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  align-items: center;
+  padding: 4px 8px;
+  background-color: var(--bg-container-600);
+  border-radius: 4px;
+
+  div {
+    .blue {
+      font-size: 14px;
+      color: var(--border-color);
+    }
+  }
+
+  span {
+    padding: 2px 4px;
+    font-size: 12px;
+    color: var(--opacity-text);
+    background-color: rgb(26, 37, 49);
+    border-radius: 4px;
+    user-select: none;
   }
 `
 
