@@ -100,6 +100,7 @@ export const ModalData = ({
           {!editMode && !addMode && version === 'resources' && (
             <ResourcesFiles
               resourceData={data}
+              hideContent={hideContent}
               setHideContent={setHideContent}
               userIsAdmin={userIsAdmin}
             />

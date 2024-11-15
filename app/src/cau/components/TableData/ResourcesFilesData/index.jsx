@@ -5,7 +5,7 @@ import { Alert } from '../../../../components/Alert'
 import { alertActions } from '../../../helpers/alertActions'
 import { breadcrumbsClasses } from '@mui/material'
 
-export const ResourcesFiles = ({ resourceData, setHideContent, userIsAdmin }) => {
+export const ResourcesFiles = ({ resourceData, hideContent, setHideContent, userIsAdmin }) => {
 
   const [filesData, setFilesData] = useState([])
   const getFilesData = async() => {
@@ -109,7 +109,7 @@ export const ResourcesFiles = ({ resourceData, setHideContent, userIsAdmin }) =>
                 key={i}
               >
                 <p>{file.filename}</p>
-                {!showForm.show && userIsAdmin && (
+                {!showForm.show && userIsAdmin && !hideContent && (
                   <div>
                     <button className="edit"
                       onClick={() => {
@@ -133,7 +133,7 @@ export const ResourcesFiles = ({ resourceData, setHideContent, userIsAdmin }) =>
               </div>
             ))}
           </div>
-          {!showForm.show && userIsAdmin && (
+          {!showForm.show && userIsAdmin && !hideContent && (
             <div className="actions-container">
               <button
                 onClick={() => openForm(type, "add")}
