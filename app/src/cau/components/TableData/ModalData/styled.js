@@ -72,6 +72,11 @@ export const Modal = styled.div`
       padding-top: 4px;
       display: flex;
       justify-content: end;
+      gap: 4px;
+
+      button:first-of-type {
+        background-color: rgb(255, 57, 57);
+      }
     }
   }
 

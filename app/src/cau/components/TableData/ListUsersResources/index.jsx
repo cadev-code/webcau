@@ -47,6 +47,9 @@ export const ListUsersResources = ({id_resource, hideContent, setHideContent}) =
       )}
       {!showForm && !hideContent && (
         <div className="buttons-container">
+          <button>
+            Remover Usuarios
+          </button>
           <button onClick={() => {
             setShowForm(true)
             setHideContent(true)
