@@ -122,7 +122,7 @@ export const ModalData = ({
             />
           )}
         </BoxContainer>
-        {version === 'resources' && (
+        {version === 'resources' && !editMode && !addMode && (
           <ListUsersResources 
             id_resource={data.id_resource}
             hideContent={hideContent}
