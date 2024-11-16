@@ -17,6 +17,10 @@ export const Modal = styled.div`
       font-size: 20px;
     }
 
+    .legend {
+      color: var(--opacity-text);
+    }
+
     button {
       width: 100%;
       padding: 2px 4px;
@@ -103,10 +107,6 @@ export const Modal = styled.div`
         display: flex;
         gap: 4px;
 
-        .red {
-          background-color: rgb(255, 57, 57);
-        }
-
         button:first-of-type{
           background-color: var(--border-input-color);
         }
@@ -118,10 +118,10 @@ export const Modal = styled.div`
       display: flex;
       justify-content: end;
       gap: 4px;
+    }
 
-      button:first-of-type {
-        background-color: rgb(255, 57, 57);
-      }
+    .red {
+      background-color: rgb(255, 57, 57);
     }
   }
 `

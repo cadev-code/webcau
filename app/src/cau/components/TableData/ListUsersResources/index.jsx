@@ -22,20 +22,22 @@ export const ListUsersResources = ({id_resource, hideContent, setHideContent}) =
   return (
     <BoxContainer className="resources-users">
       <h3>Usuarios con Acceso</h3>
-      {usersData.length === 0 && (
-        <p>No existen usuarios con permisos de acceso...</p>
+      {usersData.length === 0 && !showForm.show && (
+        <p className="legend">Sin usuarios asignados...</p>
       )}
-      <div className="users-list">
-        {usersData.map(user => (
-          <UserResource 
-            key={user.id}
-            user={user}
-            showForm={showForm}
-            setUsersToRemove={setUsersToRemove}
-            usersToRemove={usersToRemove}
-          />
-        ))}
-      </div>
+      {usersData.length !== 0 && (
+        <div className="users-list">
+          {usersData.map(user => (
+            <UserResource 
+              key={user.id}
+              user={user}
+              showForm={showForm}
+              setUsersToRemove={setUsersToRemove}
+              usersToRemove={usersToRemove}
+            />
+          ))}
+        </div>
+      )}
       {showForm.show && (
         <Form
           usersData={usersData}
@@ -51,14 +53,17 @@ export const ListUsersResources = ({id_resource, hideContent, setHideContent}) =
       )}
       {!showForm.show && !hideContent && (
         <div className="buttons-container">
-          <button
-            onClick={() => {
-              setShowForm({show: true, type: 'remove'})
-              setHideContent(true)
-            }}
-          >
-            Remover Usuarios
-          </button>
+          {usersData.length !== 0 && (
+            <button
+              className="red"
+              onClick={() => {
+                setShowForm({show: true, type: 'remove'})
+                setHideContent(true)
+              }}
+            >
+              Remover Usuarios
+            </button>
+          )}
           <button onClick={() => {
             setShowForm({show: true, type: 'add'})
             setHideContent(true)
