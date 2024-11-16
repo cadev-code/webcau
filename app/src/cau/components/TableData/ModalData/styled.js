@@ -103,6 +103,10 @@ export const Modal = styled.div`
         display: flex;
         gap: 4px;
 
+        .red {
+          background-color: rgb(255, 57, 57);
+        }
+
         button:first-of-type{
           background-color: var(--border-input-color);
         }

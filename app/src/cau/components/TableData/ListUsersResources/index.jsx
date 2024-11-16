@@ -16,7 +16,7 @@ export const ListUsersResources = ({id_resource, hideContent, setHideContent}) =
     getUsersData()
   }, [])
 
-  const [showForm, setShowForm] = useState(false)
+  const [showForm, setShowForm] = useState({show: false, type: ''})
   
   return (
     <BoxContainer className="resources-users">
@@ -28,27 +28,34 @@ export const ListUsersResources = ({id_resource, hideContent, setHideContent}) =
         {usersData.map(user => (
           <UserResource 
             key={user.id}
-            user={user} 
+            user={user}
+            showForm={showForm}
           />
         ))}
       </div>
-      {showForm && (
+      {showForm.show && (
         <Form
           usersData={usersData}
           setShowForm={setShowForm}
+          showForm={showForm}
           hideContent={hideContent}
           setHideContent={setHideContent}
           id_resource={id_resource}
           getUsersData={getUsersData}
         />
       )}
-      {!showForm && !hideContent && (
+      {!showForm.show && !hideContent && (
         <div className="buttons-container">
-          <button>
+          <button
+            onClick={() => {
+              setShowForm({show: true, type: 'remove'})
+              setHideContent(true)
+            }}
+          >
             Remover Usuarios
           </button>
           <button onClick={() => {
-            setShowForm(true)
+            setShowForm({show: true, type: 'add'})
             setHideContent(true)
           }}>
             Agregar Usuario
@@ -59,9 +66,15 @@ export const ListUsersResources = ({id_resource, hideContent, setHideContent}) =
   )
 }
 
-const UserResource = ({user}) => {
+const UserResource = ({user, showForm}) => {
 
   const [toRemove, setToRemove] = useState(false)
+
+  useEffect(() => {
+    if(!showForm.show) {
+      setToRemove(false)
+    }
+  }, [showForm])
 
   return (
     <div className="user-container">
@@ -72,16 +85,18 @@ const UserResource = ({user}) => {
         </div>
         <span>{user.permissions}</span>
       </div>
-      <input 
-        checked={toRemove}
-        type="checkbox" 
-        onChange={() => setToRemove(!toRemove)}
-      />
+      {showForm.type === 'remove' && (
+        <input 
+          checked={toRemove}
+          type="checkbox" 
+          onChange={() => setToRemove(!toRemove)}
+        />
+      )}
     </div>
   )
 }
 
-const Form = ({usersData, setShowForm, setHideContent, id_resource, getUsersData}) => {
+const Form = ({usersData, setShowForm, showForm, setHideContent, id_resource, getUsersData}) => {
 
   const [formValues, setFormValues] = useState({id_user: '0', permissions: ''})
   const [allUsers, setAllUsers] = useState([])
@@ -105,46 +120,52 @@ const Form = ({usersData, setShowForm, setHideContent, id_resource, getUsersData
   }, [])
 
   const closeForm = () => {
-    setShowForm(false)
+    setShowForm({show: false, type: ''})
     setHideContent()
   }
 
   const onSubmitForm = async() => {
-    if(formValues.id_user === '0' || formValues.permissions === '') {
-      return
+    if(showForm.type === 'add') {
+      if(formValues.id_user === '0' || formValues.permissions === '') {
+        return
+      }
+      await addUserResource({...formValues, id_user: Number(formValues.id_user), id_resource})
     }
 
-    await addUserResource({...formValues, id_user: Number(formValues.id_user), id_resource})
     await getUsersData()
     closeForm()
   }
 
   return (
     <div className="form-container">
-      <select 
-        name="id_user" 
-        id="id_user"
-        value={formValues.id_user}
-        onChange={onChangeInput}
-      >
-        <option value={0}>-- Usuario --</option>
-        {allUsers.map((user) => (
-          <option key={user.id_user} value={user.id_user}>{user.name} - {user.user}</option>
-        ))}
-      </select>
-      <select 
-        name="permissions" 
-        id="permissions"
-        value={formValues.permissions}
-        onChange={onChangeInput}
-      >
-        <option value="">-- Permisos --</option>
-        {['Lectura', 'Lectura y Escritura', 'Control Total'].map((option, i) => (
-          <option key={i} value={option}>
-            {option}
-          </option>
-        ))}
-      </select>
+      {showForm.type === 'add' && (
+        <>
+          <select 
+            name="id_user" 
+            id="id_user"
+            value={formValues.id_user}
+            onChange={onChangeInput}
+          >
+            <option value={0}>-- Usuario --</option>
+            {allUsers.map((user) => (
+              <option key={user.id_user} value={user.id_user}>{user.name} - {user.user}</option>
+            ))}
+          </select>
+          <select 
+            name="permissions" 
+            id="permissions"
+            value={formValues.permissions}
+            onChange={onChangeInput}
+          >
+            <option value="">-- Permisos --</option>
+            {['Lectura', 'Lectura y Escritura', 'Control Total'].map((option, i) => (
+              <option key={i} value={option}>
+                {option}
+              </option>
+            ))}
+          </select>
+        </>
+      )}
       <div className="buttons">
         <button 
           onClick={closeForm}
@@ -152,9 +173,10 @@ const Form = ({usersData, setShowForm, setHideContent, id_resource, getUsersData
           Cancelar
         </button>
         <button
+          className={`${showForm.type === 'remove' ? "red" : ""}`}
           onClick={onSubmitForm}
         >
-          Agregar
+          {showForm.type === 'add' ? "Agregar" : "Remover"}
         </button>
       </div>
     </div>
