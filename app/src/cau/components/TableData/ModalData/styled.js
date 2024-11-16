@@ -124,7 +124,6 @@ export const Modal = styled.div`
       }
     }
   }
-
 `
 
 export const BoxContainer = styled.div`

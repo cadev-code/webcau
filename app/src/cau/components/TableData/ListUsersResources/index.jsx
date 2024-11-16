@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { BoxContainer } from '../ModalData/styled'
 import { getResourceUsers } from '../../../api/cmdbResources.api'
-import { addUserResource, getUsers } from '../../../api/cmdbDirectory.api'
+import { addUserResource, deleteUserResource, getUsers } from '../../../api/cmdbDirectory.api'
 
 export const ListUsersResources = ({id_resource, hideContent, setHideContent}) => {
 
@@ -17,6 +17,7 @@ export const ListUsersResources = ({id_resource, hideContent, setHideContent}) =
   }, [])
 
   const [showForm, setShowForm] = useState({show: false, type: ''})
+  const [usersToRemove, setUsersToRemove] = useState([])
   
   return (
     <BoxContainer className="resources-users">
@@ -30,6 +31,8 @@ export const ListUsersResources = ({id_resource, hideContent, setHideContent}) =
             key={user.id}
             user={user}
             showForm={showForm}
+            setUsersToRemove={setUsersToRemove}
+            usersToRemove={usersToRemove}
           />
         ))}
       </div>
@@ -42,6 +45,8 @@ export const ListUsersResources = ({id_resource, hideContent, setHideContent}) =
           setHideContent={setHideContent}
           id_resource={id_resource}
           getUsersData={getUsersData}
+          setUsersToRemove={setUsersToRemove}
+          usersToRemove={usersToRemove}
         />
       )}
       {!showForm.show && !hideContent && (
@@ -66,19 +71,18 @@ export const ListUsersResources = ({id_resource, hideContent, setHideContent}) =
   )
 }
 
-const UserResource = ({user, showForm}) => {
-
-  const [toRemove, setToRemove] = useState(false)
-
-  useEffect(() => {
-    if(!showForm.show) {
-      setToRemove(false)
+const UserResource = ({user, showForm, setUsersToRemove, usersToRemove}) => {
+  const onCheckedInput = () => {
+    if(!usersToRemove.includes(user)) {
+      setUsersToRemove(prevUsers => [...prevUsers, user])
+    } else {
+      setUsersToRemove(prevUsers => prevUsers.filter(data => data.id !== user.id))
     }
-  }, [showForm])
+  }
 
   return (
     <div className="user-container">
-      <div className={`user-data ${toRemove ? "border-red" : ""}`} key={user.id}>
+      <div className={`user-data ${usersToRemove.includes(user) ? "border-red" : ""}`} key={user.id}>
         <div>
           <p>{user.name}</p>
           <p className="blue">{user.user}</p>
@@ -87,16 +91,25 @@ const UserResource = ({user, showForm}) => {
       </div>
       {showForm.type === 'remove' && (
         <input 
-          checked={toRemove}
+          checked={usersToRemove.includes(user)}
           type="checkbox" 
-          onChange={() => setToRemove(!toRemove)}
+          onChange={onCheckedInput}
         />
       )}
     </div>
   )
 }
 
-const Form = ({usersData, setShowForm, showForm, setHideContent, id_resource, getUsersData}) => {
+const Form = ({
+  usersData, 
+  setShowForm, 
+  showForm, 
+  setHideContent,
+  id_resource, 
+  getUsersData,
+  setUsersToRemove,
+  usersToRemove
+}) => {
 
   const [formValues, setFormValues] = useState({id_user: '0', permissions: ''})
   const [allUsers, setAllUsers] = useState([])
@@ -120,6 +133,7 @@ const Form = ({usersData, setShowForm, showForm, setHideContent, id_resource, ge
   }, [])
 
   const closeForm = () => {
+    setUsersToRemove([])
     setShowForm({show: false, type: ''})
     setHideContent()
   }
@@ -130,6 +144,9 @@ const Form = ({usersData, setShowForm, showForm, setHideContent, id_resource, ge
         return
       }
       await addUserResource({...formValues, id_user: Number(formValues.id_user), id_resource})
+    } else {
+      const deletePromises = usersToRemove.map(({id}) => deleteUserResource(id))
+      await Promise.all(deletePromises)
     }
 
     await getUsersData()
