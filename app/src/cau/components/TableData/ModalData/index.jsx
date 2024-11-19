@@ -127,6 +127,7 @@ export const ModalData = ({
             id_resource={data.id_resource}
             hideContent={hideContent}
             setHideContent={setHideContent}
+            userIsAdmin={userIsAdmin}
           />
         )}
         <CloseBtn

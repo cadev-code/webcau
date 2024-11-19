@@ -3,7 +3,12 @@ import { BoxContainer } from '../ModalData/styled'
 import { getResourceUsers } from '../../../api/cmdbResources.api'
 import { addUserResource, deleteUserResource, getUsers } from '../../../api/cmdbDirectory.api'
 
-export const ListUsersResources = ({id_resource, hideContent, setHideContent}) => {
+export const ListUsersResources = ({
+  id_resource, 
+  hideContent, 
+  setHideContent,
+  userIsAdmin
+}) => {
 
   const [usersData, setUsersData] = useState([])
 
@@ -51,7 +56,7 @@ export const ListUsersResources = ({id_resource, hideContent, setHideContent}) =
           usersToRemove={usersToRemove}
         />
       )}
-      {!showForm.show && !hideContent && (
+      {userIsAdmin && !showForm.show && !hideContent && (
         <div className="buttons-container">
           {usersData.length !== 0 && (
             <button
