@@ -9,7 +9,6 @@ export const Modal = styled.div`
   border-radius: 5px 0 5px 5px;
 
   .resources-users {
-    padding-left: 0;
     gap: 0;
     
     h3 {
@@ -38,7 +37,7 @@ export const Modal = styled.div`
       display: flex;
       flex-direction: column;
       gap: 4px;
-      overflow-y: scroll;
+      overflow: auto;
       border: 1px solid var(--border-input-color);
       border-radius: 4px 0 0 4px;
     }
