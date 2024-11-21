@@ -90,7 +90,7 @@ export const UserResourcesData = ({ id_user, alertState, userIsAdmin }) => {
             <div className="file directory" key={i}>
               <p>{resource.resource_name}</p>
               <span>{resource.permissions}</span>
-              {userIsAdmin && (
+              {false && (
                 <div className="actions">
                   <button onClick={() => deleteOnClick(resource)}>
                     <Close />
@@ -148,7 +148,7 @@ export const UserResourcesData = ({ id_user, alertState, userIsAdmin }) => {
           </div>
         </div>
       )}
-      {!showForm.show && userIsAdmin && (
+      {!showForm.show && false && (
         <button onClick={() => setShowForm({show: true, mode: 'add'})}>
           Asignar Recurso
         </button>
