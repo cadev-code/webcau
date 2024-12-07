@@ -7,6 +7,7 @@ import { ResourcesFiles } from '../ResourcesFilesData'
 import { UserResourcesData } from '../UserResourcesData'
 import { LaptopsNotesData } from '../LaptopsNotesData'
 import { ListUsersResources } from '../ListUsersResources'
+import { DownloadResourceData } from '../DownloadResourceData'
 
 export const ModalData = ({
   data,
@@ -120,6 +121,9 @@ export const ModalData = ({
               id_laptop={data.id_laptop}
               userIsAdmin={userIsAdmin}
             />
+          )}
+          {version === 'resources' && !hideContent && !editMode && !addMode && (
+            <DownloadResourceData />
           )}
         </BoxContainer>
         {version === 'resources' && !editMode && !addMode && (
