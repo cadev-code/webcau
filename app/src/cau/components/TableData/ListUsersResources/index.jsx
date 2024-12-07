@@ -7,6 +7,7 @@ export const ListUsersResources = ({
   id_resource, 
   hideContent, 
   setHideContent,
+  setResourceDataToExport,
   userIsAdmin
 }) => {
 
@@ -14,6 +15,7 @@ export const ListUsersResources = ({
 
   const getUsersData = async() => {
     const { data } = await getResourceUsers(id_resource)
+    setResourceDataToExport(prev => ({...prev, users: data}))
     setUsersData(data)
   }
 

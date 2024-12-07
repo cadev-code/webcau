@@ -5,11 +5,18 @@ import { Alert } from '../../../../components/Alert'
 import { alertActions } from '../../../helpers/alertActions'
 import { breadcrumbsClasses } from '@mui/material'
 
-export const ResourcesFiles = ({ resourceData, hideContent, setHideContent, userIsAdmin }) => {
+export const ResourcesFiles = ({ 
+  resourceData, 
+  hideContent, 
+  setHideContent,
+  setResourceDataToExport, 
+  userIsAdmin 
+}) => {
 
   const [filesData, setFilesData] = useState([])
   const getFilesData = async() => {
     const { data } = await getFiles(resourceData.id_resource)
+    setResourceDataToExport(prev => ({...prev, files: data}))
     setFilesData(data)
   }
 

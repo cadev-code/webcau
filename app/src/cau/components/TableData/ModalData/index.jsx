@@ -61,6 +61,11 @@ export const ModalData = ({
 
   const [hideContent, setHideContent] = useState(false)
 
+  const [resourceDataToExport, setResourceDataToExport] = useState({
+    files: [],
+    users: []
+  })
+
   return (
     <BackgroundOpacity>
       <Modal>
@@ -103,6 +108,7 @@ export const ModalData = ({
               resourceData={data}
               hideContent={hideContent}
               setHideContent={setHideContent}
+              setResourceDataToExport={setResourceDataToExport}
               userIsAdmin={userIsAdmin}
             />
           )}
@@ -123,7 +129,10 @@ export const ModalData = ({
             />
           )}
           {version === 'resources' && !hideContent && !editMode && !addMode && (
-            <DownloadResourceData />
+            <DownloadResourceData 
+              resource={data}
+              resourceDataToExport={resourceDataToExport}
+            />
           )}
         </BoxContainer>
         {version === 'resources' && !editMode && !addMode && (
@@ -131,6 +140,7 @@ export const ModalData = ({
             id_resource={data.id_resource}
             hideContent={hideContent}
             setHideContent={setHideContent}
+            setResourceDataToExport={setResourceDataToExport}
             userIsAdmin={userIsAdmin}
           />
         )}

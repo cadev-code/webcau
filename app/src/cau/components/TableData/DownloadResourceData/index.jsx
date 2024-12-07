@@ -1,7 +1,10 @@
-import { Download } from '@mui/icons-material'
+import { useEffect } from 'react'
 import { Button } from './styled'
 
-export const DownloadResourceData = () => {
+export const DownloadResourceData = ({
+  resource,
+  resourceDataToExport
+}) => {
   return (
     <Button>
       Descargar Información
