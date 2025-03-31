@@ -2,7 +2,7 @@ const url = 'http://172.15.101.77:8082'
 
 export const toolsData = [
   [
-    {text: 'Instalación ESET', subText: 'BBVA', url: `https://redirector.eset.systems/li-handler/?uuid=epi_win-66b8c7db-c163-47af-94fd-206a341afd29`},
+    {text: 'Instalación ESET', subText: 'BBVA', url: `https://redirector.eset.systems/li-handler/?uuid=epi_win-6c0a0dd4-6608-4f35-a3c0-0fa91db3974a`},
     {text: 'Instalación ESET', subText: '@centro', url: `https://redirector.eset.systems/li-handler/?uuid=epi_win-8452646a-dbf2-454b-b250-4de0add79499`},
     {text: 'Aplicativos', subText: 'Small', url: `${url}/_pages/aplicaciones%20small%20y%20large/Aplicativos%20Small.htm`},
     {text: 'Aplicativos', subText: 'Large', url: `${url}/_pages/aplicaciones%20small%20y%20large/Aplicativos%20Large.htm`},
