@@ -225,7 +225,7 @@ const getIdOrigin = async(origin) => {
 }
 
 export const getRegisters = async(req, res) => {
-  const query = 'SELECT cmdb.id, cmdb.idMapa, cmdb.netBIOS, cmdb.IP, cmdb.mac, cmdb.ext, cmdb.hash, cmdb.nodo, cmdb.vlan, cmdb.staff, cmdb.kc_monitor, cmdb.kc_cpu, cmdb.serviceTag,areas_computers_cmdb.area,licenses_computers_cmdb.license,models_computers_cmdb.model,origin_computers_cmdb.origin FROM cmdb INNER JOIN areas_computers_cmdb ON cmdb.id_area = areas_computers_cmdb.id_area INNER JOIN licenses_computers_cmdb ON cmdb.id_license = licenses_computers_cmdb.id_license INNER JOIN models_computers_cmdb ON cmdb.id_model = models_computers_cmdb.id_model INNER JOIN origin_computers_cmdb ON cmdb.id_origin = origin_computers_cmdb.id_origin'
+  const query = 'SELECT cmdb.id, cmdb.idMapa, cmdb.netBIOS, cmdb.IP, cmdb.mac, cmdb.ext, cmdb.hash, cmdb.nodo, cmdb.vlan, cmdb.staff, cmdb.kc_monitor, cmdb.kc_cpu, cmdb.serviceTag,areas_computers_cmdb.area,licenses_computers_cmdb.license,models_computers_cmdb.model,origin_computers_cmdb.origin, cmdb.operating_system FROM cmdb INNER JOIN areas_computers_cmdb ON cmdb.id_area = areas_computers_cmdb.id_area INNER JOIN licenses_computers_cmdb ON cmdb.id_license = licenses_computers_cmdb.id_license INNER JOIN models_computers_cmdb ON cmdb.id_model = models_computers_cmdb.id_model INNER JOIN origin_computers_cmdb ON cmdb.id_origin = origin_computers_cmdb.id_origin'
 
   try {
     const [result] = await pool.query(query)
@@ -252,7 +252,8 @@ export const addRegister = async({ body }, res) => {
     area,
     license,
     model,
-    origin
+    origin,
+    operating_system
   } = body
 
   const id_area = await getIdArea(area)
@@ -260,9 +261,9 @@ export const addRegister = async({ body }, res) => {
   const id_model = await getIdModel(model)
   const id_origin = await getIdOrigin(origin)
   
-  const query = 'INSERT INTO cmdb (idMapa, netBIOS, IP, mac, ext, hash, nodo, vlan, staff, serviceTag, kc_monitor, kc_cpu, id_area, id_license, id_model, id_origin) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)'
+  const query = 'INSERT INTO cmdb (idMapa, netBIOS, IP, mac, ext, hash, nodo, vlan, staff, serviceTag, kc_monitor, kc_cpu, id_area, id_license, id_model, id_origin, operating_system) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)'
 
-  const values = [idMapa, netBIOS, IP, mac, ext, hash, nodo, vlan, staff, serviceTag, kc_monitor, kc_cpu, id_area, id_license, id_model, id_origin]
+  const values = [idMapa, netBIOS, IP, mac, ext, hash, nodo, vlan, staff, serviceTag, kc_monitor, kc_cpu, id_area, id_license, id_model, id_origin, operating_system]
 
   try {
     await pool.query(query, values)
@@ -290,7 +291,8 @@ export const updateRegister = async({ body }, res) => {
     area,
     license,
     model,
-    origin
+    origin,
+    operating_system
   } = body
 
   const id_area = await getIdArea(area)
@@ -298,9 +300,9 @@ export const updateRegister = async({ body }, res) => {
   const id_model = await getIdModel(model)
   const id_origin = await getIdOrigin(origin)
 
-  const query = 'UPDATE cmdb SET idMapa = ?, netBIOS = ?, IP = ?, mac = ?, ext = ?, hash = ?, nodo = ?, vlan = ?, staff = ?, serviceTag = ?, kc_monitor = ?, kc_cpu = ?, id_area = ?, id_license = ?, id_model = ?, id_origin = ? WHERE id = ?'
+  const query = 'UPDATE cmdb SET idMapa = ?, netBIOS = ?, IP = ?, mac = ?, ext = ?, hash = ?, nodo = ?, vlan = ?, staff = ?, serviceTag = ?, kc_monitor = ?, kc_cpu = ?, id_area = ?, id_license = ?, id_model = ?, id_origin = ?, operating_system = ? WHERE id = ?'
 
-  const values = [idMapa, netBIOS, IP, mac, ext, hash, nodo, vlan, staff, serviceTag, kc_monitor, kc_cpu, id_area, id_license, id_model, id_origin, id]
+  const values = [idMapa, netBIOS, IP, mac, ext, hash, nodo, vlan, staff, serviceTag, kc_monitor, kc_cpu, id_area, id_license, id_model, id_origin, operating_system, id]
 
   try {
     await pool.query(query, values)
