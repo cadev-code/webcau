@@ -8,19 +8,19 @@ export const columnsData = [
     header: 'Net-BIOS',
     accessorKey: 'netBIOS',
     size: 240,
-    required: true
+    required: true,
   },
   {
     header: 'Dirección IP',
     accessorKey: 'IP',
     size: 200,
-    required: true
+    required: true,
   },
   {
     header: 'Dirección Física',
     accessorKey: 'mac',
     size: 240,
-    required: true
+    required: true,
   },
   {
     header: 'Área',
@@ -31,8 +31,8 @@ export const columnsData = [
     // add the following options when it is an select input
     meta: {
       filterVariant: 'select',
-      options: []
-    }
+      options: [],
+    },
   },
   {
     header: 'Empleado',
@@ -42,19 +42,19 @@ export const columnsData = [
   {
     header: 'Extensión SIP',
     accessorKey: 'ext',
-    size: 160
+    size: 160,
   },
   {
     header: 'Nodo',
     accessorKey: 'nodo',
     required: true,
-    size: 180
+    size: 180,
   },
   {
     header: 'VLAN',
     accessorKey: 'vlan',
     required: true,
-    size: 140
+    size: 140,
   },
   {
     header: 'Licencia Siphone',
@@ -64,8 +64,8 @@ export const columnsData = [
     // add the following options when it is an select input
     meta: {
       filterVariant: 'select',
-      options: []
-    }
+      options: [],
+    },
   },
   {
     header: 'Origen',
@@ -75,8 +75,14 @@ export const columnsData = [
     filterFn: 'equalsString',
     meta: {
       filterVariant: 'select',
-      options: []
-    }
+      options: [],
+    },
+  },
+  {
+    header: 'Sistema Operativo',
+    accessorKey: 'operating_system',
+    size: 240,
+    required: true,
   },
   {
     header: 'Modelo de Equipo',
@@ -87,28 +93,28 @@ export const columnsData = [
     // add the following options when it is an select input
     meta: {
       filterVariant: 'select',
-      options: []
-    }
+      options: [],
+    },
   },
   {
     header: 'Etiqueta de Servicio',
     accessorKey: 'serviceTag',
     size: 200,
-    required: true
+    required: true,
   },
   {
     header: 'KC Monitor',
     accessorKey: 'kc_monitor',
-    size: 160
+    size: 160,
   },
   {
     header: 'KC CPU',
     accessorKey: 'kc_cpu',
-    size: 160
+    size: 160,
   },
   {
     header: 'Hash',
     accessorKey: 'hash',
-    size: 420
+    size: 420,
   },
-]
+];
