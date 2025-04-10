@@ -1001,3 +1001,8 @@ FOREIGN KEY (`id_origin`) REFERENCES origin_computers_cmdb(`id_origin`) ON DELET
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
 -- Dump completed on 2024-04-19 22:29:21
+
+-- Agregar nuevo campo Sistema Operativo
+---- 10-04-2025
+
+ALTER TABLE cmdb ADD `operating_system` VARCHAR(32) DEFAULT "Windows 10";
