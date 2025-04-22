@@ -42,7 +42,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (1,'cescobedo','mypass0.1','Carlos','[\"maps\"]'),(2,'impresoras','impresoras','Ricardo','[\"printers\"]'),(3,'','','Gerardo','[\"catalogue\"]'),(4,'jnavarro','NAVARRO52','Kevin','[\"cmdb\"]'),(5,'','','Jaziel','[]'),(6,'','','Ricardo','[\"printers\"]'),(7,'','','Jorge','[\"printers\"]'),(8,'','','Leonel','[]'),(9,'admin','admin','Administrador','[\"printers\",\"office\",\"cmdb\",\"admin\"]');
+INSERT INTO `users` VALUES (1,'cescobedo','mypass0.1','Carlos','[\"maps\"]'),(2,'admin','admin','Administrador','[\"printers\",\"office\",\"cmdb\",\"admin\"]');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -56,3 +56,5 @@ UNLOCK TABLES;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
 -- Dump completed on 2024-04-19 22:29:22
+
+ALTER TABLE users ADD `profile` VARCHAR(32) DEFAULT "cau_oda";
