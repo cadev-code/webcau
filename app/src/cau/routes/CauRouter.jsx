@@ -31,7 +31,7 @@ export const CauRouter = () => {
 
   return (
     <Routes>
-      <Route path="menu" element={ <Menu /> } />
+      <Route path="menu" element={ <Menu userData={ userData } /> } />
 
       <Route path="main" element={ <Dashboard /> }>
         <Route path="impresoras" element={ <Printers userData={ userData } /> } />
