@@ -1,39 +1,46 @@
-import { pool } from '../db.js'
-import jwt from 'jsonwebtoken'
+import { pool } from '../db.js';
+import jwt from 'jsonwebtoken';
 
-export const getUser = async(req, res) => {
-
-  const { username, password } = req.query
+export const getUser = async (req, res) => {
+  const { username, password } = req.query;
 
   const [result] = await pool.query(
-    'SELECT * FROM users WHERE username = ? AND password = ?', 
+    'SELECT * FROM users WHERE username = ? AND password = ?',
     [username, password]
-  )
+  );
 
-  if(result.length !== 0) {
-    const { username, permissions, agent } = result[0]
+  if (result.length !== 0) {
+    const { username, permissions, agent, profile } =
+      result[0];
 
-    const token = jwt.sign({username, permissions, agent }, 'secretSession', { expiresIn: '24h' })
+    const token = jwt.sign(
+      { username, permissions, agent, profile },
+      'secretSession',
+      { expiresIn: '24h' }
+    );
 
-    res.json([{
-      token,
-      username,
-      permissions,
-      agent
-    }])
-    return
+    res.json([
+      {
+        token,
+        username,
+        permissions,
+        agent,
+        profile,
+      },
+    ]);
+    return;
   }
 
-  res.json(result)
-}
+  res.json(result);
+};
 
 export const getAuthenticatedUser = (req, res) => {
-  const { token } = req.query
+  const { token } = req.query;
 
   try {
-    const verify = jwt.verify(token, 'secretSession') || []
-    res.json(verify)
+    const verify = jwt.verify(token, 'secretSession') || [];
+    res.json(verify);
   } catch (error) {
-    res.send([])
+    res.send([]);
   }
-}
+};
