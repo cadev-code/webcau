@@ -27,9 +27,9 @@ export const App = () => {
       return
     }
 
-    const { username, permissions, agent } = response.data
+    const { username, permissions, agent, profile } = response.data
     dispatch(
-      setAuthenticatedUser([{ username, permissions: JSON.parse(permissions), agent }])
+      setAuthenticatedUser([{ username, permissions: JSON.parse(permissions), agent, profile }])
     )
   }
 

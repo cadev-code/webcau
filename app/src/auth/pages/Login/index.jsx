@@ -36,12 +36,12 @@ export const Login = () => {
       return
     }
 
-    const { username, token, permissions, agent } = response.data[0]
+    const { username, token, permissions, agent, profile } = response.data[0]
 
     localStorage.setItem('sessionWebCAU', token)
 
     dispatch(
-      setAuthenticatedUser([{ username, permissions: JSON.parse(permissions), agent }])
+      setAuthenticatedUser([{ username, permissions: JSON.parse(permissions), agent, profile }])
     )
 
 
