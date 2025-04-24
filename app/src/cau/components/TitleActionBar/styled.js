@@ -7,9 +7,14 @@ export const Container = styled.div`
   justify-content: space-between;
   background-color: var(--container-background);
 
-  h2 {
-    font-size: 26px;
-    user-select: none;
+  .title {
+    display: flex;
+    gap: 16px;
+
+    h2 {
+      font-size: 26px;
+      user-select: none;
+    }
   }
 `
 
