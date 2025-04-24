@@ -33,7 +33,7 @@ export const CauRouter = () => {
         element={<Menu userData={userData} />}
       />
 
-      <Route path="main" element={<Dashboard />}>
+      <Route path="main" element={<Dashboard userProfile={userData.profile} />}>
         <Route
           path="mapas"
           element={<Maps userData={userData} />}
