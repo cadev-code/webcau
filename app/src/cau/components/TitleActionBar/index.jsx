@@ -1,10 +1,12 @@
-import { useState } from 'react';
 import { Select } from '../../../components/Select';
 import { ActionBar, Container } from './styled';
 
-export const TitleActionBar = ({ title, buttons }) => {
-  const [siteValue, setSiteValue] = useState('Ojo de Agua');
-
+export const TitleActionBar = ({
+  title,
+  buttons,
+  siteValue,
+  setSiteValue,
+}) => {
   const siteOnChange = ({ target }) =>
     setSiteValue(target.value);
 
