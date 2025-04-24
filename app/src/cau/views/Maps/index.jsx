@@ -5,7 +5,8 @@ import { useEffect, useState } from 'react'
 import { ButtonContainer } from './styled'
 import { 
   EditMaps, 
-  ListMenu 
+  ListMenu, 
+  TitleActionBar
 } from '../../components'
 import { 
   ActionButton, 
@@ -144,10 +145,12 @@ export const Maps = ({
 
   return (
     <>
+      <TitleActionBar
+        title="Mapas"
+      />
       {
         !editMode
           ? <ListMenu
-              title="Mapas"
               listItems={ orderMaps.map(item => mapsData.filter(map => map.id === item)[0]) }
               itemOnClick={ itemOnClick }
             />

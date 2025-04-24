@@ -6,10 +6,9 @@ import {
 } from './styled'
 import { useNavigate } from 'react-router-dom'
 
-export const ListMenu = ({ title, listItems, itemOnClick }) => {
+export const ListMenu = ({ listItems, itemOnClick }) => {
   return (
     <Container>
-      <h1>{ title }</h1>
       <ListContainer>
         {
           listItems.map(({ text, icon, path }) => (
