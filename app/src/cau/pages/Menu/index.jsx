@@ -62,7 +62,7 @@ export const Menu = ({ userData }) => {
             }
             link="mapas"
           />
-          {profile === 'cau_oda' && (
+          {profile !== 'cau_viga' && (
             <>
               <ButtonMenu
                 text="Catálogo de configuraciones"
@@ -99,7 +99,7 @@ export const Menu = ({ userData }) => {
             </>
           )}
         </Box>
-        {profile === 'cau_oda' && (
+        {profile !== 'cau_viga' && (
           <Box>
             <ToolsContainer>
               {toolsData.map((list, i) => (
