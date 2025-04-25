@@ -33,18 +33,36 @@ export const CauRouter = () => {
         element={<Menu userData={userData} />}
       />
 
-      <Route path="main" element={<Dashboard userProfile={userData.profile} />}>
+      <Route
+        path="main"
+        element={
+          <Dashboard userProfile={userData.profile} />
+        }>
         <Route
           path="mapas"
-          element={<Maps userData={userData} />}
+          element={
+            <AuthorizedRoute
+              userProfile={userData.profile}
+              allowedProfiles={[
+                'cau_oda',
+                'cau_viga',
+                'ciso',
+                'admin',
+              ]}>
+              <Maps userData={userData} />
+            </AuthorizedRoute>
+          }
         />
-
         <Route
           path="impresoras"
           element={
             <AuthorizedRoute
-              userData={userData}
-              allowedProfile="cau_oda">
+              userProfile={userData.profile}
+              allowedProfiles={[
+                'cau_oda',
+                'ciso',
+                'admin',
+              ]}>
               <Printers userData={userData} />
             </AuthorizedRoute>
           }
@@ -53,8 +71,12 @@ export const CauRouter = () => {
           path="catalogo"
           element={
             <AuthorizedRoute
-              userData={userData}
-              allowedProfile="cau_oda">
+              userProfile={userData.profile}
+              allowedProfiles={[
+                'cau_oda',
+                'ciso',
+                'admin',
+              ]}>
               <Catalogue userData={userData} />
             </AuthorizedRoute>
           }
@@ -63,8 +85,12 @@ export const CauRouter = () => {
           path="office"
           element={
             <AuthorizedRoute
-              userData={userData}
-              allowedProfile="cau_oda">
+              userProfile={userData.profile}
+              allowedProfiles={[
+                'cau_oda',
+                'ciso',
+                'admin',
+              ]}>
               <Office userData={userData} />
             </AuthorizedRoute>
           }
@@ -75,8 +101,12 @@ export const CauRouter = () => {
           path="cmdb"
           element={
             <AuthorizedRoute
-              userData={userData}
-              allowedProfile="cau_oda">
+              userProfile={userData.profile}
+              allowedProfiles={[
+                'cau_oda',
+                'ciso',
+                'admin',
+              ]}>
               <CMDB />
             </AuthorizedRoute>
           }
@@ -85,8 +115,12 @@ export const CauRouter = () => {
           path="cmdb/equipos"
           element={
             <AuthorizedRoute
-              userData={userData}
-              allowedProfile="cau_oda">
+              userProfile={userData.profile}
+              allowedProfiles={[
+                'cau_oda',
+                'ciso',
+                'admin',
+              ]}>
               <CMDBComputers userData={userData} />
             </AuthorizedRoute>
           }
@@ -95,8 +129,12 @@ export const CauRouter = () => {
           path="cmdb/correos"
           element={
             <AuthorizedRoute
-              userData={userData}
-              allowedProfile="cau_oda">
+              userProfile={userData.profile}
+              allowedProfiles={[
+                'cau_oda',
+                'ciso',
+                'admin',
+              ]}>
               <CMDBEmails userData={userData} />
             </AuthorizedRoute>
           }
@@ -105,8 +143,12 @@ export const CauRouter = () => {
           path="cmdb/listas"
           element={
             <AuthorizedRoute
-              userData={userData}
-              allowedProfile="cau_oda">
+              userProfile={userData.profile}
+              allowedProfiles={[
+                'cau_oda',
+                'ciso',
+                'admin',
+              ]}>
               <CMDBWhitelists userData={userData} />
             </AuthorizedRoute>
           }
@@ -115,8 +157,12 @@ export const CauRouter = () => {
           path="cmdb/directory"
           element={
             <AuthorizedRoute
-              userData={userData}
-              allowedProfile="cau_oda">
+              userProfile={userData.profile}
+              allowedProfiles={[
+                'cau_oda',
+                'ciso',
+                'admin',
+              ]}>
               <CMDBDirectory userData={userData} />
             </AuthorizedRoute>
           }
@@ -125,8 +171,12 @@ export const CauRouter = () => {
           path="cmdb/recursos"
           element={
             <AuthorizedRoute
-              userData={userData}
-              allowedProfile="cau_oda">
+              userProfile={userData.profile}
+              allowedProfiles={[
+                'cau_oda',
+                'ciso',
+                'admin',
+              ]}>
               <CMDBResources userData={userData} />
             </AuthorizedRoute>
           }
@@ -135,8 +185,12 @@ export const CauRouter = () => {
           path="cmdb/biometricos"
           element={
             <AuthorizedRoute
-              userData={userData}
-              allowedProfile="cau_oda">
+              userProfile={userData.profile}
+              allowedProfiles={[
+                'cau_oda',
+                'ciso',
+                'admin',
+              ]}>
               <CMDBBiometrics userData={userData} />
             </AuthorizedRoute>
           }
@@ -145,8 +199,12 @@ export const CauRouter = () => {
           path="cmdb/laptops"
           element={
             <AuthorizedRoute
-              userData={userData}
-              allowedProfile="cau_oda">
+              userProfile={userData.profile}
+              allowedProfiles={[
+                'cau_oda',
+                'ciso',
+                'admin',
+              ]}>
               <CMDBLaptops userData={userData} />
             </AuthorizedRoute>
           }
@@ -155,8 +213,12 @@ export const CauRouter = () => {
           path="cmdb/extensiones"
           element={
             <AuthorizedRoute
-              userData={userData}
-              allowedProfile="cau_oda">
+              userProfile={userData.profile}
+              allowedProfiles={[
+                'cau_oda',
+                'ciso',
+                'admin',
+              ]}>
               <CMDBExtensions userData={userData} />
             </AuthorizedRoute>
           }

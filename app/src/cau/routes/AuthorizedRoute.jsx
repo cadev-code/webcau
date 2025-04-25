@@ -1,11 +1,11 @@
 import { Navigate } from 'react-router-dom';
 
 export const AuthorizedRoute = ({
-  userData,
-  allowedProfile,
+  userProfile,
+  allowedProfiles = [],
   children,
 }) => {
-  if (userData.profile !== allowedProfile) {
+  if (!allowedProfiles.includes(userProfile)) {
     return <Navigate to="menu" />;
   }
 
