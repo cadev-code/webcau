@@ -6,6 +6,7 @@ export const TitleActionBar = ({
   buttons,
   siteValue,
   setSiteValue,
+  userProfile = 'cau_oda'
 }) => {
   const siteOnChange = ({ target }) =>
     setSiteValue(target.value);
@@ -21,6 +22,7 @@ export const TitleActionBar = ({
           inputFormOnChange={siteOnChange}
           value={siteValue}
           width="160px"
+          disabled={userProfile !== 'admin' && userProfile !== 'ciso'}
         />
       </div>
       <ActionBar>{buttons}</ActionBar>
