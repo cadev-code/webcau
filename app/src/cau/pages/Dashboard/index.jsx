@@ -12,7 +12,7 @@ export const Dashboard = ({ userProfile }) => {
   ]);
 
   useEffect(() => {
-    if (userProfile === 'cau_oda') {
+    if (userProfile !== 'cau_viga') {
       setButtons([
         ...buttons,
         {
