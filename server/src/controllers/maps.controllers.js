@@ -15,8 +15,9 @@ export const deleteImage = (filename) => {
 }
 
 export const getMaps = async(req, res) => {
+  const { site } = req.query
   try {
-    const [result] = await pool.query('select * from maps')
+    const [result] = await pool.query('select * from maps where site = ?', [site])
     res.status(200).send(result)
   } catch (error) {
     res.status(400).send('There was an error while trying to obtain the information.')
@@ -88,8 +89,9 @@ export const deleteMap = async(req, res) => {
 }
 
 export const getMapOrder = async(req, res) => {
+  const { site } = req.query
   try {
-    const [result] = await pool.query('SELECT * FROM maps_order')
+    const [result] = await pool.query('SELECT * FROM maps_order WHERE site = ?', [site])
     res.send(result[0].orderArr)
   } catch (error) {
     res.status(400).send('There was an error while trying to obtain the information.')
@@ -98,7 +100,6 @@ export const getMapOrder = async(req, res) => {
 
 export const updateMapOrder = async(req, res) => {
   const { order } = req.body
-  console.log(order)
   try {
     await pool.query('UPDATE maps_order set orderArr = ? WHERE id = 1', [order])
     res.status(200).send('Data saved correctly.')
