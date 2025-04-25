@@ -53,3 +53,5 @@ UNLOCK TABLES;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
 -- Dump completed on 2024-04-19 22:29:20
+
+ALTER TABLE maps_order ADD `site` VARCHAR(64) NOT NULL DEFAULT 'oda';
