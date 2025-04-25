@@ -7,9 +7,9 @@ export const Select = ({
   text, 
   value, 
   inputFormOnChange,
-  options
+  options,
+  disabled = true,
 }) => {
-
   const [isFocus, setIsFocus] = useState(false)
 
   return (
@@ -20,6 +20,7 @@ export const Select = ({
         onChange={ inputFormOnChange }
         onFocus={ () => setIsFocus(true) }
         onBlur={ () => setIsFocus(false) }
+        disabled={disabled}
       >
         {
           options.map(opt => (
