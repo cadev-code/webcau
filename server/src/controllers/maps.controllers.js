@@ -99,9 +99,9 @@ export const getMapOrder = async(req, res) => {
 }
 
 export const updateMapOrder = async(req, res) => {
-  const { order } = req.body
+  const { order, site } = req.body
   try {
-    await pool.query('UPDATE maps_order set orderArr = ? WHERE id = 1', [order])
+    await pool.query('UPDATE maps_order set orderArr = ? WHERE site = ?', [order, site])
     res.status(200).send('Data saved correctly.')
   } catch (error) {
     res.status(400).send('Error when trying to update information.')
