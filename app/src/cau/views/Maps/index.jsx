@@ -218,6 +218,7 @@ export const Maps = ({ userData }) => {
           deleteData={deleteData}
           setDeleteData={setDeleteData}
           deleteMapAction={deleteMapAction}
+          site={siteValue[0]}
         />
       )}
 

@@ -29,6 +29,7 @@ export const EditMaps = ({
   deleteData,
   setDeleteData,
   deleteMapAction,
+  site,
 }) => {
 
   const getPropData = (order, prop) => {
@@ -103,7 +104,7 @@ export const EditMaps = ({
       const newIndex = orderMaps.findIndex(item => item === over.id)
       const newOrder = arrayMove(orderMaps, oldIndex, newIndex)
       setOrderMaps(newOrder)
-      await updateMapOrder({ order: JSON.stringify(newOrder) })
+      await updateMapOrder({ order: JSON.stringify(newOrder), site })
       await loadMaps()
     }
   }
