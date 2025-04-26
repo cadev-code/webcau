@@ -31,13 +31,13 @@ export const Maps = ({ userData }) => {
   const [siteValue, setSiteValue] = useState(() => {
     switch (profile) {
       case 'cau_oda':
-        return 'Ojo de Agua';
+        return ['oda', 'Ojo de Agua'];
 
       case 'cau_viga':
-        return 'Viga';
+        return ['viga', 'Viga'];
 
       default:
-        return 'Ojo de Agua';
+        return ['oda', 'Ojo de Agua'];
     }
   });
 
@@ -45,7 +45,7 @@ export const Maps = ({ userData }) => {
   const [orderMaps, setOrderMaps] = useState([]);
 
   const loadMaps = async () => {
-    const { data } = await getMaps();
+    const { data } = await getMaps(siteValue[0]);
     setMapsData(data);
     setEditMapsData(data);
 

@@ -9,7 +9,7 @@ export const TitleActionBar = ({
   userProfile = 'cau_oda'
 }) => {
   const siteOnChange = ({ target }) =>
-    setSiteValue(target.value);
+    target.value === 'Ojo de Agua' ? setSiteValue(['oda', target.value]) : setSiteValue(['viga', target.value]);
 
   return (
     <Container>
@@ -20,7 +20,7 @@ export const TitleActionBar = ({
           id="site"
           options={['Ojo de Agua', 'Viga']}
           inputFormOnChange={siteOnChange}
-          value={siteValue}
+          value={siteValue[1]}
           width="160px"
           disabled={userProfile !== 'admin' && userProfile !== 'ciso'}
         />
