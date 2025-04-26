@@ -76,6 +76,7 @@ export const Maps = ({ userData }) => {
       formData.append('text', addMapData.text);
       formData.append('file', addMapData.file);
       formData.append('path', addMapData.path);
+      formData.append('site', siteValue[0]);
 
       try {
         const { data } = await uploadMap(formData);
@@ -83,7 +84,7 @@ export const Maps = ({ userData }) => {
           ...orderMaps,
           data.insertId,
         ]);
-        await updateMapOrder({ order: newOrder });
+        await updateMapOrder({ order: newOrder, site: siteValue[0] });
         await loadMaps();
         setAddMapData({ text: '', path: '', file: '' });
         setAddMap(false);
