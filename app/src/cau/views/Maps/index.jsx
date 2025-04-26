@@ -141,6 +141,7 @@ export const Maps = ({ userData }) => {
     );
     await updateMapOrder({
       order: JSON.stringify(newOrder),
+      site: siteValue[0]
     });
     await deleteMap({ id, path });
     setOrderEditMaps([]);
