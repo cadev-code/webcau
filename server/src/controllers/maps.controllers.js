@@ -25,13 +25,13 @@ export const getMaps = async(req, res) => {
 }
 
 export const uploadMap = async(req, res) => {
-  const { text, path: filename } = req.body
+  const { text, path: filename, site } = req.body
   if(req.fileValidationError) {
     return res.status(400).send(req.fileValidationError)
   }
 
   try {
-    const [result] = await pool.query('INSERT INTO maps (text, path) values (?,?)', [text, filename])
+    const [result] = await pool.query('INSERT INTO maps (text, path, site) values (?,?,?)', [text, filename,site])
     res.send(result)
   } catch (error) {
     const pathFile = path.join(__dirname, '../../public/uploads', filename)
