@@ -45,18 +45,25 @@ export const Maps = ({ userData }) => {
   const [orderMaps, setOrderMaps] = useState([]);
 
   const loadMaps = async () => {
+    const { data: orderData } = await getMapOrder(
+      siteValue[0]
+    );
     const { data } = await getMaps(siteValue[0]);
-    setMapsData(data);
-    setEditMapsData(data);
 
-    const { data: orderData } = await getMapOrder();
+    const maps = orderData.map(
+      item => data.filter(map => map.id === item)[0]
+    );
+
+    setMapsData(maps);
+    setEditMapsData(maps);
+
     setOrderMaps(orderData);
     setOrderEditMaps(orderData);
   };
 
   useEffect(() => {
     loadMaps();
-  }, []);
+  }, [siteValue]);
 
   const url = `${import.meta.env.VITE_URL_API_WEBCAU_DB}`;
   const itemOnClick = path => {
@@ -189,10 +196,7 @@ export const Maps = ({ userData }) => {
       />
       {!editMode ? (
         <ListMenu
-          listItems={orderMaps.map(
-            item =>
-              mapsData.filter(map => map.id === item)[0]
-          )}
+          listItems={mapsData}
           itemOnClick={itemOnClick}
         />
       ) : (
