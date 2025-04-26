@@ -11,9 +11,9 @@ export const ListMenu = ({ listItems, itemOnClick }) => {
     <Container>
       <ListContainer>
         {
-          listItems.map(({ text, icon, path }) => (
+          listItems.map(({ text, icon, path }, i) => (
             <ListItem
-              key={ path }
+              key={ i }
               onClick={ () => itemOnClick(path) }
             >
               <p>{ text }</p>
