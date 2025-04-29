@@ -4,8 +4,8 @@ import { ActionBar, Container } from './styled';
 export const TitleActionBar = ({
   title,
   buttons,
-  siteValue,
-  setSiteValue,
+  siteValue = ["oda", "Ojo de Agua"],
+  setSiteValue = () => {},
   userProfile = 'cau_oda',
   selectDisabled = false
 }) => {
