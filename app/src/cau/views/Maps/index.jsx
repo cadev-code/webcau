@@ -195,6 +195,7 @@ export const Maps = ({ userData }) => {
         siteValue={siteValue}
         setSiteValue={setSiteValue}
         userProfile={userData.profile}
+        selectDisabled={editMode}
       />
       {!editMode ? (
         <ListMenu
