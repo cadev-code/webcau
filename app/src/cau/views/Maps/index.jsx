@@ -3,11 +3,7 @@ import { useEffect, useState } from 'react';
 
 // components imports
 import { ButtonContainer } from './styled';
-import {
-  EditMaps,
-  ListMenu,
-  TitleActionBar,
-} from '../../components';
+import { EditMaps, ListMenu, TitleActionBar } from '../../components';
 import {
   ActionButton,
   ActionIconButton,
@@ -45,14 +41,10 @@ export const Maps = ({ userData }) => {
   const [orderMaps, setOrderMaps] = useState([]);
 
   const loadMaps = async () => {
-    const { data: orderData } = await getMapOrder(
-      siteValue[0]
-    );
+    const { data: orderData } = await getMapOrder(siteValue[0]);
     const { data } = await getMaps(siteValue[0]);
 
-    const maps = orderData.map(
-      item => data.filter(map => map.id === item)[0]
-    );
+    const maps = orderData.map(item => data.filter(map => map.id === item)[0]);
 
     setMapsData(maps);
     setEditMapsData(maps);
@@ -72,18 +64,17 @@ export const Maps = ({ userData }) => {
 
   const uploadMapAction = async () => {
     if (addMapData.text !== '' && addMapData.file !== '') {
+      const newFileName = `${new Date().getTime()}-${addMapData.path}`;
+
       const formData = new FormData();
       formData.append('text', addMapData.text);
-      formData.append('file', addMapData.file);
-      formData.append('path', addMapData.path);
+      formData.append('file', addMapData.file, newFileName);
+      formData.append('path', newFileName);
       formData.append('site', siteValue[0]);
 
       try {
         const { data } = await uploadMap(formData);
-        const newOrder = JSON.stringify([
-          ...orderMaps,
-          data.insertId,
-        ]);
+        const newOrder = JSON.stringify([...orderMaps, data.insertId]);
         await updateMapOrder({ order: newOrder, site: siteValue[0] });
         await loadMaps();
         setAddMapData({ text: '', path: '', file: '' });
@@ -97,8 +88,7 @@ export const Maps = ({ userData }) => {
         });
       } catch (error) {
         setAlertState({
-          message:
-            'Error en el servidor, informa al administrador.',
+          message: 'Error en el servidor, informa al administrador.',
           itShow: true,
           severity: 'error',
         });
@@ -111,12 +101,24 @@ export const Maps = ({ userData }) => {
   const updateMapAction = async () => {
     await Promise.all(
       mapChanges.map(async change => {
+        const newFileName = `${new Date().getTime()}-${change.path}`;
         const formData = new FormData();
 
         Object.keys(change).forEach(prop => {
-          formData.append(prop, change[prop]);
-        });
+          switch (prop) {
+            case 'file':
+              formData.append(prop, change[prop], newFileName);
+              break;
 
+            case 'path':
+              formData.append(prop, newFileName);
+              break;
+              
+            default:
+              formData.append(prop, change[prop]);
+              break;
+          }
+        });
         await updateMap(formData);
       })
     );
@@ -136,12 +138,10 @@ export const Maps = ({ userData }) => {
 
   const deleteMapAction = async () => {
     const { id, path } = deleteData;
-    const newOrder = orderEditMaps.filter(
-      item => item !== id
-    );
+    const newOrder = orderEditMaps.filter(item => item !== id);
     await updateMapOrder({
       order: JSON.stringify(newOrder),
-      site: siteValue[0]
+      site: siteValue[0],
     });
     await deleteMap({ id, path });
     setOrderEditMaps([]);
@@ -181,12 +181,8 @@ export const Maps = ({ userData }) => {
     setMapChanges([]);
   };
 
-  const {
-    alertState,
-    setAlertState,
-    resetAlertState,
-    changeStateAlert,
-  } = alertActions();
+  const { alertState, setAlertState, resetAlertState, changeStateAlert } =
+    alertActions();
 
   return (
     <>
@@ -198,10 +194,7 @@ export const Maps = ({ userData }) => {
         selectDisabled={editMode}
       />
       {!editMode ? (
-        <ListMenu
-          listItems={mapsData}
-          itemOnClick={itemOnClick}
-        />
+        <ListMenu listItems={mapsData} itemOnClick={itemOnClick} />
       ) : (
         <EditMaps
           permissions={permissions}
@@ -224,36 +217,22 @@ export const Maps = ({ userData }) => {
         />
       )}
 
-      {(permissions.includes('admin') ||
-        permissions.includes('maps')) && (
+      {(permissions.includes('admin') || permissions.includes('maps')) && (
         <ButtonContainer>
           {!editMode ? (
-            <ActionButton
-              text="Editar"
-              action={openEditAction}
-            />
+            <ActionButton text="Editar" action={openEditAction} />
           ) : (
             <>
               <SubmitButton
-                text={
-                  !addMap ? 'Agregar Mapa' : 'Guardar Mapa'
-                }
+                text={!addMap ? 'Agregar Mapa' : 'Guardar Mapa'}
                 action={() => {
-                  !addMap
-                    ? setAddMap(true)
-                    : uploadMapAction();
+                  !addMap ? setAddMap(true) : uploadMapAction();
                 }}
               />
               {mapChanges.length !== 0 && !addMap && (
-                <ActionButton
-                  text="Guardar Cambios"
-                  action={updateMapAction}
-                />
+                <ActionButton text="Guardar Cambios" action={updateMapAction} />
               )}
-              <ActionIconButton
-                icon={<Close />}
-                action={closeEditAction}
-              />
+              <ActionIconButton icon={<Close />} action={closeEditAction} />
             </>
           )}
         </ButtonContainer>
