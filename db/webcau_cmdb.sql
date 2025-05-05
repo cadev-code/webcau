@@ -1006,3 +1006,5 @@ FOREIGN KEY (`id_origin`) REFERENCES origin_computers_cmdb(`id_origin`) ON DELET
 ---- 10-04-2025
 
 ALTER TABLE cmdb ADD `operating_system` VARCHAR(32) DEFAULT "Windows 10";
+
+ALTER TABLE areas_computers_cmdb ADD `site` VARCHAR(64) DEFAULT "oda";
