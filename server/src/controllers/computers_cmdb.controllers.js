@@ -3,10 +3,12 @@ import { pool } from '../db.js'
 // areas computers
 
 export const getAreas = async(req, res) => {
-  const query = 'SELECT * FROM areas_computers_cmdb ORDER BY `area` ASC'
+  const { site } = req.query
+
+  const query = 'SELECT * FROM areas_computers_cmdb WHERE `site` = ? ORDER BY `area` ASC'
 
   try {
-    const [result] = await pool.query(query)
+    const [result] = await pool.query(query, [site])
     res.status(200).json(result)
   } catch (error) {
     res.status(400).send('Error when trying to obtain the information.')
@@ -14,11 +16,11 @@ export const getAreas = async(req, res) => {
 }
 
 export const addArea = async({ body }, res) => {
-  const { text } = body
-  const query = 'INSERT INTO areas_computers_cmdb (`area`) VALUES (?)'
+  const { text, site } = body
+  const query = 'INSERT INTO areas_computers_cmdb (`area`, `site`) VALUES (?,?)'
 
   try {
-    await pool.query(query, [text])
+    await pool.query(query, [text, site])
     res.status(200).send('Information uploaded correctly.')
   } catch (error) {
     res.status(400).send('There was an error trying to load the information.')
