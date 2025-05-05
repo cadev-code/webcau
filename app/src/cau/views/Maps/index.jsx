@@ -20,22 +20,12 @@ import {
 } from '../../api/maps.api';
 import { alertActions } from '../../helpers';
 import { Close } from '@mui/icons-material';
+import { useSiteValueByProfile } from '../../hooks';
 
 export const Maps = ({ userData }) => {
   const { permissions, profile } = userData;
 
-  const [siteValue, setSiteValue] = useState(() => {
-    switch (profile) {
-      case 'cau_oda':
-        return ['oda', 'Ojo de Agua'];
-
-      case 'cau_viga':
-        return ['viga', 'Viga'];
-
-      default:
-        return ['oda', 'Ojo de Agua'];
-    }
-  });
+  const { siteValue, setSiteValue } = useSiteValueByProfile(profile)
 
   const [mapsData, setMapsData] = useState([]);
   const [orderMaps, setOrderMaps] = useState([]);
