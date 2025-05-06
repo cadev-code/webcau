@@ -4,11 +4,11 @@ const url = `${import.meta.env.VITE_URL_API_WEBCAU_DB}/cmdb/computers`
 
 // areas
 
-export const getAreas = async() =>
-  await axios.get(`${url}/areas`)
+export const getAreas = async(site) =>
+  await axios.get(`${url}/areas?site=${site}`)
 
-export const addArea = async(data) =>
-  await axios.post(`${url}/areas`, data)
+export const addArea = async(data, site) =>
+  await axios.post(`${url}/areas`, {...data, site})
 
 export const updateArea = async(data) =>
   await axios.put(`${url}/areas`, data)
