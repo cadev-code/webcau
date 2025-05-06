@@ -1014,3 +1014,5 @@ ALTER TABLE licenses_computers_cmdb ADD `site` VARCHAR(64) DEFAULT "oda";
 ALTER TABLE models_computers_cmdb ADD `site` VARCHAR(64) DEFAULT "oda";
 
 ALTER TABLE origin_computers_cmdb ADD `site` VARCHAR(64) DEFAULT "oda";
+
+ALTER TABLE cmdb ADD `site` VARCHAR(64) DEFAULT "oda";
