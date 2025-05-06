@@ -46,11 +46,11 @@ export const deleteModel = async(id) =>
 
 // origins
 
-export const getOrigins = async() =>
-  await axios.get(`${url}/origins`)
+export const getOrigins = async(site) =>
+  await axios.get(`${url}/origins?site=${site}`)
 
-export const addOrigin = async(data) =>
-  await axios.post(`${url}/origins`, data)
+export const addOrigin = async(data, site) =>
+  await axios.post(`${url}/origins`, {...data, site})
 
 export const updateOrigin = async(data) =>
   await axios.put(`${url}/origins`, data)
