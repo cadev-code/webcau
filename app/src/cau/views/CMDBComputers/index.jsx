@@ -159,6 +159,7 @@ export const CMDBComputers = ({ userData }) => {
         refreshData={ getRegistersData }
         filenameToExport="cmdbEquipos"
         userIsAdmin={ userIsAdmin }
+        site={siteValue[0]}
       />
       {
         showAreasManager &&

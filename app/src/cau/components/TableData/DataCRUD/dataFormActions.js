@@ -8,7 +8,8 @@ export const dataFormActions = (
   deleteRowMethod,
   setAlertState,
   resetAlertState,
-  refreshData
+  refreshData,
+  site="oda"
 ) => {
 
   const showModalData = (data) => {
@@ -30,7 +31,7 @@ export const dataFormActions = (
   const submitData = async (data) => {
     try {
       if (addMode) {
-        await addRowMethod(data)
+        await addRowMethod(data, site)
       } else {
         await updateRowMethod(data)
       }

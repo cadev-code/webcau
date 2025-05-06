@@ -23,7 +23,8 @@ export const DataCRUD = ({
   refreshData,
   filenameToExport,
   version="",
-  userIsAdmin
+  userIsAdmin,
+  site
  }) => {
 
   const [openModal, setOpenModal] = useState(false)
@@ -75,7 +76,8 @@ export const DataCRUD = ({
     deleteRowMethod,
     setAlertState,
     resetAlertState,
-    refreshData
+    refreshData,
+    site
   )
 
   return (
