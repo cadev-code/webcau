@@ -60,8 +60,8 @@ export const deleteOrigin = async(id) =>
 
 // registers
 
-export const getRegisters = async() =>
-  await axios.get(`${url}/registers`)
+export const getRegisters = async(site) =>
+  await axios.get(`${url}/registers?site=${site}`)
 
 export const addRegister = async(data) =>
   await axios.post(`${url}/registers`, data)
