@@ -32,11 +32,11 @@ export const deleteLicense = async(id) =>
 
 // models
 
-export const getModels = async() =>
-  await axios.get(`${url}/models`)
+export const getModels = async(site) =>
+  await axios.get(`${url}/models?site=${site}`)
 
-export const addModel = async(data) =>
-  await axios.post(`${url}/models`, data)
+export const addModel = async(data, site) =>
+  await axios.post(`${url}/models`, {...data, site})
 
 export const updateModel = async(data) =>
   await axios.put(`${url}/models`, data)
