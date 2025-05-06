@@ -21,7 +21,7 @@ export const computersDataRequest = (
   }
 
   const getLicensesData = async() => {
-    const { data } = await getLicenses()
+    const { data } = await getLicenses(site)
     setLicensesData(data)
   }
 
