@@ -110,10 +110,12 @@ export const deleteLicense = async(req, res) => {
 // models
 
 export const getModels = async(req, res) => {
-  const query = 'SELECT * FROM models_computers_cmdb ORDER BY `model` ASC'
+  const { site } = req.query
+
+  const query = 'SELECT * FROM models_computers_cmdb WHERE `site` = ? ORDER BY `model` ASC'
 
   try {
-    const [result] = await pool.query(query)
+    const [result] = await pool.query(query, [site])
     res.status(200).json(result)
   } catch (error) {
     res.status(400).send('Error when trying to obtain the information.')
@@ -121,11 +123,11 @@ export const getModels = async(req, res) => {
 }
 
 export const addModel = async({ body }, res) => {
-  const { text } = body
-  const query = 'INSERT INTO models_computers_cmdb (`model`) VALUES (?)'
+  const { text, site } = body
+  const query = 'INSERT INTO models_computers_cmdb (`model`,`site`) VALUES (?,?)'
 
   try {
-    await pool.query(query, [text])
+    await pool.query(query, [text, site])
     res.status(200).send('Information uploaded correctly.')
   } catch (error) {
     res.status(400).send('There was an error trying to load the information.')
