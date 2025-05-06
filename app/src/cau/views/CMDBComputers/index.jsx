@@ -205,6 +205,7 @@ export const CMDBComputers = ({ userData }) => {
             }}
             userIsAdmin={ userIsAdmin }
             close={() => setShowModelsManager(false)}
+            site={siteValue[0]}
           />
       }
       {

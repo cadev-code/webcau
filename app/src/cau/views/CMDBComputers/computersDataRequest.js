@@ -26,7 +26,7 @@ export const computersDataRequest = (
   }
 
   const getModelsData = async() => {
-    const { data } = await getModels()
+    const { data } = await getModels(site)
     setModelsData(data)
   }
 
