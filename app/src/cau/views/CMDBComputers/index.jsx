@@ -173,6 +173,7 @@ export const CMDBComputers = ({ userData }) => {
             }}
             userIsAdmin={ userIsAdmin }
             close={() => setShowAreasManager(false)}
+            site={siteValue[0]}
           />
       }
       {

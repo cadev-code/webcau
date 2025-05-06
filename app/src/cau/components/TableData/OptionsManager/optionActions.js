@@ -15,7 +15,8 @@ export const optionActions = (
   deleteOptionMethod,
   refreshOptions,
   setAlertState,
-  resetAlertState
+  resetAlertState,
+  site
 ) => {
 
   const closeAddMode = () => {
@@ -78,7 +79,7 @@ export const optionActions = (
       }
 
       try {
-        await addOptionMethod(addInputValue)
+        await addOptionMethod(addInputValue, site)
         closeAddMode()
         showAlert('Datos agregados correctamente', 'success')
       } catch (error) {

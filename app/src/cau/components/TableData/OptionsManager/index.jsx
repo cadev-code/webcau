@@ -32,7 +32,8 @@ export const OptionsManager = ({
   deleteOptionMethod,
   refreshOptions,
   userIsAdmin,
-  close
+  close,
+  site="oda"
 }) => {
 
   const [data, setData] = useState(
@@ -95,7 +96,8 @@ export const OptionsManager = ({
     deleteOptionMethod,
     refreshOptions,
     setAlertState,
-    resetAlertState
+    resetAlertState,
+    site
   )
 
   return (
