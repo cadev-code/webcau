@@ -18,11 +18,11 @@ export const deleteArea = async(id) =>
 
 // licenses
 
-export const getLicenses = async() =>
-  await axios.get(`${url}/licenses`)
+export const getLicenses = async(site) =>
+  await axios.get(`${url}/licenses?site=${site}`)
 
-export const addLicense = async(data) =>
-  await axios.post(`${url}/licenses`, data)
+export const addLicense = async(data, site) =>
+  await axios.post(`${url}/licenses`, {...data, site})
 
 export const updateLicense = async(data) =>
   await axios.put(`${url}/licenses`, data)
