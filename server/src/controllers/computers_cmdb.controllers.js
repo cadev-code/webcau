@@ -234,10 +234,42 @@ const getIdOrigin = async(origin) => {
 }
 
 export const getRegisters = async(req, res) => {
-  const query = 'SELECT cmdb.id, cmdb.idMapa, cmdb.netBIOS, cmdb.IP, cmdb.mac, cmdb.ext, cmdb.hash, cmdb.nodo, cmdb.vlan, cmdb.staff, cmdb.kc_monitor, cmdb.kc_cpu, cmdb.serviceTag,areas_computers_cmdb.area,licenses_computers_cmdb.license,models_computers_cmdb.model,origin_computers_cmdb.origin, cmdb.operating_system FROM cmdb INNER JOIN areas_computers_cmdb ON cmdb.id_area = areas_computers_cmdb.id_area INNER JOIN licenses_computers_cmdb ON cmdb.id_license = licenses_computers_cmdb.id_license INNER JOIN models_computers_cmdb ON cmdb.id_model = models_computers_cmdb.id_model INNER JOIN origin_computers_cmdb ON cmdb.id_origin = origin_computers_cmdb.id_origin'
+  const { site } = req.query
+
+  const query = `
+    SELECT 
+      cmdb.id, 
+      cmdb.idMapa, 
+      cmdb.netBIOS, 
+      cmdb.IP, 
+      cmdb.mac, 
+      cmdb.ext, 
+      cmdb.hash, 
+      cmdb.nodo, 
+      cmdb.vlan, 
+      cmdb.staff, 
+      cmdb.kc_monitor, 
+      cmdb.kc_cpu, 
+      cmdb.serviceTag,
+      areas_computers_cmdb.area,
+      licenses_computers_cmdb.license,
+      models_computers_cmdb.model,
+      origin_computers_cmdb.origin,
+      cmdb.operating_system 
+    FROM cmdb
+    INNER JOIN 
+      areas_computers_cmdb ON cmdb.id_area = areas_computers_cmdb.id_area
+    INNER JOIN 
+      licenses_computers_cmdb ON cmdb.id_license = licenses_computers_cmdb.id_license 
+    INNER JOIN 
+      models_computers_cmdb ON cmdb.id_model = models_computers_cmdb.id_model 
+    INNER JOIN 
+      origin_computers_cmdb ON cmdb.id_origin = origin_computers_cmdb.id_origin
+    WHERE cmdb.site = ?
+  `
 
   try {
-    const [result] = await pool.query(query)
+    const [result] = await pool.query(query, [site])
     res.status(200).json(result)
   } catch (error) {
     res.status(400).send('Error when trying to obtain the information.')
@@ -262,7 +294,8 @@ export const addRegister = async({ body }, res) => {
     license,
     model,
     origin,
-    operating_system
+    operating_system,
+    site
   } = body
 
   const id_area = await getIdArea(area)
@@ -270,9 +303,9 @@ export const addRegister = async({ body }, res) => {
   const id_model = await getIdModel(model)
   const id_origin = await getIdOrigin(origin)
   
-  const query = 'INSERT INTO cmdb (idMapa, netBIOS, IP, mac, ext, hash, nodo, vlan, staff, serviceTag, kc_monitor, kc_cpu, id_area, id_license, id_model, id_origin, operating_system) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)'
+  const query = 'INSERT INTO cmdb (idMapa, netBIOS, IP, mac, ext, hash, nodo, vlan, staff, serviceTag, kc_monitor, kc_cpu, id_area, id_license, id_model, id_origin, operating_system, site) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)'
 
-  const values = [idMapa, netBIOS, IP, mac, ext, hash, nodo, vlan, staff, serviceTag, kc_monitor, kc_cpu, id_area, id_license, id_model, id_origin, operating_system]
+  const values = [idMapa, netBIOS, IP, mac, ext, hash, nodo, vlan, staff, serviceTag, kc_monitor, kc_cpu, id_area, id_license, id_model, id_origin, operating_system, site]
 
   try {
     await pool.query(query, values)
