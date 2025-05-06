@@ -23,12 +23,15 @@ import {
 import { computersDataRequest } from './computersDataRequest'
 import { columnsData } from './columnsData'
 import { Container } from './styled'
+import { useSiteValueByProfile } from '../../hooks/useSiteValueByProfile'
 
 // import { dataToExcel } from '../../helpers/dataToExcel'
 
 export const CMDBComputers = ({ userData }) => {
 
   const [userIsAdmin, setUserIsAdmin] = useState(false)
+
+  const { siteValue, setSiteValue } = useSiteValueByProfile(userData.profile)
 
   useEffect(() => {
     setUserIsAdmin(userData.permissions.includes('cmdb'))
@@ -107,6 +110,9 @@ export const CMDBComputers = ({ userData }) => {
     <Container>
       <TitleActionBar
         title="CMDB Equipos"
+        userProfile={userData.profile}
+        siteValue={siteValue}
+        setSiteValue={setSiteValue}
         buttons={
           <>
             <button
