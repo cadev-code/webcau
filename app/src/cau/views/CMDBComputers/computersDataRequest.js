@@ -11,11 +11,12 @@ export const computersDataRequest = (
   setLicensesData,
   setModelsData,
   setRegistersData,
-  setOriginData
+  setOriginData,
+  site
 ) => {
 
   const getAreasData = async() => {
-    const { data } = await getAreas()
+    const { data } = await getAreas(site)
     setAreasData(data)
   }
 

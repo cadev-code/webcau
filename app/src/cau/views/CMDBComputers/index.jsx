@@ -54,7 +54,8 @@ export const CMDBComputers = ({ userData }) => {
     setLicensesData,
     setModelsData,
     setRegistersData,
-    setOriginData
+    setOriginData,
+    siteValue[0]
   )
 
   useEffect(() => {
