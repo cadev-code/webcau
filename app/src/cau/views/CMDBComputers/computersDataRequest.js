@@ -31,7 +31,7 @@ export const computersDataRequest = (
   }
 
   const getRegistersData = async() => {
-    const { data } = await getRegisters()
+    const { data } = await getRegisters(site)
     setRegistersData(data)
   }  
   
