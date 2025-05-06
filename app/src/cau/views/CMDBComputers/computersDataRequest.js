@@ -36,7 +36,7 @@ export const computersDataRequest = (
   }  
   
   const getOriginData = async() => {
-    const { data } = await getOrigins()
+    const { data } = await getOrigins(site)
     setOriginData(data)
   }
 

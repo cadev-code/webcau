@@ -221,6 +221,7 @@ export const CMDBComputers = ({ userData }) => {
             }}
             userIsAdmin={ userIsAdmin }
             close={() => setShowOriginManager(false)}
+            site={siteValue[0]}
           />
       }
     </ Container>
