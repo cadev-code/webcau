@@ -18,11 +18,11 @@ import { useEffect, useState } from 'react'
 export const CMDB = ({userProfile}) => {
 
   const allowedAccesItems = [
-    { text: 'Equipos', icon: <DesktopWindowsOutlined className="icon" />, path: 'equipos' }
+    { text: 'Equipos', icon: <DesktopWindowsOutlined className="icon" />, path: 'equipos' },
+    { text: 'Correos', icon: <EmailOutlined className="icon" />, path: 'correos' },
   ]
 
   const limitedAccesItems = [
-    { text: 'Correos', icon: <EmailOutlined className="icon" />, path: 'correos' },
     { text: 'Listas Blancas', icon: <ContactMail className="icon" />, path: 'listas' },
     { text: 'Active Directory', icon: <Group className="icon" />, path: 'directory' },
     { text: 'Recursos Compartidos', icon: <FolderOpenOutlined className="icon" />, path: 'recursos' },
