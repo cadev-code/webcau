@@ -89,15 +89,15 @@ export const Menu = ({ userData }) => {
                 }
                 link="office"
               />
-              <ButtonMenu
-                text="CMDB"
-                icon={
-                  <Computer sx={{ fontSize: 80, mb: 1 }} />
-                }
-                link="cmdb"
-              />
             </>
           )}
+          <ButtonMenu
+            text="CMDB"
+            icon={
+              <Computer sx={{ fontSize: 80, mb: 1 }} />
+            }
+            link="cmdb"
+          />
         </Box>
         {profile !== 'cau_viga' && (
           <Box>

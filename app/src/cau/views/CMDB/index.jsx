@@ -13,11 +13,15 @@ import {
   Group,
   LaptopMacOutlined,
 } from '@mui/icons-material'
+import { useEffect, useState } from 'react'
 
-export const CMDB = () => {
+export const CMDB = ({userProfile}) => {
 
-  const listItems = [
-    { text: 'Equipos', icon: <DesktopWindowsOutlined className="icon" />, path: 'equipos' },
+  const allowedAccesItems = [
+    { text: 'Equipos', icon: <DesktopWindowsOutlined className="icon" />, path: 'equipos' }
+  ]
+
+  const limitedAccesItems = [
     { text: 'Correos', icon: <EmailOutlined className="icon" />, path: 'correos' },
     { text: 'Listas Blancas', icon: <ContactMail className="icon" />, path: 'listas' },
     { text: 'Active Directory', icon: <Group className="icon" />, path: 'directory' },
@@ -26,6 +30,13 @@ export const CMDB = () => {
     { text: 'Laptops', icon: <LaptopMacOutlined className="icon" />, path: 'laptops' },
     { text: 'Extensiones', icon: <Call className="icon" />, path: 'extensiones' },
   ]
+
+  const [listItems, setListItems] = useState(allowedAccesItems)
+
+  useEffect(() => {
+    userProfile !== 'cau_viga' &&
+      setListItems([...allowedAccesItems, ...limitedAccesItems])
+  }, [])
 
   const navigate = useNavigate()
 

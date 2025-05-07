@@ -104,10 +104,11 @@ export const CauRouter = () => {
               userProfile={userData.profile}
               allowedProfiles={[
                 'cau_oda',
+                'cau_viga',
                 'ciso',
                 'admin',
               ]}>
-              <CMDB />
+              <CMDB userProfile={userData.profile} />
             </AuthorizedRoute>
           }
         />
@@ -118,6 +119,7 @@ export const CauRouter = () => {
               userProfile={userData.profile}
               allowedProfiles={[
                 'cau_oda',
+                'cau_viga',
                 'ciso',
                 'admin',
               ]}>
