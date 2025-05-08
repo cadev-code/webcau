@@ -24,6 +24,7 @@ import {
   updateRegister
 } from '../../api/cmdbEmails.api'
 import { columnsData } from './columnsData'
+import { useSiteValueByProfile } from '../../hooks/useSiteValueByProfile'
 
 export const CMDBEmails = ({userData}) => {
 
@@ -32,6 +33,8 @@ export const CMDBEmails = ({userData}) => {
   useEffect(() => {
     setUserIsAdmin(userData.permissions.includes('emails_cmdb'))
   }, [userData])
+
+  const { siteValue, setSiteValue } = useSiteValueByProfile(userData.profile)
 
   const [areasData, setAreasData] = useState([])
   const [listsData, setListsData] = useState([])
@@ -76,6 +79,9 @@ export const CMDBEmails = ({userData}) => {
     <>
       <TitleActionBar 
         title="CMDB Correos"
+        siteValue={siteValue}
+        setSiteValue={setSiteValue}
+        userProfile={userData.profile}
         buttons={
           <>
             <button 
