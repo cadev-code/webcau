@@ -193,3 +193,7 @@ ADD `status` VARCHAR(255) NOT NULL DEFAULT 'Activo';
 -- FOREIGN KEY (`id_model`) REFERENCES models_computers_cmdb(`id_model`) ON DELETE CASCADE;
 
 -- SELECT cmdb.idMapa, cmdb.netBIOS, cmdb.IP, cmdb.mac, cmdb.ext, cmdb.hash, cmdb.nodo, cmdb.licSiph, cmdb.vlan, cmdb.staff, cmdb.area, cmdb.kc_monitor, cmdb.kc_cpu, cmdb.model, cmdb.serviceTag FROM cmdb;
+
+ALTER TABLE areas_emails_cmdb ADD `site` VARCHAR(64) DEFAULT "oda";
+ALTER TABLE lists_emails_cmdb ADD `site` VARCHAR(64) DEFAULT "oda";
+ALTER TABLE registers_emails_cmdb ADD `site` VARCHAR(64) DEFAULT "oda";
