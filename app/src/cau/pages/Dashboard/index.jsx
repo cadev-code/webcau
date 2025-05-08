@@ -7,23 +7,29 @@ import { Navbar } from '../../components/Navbar';
 import { useEffect, useState } from 'react';
 
 export const Dashboard = ({ userProfile }) => {
-  const [buttons, setButtons] = useState([
+
+  const allowedButtons = [
     { title: 'Mapas', link: 'mapas' },
-  ]);
+    { title: 'CMDB', link: 'cmdb' },
+  ]
+  const limitedButtons = [        
+    {
+      title: 'Catálogo de Configuraciones',
+      link: 'catalogo',
+    },
+    { title: 'Impresoras', link: 'impresoras' },
+    { title: 'Licencias Office', link: 'office' },
+  ]
+
+  const [buttons, setButtons] = useState(allowedButtons);
 
   useEffect(() => {
-    if (userProfile !== 'cau_viga') {
+    userProfile !== 'cau_viga' &&
       setButtons([
-        ...buttons,
-        {
-          title: 'Catálogo de Configuraciones',
-          link: 'catalogo',
-        },
-        { title: 'Impresoras', link: 'impresoras' },
-        { title: 'Licencias Office', link: 'office' },
-        { title: 'CMDB', link: 'cmdb' },
-      ]);
-    }
+        allowedButtons[0],
+        ...limitedButtons,
+        allowedButtons[1]
+      ])
   }, []);
 
   return (
