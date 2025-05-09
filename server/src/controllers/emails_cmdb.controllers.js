@@ -4,11 +4,11 @@
 
 export const addArea = async({ body }, res) => {
   
-  const { text } = body
-  const query = 'INSERT INTO areas_emails_cmdb (`area`) VALUES (?)'
+  const { text, site } = body
+  const query = 'INSERT INTO areas_emails_cmdb (`area`,`site`) VALUES (?,?)'
 
   try {
-    await pool.query(query, [text])
+    await pool.query(query, [text,site])
     res.status(200).send('Information uploaded correctly.')
   } catch (error) {
     res.status(400).send('There was an error trying to load the information.')
@@ -18,10 +18,11 @@ export const addArea = async({ body }, res) => {
 
 export const getAreas = async(req, res) => {
 
-  const query = 'SELECT * FROM areas_emails_cmdb ORDER BY `area` ASC'
+  const { site } = req.query
+  const query = 'SELECT * FROM areas_emails_cmdb WHERE `site` = ? ORDER BY `area` ASC'
 
   try {
-    const [result] = await pool.query(query)
+    const [result] = await pool.query(query, [site])
     res.status(200).json(result)
   } catch (error) {
     res.status(400).send('Error when trying to obtain the information.')
@@ -61,11 +62,11 @@ export const deleteArea = async(req, res) => {
 
 export const addList = async({ body }, res) => {
   
-  const { text } = body
-  const query = 'INSERT INTO lists_emails_cmdb (`list`) VALUES (?)'
+  const { text, site } = body
+  const query = 'INSERT INTO lists_emails_cmdb (`list`,`site`) VALUES (?,?)'
 
   try {
-    await pool.query(query, [text])
+    await pool.query(query, [text, site])
     res.status(200).send('Information uploaded correctly.')
   } catch (error) {
     res.status(400).send('There was an error trying to load the information.')
@@ -75,10 +76,11 @@ export const addList = async({ body }, res) => {
 
 export const getLists = async(req, res) => {
 
-  const query = 'SELECT * FROM lists_emails_cmdb ORDER BY `list` ASC'
+  const { site } = req.query
+  const query = 'SELECT * FROM lists_emails_cmdb WHERE `site` = ? ORDER BY `list` ASC'
 
   try {
-    const [result] = await pool.query(query)
+    const [result] = await pool.query(query, [site])
     res.status(200).json(result)
   } catch (error) {
     res.status(400).send('Error when trying to obtain the information.')
@@ -128,13 +130,21 @@ const getIdList = async(list) => {
 }
 
 export const addRegister = async({ body }, res) => {
-  const { name, email, password, area, status, list } = body
+  const { 
+    name, 
+    email, 
+    password, 
+    area, 
+    status, 
+    list, 
+    site 
+  } = body
   const id_area = await getIdArea(area)
   const id_list = await getIdList(list)
-  const query = 'INSERT INTO registers_emails_cmdb (`name`, `email`, `password`, `id_area`, `status`, `id_list`) VALUES (?,?,?,?,?,?)'
+  const query = 'INSERT INTO registers_emails_cmdb (`name`, `email`, `password`, `id_area`, `status`, `id_list`, `site`) VALUES (?,?,?,?,?,?,?)'
   
   try {
-     await pool.query(query, [name, email, password, id_area, status, id_list])
+     await pool.query(query, [name, email, password, id_area, status, id_list, site])
      res.status(200).send('Information added correctly.')
    } catch (error) {
      res.status(400).send('There was an error trying to add the information.')
@@ -143,10 +153,29 @@ export const addRegister = async({ body }, res) => {
 
 export const getRegisters = async(req, res) => {
   
-  const query = 'SELECT registers_emails_cmdb.id_register, registers_emails_cmdb.name, registers_emails_cmdb.email, registers_emails_cmdb.password, areas_emails_cmdb.area, lists_emails_cmdb.list, registers_emails_cmdb.status FROM registers_emails_cmdb INNER JOIN areas_emails_cmdb ON registers_emails_cmdb.id_area = areas_emails_cmdb.id_area INNER JOIN lists_emails_cmdb ON registers_emails_cmdb.id_list = lists_emails_cmdb.id_list ORDER BY registers_emails_cmdb.id_register DESC'
+  const { site } = req.query
+  const query = `
+    SELECT 
+      registers_emails_cmdb.id_register, 
+      registers_emails_cmdb.name, 
+      registers_emails_cmdb.email, 
+      registers_emails_cmdb.password, 
+      areas_emails_cmdb.area, 
+      lists_emails_cmdb.list, 
+      registers_emails_cmdb.status 
+    FROM 
+      registers_emails_cmdb 
+    INNER JOIN 
+      areas_emails_cmdb ON registers_emails_cmdb.id_area = areas_emails_cmdb.id_area 
+    INNER JOIN 
+      lists_emails_cmdb ON registers_emails_cmdb.id_list = lists_emails_cmdb.id_list 
+    WHERE
+      registers_emails_cmdb.site = ?
+    ORDER BY 
+      registers_emails_cmdb.id_register DESC`
 
   try {
-    const [result] = await pool.query(query)
+    const [result] = await pool.query(query, [site])
     res.status(200).json(result)
   } catch (error) {
     res.status(400).send('Error when trying to obtain the information.')
@@ -156,7 +185,15 @@ export const getRegisters = async(req, res) => {
 
 export const updateRegisterByArea = async({ body }, res) => {
   
-  const { id_register, name, email, password, area, status, list } = body
+  const { 
+    id_register, 
+    name, 
+    email, 
+    password, 
+    area, 
+    status, 
+    list 
+  } = body
   const id_area = await getIdArea(area)
   const id_list = await getIdList(list)
   const query = 'UPDATE registers_emails_cmdb SET `name` = ?, `email` = ?, `password` = ?, `id_area` = ?, `status` = ?, `id_list` = ?  WHERE id_register = ?'
