@@ -44,13 +44,18 @@ export const CMDBEmails = ({userData}) => {
     getAreasData, 
     getListsData,
     getRegistersData
-  } = emailsDataRequest(setAreasData, setListsData, setRegistersData)
+  } = emailsDataRequest(
+    setAreasData, 
+    setListsData, 
+    setRegistersData,
+    siteValue[0]
+  )
  
   useEffect(() => {
     getAreasData()
     getRegistersData()
     getListsData()
-  }, [])
+  }, [siteValue])
 
   const [defaultColumns, setDefaultColumns] = useState(columnsData)
 
