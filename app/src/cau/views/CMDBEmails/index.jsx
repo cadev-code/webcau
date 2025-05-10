@@ -117,11 +117,12 @@ export const CMDBEmails = ({userData}) => {
         tableData={ registersData }
         setOpenAddAction={ setOpenAddAction }
         addRowMethod={ addRegister }
-        updateRowMethod= { updateRegister }
+        updateRowMethod={ updateRegister }
         deleteRowMethod={ deleteRegister }
         refreshData={ getRegistersData }
         filenameToExport="cmdbCorreos"
         userIsAdmin={ userIsAdmin }
+        site={siteValue[0]}
       />
       {
         showAreasManager &&
