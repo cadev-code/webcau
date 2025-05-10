@@ -35,7 +35,7 @@ export const deleteList = async(id) =>
 export const getRegisters = async(site) =>
   await axios.get(`${url}/registers/all?site=${site}`)
 
-export const addRegister = async(data) =>
+export const addRegister = async(data, site) =>
   await axios.post(`${url}/registers`, {...data, site})
 
 export const updateRegister = async(data) =>
