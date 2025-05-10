@@ -4,11 +4,11 @@ const url = `${import.meta.env.VITE_URL_API_WEBCAU_DB}/cmdb/emails`
 
 // areas
 
-export const getAreas = async() =>
-  await axios.get(`${url}/areas`)
+export const getAreas = async(site) =>
+  await axios.get(`${url}/areas?site=${site}`)
 
-export const addArea = async(data) =>
-  await axios.post(`${url}/areas`, data)
+export const addArea = async(data, site) =>
+  await axios.post(`${url}/areas`, {...data, site})
 
 export const updateArea = async(data) =>
   await axios.put(`${url}/areas`, data)
@@ -18,11 +18,11 @@ export const deleteArea = async(id) =>
 
 // lists
 
-export const getLists = async() =>
-  await axios.get(`${url}/lists`)
+export const getLists = async(site) =>
+  await axios.get(`${url}/lists?site=${site}`)
 
 export const addList = async(data) =>
-  await axios.post(`${url}/lists`, data)
+  await axios.post(`${url}/lists`, {...data, site})
 
 export const updateList = async(data) =>
   await axios.put(`${url}/lists`, data)
@@ -32,11 +32,11 @@ export const deleteList = async(id) =>
 
 // registers
 
-export const getRegisters = async() =>
-  await axios.get(`${url}/registers/all`)
+export const getRegisters = async(site) =>
+  await axios.get(`${url}/registers/all?site=${site}`)
 
 export const addRegister = async(data) =>
-  await axios.post(`${url}/registers`, data)
+  await axios.post(`${url}/registers`, {...data, site})
 
 export const updateRegister = async(data) =>
   await axios.put(`${url}/registers`, data)
