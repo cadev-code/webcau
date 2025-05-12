@@ -138,6 +138,7 @@ export const CMDBEmails = ({userData}) => {
             }}
             userIsAdmin={ userIsAdmin }
             close={() => setShowAreasManager(false)}
+            site={siteValue[0]}
           />
       }
       {
@@ -154,6 +155,7 @@ export const CMDBEmails = ({userData}) => {
             }}
             userIsAdmin={ userIsAdmin }
             close={() => setShowListsManager(false)}
+            site={siteValue[0]}
           />
       }
     </>

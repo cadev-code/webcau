@@ -21,7 +21,7 @@ export const deleteArea = async(id) =>
 export const getLists = async(site) =>
   await axios.get(`${url}/lists?site=${site}`)
 
-export const addList = async(data) =>
+export const addList = async(data, site) =>
   await axios.post(`${url}/lists`, {...data, site})
 
 export const updateList = async(data) =>
