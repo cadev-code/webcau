@@ -3,6 +3,7 @@ import { ButtonMenu, ButtonLogout } from '../../components';
 import {
   AutoStories,
   Computer,
+  Grass,
   LibraryBooks,
   LocationOn,
   Print,
@@ -26,25 +27,27 @@ export const Menu = ({ userData }) => {
           justifyContent: 'center',
           alignItems: 'center',
         }}>
-        <Typography
-          variant="h1"
-          sx={{
-            fontSize: 34,
-            fontWeight: 600,
-            textAlign: 'center',
-          }}>
-          Centro de Atención a Usuarios
-        </Typography>
-        <Typography
-          variant="h2"
-          sx={{
-            fontSize: 42,
-            fontWeight: 600,
-            textAlign: 'center',
-            color: blue[400],
-          }}>
-          ODA
-        </Typography>
+        <>
+          <Typography
+            variant="h1"
+            sx={{
+              fontSize: 34,
+              fontWeight: 600,
+              textAlign: 'center',
+            }}>
+            Seguridad de la Información
+          </Typography>
+          <Typography
+            variant="h2"
+            sx={{
+              fontSize: 42,
+              fontWeight: 600,
+              textAlign: 'center',
+              color: blue[400],
+            }}>
+            ODA
+          </Typography>
+        </>
         <Box
           sx={{
             maxWidth: 1200,
@@ -55,15 +58,15 @@ export const Menu = ({ userData }) => {
             alignItems: 'center',
             gap: 3,
           }}>
-          <ButtonMenu
-            text="Mapas"
-            icon={
-              <LocationOn sx={{ fontSize: 80, mb: 1 }} />
-            }
-            link="mapas"
-          />
-          {profile !== 'cau_viga' && (
+          {profile === 'cau_oda' && (
             <>
+              <ButtonMenu
+                text="Mapas"
+                icon={
+                  <LocationOn sx={{ fontSize: 80, mb: 1 }} />
+                }
+                link="mapas"
+              />
               <ButtonMenu
                 text="Catálogo de configuraciones"
                 icon={
@@ -89,17 +92,24 @@ export const Menu = ({ userData }) => {
                 }
                 link="office"
               />
+              <ButtonMenu
+                text="CMDB"
+                icon={
+                  <Computer sx={{ fontSize: 80, mb: 1 }} />
+                }
+                link="cmdb"
+              />
             </>
           )}
           <ButtonMenu
-            text="CMDB"
+            text="Hardening"
             icon={
-              <Computer sx={{ fontSize: 80, mb: 1 }} />
+              <Grass sx={{ fontSize: 80, mb: 1 }} />
             }
-            link="cmdb"
+            link="hardening"
           />
         </Box>
-        {profile !== 'cau_viga' && (
+        {profile === 'cau_oda' && (
           <Box>
             <ToolsContainer>
               {toolsData.map((list, i) => (

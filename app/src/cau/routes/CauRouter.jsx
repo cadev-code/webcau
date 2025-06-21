@@ -20,6 +20,7 @@ import {
 } from '../views';
 import { useSelector } from 'react-redux';
 import { CMDBExtensions } from '../views/CMDBExtensions';
+import { Hardening } from '../views/Hardening';
 
 export const CauRouter = () => {
   // User login data
@@ -92,6 +93,20 @@ export const CauRouter = () => {
                 'admin',
               ]}>
               <Office userData={userData} />
+            </AuthorizedRoute>
+          }
+        />
+        <Route
+          path="hardening"
+          element={
+            <AuthorizedRoute
+              userProfile={userData.profile}
+              allowedProfiles={[
+                'cau_oda',
+                'si_viga',
+                'admin'
+              ]}>
+              <Hardening userData={userData} />
             </AuthorizedRoute>
           }
         />

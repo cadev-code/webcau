@@ -50,7 +50,7 @@ export const Login = () => {
 
   return (
     <AuthLayout 
-      title="Centro de Atención a Usuarios"
+      title="Seguridad de la Información"
       subtitle="ODA"
     >
 

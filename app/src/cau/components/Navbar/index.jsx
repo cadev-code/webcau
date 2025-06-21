@@ -53,7 +53,7 @@ export const Navbar = ({ btns=[] }) => {
         sx={{ cursor: 'pointer' }}
         onClick={ () => navigate('/cau/dashboard/menu') }
       >
-        Centro de Atención a Usuarios
+        Seguridad de la Información
       </Typography>
 
       <Box sx={{ display: 'flex', gap: 2 }}>
