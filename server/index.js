@@ -14,6 +14,7 @@ import biometrics_cmdbRouter from './src/routes/biometrics_cmdb.routes.js'
 import laptops_cmdbRouter from './src/routes/laptops_cmdb.routes.js'
 import extensions_cmdbRouter from './src/routes/extensions_cmdb.routes.js'
 import mapsRouter from './src/routes/maps.routes.js'
+import hardeningRouter from './src/routes/hardening.routes.js'
 
 const app = express()
 
@@ -34,6 +35,9 @@ app.use(biometrics_cmdbRouter)
 app.use(laptops_cmdbRouter)
 app.use(extensions_cmdbRouter)
 app.use(mapsRouter)
+
+// hardening
+app.use(hardeningRouter)
 
 app.listen(PORT, '0.0.0.0')
 console.log(`server on running in port ${PORT}`)
