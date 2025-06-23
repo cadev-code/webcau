@@ -7,6 +7,7 @@ import {
   LibraryBooks,
   LocationOn,
   Print,
+  VerifiedUser,
 } from '@mui/icons-material';
 import { Box, Typography } from '@mui/material';
 
@@ -104,7 +105,7 @@ export const Menu = ({ userData }) => {
           <ButtonMenu
             text="Hardening"
             icon={
-              <Grass sx={{ fontSize: 80, mb: 1 }} />
+              <VerifiedUser sx={{ fontSize: 80, mb: 1 }} />
             }
             link="hardening"
           />
