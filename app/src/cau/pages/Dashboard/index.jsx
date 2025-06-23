@@ -9,26 +9,26 @@ import { useEffect, useState } from 'react';
 export const Dashboard = ({ userProfile }) => {
 
   const allowedButtons = [
-    { title: 'Mapas', link: 'mapas' },
-    { title: 'CMDB', link: 'cmdb' },
+    { title: 'Hardening', link: 'hardening' }
   ]
   const limitedButtons = [        
+    { title: 'Mapas', link: 'mapas' },
     {
       title: 'Catálogo de Configuraciones',
       link: 'catalogo',
     },
     { title: 'Impresoras', link: 'impresoras' },
     { title: 'Licencias Office', link: 'office' },
+    { title: 'CMDB', link: 'cmdb' },
   ]
 
   const [buttons, setButtons] = useState(allowedButtons);
 
   useEffect(() => {
-    userProfile !== 'cau_viga' &&
+    userProfile !== 'si_viga' &&
       setButtons([
-        allowedButtons[0],
         ...limitedButtons,
-        allowedButtons[1]
+        ...allowedButtons
       ])
   }, []);
 
