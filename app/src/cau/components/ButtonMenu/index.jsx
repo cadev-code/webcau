@@ -12,8 +12,8 @@ export const ButtonMenu = ({ text, icon, link }) => {
     <Button
       variant="outlined"
       sx={{ 
-        width: 200,
-        height: 180,
+        width: 180,
+        height: 160,
         display: 'flex', 
         flexDirection: 'column',
         fontSize: 16,

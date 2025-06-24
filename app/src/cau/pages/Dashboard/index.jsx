@@ -11,6 +11,7 @@ export const Dashboard = ({ userProfile }) => {
   const allowedButtons = [
     { title: 'Mapas', link: 'mapas' },
     { title: 'CMDB', link: 'cmdb' },
+    { title: 'Activos - Correos', link: 'assets-emails' },
   ]
   const limitedButtons = [        
     {
@@ -28,7 +29,8 @@ export const Dashboard = ({ userProfile }) => {
       setButtons([
         allowedButtons[0],
         ...limitedButtons,
-        allowedButtons[1]
+        allowedButtons[1],
+        allowedButtons[2],
       ])
   }, []);
 

@@ -3,6 +3,7 @@ import { ButtonMenu, ButtonLogout } from '../../components';
 import {
   AutoStories,
   Computer,
+  Email,
   LibraryBooks,
   LocationOn,
   Print,
@@ -58,7 +59,7 @@ export const Menu = ({ userData }) => {
           <ButtonMenu
             text="Mapas"
             icon={
-              <LocationOn sx={{ fontSize: 80, mb: 1 }} />
+              <LocationOn sx={{ fontSize: 72, mb: 1 }} />
             }
             link="mapas"
           />
@@ -68,7 +69,7 @@ export const Menu = ({ userData }) => {
                 text="Catálogo de configuraciones"
                 icon={
                   <AutoStories
-                    sx={{ fontSize: 80, mb: 1 }}
+                    sx={{ fontSize: 72, mb: 1 }}
                   />
                 }
                 link="catalogo"
@@ -76,7 +77,7 @@ export const Menu = ({ userData }) => {
               <ButtonMenu
                 text="Impresoras"
                 icon={
-                  <Print sx={{ fontSize: 80, mb: 1 }} />
+                  <Print sx={{ fontSize: 72, mb: 1 }} />
                 }
                 link="impresoras"
               />
@@ -84,7 +85,7 @@ export const Menu = ({ userData }) => {
                 text="Licencias Office"
                 icon={
                   <LibraryBooks
-                    sx={{ fontSize: 80, mb: 1 }}
+                    sx={{ fontSize: 72, mb: 1 }}
                   />
                 }
                 link="office"
@@ -94,9 +95,16 @@ export const Menu = ({ userData }) => {
           <ButtonMenu
             text="CMDB"
             icon={
-              <Computer sx={{ fontSize: 80, mb: 1 }} />
+              <Computer sx={{ fontSize: 72, mb: 1 }} />
             }
             link="cmdb"
+          />
+          <ButtonMenu
+            text="Activos - Correos"
+            icon={
+              <Email sx={{ fontSize: 72, mb: 1 }} />
+            }
+            link="assets-emails"
           />
         </Box>
         {profile !== 'cau_viga' && (
