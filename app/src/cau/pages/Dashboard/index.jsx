@@ -9,7 +9,8 @@ import { useEffect, useState } from 'react';
 export const Dashboard = ({ userProfile }) => {
 
   const allowedButtons = [
-    { title: 'Hardening', link: 'hardening' }
+    { title: 'Hardening', link: 'hardening' },
+    { title: 'Activos - Correos', link: 'assets-emails' },
   ]
   const limitedButtons = [        
     { title: 'Mapas', link: 'mapas' },

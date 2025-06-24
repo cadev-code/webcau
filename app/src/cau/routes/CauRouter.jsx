@@ -20,6 +20,7 @@ import {
 } from '../views';
 import { useSelector } from 'react-redux';
 import { CMDBExtensions } from '../views/CMDBExtensions';
+import { AssetsEmails } from '../views/AssetsEmails';
 import { Hardening } from '../views/Hardening';
 
 export const CauRouter = () => {
@@ -79,6 +80,21 @@ export const CauRouter = () => {
                 'admin',
               ]}>
               <Catalogue userData={userData} />
+            </AuthorizedRoute>
+          }
+        />
+        <Route
+          path="assets-emails"
+          element={
+            <AuthorizedRoute
+              userProfile={userData.profile}
+              allowedProfiles={[
+                'cau_oda',
+                'si_viga',
+                'ciso',
+                'admin',
+              ]}>
+              <AssetsEmails userData={userData} />
             </AuthorizedRoute>
           }
         />

@@ -7,7 +7,8 @@ export const TitleActionBar = ({
   siteValue = ["oda", "Ojo de Agua"],
   setSiteValue = () => {},
   userProfile = 'cau_oda',
-  selectDisabled = false
+  selectDisabled = false,
+  disableChangeSite = false
 }) => {
   const siteOnChange = ({ target }) =>
     target.value === 'Ojo de Agua' ? setSiteValue(['oda', target.value]) : setSiteValue(['viga', target.value]);
@@ -16,15 +17,17 @@ export const TitleActionBar = ({
     <Container>
       <div className="title">
         <h2>{title}</h2>
-        <Select
-          text="Sitio"
-          id="site"
-          options={['Ojo de Agua', 'Viga']}
-          inputFormOnChange={siteOnChange}
-          value={siteValue[1]}
-          width="160px"
-          disabled={(userProfile !== 'admin' && userProfile !== 'ciso') || selectDisabled}
-        />
+        {!disableChangeSite && (
+          <Select
+            text="Sitio"
+            id="site"
+            options={['Ojo de Agua', 'Viga']}
+            inputFormOnChange={siteOnChange}
+            value={siteValue[1]}
+            width="160px"
+            disabled={(userProfile !== 'admin' && userProfile !== 'ciso') || selectDisabled}
+          />
+        )}
       </div>
       <ActionBar>{buttons}</ActionBar>
     </Container>

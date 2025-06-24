@@ -12,11 +12,11 @@ export const ButtonMenu = ({ text, icon, link }) => {
     <Button
       variant="outlined"
       sx={{ 
-        width: 200,
-        height: 180,
+        width: 150,
+        height: 130,
         display: 'flex', 
         flexDirection: 'column',
-        fontSize: 16,
+        fontSize: 14,
         backgroundColor: 'var(--c-btn-m)',
         color: 'white'
       }}
