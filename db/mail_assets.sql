@@ -92,3 +92,5 @@ CREATE TABLE registers_emails_assets(
 
 INSERT INTO registers_emails_assets (`name`, `email`, `password`,`position`, `status`, `id_area`, `id_list`, `id_site`) VALUES 
   ('LUIS RICARDO ALAMILLA MORENO', 'alamillal@smart-center.com.mx', 'p4spowwwr4', 'ADMINISTRATIVO', 'Activo', 1, 1, 1);
+
+ALTER TABLE registers_emails_assets ADD creation_date DATE NOT NULL DEFAULT '2025-06-25';
