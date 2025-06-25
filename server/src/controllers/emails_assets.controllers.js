@@ -194,6 +194,7 @@ export const addRegister = async({ body }, res) => {
     email, 
     password, 
     position,
+    creation_date,
     area, 
     status, 
     list, 
@@ -202,10 +203,10 @@ export const addRegister = async({ body }, res) => {
   const id_area = await getIdArea(area)
   const id_site = await getIdSite(site)
   const id_list = await getIdList(list)
-  const query = 'INSERT INTO registers_emails_assets (`name`, `email`, `password`,`position`, `status`, `id_area`, `id_list`, `id_site`) VALUES (?,?,?,?,?,?,?,?)'
+  const query = 'INSERT INTO registers_emails_assets (`name`, `email`, `password`,`position`, `creation_date`, `status`, `id_area`, `id_list`, `id_site`) VALUES (?,?,?,?,?,?,?,?,?)'
   
   try {
-     await pool.query(query, [name, email, password, position, status, id_area, id_list, id_site])
+     await pool.query(query, [name, email, password, position, creation_date, status, id_area, id_list, id_site])
      res.status(200).send('Information added correctly.')
    } catch (error) {
      res.status(400).send('There was an error trying to add the information.')
@@ -220,6 +221,7 @@ export const getRegisters = async(req, res) => {
       registers_emails_assets.email, 
       registers_emails_assets.password, 
       registers_emails_assets.position, 
+      registers_emails_assets.creation_date, 
       registers_emails_assets.status, 
       areas_emails_assets.area, 
       lists_emails_assets.list,
@@ -252,6 +254,7 @@ export const updateRegisterByArea = async({ body }, res) => {
     email, 
     password, 
     position,
+    creation_date,
     area, 
     status, 
     list, 
@@ -260,10 +263,10 @@ export const updateRegisterByArea = async({ body }, res) => {
   const id_area = await getIdArea(area)
   const id_site = await getIdSite(site)
   const id_list = await getIdList(list)
-  const query = 'UPDATE registers_emails_assets SET `name` = ?, `email` = ?, `password` = ?, `position` = ?, `status` = ?, `id_area` = ?, `id_list` = ?, `id_site` = ?  WHERE id_register = ?'
+  const query = 'UPDATE registers_emails_assets SET `name` = ?, `email` = ?, `password` = ?, `position` = ?, `creation_date` = ?, `status` = ?, `id_area` = ?, `id_list` = ?, `id_site` = ?  WHERE id_register = ?'
 
   try {
-    await pool.query(query, [name, email, password, position, status, id_area, id_list, id_site, id_register])
+    await pool.query(query, [name, email, password, position, creation_date, status, id_area, id_list, id_site, id_register])
     res.status(200).send('Information was updated correctly.')
   } catch (error) {
     console.log(error)
