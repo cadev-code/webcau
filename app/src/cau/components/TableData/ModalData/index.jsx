@@ -66,6 +66,11 @@ export const ModalData = ({
     users: []
   })
 
+  useEffect(() => {
+    console.log(inputChanges)
+  }, [inputChanges])
+  
+  
   return (
     <BackgroundOpacity>
       <Modal>
@@ -94,13 +99,21 @@ export const ModalData = ({
                             ))
                           }
                         </select>
-                      : <input
-                          id={ accessorKey }
-                          type={ inputType || 'text' }
-                          value={ inputChanges[accessorKey] }
-                          onChange={ inputOnChange }
-                          required
-                        />}
+                      : (meta && meta.filterVariant === 'date')
+                        ? <input
+                            id={ accessorKey }
+                            type='date'
+                            value={inputChanges[accessorKey]}
+                            onChange={ inputOnChange }
+                            required
+                          />
+                        : <input
+                            id={ accessorKey }
+                            type={ inputType || 'text' }
+                            value={ inputChanges[accessorKey] }
+                            onChange={ inputOnChange }
+                            required
+                          />}
             </TextBox>
           ))}
           {!editMode && !addMode && version === 'resources' && (

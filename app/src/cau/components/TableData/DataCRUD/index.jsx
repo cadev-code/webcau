@@ -44,7 +44,11 @@ export const DataCRUD = ({
             ...meta,
             options: meta.options.filter(option => option !== 'Todo')
           }
-        } : {...rest}
+        } : (meta && meta.filterVariant === 'date')
+          ? {
+              ...rest, 
+              meta
+          } : { ...rest }
     }))
   }, [defaultColumns])
 

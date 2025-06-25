@@ -29,7 +29,11 @@ export const emailsDataRequest = (
 
   const getRegistersData = async() => {
     const { data } = await getRegisters()
-    setRegistersData(data)
+    setRegistersData(
+      data.map(register => (
+        {...register, creation_date: new Date(register.creation_date).toISOString().slice(0, 10)}
+      ))
+    )
   }
 
   return {

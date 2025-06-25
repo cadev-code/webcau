@@ -24,6 +24,15 @@ export const columnsData = [
     required: true
   },
   {
+    header: 'Fecha de Creación',
+    accessorKey: 'creation_date',
+    size: 240,
+    required: true,
+    meta: {
+      filterVariant: 'date',
+    }
+  },
+  {
     header: 'Área / Campaña',
     accessorKey: 'area',
     size: 300,
