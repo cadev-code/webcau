@@ -8,6 +8,7 @@ import { UserResourcesData } from '../UserResourcesData'
 import { LaptopsNotesData } from '../LaptopsNotesData'
 import { ListUsersResources } from '../ListUsersResources'
 import { DownloadResourceData } from '../DownloadResourceData'
+import { AssetsEmailLists } from '../AssetsEmailLists'
 
 export const ModalData = ({
   data,
@@ -65,11 +66,6 @@ export const ModalData = ({
     files: [],
     users: []
   })
-
-  useEffect(() => {
-    console.log(inputChanges)
-  }, [inputChanges])
-  
   
   return (
     <BackgroundOpacity>
@@ -154,6 +150,14 @@ export const ModalData = ({
             hideContent={hideContent}
             setHideContent={setHideContent}
             setResourceDataToExport={setResourceDataToExport}
+            userIsAdmin={userIsAdmin}
+          />
+        )}
+        {!editMode && !addMode && version === 'assets_emails' && (
+          <AssetsEmailLists
+            id_register={data.id_register}
+            hideContent={hideContent}
+            setHideContent={setHideContent}
             userIsAdmin={userIsAdmin}
           />
         )}

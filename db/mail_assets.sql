@@ -94,3 +94,16 @@ INSERT INTO registers_emails_assets (`name`, `email`, `password`,`position`, `st
   ('LUIS RICARDO ALAMILLA MORENO', 'alamillal@smart-center.com.mx', 'p4spowwwr4', 'ADMINISTRATIVO', 'Activo', 1, 1, 1);
 
 ALTER TABLE registers_emails_assets ADD creation_date DATE NOT NULL DEFAULT '2025-06-25';
+
+CREATE TABLE registers_lists_emails_assets(
+  `id` INT AUTO_INCREMENT,
+  `id_register` INT,
+  `id_list` INT,
+  PRIMARY KEY (`id`),
+  FOREIGN KEY (`id_register`) REFERENCES registers_emails_assets(`id_register`),
+  FOREIGN KEY (`id_list`) REFERENCES lists_emails_assets(`id_list`)
+);
+
+SHOW CREATE TABLE registers_emails_assets;
+ALTER TABLE registers_emails_assets DROP FOREIGN KEY registers_emails_assets_ibfk2;
+ALTER TABLE registers_emails_assets DROP id_list;

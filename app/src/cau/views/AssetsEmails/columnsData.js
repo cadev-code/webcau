@@ -46,12 +46,13 @@ export const columnsData = [
   },
   {
     header: 'Lista de Distribución',
-    accessorKey: 'list',
-    size: 340,
+    accessorKey: 'lists',
+    size: 380,
     // add the following options when it is an select input
     meta: {
       filterVariant: 'select',
-      options: []
+      options: [],
+      hideField: true
     }
   },
   {
