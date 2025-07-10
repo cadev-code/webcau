@@ -183,11 +183,6 @@ const getIdSite = async(site) => {
   return result[0].id_site
 }
 
-const getIdList = async(list) => {
-  const [result] = await pool.query('SELECT `id_list` FROM lists_emails_assets WHERE `list` = ?', [list])
-  return result[0].id_list
-}
-
 export const addRegister = async({ body }, res) => {
   const { 
     name, 
@@ -197,16 +192,14 @@ export const addRegister = async({ body }, res) => {
     creation_date,
     area, 
     status, 
-    list, 
     site 
   } = body
   const id_area = await getIdArea(area)
   const id_site = await getIdSite(site)
-  const id_list = await getIdList(list)
-  const query = 'INSERT INTO registers_emails_assets (`name`, `email`, `password`,`position`, `creation_date`, `status`, `id_area`, `id_list`, `id_site`) VALUES (?,?,?,?,?,?,?,?,?)'
+  const query = 'INSERT INTO registers_emails_assets (`name`, `email`, `password`,`position`, `creation_date`, `status`, `id_area`, `id_site`) VALUES (?,?,?,?,?,?,?,?)'
   
   try {
-     await pool.query(query, [name, email, password, position, creation_date, status, id_area, id_list, id_site])
+     await pool.query(query, [name, email, password, position, creation_date, status, id_area, id_site])
      res.status(200).send('Information added correctly.')
    } catch (error) {
      res.status(400).send('There was an error trying to add the information.')
@@ -215,27 +208,29 @@ export const addRegister = async({ body }, res) => {
 
 export const getRegisters = async(req, res) => {
   const query = `
-    SELECT 
-      registers_emails_assets.id_register, 
-      registers_emails_assets.name, 
-      registers_emails_assets.email, 
-      registers_emails_assets.password, 
-      registers_emails_assets.position, 
-      registers_emails_assets.creation_date, 
-      registers_emails_assets.status, 
-      areas_emails_assets.area, 
-      lists_emails_assets.list,
-      sites_emails_assets.site
-    FROM 
-      registers_emails_assets 
-    INNER JOIN 
-      areas_emails_assets ON registers_emails_assets.id_area = areas_emails_assets.id_area 
-    INNER JOIN 
-      lists_emails_assets ON registers_emails_assets.id_list = lists_emails_assets.id_list
-    INNER JOIN 
-      sites_emails_assets ON registers_emails_assets.id_site = sites_emails_assets.id_site
-    ORDER BY 
-      registers_emails_assets.name ASC`
+    SELECT
+      registers_emails_assets.id_register,
+      registers_emails_assets.name,
+      registers_emails_assets.email,
+      registers_emails_assets.password,
+      registers_emails_assets.position,
+      registers_emails_assets.creation_date,
+      registers_emails_assets.status,
+      areas_emails_assets.area,
+      sites_emails_assets.site,
+      GROUP_CONCAT(lists_emails_assets.list SEPARATOR ',') AS lists
+    FROM registers_emails_assets
+    INNER JOIN areas_emails_assets
+      ON areas_emails_assets.id_area = registers_emails_assets.id_area
+    INNER JOIN sites_emails_assets
+      ON sites_emails_assets.id_site = registers_emails_assets.id_site
+    LEFT JOIN registers_lists_emails_assets
+      ON registers_emails_assets.id_register = registers_lists_emails_assets.id_register
+    LEFT JOIN lists_emails_assets
+      ON registers_lists_emails_assets.id_list = lists_emails_assets.id_list
+    GROUP BY registers_emails_assets.id_register
+    ORDER BY registers_emails_assets.name ASC
+  `
 
   try {
     const [result] = await pool.query(query)
@@ -257,16 +252,14 @@ export const updateRegisterByArea = async({ body }, res) => {
     creation_date,
     area, 
     status, 
-    list, 
     site
   } = body
   const id_area = await getIdArea(area)
   const id_site = await getIdSite(site)
-  const id_list = await getIdList(list)
-  const query = 'UPDATE registers_emails_assets SET `name` = ?, `email` = ?, `password` = ?, `position` = ?, `creation_date` = ?, `status` = ?, `id_area` = ?, `id_list` = ?, `id_site` = ?  WHERE id_register = ?'
+  const query = 'UPDATE registers_emails_assets SET `name` = ?, `email` = ?, `password` = ?, `position` = ?, `creation_date` = ?, `status` = ?, `id_area` = ?, `id_site` = ?  WHERE id_register = ?'
 
   try {
-    await pool.query(query, [name, email, password, position, creation_date, status, id_area, id_list, id_site, id_register])
+    await pool.query(query, [name, email, password, position, creation_date, status, id_area, id_site, id_register])
     res.status(200).send('Information was updated correctly.')
   } catch (error) {
     console.log(error)
@@ -284,7 +277,60 @@ export const deleteRegisterByArea = async({body}, res) => {
     await pool.query(query, [id_register])
     res.status(200).send('Information successfully deleted.')
   } catch (error) {
-    res.status(200).send('There was an error trying to delete the information.')
+    res.status(400).send('There was an error trying to delete the information.')
   }
 
+}
+
+// registers lists
+
+export const getRegisterLists = async(req, res) => {
+  const { id_register } = req.query
+  const query = `
+    SELECT 
+      registers_lists_emails_assets.id,
+      registers_lists_emails_assets.id_register,
+      registers_lists_emails_assets.id_list,
+      lists_emails_assets.list
+    FROM 
+      registers_lists_emails_assets
+    INNER JOIN
+      lists_emails_assets
+    ON
+      registers_lists_emails_assets.id_list = lists_emails_assets.id_list
+    WHERE
+      registers_lists_emails_assets.id_register = ?
+    ORDER BY lists_emails_assets.list ASC
+  `
+
+  try {
+    const [result] = await pool.query(query, [id_register])
+    res.status(200).json(result)
+  } catch (error) {
+    res.status(400).send('Error when trying to obtain the information.')
+  }
+}
+
+export const addEmailToList = async(req, res) => {
+  const { id_register, id_list } = req.body
+  const query = 'INSERT INTO registers_lists_emails_assets (`id_register`, `id_list`) VALUES (?,?)'
+
+  try {
+    await pool.query(query, [id_register, id_list])
+    res.status(200).send('Information added correctly.')
+  } catch (error) {
+    res.status(400).send('There was an error trying to add the information.')
+  }
+}
+
+export const removeMailFromList = async(req, res) => {
+  const { id } = req.query
+  const query = 'DELETE FROM registers_lists_emails_assets WHERE id = ?'
+
+  try {
+    await pool.query(query, [id])
+    res.status(200).send('Information successfully deleted.')
+  } catch (error) {
+    res.status(400).send('There was an error trying to delete the information.')
+  }
 }
