@@ -54,7 +54,11 @@ export const DataCRUD = ({
 
   useEffect(() => {
     const inputChanges = {}
-    boxes.forEach(box => inputChanges[box.accessorKey] = '')
+    boxes.forEach(box => {
+      if(!box.meta || (box.meta && !box.meta.hideField)) {
+        inputChanges[box.accessorKey] = ''
+      }
+    })
     setDefaultInputChanges(inputChanges)
   }, [boxes])
 
@@ -100,12 +104,13 @@ export const DataCRUD = ({
             data={ dataToShow }
             addMode={ addMode }
             defaultInputChanges={ defaultInputChanges }
-            boxes={ boxes }
+            boxes={ boxes.filter(box => !box.meta || (box.meta && !box.meta.hideField)) }
             closeModalData={ closeModalData }
             submitData={ submitData }
             deleteData={ deleteData }
             version={ version }
             userIsAdmin={ userIsAdmin }
+            refreshData={refreshData}
           />
         }
       </TableContainer>

@@ -78,12 +78,12 @@ export const AssetsEmails = ({userData}) => {
 
   useEffect(() => {
     setDefaultColumns(prevColumns => prevColumns.map(column => 
-      (column.meta && column.accessorKey === 'list')
+      (column.meta && column.accessorKey === 'lists')
       ? {...column, meta: {...column.meta, options: ['Todo', ...listsData.map(({list}) => list)]}}
       : column
     ))
   }, [listsData])
-
+  
   const [openAddAction, setOpenAddAction] = useState({action: () => {}})
 
   const [showAreasManager, setShowAreasManager] = useState(false)
@@ -136,6 +136,7 @@ export const AssetsEmails = ({userData}) => {
         refreshData={ getRegistersData }
         filenameToExport="cmdbCorreos"
         userIsAdmin={ userIsAdmin }
+        version='assets_emails'
       />
       {
         showAreasManager &&

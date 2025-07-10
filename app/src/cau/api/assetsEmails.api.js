@@ -57,3 +57,14 @@ export const updateRegister = async(data) =>
 
 export const deleteRegister = async(data) =>
   await axios.delete(`${url}/registers`, {data})
+
+// registers lists
+
+export const getRegisterLists = async(id_register) =>
+  await axios.get(`${url}/register/lists?id_register=${id_register}`)
+
+export const addEmailToList = async(data) =>
+  await axios.post(`${url}/register/list`, data)
+
+export const removeMailFromList = async(id) =>
+  await axios.delete(`${url}/register/list?id=${id}`)

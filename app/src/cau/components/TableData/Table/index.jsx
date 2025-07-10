@@ -226,7 +226,8 @@ export const Table = ({
                   <div className="tD" 
                     key={cell.id}
                     style={{
-                      width: cell.column.getSize()
+                      width: cell.column.getSize(),
+                      whiteSpace: cell.column.id === 'lists' ? 'nowrap' : 'normal'
                     }}
                   >
                     {flexRender(

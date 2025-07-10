@@ -8,6 +8,7 @@ import { UserResourcesData } from '../UserResourcesData'
 import { LaptopsNotesData } from '../LaptopsNotesData'
 import { ListUsersResources } from '../ListUsersResources'
 import { DownloadResourceData } from '../DownloadResourceData'
+import { AssetsEmailLists } from '../AssetsEmailLists'
 
 export const ModalData = ({
   data,
@@ -18,7 +19,8 @@ export const ModalData = ({
   submitData,
   deleteData,
   version,
-  userIsAdmin
+  userIsAdmin,
+  refreshData
 }) => {
   
   // edit mode
@@ -66,11 +68,6 @@ export const ModalData = ({
     users: []
   })
 
-  useEffect(() => {
-    console.log(inputChanges)
-  }, [inputChanges])
-  
-  
   return (
     <BackgroundOpacity>
       <Modal>
@@ -155,6 +152,15 @@ export const ModalData = ({
             setHideContent={setHideContent}
             setResourceDataToExport={setResourceDataToExport}
             userIsAdmin={userIsAdmin}
+          />
+        )}
+        {!editMode && !addMode && version === 'assets_emails' && (
+          <AssetsEmailLists
+            id_register={data.id_register}
+            hideContent={hideContent}
+            setHideContent={setHideContent}
+            userIsAdmin={userIsAdmin}
+            refreshData={refreshData}
           />
         )}
         <CloseBtn
