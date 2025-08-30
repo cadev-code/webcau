@@ -11,6 +11,7 @@ import {
   CMDBComputers,
   CMDBDirectory,
   CMDBEmails,
+  CMDBEmailsBase,
   CMDBLaptops,
   CMDBResources,
   CMDBWhitelists,
@@ -254,6 +255,20 @@ export const CauRouter = () => {
                 'admin',
               ]}>
               <CMDBExtensions userData={userData} />
+            </AuthorizedRoute>
+          }
+        />
+        <Route
+          path="cmdb/base-emails"
+          element={
+            <AuthorizedRoute
+              userProfile={userData.profile}
+              allowedProfiles={[
+                'cau_oda',
+                'ciso',
+                'admin',
+              ]}>
+              <CMDBEmailsBase userData={userData} />
             </AuthorizedRoute>
           }
         />

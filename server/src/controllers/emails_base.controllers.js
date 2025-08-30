@@ -5,7 +5,7 @@
 export const addArea = async({ body }, res) => {
   
   const { text } = body
-  const query = 'INSERT INTO areas_emails_assets (`area`) VALUES (?)'
+  const query = 'INSERT INTO areas_emails_base (`area`) VALUES (?)'
 
   try {
     await pool.query(query, [text])
@@ -17,7 +17,7 @@ export const addArea = async({ body }, res) => {
 }
 
 export const getAreas = async(req, res) => {
-  const query = 'SELECT * FROM areas_emails_assets ORDER BY `area` ASC'
+  const query = 'SELECT * FROM areas_emails_base ORDER BY `area` ASC'
 
   try {
     const [result] = await pool.query(query)
@@ -31,7 +31,7 @@ export const getAreas = async(req, res) => {
 export const updateArea = async({ body }, res) => {
   
   const { id, text } = body
-  const query = 'UPDATE areas_emails_assets SET `area` = ? WHERE id_area = ?'
+  const query = 'UPDATE areas_emails_base SET `area` = ? WHERE id_area = ?'
 
   try {
     await pool.query(query, [text, id])
@@ -45,8 +45,7 @@ export const updateArea = async({ body }, res) => {
 export const deleteArea = async(req, res) => {
 
   const { id_area } = req.query
-  const query = 'DELETE FROM areas_emails_assets WHERE id_area = ?'
-  console.log(id_area)
+  const query = 'DELETE FROM areas_emails_base WHERE id_area = ?'
   
   try {
     await pool.query(query, [id_area])
@@ -62,7 +61,7 @@ export const deleteArea = async(req, res) => {
 export const addSite = async({ body }, res) => {
   
   const { text } = body
-  const query = 'INSERT INTO sites_emails_assets (`site`) VALUES (?)'
+  const query = 'INSERT INTO sites_emails_base (`site`) VALUES (?)'
 
   try {
     await pool.query(query, [text])
@@ -74,7 +73,7 @@ export const addSite = async({ body }, res) => {
 }
 
 export const getSites = async(req, res) => {
-  const query = 'SELECT * FROM sites_emails_assets ORDER BY `site` ASC'
+  const query = 'SELECT * FROM sites_emails_base ORDER BY `site` ASC'
 
   try {
     const [result] = await pool.query(query)
@@ -88,7 +87,7 @@ export const getSites = async(req, res) => {
 export const updateSite = async({ body }, res) => {
   
   const { id, text } = body
-  const query = 'UPDATE sites_emails_assets SET `site` = ? WHERE id_site = ?'
+  const query = 'UPDATE sites_emails_base SET `site` = ? WHERE id_site = ?'
 
   try {
     await pool.query(query, [text, id])
@@ -102,7 +101,7 @@ export const updateSite = async({ body }, res) => {
 export const deleteSite = async(req, res) => {
 
   const { id_site } = req.query
-  const query = 'DELETE FROM sites_emails_assets WHERE id_site = ?'
+  const query = 'DELETE FROM sites_emails_base WHERE id_site = ?'
   
   try {
     await pool.query(query, [id_site])
@@ -118,7 +117,7 @@ export const deleteSite = async(req, res) => {
 export const addList = async({ body }, res) => {
   
   const { text, site } = body
-  const query = 'INSERT INTO lists_emails_assets (`list`) VALUES (?)'
+  const query = 'INSERT INTO lists_emails_base (`list`) VALUES (?)'
 
   try {
     await pool.query(query, [text])
@@ -132,7 +131,7 @@ export const addList = async({ body }, res) => {
 export const getLists = async(req, res) => {
 
   const { site } = req.query
-  const query = 'SELECT * FROM lists_emails_assets ORDER BY `list` ASC'
+  const query = 'SELECT * FROM lists_emails_base ORDER BY `list` ASC'
 
   try {
     const [result] = await pool.query(query)
@@ -146,7 +145,7 @@ export const getLists = async(req, res) => {
 export const updateList = async({ body }, res) => {
   
   const { id, text } = body
-  const query = 'UPDATE lists_emails_assets SET `list` = ? WHERE id_list = ?'
+  const query = 'UPDATE lists_emails_base SET `list` = ? WHERE id_list = ?'
 
   try {
     await pool.query(query, [text, id])
@@ -160,7 +159,7 @@ export const updateList = async({ body }, res) => {
 export const deleteList = async(req, res) => {
 
   const { id_list } = req.query
-  const query = 'DELETE FROM lists_emails_assets WHERE id_list = ?'
+  const query = 'DELETE FROM lists_emails_base WHERE id_list = ?'
   
   try {
     await pool.query(query, [id_list])
@@ -175,12 +174,12 @@ export const deleteList = async(req, res) => {
 
 // get id_area for add or update register
 const getIdArea = async(area) => {
-  const [result] = await pool.query('SELECT `id_area` FROM areas_emails_assets WHERE `area` = ?', [area])
+  const [result] = await pool.query('SELECT `id_area` FROM areas_emails_base WHERE `area` = ?', [area])
   return result[0].id_area
 }
 
 const getIdSite = async(site) => {
-  const [result] = await pool.query('SELECT `id_site` FROM sites_emails_assets WHERE `site` = ?', [site])
+  const [result] = await pool.query('SELECT `id_site` FROM sites_emails_base WHERE `site` = ?', [site])
   return result[0].id_site
 }
 
@@ -197,7 +196,7 @@ export const addRegister = async({ body }, res) => {
   } = body
   const id_area = await getIdArea(area)
   const id_site = await getIdSite(site)
-  const query = 'INSERT INTO registers_emails_assets (`name`, `email`, `password`,`position`, `creation_date`, `status`, `id_area`, `id_site`) VALUES (?,?,?,?,?,?,?,?)'
+  const query = 'INSERT INTO registers_emails_base (`name`, `email`, `password`,`position`, `creation_date`, `status`, `id_area`, `id_site`) VALUES (?,?,?,?,?,?,?,?)'
   
   try {
      await pool.query(query, [name, email, password, position, creation_date, status, id_area, id_site])
@@ -210,27 +209,27 @@ export const addRegister = async({ body }, res) => {
 export const getRegisters = async(req, res) => {
   const query = `
     SELECT
-      registers_emails_assets.id_register,
-      registers_emails_assets.name,
-      registers_emails_assets.email,
-      registers_emails_assets.password,
-      registers_emails_assets.position,
-      registers_emails_assets.creation_date,
-      registers_emails_assets.status,
-      areas_emails_assets.area,
-      sites_emails_assets.site,
-      GROUP_CONCAT(lists_emails_assets.list SEPARATOR ',') AS lists
-    FROM registers_emails_assets
-    INNER JOIN areas_emails_assets
-      ON areas_emails_assets.id_area = registers_emails_assets.id_area
-    INNER JOIN sites_emails_assets
-      ON sites_emails_assets.id_site = registers_emails_assets.id_site
-    LEFT JOIN registers_lists_emails_assets
-      ON registers_emails_assets.id_register = registers_lists_emails_assets.id_register
-    LEFT JOIN lists_emails_assets
-      ON registers_lists_emails_assets.id_list = lists_emails_assets.id_list
-    GROUP BY registers_emails_assets.id_register
-    ORDER BY registers_emails_assets.name ASC
+      registers_emails_base.id_register,
+      registers_emails_base.name,
+      registers_emails_base.email,
+      registers_emails_base.password,
+      registers_emails_base.position,
+      registers_emails_base.creation_date,
+      registers_emails_base.status,
+      areas_emails_base.area,
+      sites_emails_base.site,
+      GROUP_CONCAT(lists_emails_base.list SEPARATOR ',') AS lists
+    FROM registers_emails_base
+    INNER JOIN areas_emails_base
+      ON areas_emails_base.id_area = registers_emails_base.id_area
+    INNER JOIN sites_emails_base
+      ON sites_emails_base.id_site = registers_emails_base.id_site
+    LEFT JOIN registers_lists_emails_base
+      ON registers_emails_base.id_register = registers_lists_emails_base.id_register
+    LEFT JOIN lists_emails_base
+      ON registers_lists_emails_base.id_list = lists_emails_base.id_list
+    GROUP BY registers_emails_base.id_register
+    ORDER BY registers_emails_base.name ASC
   `
 
   try {
@@ -257,7 +256,7 @@ export const updateRegisterByArea = async({ body }, res) => {
   } = body
   const id_area = await getIdArea(area)
   const id_site = await getIdSite(site)
-  const query = 'UPDATE registers_emails_assets SET `name` = ?, `email` = ?, `password` = ?, `position` = ?, `creation_date` = ?, `status` = ?, `id_area` = ?, `id_site` = ?  WHERE id_register = ?'
+  const query = 'UPDATE registers_emails_base SET `name` = ?, `email` = ?, `password` = ?, `position` = ?, `creation_date` = ?, `status` = ?, `id_area` = ?, `id_site` = ?  WHERE id_register = ?'
 
   try {
     await pool.query(query, [name, email, password, position, creation_date, status, id_area, id_site, id_register])
@@ -272,7 +271,7 @@ export const updateRegisterByArea = async({ body }, res) => {
 export const deleteRegisterByArea = async({body}, res) => {
 
   const { id_register } = body
-  const query = 'DELETE FROM registers_emails_assets WHERE id_register = ?'
+  const query = 'DELETE FROM registers_emails_base WHERE id_register = ?'
   
   try {
     await pool.query(query, [id_register])
@@ -289,19 +288,19 @@ export const getRegisterLists = async(req, res) => {
   const { id_register } = req.query
   const query = `
     SELECT 
-      registers_lists_emails_assets.id,
-      registers_lists_emails_assets.id_register,
-      registers_lists_emails_assets.id_list,
-      lists_emails_assets.list
+      registers_lists_emails_base.id,
+      registers_lists_emails_base.id_register,
+      registers_lists_emails_base.id_list,
+      lists_emails_base.list
     FROM 
-      registers_lists_emails_assets
+      registers_lists_emails_base
     INNER JOIN
-      lists_emails_assets
+      lists_emails_base
     ON
-      registers_lists_emails_assets.id_list = lists_emails_assets.id_list
+      registers_lists_emails_base.id_list = lists_emails_base.id_list
     WHERE
-      registers_lists_emails_assets.id_register = ?
-    ORDER BY lists_emails_assets.list ASC
+      registers_lists_emails_base.id_register = ?
+    ORDER BY lists_emails_base.list ASC
   `
 
   try {
@@ -314,7 +313,7 @@ export const getRegisterLists = async(req, res) => {
 
 export const addEmailToList = async(req, res) => {
   const { id_register, id_list } = req.body
-  const query = 'INSERT INTO registers_lists_emails_assets (`id_register`, `id_list`) VALUES (?,?)'
+  const query = 'INSERT INTO registers_lists_emails_base (`id_register`, `id_list`) VALUES (?,?)'
 
   try {
     await pool.query(query, [id_register, id_list])
@@ -326,7 +325,7 @@ export const addEmailToList = async(req, res) => {
 
 export const removeMailFromList = async(req, res) => {
   const { id } = req.query
-  const query = 'DELETE FROM registers_lists_emails_assets WHERE id = ?'
+  const query = 'DELETE FROM registers_lists_emails_base WHERE id = ?'
 
   try {
     await pool.query(query, [id])

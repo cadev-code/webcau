@@ -1,18 +1,18 @@
 USE webcau;
 
-CREATE TABLE areas_emails_assets(
+CREATE TABLE areas_emails_base(
   `id_area` int AUTO_INCREMENT,
   `area`   VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   PRIMARY KEY (`id_area`)
 );
 
-INSERT INTO `areas_emails_assets` (`id_area`, `area`) VALUES
+INSERT INTO `areas_emails_base` (`id_area`, `area`) VALUES
 (1, 'ADMINISTRATIVO');
-INSERT INTO `areas_emails_assets` (`id_area`, `area`) VALUES
+INSERT INTO `areas_emails_base` (`id_area`, `area`) VALUES
 (2, 'ATRACCIÓN DE TALENTO');
-INSERT INTO `areas_emails_assets` (`id_area`, `area`) VALUES
+INSERT INTO `areas_emails_base` (`id_area`, `area`) VALUES
 (3, 'BBVA COBRANZA - Soluciones de Pago al Cliente');
-INSERT INTO `areas_emails_assets` (`id_area`, `area`) VALUES
+INSERT INTO `areas_emails_base` (`id_area`, `area`) VALUES
 (4, 'CAPITAL HUMANO'),
 (5, 'CAU (CENTRO DE ATENCIÓN A USUARIOS)'),
 (6, 'CISO'),
@@ -48,33 +48,33 @@ INSERT INTO `areas_emails_assets` (`id_area`, `area`) VALUES
 (36, 'DIRECTOR'),
 (37, 'DIRECCIÓN');
 
-CREATE TABLE sites_emails_assets(
+CREATE TABLE sites_emails_base(
   `id_site` int AUTO_INCREMENT,
   `site`   VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   PRIMARY KEY (`id_site`)
 );
 
-INSERT INTO `sites_emails_assets` (`id_site`, `site`) VALUES
+INSERT INTO `sites_emails_base` (`id_site`, `site`) VALUES
 (1, 'ODA');
-INSERT INTO `sites_emails_assets` (`id_site`, `site`) VALUES
+INSERT INTO `sites_emails_base` (`id_site`, `site`) VALUES
 (2, 'VIGA');
-INSERT INTO `sites_emails_assets` (`id_site`, `site`) VALUES
+INSERT INTO `sites_emails_base` (`id_site`, `site`) VALUES
 (3, 'NATIVITAS');
-INSERT INTO `sites_emails_assets` (`id_site`, `site`) VALUES
+INSERT INTO `sites_emails_base` (`id_site`, `site`) VALUES
 (4, 'TECÁMAC'),
 (5, 'INFRAESTRUCTURA'),
 (6, 'DIRECCIÓN'),
 (7, 'IDS');
 
-CREATE TABLE lists_emails_assets(
+CREATE TABLE lists_emails_base(
   `id_list` int AUTO_INCREMENT,
   `list`   VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   PRIMARY KEY (`id_list`)
 );
 
-INSERT INTO lists_emails_assets (`id_list`, `list`) VALUES (1, 'SIN LISTA');
+INSERT INTO lists_emails_base (`id_list`, `list`) VALUES (1, 'SIN LISTA');
 
-CREATE TABLE registers_emails_assets(
+CREATE TABLE registers_emails_base(
   `id_register` int AUTO_INCREMENT,
   `name`   VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `email`   VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -84,20 +84,20 @@ CREATE TABLE registers_emails_assets(
   `id_area` int,
   `id_site` int DEFAULT 1,
   PRIMARY KEY (`id_register`),
-  FOREIGN KEY (`id_area`) REFERENCES areas_emails_assets(`id_area`),
-  FOREIGN KEY (`id_site`) REFERENCES sites_emails_assets(`id_site`)
+  FOREIGN KEY (`id_area`) REFERENCES areas_emails_base(`id_area`),
+  FOREIGN KEY (`id_site`) REFERENCES sites_emails_base(`id_site`)
 );
 
-INSERT INTO registers_emails_assets (`name`, `email`, `password`,`position`, `status`, `id_area`, `id_site`) VALUES 
+INSERT INTO registers_emails_base (`name`, `email`, `password`,`position`, `status`, `id_area`, `id_site`) VALUES 
   ('LUIS RICARDO ALAMILLA MORENO', 'alamillal@smart-center.com.mx', 'p4spowwwr4', 'ADMINISTRATIVO', 'Activo', 1, 1);
 
-ALTER TABLE registers_emails_assets ADD creation_date DATE NOT NULL DEFAULT '2025-06-25';
+ALTER TABLE registers_emails_base ADD creation_date DATE NOT NULL DEFAULT '2025-06-25';
 
-CREATE TABLE registers_lists_emails_assets(
+CREATE TABLE registers_lists_emails_base(
   `id` INT AUTO_INCREMENT,
   `id_register` INT,
   `id_list` INT,
   PRIMARY KEY (`id`),
-  FOREIGN KEY (`id_register`) REFERENCES registers_emails_assets(`id_register`),
-  FOREIGN KEY (`id_list`) REFERENCES lists_emails_assets(`id_list`)
+  FOREIGN KEY (`id_register`) REFERENCES registers_emails_base(`id_register`),
+  FOREIGN KEY (`id_list`) REFERENCES lists_emails_base(`id_list`)
 );

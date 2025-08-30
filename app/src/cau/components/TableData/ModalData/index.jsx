@@ -9,6 +9,7 @@ import { LaptopsNotesData } from '../LaptopsNotesData'
 import { ListUsersResources } from '../ListUsersResources'
 import { DownloadResourceData } from '../DownloadResourceData'
 import { AssetsEmailLists } from '../AssetsEmailLists'
+import { BaseEmailLists } from '../BaseEmailLists'
 
 export const ModalData = ({
   data,
@@ -156,6 +157,15 @@ export const ModalData = ({
         )}
         {!editMode && !addMode && version === 'assets_emails' && (
           <AssetsEmailLists
+            id_register={data.id_register}
+            hideContent={hideContent}
+            setHideContent={setHideContent}
+            userIsAdmin={userIsAdmin}
+            refreshData={refreshData}
+          />
+        )}
+        {!editMode && !addMode && version === 'base_emails' && (
+          <BaseEmailLists
             id_register={data.id_register}
             hideContent={hideContent}
             setHideContent={setHideContent}

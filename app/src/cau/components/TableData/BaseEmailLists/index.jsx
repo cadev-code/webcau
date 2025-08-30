@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react'
 import { BoxContainer } from '../ModalData/styled'
-import { addEmailToList, getLists, getRegisterLists, removeMailFromList } from '../../../api/assetsEmails.api'
+import { addEmailToList, getLists, getRegisterLists, removeMailFromList } from '../../../api/baseEmails.api'
 
-export const AssetsEmailLists = ({
+export const BaseEmailLists = ({
   id_register,
   hideContent, 
   setHideContent,
