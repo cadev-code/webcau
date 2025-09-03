@@ -218,17 +218,30 @@ export const getRegisters = async(req, res) => {
       registers_emails_base.status,
       areas_emails_base.area,
       sites_emails_base.site,
-      GROUP_CONCAT(lists_emails_base.list SEPARATOR ',') AS lists
+      GROUP_CONCAT(DISTINCT lists_emails_base.list ORDER BY lists_emails_base.list SEPARATOR ',') AS lists,
+      inactivity_dates_emails_base.discharge_date
     FROM registers_emails_base
     INNER JOIN areas_emails_base
       ON areas_emails_base.id_area = registers_emails_base.id_area
     INNER JOIN sites_emails_base
       ON sites_emails_base.id_site = registers_emails_base.id_site
+    LEFT JOIN inactivity_dates_emails_base
+      ON registers_emails_base.id_register = inactivity_dates_emails_base.id_register
     LEFT JOIN registers_lists_emails_base
       ON registers_emails_base.id_register = registers_lists_emails_base.id_register
     LEFT JOIN lists_emails_base
       ON registers_lists_emails_base.id_list = lists_emails_base.id_list
-    GROUP BY registers_emails_base.id_register
+    GROUP BY 
+      registers_emails_base.id_register,
+      registers_emails_base.name,
+      registers_emails_base.email,
+      registers_emails_base.password,
+      registers_emails_base.position,
+      registers_emails_base.creation_date,
+      registers_emails_base.status,
+      areas_emails_base.area,
+      sites_emails_base.site,
+      inactivity_dates_emails_base.discharge_date
     ORDER BY registers_emails_base.name ASC
   `
 
@@ -252,20 +265,29 @@ export const updateRegisterByArea = async({ body }, res) => {
     creation_date,
     area, 
     status, 
-    site
+    site,
+    discharge_date
   } = body
+
   const id_area = await getIdArea(area)
   const id_site = await getIdSite(site)
+
   const query = 'UPDATE registers_emails_base SET `name` = ?, `email` = ?, `password` = ?, `position` = ?, `creation_date` = ?, `status` = ?, `id_area` = ?, `id_site` = ?  WHERE id_register = ?'
 
   try {
     await pool.query(query, [name, email, password, position, creation_date, status, id_area, id_site, id_register])
+    
+    await pool.query('DELETE FROM inactivity_dates_emails_base WHERE id_register = ?', [id_register])
+
+    if(status === "Baja") {
+      await pool.query('INSERT INTO inactivity_dates_emails_base (`id_register`,`discharge_date`) VALUES (?,?)', [id_register, discharge_date])
+    }
+
     res.status(200).send('Information was updated correctly.')
   } catch (error) {
     console.log(error)
     res.status(400).send('There was an error trying to update the information.')
   }
-
 }
 
 export const deleteRegisterByArea = async({body}, res) => {

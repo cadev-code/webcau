@@ -129,6 +129,17 @@ export const ModalData = ({
               />
             </TextBox>
           )}
+          {editMode && version === 'base_emails' && inputChanges.status === "Baja" && (
+            <TextBox>
+              <input
+                id="discharge_date"
+                type='date'
+                value={inputChanges.discharge_date}
+                onChange={ inputOnChange }
+                required
+              />
+            </TextBox>
+          )}
           {!editMode && !addMode && version === 'resources' && (
             <ResourcesFiles
               resourceData={data}

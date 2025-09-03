@@ -31,7 +31,7 @@ export const emailsDataRequest = (
     const { data } = await getRegisters()
     setRegistersData(
       data.map(register => (
-        {...register, creation_date: new Date(register.creation_date).toISOString().slice(0, 10)}
+        {...register, creation_date: new Date(register.creation_date).toISOString().slice(0, 10), discharge_date: register.discharge_date === null ? "" : new Date(register.discharge_date).toISOString().slice(0, 10)}
       ))
     )
   }
