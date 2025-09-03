@@ -76,6 +76,12 @@ export const columnsData = [
     }
   },
   {
+    header: 'Comentarios',
+    accessorKey: 'note',
+    size: 240,
+    required: true
+  },
+  {
     header: 'Fecha de Baja',
     accessorKey: 'discharge_date',
     size: 240,

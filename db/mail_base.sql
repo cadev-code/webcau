@@ -109,3 +109,5 @@ CREATE TABLE inactivity_dates_emails_base(
   PRIMARY KEY (`id`),
   FOREIGN KEY (`id_register`) REFERENCES registers_emails_base(`id_register`)
 );
+
+ALTER TABLE registers_emails_base ADD note TEXT;

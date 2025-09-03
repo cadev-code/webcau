@@ -192,14 +192,15 @@ export const addRegister = async({ body }, res) => {
     creation_date,
     area, 
     status, 
-    site 
+    site,
+    note
   } = body
   const id_area = await getIdArea(area)
   const id_site = await getIdSite(site)
-  const query = 'INSERT INTO registers_emails_base (`name`, `email`, `password`,`position`, `creation_date`, `status`, `id_area`, `id_site`) VALUES (?,?,?,?,?,?,?,?)'
+  const query = 'INSERT INTO registers_emails_base (`name`, `email`, `password`,`position`, `creation_date`, `status`, `note`, `id_area`, `id_site`) VALUES (?,?,?,?,?,?,?,?,?)'
   
   try {
-     await pool.query(query, [name, email, password, position, creation_date, status, id_area, id_site])
+     await pool.query(query, [name, email, password, position, creation_date, status, note, id_area, id_site])
      res.status(200).send('Information added correctly.')
    } catch (error) {
      res.status(400).send('There was an error trying to add the information.')
@@ -216,6 +217,7 @@ export const getRegisters = async(req, res) => {
       registers_emails_base.position,
       registers_emails_base.creation_date,
       registers_emails_base.status,
+      registers_emails_base.note,
       areas_emails_base.area,
       sites_emails_base.site,
       GROUP_CONCAT(DISTINCT lists_emails_base.list ORDER BY lists_emails_base.list SEPARATOR ',') AS lists,
@@ -266,16 +268,17 @@ export const updateRegisterByArea = async({ body }, res) => {
     area, 
     status, 
     site,
+    note,
     discharge_date
   } = body
 
   const id_area = await getIdArea(area)
   const id_site = await getIdSite(site)
 
-  const query = 'UPDATE registers_emails_base SET `name` = ?, `email` = ?, `password` = ?, `position` = ?, `creation_date` = ?, `status` = ?, `id_area` = ?, `id_site` = ?  WHERE id_register = ?'
+  const query = 'UPDATE registers_emails_base SET `name` = ?, `email` = ?, `password` = ?, `position` = ?, `creation_date` = ?, `status` = ?, `note` = ?, `id_area` = ?, `id_site` = ?  WHERE id_register = ?'
 
   try {
-    await pool.query(query, [name, email, password, position, creation_date, status, id_area, id_site, id_register])
+    await pool.query(query, [name, email, password, position, creation_date, status, note, id_area, id_site, id_register])
     
     await pool.query('DELETE FROM inactivity_dates_emails_base WHERE id_register = ?', [id_register])
 
