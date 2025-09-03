@@ -219,17 +219,30 @@ export const getRegisters = async(req, res) => {
       registers_emails_assets.status,
       areas_emails_assets.area,
       sites_emails_assets.site,
-      GROUP_CONCAT(lists_emails_assets.list SEPARATOR ',') AS lists
+      GROUP_CONCAT(DISTINCT lists_emails_assets.list ORDER BY lists_emails_assets.list SEPARATOR ',') AS lists,
+      inactivity_dates_emails_assets.discharge_date
     FROM registers_emails_assets
     INNER JOIN areas_emails_assets
       ON areas_emails_assets.id_area = registers_emails_assets.id_area
     INNER JOIN sites_emails_assets
       ON sites_emails_assets.id_site = registers_emails_assets.id_site
+    LEFT JOIN inactivity_dates_emails_assets
+      ON registers_emails_assets.id_register = inactivity_dates_emails_assets.id_register
     LEFT JOIN registers_lists_emails_assets
       ON registers_emails_assets.id_register = registers_lists_emails_assets.id_register
     LEFT JOIN lists_emails_assets
       ON registers_lists_emails_assets.id_list = lists_emails_assets.id_list
-    GROUP BY registers_emails_assets.id_register
+    GROUP BY 
+      registers_emails_assets.id_register,
+      registers_emails_assets.name,
+      registers_emails_assets.email,
+      registers_emails_assets.password,
+      registers_emails_assets.position,
+      registers_emails_assets.creation_date,
+      registers_emails_assets.status,
+      areas_emails_assets.area,
+      sites_emails_assets.site,
+      inactivity_dates_emails_assets.discharge_date
     ORDER BY registers_emails_assets.name ASC
   `
 
@@ -253,7 +266,8 @@ export const updateRegisterByArea = async({ body }, res) => {
     creation_date,
     area, 
     status, 
-    site
+    site,
+    discharge_date
   } = body
   const id_area = await getIdArea(area)
   const id_site = await getIdSite(site)
@@ -261,12 +275,18 @@ export const updateRegisterByArea = async({ body }, res) => {
 
   try {
     await pool.query(query, [name, email, password, position, creation_date, status, id_area, id_site, id_register])
+    
+    await pool.query('DELETE FROM inactivity_dates_emails_assets WHERE id_register = ?', [id_register])
+
+    if(status === "Baja") {
+      await pool.query('INSERT INTO inactivity_dates_emails_assets (`id_register`,`discharge_date`) VALUES (?,?)', [id_register, discharge_date])
+    }
+
     res.status(200).send('Information was updated correctly.')
   } catch (error) {
     console.log(error)
     res.status(400).send('There was an error trying to update the information.')
   }
-
 }
 
 export const deleteRegisterByArea = async({body}, res) => {

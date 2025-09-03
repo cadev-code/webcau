@@ -101,3 +101,11 @@ CREATE TABLE registers_lists_emails_assets(
   FOREIGN KEY (`id_register`) REFERENCES registers_emails_assets(`id_register`),
   FOREIGN KEY (`id_list`) REFERENCES lists_emails_assets(`id_list`)
 );
+
+CREATE TABLE inactivity_dates_emails_assets(
+  `id` INT AUTO_INCREMENT,
+  `id_register` INT,
+  `discharge_date` DATE NOT NULL,
+  PRIMARY KEY (`id`),
+  FOREIGN KEY (`id_register`) REFERENCES registers_emails_assets(`id_register`)
+);

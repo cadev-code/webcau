@@ -45,7 +45,9 @@ export const ModalData = ({
   const { alertState, setAlertState, resetAlertState, changeStateAlert } = alertActions()
 
   const formValidation = async() => {
-    if(Object.values(inputChanges).includes('')) {
+    const { discharge_date, ...restInputChanges } = inputChanges
+
+    if(Object.values(restInputChanges).includes('') || (restInputChanges.status === "Baja" && discharge_date === '')) {
       setAlertState({message: 'Los campos no pueden estar vacíos', severity: 'error', itShow: true})
       resetAlertState()
       return
@@ -77,43 +79,56 @@ export const ModalData = ({
           boxContainerHeight={ boxContainerHeight }
         >
           {boxes.map(({header, accessorKey, meta, required, inputType}) => (
-            <TextBox key={ accessorKey }>
-              <span>{ required && (editMode || addMode) ? `${header} *` : header }</span>
-              {!editMode && !addMode
-                  ? <p>{ data[accessorKey] }</p>
-                  : (meta && meta.filterVariant === 'select')
-                      ? <select
-                          id={ accessorKey }
-                          value={ inputChanges[accessorKey] }
-                          onChange={ inputOnChange }
-                        >
-                          {
-                            ['', ...meta.options].map((option, i) => (
-                              <option key={ i } 
-                                value={ option }
-                              >
-                                { option }
-                              </option>
-                            ))
-                          }
-                        </select>
-                      : (meta && meta.filterVariant === 'date')
-                        ? <input
+            (accessorKey !== "discharge_date" || (data.status === "Baja" && !editMode)) && (
+              <TextBox key={ accessorKey }>
+                <span>{ required && (editMode || addMode) ? `${header} *` : header }</span>
+                {!editMode && !addMode
+                    ? <p>{ data[accessorKey] }</p>
+                    : (meta && meta.filterVariant === 'select')
+                        ? <select
                             id={ accessorKey }
-                            type='date'
-                            value={inputChanges[accessorKey]}
-                            onChange={ inputOnChange }
-                            required
-                          />
-                        : <input
-                            id={ accessorKey }
-                            type={ inputType || 'text' }
                             value={ inputChanges[accessorKey] }
                             onChange={ inputOnChange }
-                            required
-                          />}
-            </TextBox>
+                          >
+                            {
+                              ['', ...meta.options].map((option, i) => (
+                                <option key={ i } 
+                                  value={ option }
+                                >
+                                  { option }
+                                </option>
+                              ))
+                            }
+                          </select>
+                        : (meta && meta.filterVariant === 'date')
+                          ? <input
+                              id={ accessorKey }
+                              type='date'
+                              value={inputChanges[accessorKey]}
+                              onChange={ inputOnChange }
+                              required
+                            />
+                          : <input
+                              id={ accessorKey }
+                              type={ inputType || 'text' }
+                              value={ inputChanges[accessorKey] }
+                              onChange={ inputOnChange }
+                              required
+                            />}
+              </TextBox>
+            )
           ))}
+          {editMode && version === 'assets_emails' && inputChanges.status === "Baja" && (
+            <TextBox>
+              <input
+                id="discharge_date"
+                type='date'
+                value={inputChanges.discharge_date}
+                onChange={ inputOnChange }
+                required
+              />
+            </TextBox>
+          )}
           {!editMode && !addMode && version === 'resources' && (
             <ResourcesFiles
               resourceData={data}

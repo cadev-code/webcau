@@ -74,5 +74,14 @@ export const columnsData = [
       filterVariant: 'select',
       options: ['Todo', 'Activo', 'Baja']
     }
-  }
+  },
+  {
+    header: 'Fecha de Baja',
+    accessorKey: 'discharge_date',
+    size: 240,
+    required: true,
+    meta: {
+      filterVariant: 'date',
+    }
+  },
 ]
